@@ -14,8 +14,13 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddInfrastructure(Configuration, Environment);
+        // services.AddInfrastructure(Configuration, Environment);
 
+        services.AddRouting(options =>
+        {
+            options.LowercaseUrls = true;
+        });
+        
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
@@ -33,7 +38,10 @@ public class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
-
-        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
     }
 }
