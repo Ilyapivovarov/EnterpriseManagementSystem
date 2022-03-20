@@ -1,5 +1,3 @@
-using IdentityService.Infrastructure.AppData.Models;
-
 namespace IdentityService.Infrastructure.Abstractions.Repositories;
 
 public interface IUserRepository

@@ -1,5 +1,3 @@
-using IdentityService.Infrastructure.AppData.Models.Base;
-
 namespace IdentityService.Infrastructure.AppData.Models;
 
 public class User : DbEntityBase
