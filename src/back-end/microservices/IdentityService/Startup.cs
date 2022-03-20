@@ -14,7 +14,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddInfrastructure(Configuration);
+        services.AddInfrastructure(Configuration, Environment);
 
         services.AddControllers();
         services.AddEndpointsApiExplorer();
