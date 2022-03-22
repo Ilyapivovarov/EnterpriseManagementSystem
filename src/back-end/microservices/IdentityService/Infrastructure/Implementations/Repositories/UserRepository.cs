@@ -21,17 +21,17 @@ public class UserRepository : RepositoryBase, IUserRepository
         });
     }
 
-    public User? GetUserByEmail(string email)
+    public User? GetUserByEmailAndPassword(string email, string password)
     {
-        return LoadData(db => db.Users.First(x => x.Email == email),
-            $"Error while searching user with email {email}");
+        return LoadData(db => db.Users.First(x => x.Email == email && x.Password == password),
+            $"Error while searching user with email {email} and password");
     }
 
-    public async Task<User?> GetUserByEmailAsync(string email)
+    public async Task<User?> GetUserByEmailAndPasswordAsync(string email, string password)
     {
         return await Task.Run(() =>
         {
-            return GetUserByEmail(email);
+            return GetUserByEmailAndPassword(email, password);
         });
     }
 }

@@ -20,13 +20,15 @@ public interface IUserRepository
     /// Getting user from database by email
     /// </summary>
     /// <param name="email"></param>
+    /// <param name="password"></param>
     /// <returns></returns>
-    public User? GetUserByEmail(string email);
-    
+    public User? GetUserByEmailAndPassword(string email, string password);
+
     /// <summary>
     /// Getting user from database by email
     /// </summary>
     /// <param name="email"></param>
+    /// <param name="password"></param>
     /// <returns></returns>
-    public Task<User?> GetUserByEmailAsync(string email);
+    public Task<User?> GetUserByEmailAndPasswordAsync(string email, string password);
 }
