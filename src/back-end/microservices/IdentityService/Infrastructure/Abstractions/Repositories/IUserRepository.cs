@@ -15,4 +15,18 @@ public interface IUserRepository
     /// <param name="id"></param>
     /// <returns></returns>
     public Task<User?> GetUserByIdAsync(int id);
+
+    /// <summary>
+    /// Getting user from database by email
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    public User? GetUserByEmail(string email);
+    
+    /// <summary>
+    /// Getting user from database by email
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    public Task<User?> GetUserByEmailAsync(string email);
 }
