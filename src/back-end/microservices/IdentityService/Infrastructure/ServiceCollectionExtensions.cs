@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Infrastructure;
 
-public static class ServiceExtensions
+public static class ServiceCollectionExtensions
 {
     public static void AddInfrastructure(this IServiceCollection serviceProvider, IConfiguration configuration,
         IWebHostEnvironment environment)
