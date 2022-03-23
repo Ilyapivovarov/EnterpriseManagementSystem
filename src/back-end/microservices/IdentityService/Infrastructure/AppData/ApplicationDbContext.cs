@@ -9,4 +9,6 @@ public sealed class ApplicationDbContext : DbContext
     { }
 
     public DbSet<User> Users => Set<User>();
+
+    public DbSet<Session> Sessions => Set<Session>();
 }

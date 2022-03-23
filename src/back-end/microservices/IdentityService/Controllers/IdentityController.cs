@@ -27,7 +27,9 @@ public class IdentityController : ControllerBase
             return BadRequest("Empty request body");
 
         var result = await _identityService.SignInUserAsync(signIn);
-    
-        return Ok(result);
+        if (result.IsSuccess)
+            return Ok(result.Value);
+        
+        return BadRequest(result.Error);
     }
 }

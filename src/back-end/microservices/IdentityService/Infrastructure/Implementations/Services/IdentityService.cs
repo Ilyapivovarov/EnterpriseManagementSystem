@@ -3,10 +3,12 @@ namespace IdentityService.Infrastructure.Implementations.Services;
 public class IdentityService : IIdentityService
 {
     private readonly IUserRepository _userRepository;
+    private readonly ISessionRepository _sessionRepository;
 
-    public IdentityService(IUserRepository userRepository)
+    public IdentityService(IUserRepository userRepository, ISessionRepository sessionRepository)
     {
         _userRepository = userRepository;
+        _sessionRepository = sessionRepository;
     }
 
     public ServiceResult<Session?> SignInUser(SignInDto signIn)
@@ -25,9 +27,11 @@ public class IdentityService : IIdentityService
             AccessToken = accessToken,
             RefreshToken = refreshToken
         };
-        
-        // TODO: Create sessions repository
-        
+
+        if (!_sessionRepository.SaveSession(session))
+            return ServiceResult<Session?>.CreateUnsuccessfulResult(
+                $"Error while save sessions for user with email {user.Email}");
+
         return ServiceResult<Session?>.CreateSuccessResult(session);
     }
 
@@ -74,7 +78,7 @@ public class IdentityService : IIdentityService
     private string GenerateRefreshToken()
     {
         return Guid.NewGuid().ToString();
-        
+
         // var authParams = _authOptions.Value;
         // var securityKey = authParams.GetSymmetricSecurityKey();
         // var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
