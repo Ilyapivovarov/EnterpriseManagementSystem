@@ -24,11 +24,9 @@ public class IdentityController : ControllerBase
     public async Task<IActionResult> SignIn([FromBody] SignInDto? signIn)
     {
         if (signIn == null)
-            return BadRequest("Sign in model is null");
-        
+            return BadRequest("Empty request body");
+
         var result = await _identityService.SignInUserAsync(signIn);
-        if (result == null)
-            return BadRequest("Error while signin user");
     
         return Ok(result);
     }

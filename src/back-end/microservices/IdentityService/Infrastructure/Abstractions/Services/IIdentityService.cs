@@ -1,12 +1,14 @@
+using IdentityService.Common;
+
 namespace IdentityService.Infrastructure.Abstractions.Services;
 
 public interface IIdentityService
 {
-    public Session? SignInUser(SignInDto signIn);
+    public ServiceResult<Session?> SignInUser(SignInDto signIn);
     
-    public Task<Session?> SignInUserAsync(SignInDto signIn);
+    public Task<ServiceResult<Session?>> SignInUserAsync(SignInDto signIn);
 
-    public Session? SingOnUser(SignOnDto signOn);
+    public ServiceResult<Session?> SingOnUser(SignOnDto signOn);
     
-    public Task<Session?> SingOnUserAsync(SignOnDto signOn);
+    public Task<ServiceResult<Session?>> SingOnUserAsync(SignOnDto signOn);
 }
