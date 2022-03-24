@@ -1,11 +1,11 @@
 namespace IdentityService.Infrastructure.Implementations.Services;
 
-public class IdentityService : IIdentityService
+public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
     private readonly ISessionRepository _sessionRepository;
 
-    public IdentityService(IUserRepository userRepository, ISessionRepository sessionRepository)
+    public AuthService(IUserRepository userRepository, ISessionRepository sessionRepository)
     {
         _userRepository = userRepository;
         _sessionRepository = sessionRepository;

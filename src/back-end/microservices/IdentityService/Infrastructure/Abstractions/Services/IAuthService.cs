@@ -1,8 +1,6 @@
-using IdentityService.Common;
-
 namespace IdentityService.Infrastructure.Abstractions.Services;
 
-public interface IIdentityService
+public interface IAuthService
 {
     public ServiceResult<Session?> SignInUser(SignInDto signIn);
     

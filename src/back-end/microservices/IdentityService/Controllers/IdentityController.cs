@@ -6,9 +6,9 @@ namespace IdentityService.Controllers;
 [Route("[controller]")]
 public class IdentityController : ControllerBase
 {
-    private readonly IIdentityService _identityService;
+    private readonly IAuthService _identityService;
 
-    public IdentityController(IIdentityService identityService)
+    public IdentityController(IAuthService identityService)
     {
         _identityService = identityService;
     }

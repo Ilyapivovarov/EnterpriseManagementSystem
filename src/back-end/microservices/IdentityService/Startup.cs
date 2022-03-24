@@ -14,6 +14,8 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddLogging();
+        
         services.AddInfrastructure(Configuration, Environment);
 
         services.AddRouting(options =>
