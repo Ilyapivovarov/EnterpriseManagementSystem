@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{C1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtAuthIntegration", "src\back-end\packages\JwtAuthIntegration\JwtAuthIntegration.csproj", "{0B663216-049A-48E4-ABB8-A91BD238586F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "release", "release", "{2A3B3047-976A-4C9E-BBA4-C08B338679EF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,7 +29,6 @@ Global
 		{C998567F-75DF-4585-85E1-12507DD3211D} = {C59F0C16-EA67-48C4-B4C2-8153C6E94AAE}
 		{C10D9079-CEAF-46E6-A2FF-BB523EF86E6B} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
 		{0B663216-049A-48E4-ABB8-A91BD238586F} = {C10D9079-CEAF-46E6-A2FF-BB523EF86E6B}
-		{2A3B3047-976A-4C9E-BBA4-C08B338679EF} = {C10D9079-CEAF-46E6-A2FF-BB523EF86E6B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6A9E09B4-C10B-4B3E-8809-E8FEF0BDB78B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
