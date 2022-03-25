@@ -4,13 +4,13 @@ namespace IdentityService.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class IdentityController : ControllerBase
+public class AuthController : ControllerBase
 {
-    private readonly IAuthService _identityService;
+    private readonly IAuthService _authService;
 
-    public IdentityController(IAuthService identityService)
+    public AuthController(IAuthService authService)
     {
-        _identityService = identityService;
+        _authService = authService;
     }
 
     [HttpGet]
@@ -26,7 +26,7 @@ public class IdentityController : ControllerBase
         if (signIn == null)
             return BadRequest("Empty request body");
 
-        var result = await _identityService.SignInUserAsync(signIn);
+        var result = await _authService.SignInUserAsync(signIn);
         if (result.IsSuccess)
             return Ok(result.Value);
         

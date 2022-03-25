@@ -37,7 +37,7 @@ public class AuthService : IAuthService
 
     public async Task<ServiceResult<Session?>> SignInUserAsync(SignInDto signIn)
     {
-        throw new NotImplementedException();
+        return await Task.Run(() => SignInUser(signIn));
     }
 
     public ServiceResult<Session?> SingOnUser(SignOnDto signOn)

@@ -1,38 +1,30 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace IdentityService.Infrastructure.AppData;
 
 public static class ApplicationDbContextSeed
 {
-    public static async void SeedData(IServiceProvider services)
+    public static async void SeedData(ApplicationDbContext context, ILogger logger)
     {
         try
         {
-            var context = services.GetRequiredService<ApplicationDbContext>();
-            if (context.Database.IsSqlServer())
+            if (await context.Database.CanConnectAsync())
             {
-                await context.Database.MigrateAsync();
-            }
-
-            if (!context.Users.Any())
-            {
-                context.Users.Add(new User()
+                if (!context.Users.Any())
                 {
-                    Email = "admin@admin.com",
-                    Password = "admin",
-                    FirstName = "Admin",
-                    LastName = "Admin"
-                });
+                    context.Users.Add(new User()
+                    {
+                        Email = "admin@admin.com",
+                        Password = "admin",
+                        FirstName = "Admin",
+                        LastName = "Admin"
+                    });
+                    
+                    await context.SaveChangesAsync();
+                }
             }
-
-            await context.SaveChangesAsync();
         }
         catch (Exception ex)
         {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred while migrating or seeding the database");
-
-            throw;
+            logger.LogCritical("An error occurred while migrating or seeding the database", ex);
         }
     }
 }

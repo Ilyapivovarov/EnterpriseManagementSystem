@@ -3,9 +3,9 @@ namespace IdentityService.Infrastructure.Implementations.Repositories.Base;
 public abstract class RepositoryBase
 {
     private readonly ApplicationDbContext _dbContext;
-    private readonly ILogger _logger;
+    private readonly ILogger<RepositoryBase> _logger;
 
-    protected RepositoryBase(ApplicationDbContext dbContext, ILogger logger)
+    protected RepositoryBase(ApplicationDbContext dbContext, ILogger<RepositoryBase> logger)
     {
         _dbContext = dbContext;
         _logger = logger;
