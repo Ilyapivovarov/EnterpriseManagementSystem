@@ -29,10 +29,10 @@ public static class ServiceCollectionExtensions
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
-                    ValidateIssuer = true,
+                    ValidateIssuer = false,
                     ValidIssuer = authOpt.Issuer,
 
-                    ValidateAudience = true,
+                    ValidateAudience = false,
                     ValidAudience = authOpt.Audience,
 
                     ValidateLifetime = true,
