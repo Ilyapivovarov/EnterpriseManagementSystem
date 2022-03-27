@@ -8,7 +8,23 @@ public class SessionRepository : RepositoryBase, ISessionRepository
     
     public bool SaveSession(Session session)
     {
-        return WriteData(db => db.Sessions.Add(session),
+        return WriteData(db =>
+            {
+                var activeSession = db.Sessions.FirstOrDefault(x => x.User.Id == session.User.Id);
+                if (activeSession != null)
+                {
+                    activeSession.AccessToken = session.AccessToken;
+                    activeSession.RefreshToken = session.RefreshToken;
+                    
+                    db.Sessions.Update(activeSession);
+                }
+                else
+                {
+                    db.Sessions.Add(session);
+                }
+
+                
+            },
             $"Error while save session for user with email {session.User.Email}");
     }
 
