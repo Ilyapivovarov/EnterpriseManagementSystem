@@ -1,14 +1,22 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
+
 namespace IdentityService.Infrastructure.Implementations.Services;
 
 public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
     private readonly ISessionRepository _sessionRepository;
+    private readonly IOptions<AuthOption> _authOptions;
 
-    public AuthService(IUserRepository userRepository, ISessionRepository sessionRepository)
+    public AuthService(IUserRepository userRepository, ISessionRepository sessionRepository, IOptions<AuthOption> authOptions)
     {
         _userRepository = userRepository;
         _sessionRepository = sessionRepository;
+        _authOptions = authOptions;
     }
 
     public ServiceResult<Session?> SignInUser(SignInDto signIn)
@@ -52,41 +60,37 @@ public class AuthService : IAuthService
 
     private string GenerateAccessToken(User user)
     {
-        return Guid.NewGuid().ToString();
-
-        // var authParams = authOpt.Value;
-        //
-        // var securityKey = authParams.GetSymmetricSecurityKey();
-        // var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-        //
-        // var claims = new List<Claim>
-        // {
-        //     new(CustomClaimTypes.UserName, user.UserName),
-        //     new(CustomClaimTypes.Id, user.Id.ToString()),
-        // };
-        //
-        // var token = new JwtSecurityToken(
-        //     authParams.Issuer,
-        //     authParams.Audience,
-        //     claims,
-        //     expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
-        //     signingCredentials: credentials);
-        //
-        // return new JwtSecurityTokenHandler().WriteToken(token);
+        var authParams = _authOptions.Value;
+        
+        var securityKey = authParams.GetSymmetricSecurityKey();
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        
+        var claims = new List<Claim>
+        {
+            new(JwtRegisteredClaimNames.Email, user.Email),
+            new(JwtRegisteredClaimNames.Name, user.Email),
+        };
+        
+        var token = new JwtSecurityToken(
+            authParams.Issuer,
+            authParams.Audience,
+            claims,
+            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
+            signingCredentials: credentials);
+        
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     private string GenerateRefreshToken()
     {
-        return Guid.NewGuid().ToString();
-
-        // var authParams = _authOptions.Value;
-        // var securityKey = authParams.GetSymmetricSecurityKey();
-        // var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-        //
-        // var token = new JwtSecurityToken(
-        //     expires: DateTime.Now.AddDays(60),
-        //     signingCredentials: credentials);
-        //
-        // return new JwtSecurityTokenHandler().WriteToken(token);
+        var authParams = _authOptions.Value;
+        var securityKey = authParams.GetSymmetricSecurityKey();
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        
+        var token = new JwtSecurityToken(
+            expires: DateTime.Now.AddDays(60),
+            signingCredentials: credentials);
+        
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

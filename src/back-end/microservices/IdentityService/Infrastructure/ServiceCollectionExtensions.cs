@@ -1,4 +1,5 @@
 using IdentityService.Infrastructure.Implementations.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Infrastructure;
@@ -13,6 +14,34 @@ public static class ServiceCollectionExtensions
         var dbConnectionSectionName = environment.IsDevelopment() ? "DevelopDbConnection" : "ReleaseDbConnection";
         serviceProvider.AddDbContext<ApplicationDbContext>(builder =>
             builder.UseSqlServer(configuration.GetConnectionString(dbConnectionSectionName)));
+
+        #endregion
+
+        #region Add Jwt auth 
+
+        var section = configuration.GetSection("Auth");
+        serviceProvider.Configure<AuthOption>(section);
+        
+        var authOpt = configuration.GetSection("Auth").Get<AuthOption>();
+        serviceProvider.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = authOpt.Issuer,
+
+                    ValidateAudience = true,
+                    ValidAudience = authOpt.Audience,
+
+                    ValidateLifetime = true,
+
+                    IssuerSigningKey = authOpt.GetSymmetricSecurityKey(),
+                    ValidateIssuerSigningKey = true
+                };
+            });
+
 
         #endregion
 

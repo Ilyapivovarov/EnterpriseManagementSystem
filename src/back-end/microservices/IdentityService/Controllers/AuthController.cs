@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace IdentityService.Controllers;
 
@@ -14,9 +16,13 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> Test()
     {
-        return Ok(new {res = "ok"});
+        var s = User.Identity?.Name;
+        var a = User.Identity?.IsAuthenticated;
+
+        return Ok(new {a, s});
     }
     
     [HttpPost]
