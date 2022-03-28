@@ -2,7 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace IdentityService.Infrastructure.Implementations.Services;
 
@@ -12,15 +11,19 @@ public class AuthService : IAuthService
     private readonly ISessionRepository _sessionRepository;
     private readonly IOptions<AuthOption> _authOptions;
 
-    public AuthService(IUserRepository userRepository, ISessionRepository sessionRepository, IOptions<AuthOption> authOptions)
+    public AuthService(IUserRepository userRepository, ISessionRepository sessionRepository, 
+        IOptions<AuthOption> authOptions)
     {
         _userRepository = userRepository;
         _sessionRepository = sessionRepository;
         _authOptions = authOptions;
     }
 
-    public ServiceResult<Session?> SignInUser(SignInDto signIn)
+    public ServiceResult<Session?> SignInUser(SignInDto? signIn)
     {
+        if (signIn == null)
+            return ServiceResult<Session?>.CreateUnsuccessfulResult("Empty body");
+        
         var (email, password) = signIn;
         var user = _userRepository.GetUserByEmailAndPassword(email, password);
         if (user == null)
@@ -43,21 +46,52 @@ public class AuthService : IAuthService
         return ServiceResult<Session?>.CreateSuccessResult(session);
     }
 
-    public async Task<ServiceResult<Session?>> SignInUserAsync(SignInDto signIn)
+    public async Task<ServiceResult<Session?>> SignInUserAsync(SignInDto? signIn)
     {
         return await Task.Run(() => SignInUser(signIn));
     }
 
-    public ServiceResult<Session?> SingOnUser(SignOnDto signOn)
+    public ServiceResult<Session?> SignUpUser(SignUpDto? signUp)
     {
-        throw new NotImplementedException();
+        if (signUp == null)
+            return ServiceResult<Session?>.CreateUnsuccessfulResult("Request body is empty");
+
+        var (email, password, confirmPassword) = signUp;
+        if(IsEmailExist(email))
+            return ServiceResult<Session?>.CreateUnsuccessfulResult($"Email {email} already exist");
+
+        if (!IsPasswordsValid(password, confirmPassword))
+            return ServiceResult<Session?>.CreateUnsuccessfulResult("Incorrect passwords");
+
+        var user = new User
+        {
+            Password = password,
+            Email = email
+        };
+        
+        var hasError = _userRepository.CreateUser(user);
+        
+        if (hasError)
+            return ServiceResult<Session?>.CreateUnsuccessfulResult("Error while save user");
+
+        return SignInUser(new SignInDto(email, password));
     }
 
-    public async Task<ServiceResult<Session?>> SingOnUserAsync(SignOnDto signOn)
+    public async Task<ServiceResult<Session?>> SignUpUserAsync(SignUpDto? signUp)
     {
-        throw new NotImplementedException();
+        return await Task.Run(() => SignUpUser(signUp));
     }
 
+    private bool IsEmailExist(string email)
+    {
+        return _userRepository.IsEmailExist(email);
+    }
+
+    public bool IsPasswordsValid(string password, string confirmPassword)
+    {
+        return password == confirmPassword;
+    }
+    
     private string GenerateAccessToken(User user)
     {
         var authParams = _authOptions.Value;

@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> Test()
+    public IActionResult Test()
     {
         var s = User.Identity?.Name;
         var a = User.Identity?.IsAuthenticated;
@@ -29,13 +29,21 @@ public class AuthController : ControllerBase
     [Route("sign-in")]
     public async Task<IActionResult> SignIn([FromBody] SignInDto? signIn)
     {
-        if (signIn == null)
-            return BadRequest("Empty request body");
-
         var result = await _authService.SignInUserAsync(signIn);
         if (result.IsSuccess)
             return Ok(result.Value);
         
+        return BadRequest(result.Error);
+    }
+
+    [HttpPost]
+    [Route("sign-up")]
+    public async Task<ActionResult<Session>> SignUp([FromBody] SignUpDto? signUp)
+    {
+        var result = await _authService.SignUpUserAsync(signUp);
+        if (result.IsSuccess)
+            return Ok(result.Value);
+
         return BadRequest(result.Error);
     }
 }

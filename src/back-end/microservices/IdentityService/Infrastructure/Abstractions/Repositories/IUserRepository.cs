@@ -31,4 +31,17 @@ public interface IUserRepository
     /// <param name="password"></param>
     /// <returns></returns>
     public Task<User?> GetUserByEmailAndPasswordAsync(string email, string password);
+
+    /// <summary>
+    /// Checks if the email exists
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    public bool IsEmailExist(string email);
+
+    /// <summary>
+    /// Create new user with this email and password
+    /// </summary>
+    /// <param name="user"></param>
+    public bool CreateUser(User user);
 }
