@@ -8,3 +8,4 @@ global using IdentityService.Infrastructure.Abstractions.Repositories;
 global using IdentityService.Infrastructure.Implementations.Repositories.Base;
 global using IdentityService.Common;
 global using IdentityService.Infrastructure.Implementations.Services;
+global using IdentityService.Infrastructure.Implementations.Repositories;

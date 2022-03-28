@@ -1,4 +1,3 @@
-using IdentityService.Infrastructure.Implementations.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +8,7 @@ public static class ServiceCollectionExtensions
     public static void AddInfrastructure(this IServiceCollection serviceProvider, IConfiguration configuration,
         IWebHostEnvironment environment)
     {
-        #region Register contexts
+        #region Register context
 
         var dbConnectionSectionName = environment.IsDevelopment() ? "DevelopDbConnection" : "ReleaseDbConnection";
         serviceProvider.AddDbContext<ApplicationDbContext>(builder =>
@@ -17,12 +16,14 @@ public static class ServiceCollectionExtensions
 
         #endregion
 
-        #region Add Jwt auth 
+        #region Register Jwt auth
 
-        var section = configuration.GetSection("Auth");
+        const string AuthSectionKey = "Auth";
+        
+        var section = configuration.GetSection(AuthSectionKey);
         serviceProvider.Configure<AuthOption>(section);
         
-        var authOpt = configuration.GetSection("Auth").Get<AuthOption>();
+        var authOpt = configuration.GetSection(AuthSectionKey).Get<AuthOption>();
         serviceProvider.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -56,6 +57,7 @@ public static class ServiceCollectionExtensions
         #region Register services
 
         serviceProvider.AddTransient<IAuthService, AuthService>();
+        serviceProvider.AddTransient<ISecurityService, SecurityService>();
 
         #endregion
     }
