@@ -10,12 +10,10 @@ var host = Host.CreateDefaultBuilder(args)
     .Build();
 
 
-using (var scope = host.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    ApplicationDbContextSeed.SeedData(context, logger);
-}
+var scope = host.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+ApplicationDbContextSeed.SeedData(context, logger);
 
 
 await host.RunAsync();

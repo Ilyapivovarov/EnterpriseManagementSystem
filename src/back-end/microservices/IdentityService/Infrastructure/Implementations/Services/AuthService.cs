@@ -31,7 +31,7 @@ public class AuthService : IAuthService
         if (user == null)
             return ServiceResult<Session?>.CreateUnsuccessfulResult("Incorrect email or password");
 
-        if (TrySaveSession(user, out var session))
+        if (!TrySaveSession(user, out var session))
             return ServiceResult<Session?>.CreateUnsuccessfulResult("Error while save session");
 
         return ServiceResult<Session?>.CreateSuccessResult(session);
