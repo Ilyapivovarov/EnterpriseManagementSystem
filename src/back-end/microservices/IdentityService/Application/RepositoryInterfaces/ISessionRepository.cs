@@ -1,4 +1,4 @@
-namespace IdentityService.Infrastructure.Abstractions.Repositories;
+namespace IdentityService.Application.RepositoryInterfaces;
 
 public interface ISessionRepository
 {
