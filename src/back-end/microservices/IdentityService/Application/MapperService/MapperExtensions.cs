@@ -10,7 +10,6 @@ public static class MapperExtensions
             cfg.CreateMap<User, UserDto>());
 
         var mapper = new Mapper(cfg);
-
         return mapper.Map<User, UserDto>(user);
     }
 
@@ -23,7 +22,6 @@ public static class MapperExtensions
                         => source.MapFrom(c => c.User.Id)));
 
         var mapper = new Mapper(cfg);
-
         return mapper.Map<Session, SessionDto>(user);
     }
 }
