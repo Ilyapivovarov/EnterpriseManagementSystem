@@ -15,7 +15,7 @@ public class AuthController : ControllerBase
     
     [HttpPost]
     [Route("sign-in")]
-    public async Task<IActionResult> SignIn([FromBody] SignInDto? signIn)
+    public async Task<ActionResult<SessionDto>> SignIn([FromBody] SignInDto? signIn)
     {
         var result = await _authService.SignInUserAsync(signIn);
         if (result.Value != null)
@@ -26,7 +26,7 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("sign-up")]
-    public async Task<ActionResult<Session>> SignUp([FromBody] SignUpDto? signUp)
+    public async Task<ActionResult<SessionDto>> SignUp([FromBody] SignUpDto? signUp)
     {
         var result = await _authService.SignUpUserAsync(signUp);
         if (result.Value != null)
