@@ -1,7 +1,5 @@
-using IdentityService.Application.ServiceInterfaces;
-using Microsoft.AspNetCore.Authorization;
+using IdentityService.Application.MapperService;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace IdentityService.Controllers;
 
@@ -15,24 +13,14 @@ public class AuthController : ControllerBase
     {
         _authService = authService;
     }
-
-    [HttpGet]
-    [Authorize]
-    public IActionResult Test()
-    {
-        var s = User.Identity?.Name;
-        var a = User.Identity?.IsAuthenticated;
-
-        return Ok(new {a, s});
-    }
     
     [HttpPost]
     [Route("sign-in")]
     public async Task<IActionResult> SignIn([FromBody] SignInDto? signIn)
     {
         var result = await _authService.SignInUserAsync(signIn);
-        if (result.IsSuccess)
-            return Ok(result.Value);
+        if (result.Value != null)
+            return Ok(result.Value.ToDto());
         
         return BadRequest(result.Error);
     }
