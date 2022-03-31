@@ -9,3 +9,4 @@ global using IdentityService.Infrastructure.Implementations.Services;
 global using IdentityService.Infrastructure.Implementations.Repositories;
 global using IdentityService.Application.RepositoryInterfaces;
 global using IdentityService.Application.ServiceInterfaces;
+global using IdentityService.Application.MapperService;

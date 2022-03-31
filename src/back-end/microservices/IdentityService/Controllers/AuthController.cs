@@ -1,4 +1,3 @@
-using IdentityService.Application.MapperService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityService.Controllers;
