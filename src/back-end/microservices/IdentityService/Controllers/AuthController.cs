@@ -30,8 +30,8 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<Session>> SignUp([FromBody] SignUpDto? signUp)
     {
         var result = await _authService.SignUpUserAsync(signUp);
-        if (result.IsSuccess)
-            return Ok(result.Value);
+        if (result.Value != null)
+            return Ok(result.Value.ToDto());
 
         return BadRequest(result.Error);
     }

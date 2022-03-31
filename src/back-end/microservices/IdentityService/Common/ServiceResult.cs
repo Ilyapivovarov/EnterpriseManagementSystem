@@ -1,6 +1,6 @@
 namespace IdentityService.Common;
 
-public class ServiceResult<TValue>
+public readonly struct ServiceResult<TValue>
 {
     public static ServiceResult<TValue> CreateSuccessResult(TValue value) => new(value);
     
@@ -9,17 +9,17 @@ public class ServiceResult<TValue>
     private ServiceResult(TValue value)
     {
         Value = value;
+        Error = default;
     }
     
     private ServiceResult(string error)
     {
         Error = error;
+        Value = default;
     }
 
     public TValue? Value { get; }
     
     public string? Error { get; }
 
-    public bool IsSuccess => Value is not null;
-    
 }
