@@ -37,11 +37,24 @@ public class AuthHttpClientService : IAuthHttpClientService
     {
         var content = new StringContent(JsonSerializer.Serialize(signUpDto), System.Text.Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(UrlConfig.IdentityApi.SignUp, content);
-        
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
             var sessionDto = JsonSerializer.Deserialize<SessionDto>(sessionDraft, _jsonSerializerOptions);
+            return new OkObjectResult(sessionDto);
+        } 
+        
+        return new BadRequestObjectResult(sessionDraft); 
+    }
+
+    public async Task<IActionResult> GetUser(string token)
+    {
+        _httpClient.DefaultRequestHeaders.Add("Authorization", token);
+        var response = await _httpClient.GetAsync(UrlConfig.IdentityApi.Auth, HttpCompletionOption.ResponseContentRead);
+        var sessionDraft = await response.Content.ReadAsStringAsync();
+        if (response.IsSuccessStatusCode)
+        {
+            var sessionDto = JsonSerializer.Deserialize<UserDto>(sessionDraft, _jsonSerializerOptions);
             return new OkObjectResult(sessionDto);
         } 
         

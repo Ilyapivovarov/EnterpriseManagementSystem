@@ -1,4 +1,5 @@
 using ApiGateway.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGateway.Controllers;
@@ -15,9 +16,11 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult Test()
+    [Authorize]
+    public async Task<IActionResult> Test()
     {
-        return Ok();
+        var result = await _authHttpClientService.GetUser(HttpContext.Request.Headers["Authorization"]);
+        return result;
     }
 
 

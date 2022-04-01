@@ -13,5 +13,10 @@ public static class UrlConfig
         /// Path to sign up method
         /// </summary>
         public const string SignUp = "auth/sign-up";
+
+        /// <summary>
+        /// Path to test method
+        /// </summary>
+        public const string Auth = "auth";
     }
 }
