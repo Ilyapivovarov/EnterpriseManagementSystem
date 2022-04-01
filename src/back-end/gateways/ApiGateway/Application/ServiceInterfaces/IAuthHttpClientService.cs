@@ -1,10 +1,11 @@
 using ApiGateway.Dto;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGateway.Application.ServiceInterfaces;
 
 public interface IAuthHttpClientService
 {
-    public Task<SessionDto> SignInAsync(SignInDto signIn);
+    public Task<IActionResult> SignInAsync(SignInDto signIn);
 
-    public Task<SessionDto> SignUpAsync(SignUpDto signUpDto);
+    public Task<IActionResult> SignUpAsync(SignUpDto signUpDto);
 }

@@ -1,3 +1,4 @@
+using ApiGateway.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGateway.Controllers;
@@ -20,10 +21,11 @@ public class AuthController : ControllerBase
     }
 
 
-[HttpPost]
+    [HttpPost]
     [Route("sign-in")]
-    public async Task<ActionResult> SingIn()
+    public async Task<IActionResult> SingIn([FromBody] SignInDto signInDto)
     {
-        throw new NotImplementedException();
+        var actionResult = await _authHttpClientService.SignInAsync(signInDto);
+        return actionResult;
     }
 }

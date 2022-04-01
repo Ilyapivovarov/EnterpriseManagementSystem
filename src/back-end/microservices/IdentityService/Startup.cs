@@ -41,8 +41,7 @@ public class Startup
         
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapControllerRoute("api", 
-                "api/{controller}/{action}/{id}");
+            endpoints.MapControllers();
         });
     }
 }

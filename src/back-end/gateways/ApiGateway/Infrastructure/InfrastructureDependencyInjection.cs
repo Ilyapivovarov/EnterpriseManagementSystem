@@ -7,7 +7,7 @@ public static class InfrastructureDependencyInjection
     {
         serviceProvider.AddHttpClient<IAuthHttpClientService, AuthHttpClientService>(client =>
         {
-            client.BaseAddress = new Uri("https://localhost:7064/");
+            client.BaseAddress = new Uri("https://localhost:7104/");
         });
     }
 }
