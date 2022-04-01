@@ -2,7 +2,7 @@ using ApiGateway.Dto;
 
 namespace ApiGateway.Application.ServiceInterfaces;
 
-public interface IAuthApiService
+public interface IAuthHttpClientService
 {
     public Task<SessionDto> SignInAsync(SignInDto signIn);
 

@@ -6,7 +6,21 @@ namespace ApiGateway.Controllers;
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
-    [HttpPost]
+    private readonly IAuthHttpClientService _authHttpClientService;
+
+    public AuthController(IAuthHttpClientService authHttpClientService)
+    {
+        _authHttpClientService = authHttpClientService;
+    }
+
+    [HttpGet]
+    public ActionResult Test()
+    {
+        return Ok();
+    }
+
+
+[HttpPost]
     [Route("sign-in")]
     public async Task<ActionResult> SingIn()
     {
