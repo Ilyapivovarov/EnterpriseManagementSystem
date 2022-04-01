@@ -44,4 +44,19 @@ public interface IUserRepository
     /// </summary>
     /// <param name="user"></param>
     public bool CreateUser(User user);
+
+    /// <summary>
+    /// Getting user by email
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    public User? GetUserByEmail(string email);
+    
+    /// <summary>
+    /// Getting user by email async
+    /// </summary>
+    /// <param name="email"></param>
+    public Task<User?> GetUserByEmailAsync(string email);
+    
+  
 }

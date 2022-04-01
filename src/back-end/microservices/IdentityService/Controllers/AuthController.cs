@@ -1,3 +1,6 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityService.Controllers;
@@ -7,12 +10,23 @@ namespace IdentityService.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
+    private readonly IUserRepository _userRepository;
 
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthService authService, IUserRepository userRepository)
     {
         _authService = authService;
+        _userRepository = userRepository;
     }
-    
+
+    [HttpGet]
+    [Authorize]
+    public ActionResult Test()
+    {
+        var email = User.Claims.Single(x => x.Type == ClaimTypes.Email).Value;
+        var user =  _userRepository.GetUserByEmail(email);
+        return Ok(user);
+    }
+
     [HttpPost]
     [Route("sign-in")]
     public async Task<ActionResult<SessionDto>> SignIn([FromBody] SignInDto? signIn)
