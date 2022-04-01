@@ -28,4 +28,12 @@ public class AuthController : ControllerBase
         var actionResult = await _authHttpClientService.SignInAsync(signInDto);
         return actionResult;
     }
+    
+    [HttpPost]
+    [Route("sign-up")]
+    public async Task<IActionResult> SingIn([FromBody] SignUpDto signUpDto)
+    {
+        var actionResult = await _authHttpClientService.SignUpAsync(signUpDto);
+        return actionResult;
+    }
 }

@@ -35,6 +35,16 @@ public class AuthHttpClientService : IAuthHttpClientService
 
     public async Task<IActionResult> SignUpAsync(SignUpDto signUpDto)
     {
-        throw new NotImplementedException();
+        var content = new StringContent(JsonSerializer.Serialize(signUpDto), System.Text.Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync(UrlConfig.IdentityApi.SignUp, content);
+        
+        var sessionDraft = await response.Content.ReadAsStringAsync();
+        if (response.IsSuccessStatusCode)
+        {
+            var sessionDto = JsonSerializer.Deserialize<SessionDto>(sessionDraft, _jsonSerializerOptions);
+            return new OkObjectResult(sessionDto);
+        } 
+        
+        return new BadRequestObjectResult(sessionDraft); 
     }
 }
