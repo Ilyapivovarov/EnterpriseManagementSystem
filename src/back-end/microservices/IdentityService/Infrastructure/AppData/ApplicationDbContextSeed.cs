@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace IdentityService.Infrastructure.AppData;
 
 public static class ApplicationDbContextSeed
@@ -6,6 +8,7 @@ public static class ApplicationDbContextSeed
     {
         try
         {
+            logger.LogInformation($"{context.Database.GetConnectionString()}");
             if (await context.Database.CanConnectAsync())
             {
                 if (!context.Users.Any())

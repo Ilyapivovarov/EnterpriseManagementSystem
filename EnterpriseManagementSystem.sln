@@ -1,28 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2C855623-C735-4A5F-92F2-471E2DB49458}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "back-end", "back-end", "{1A83A607-9ED5-4EE0-854C-05C0EA377FD2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "microservices", "microservices", "{F4177BC2-70F0-4973-AE6F-222969594A2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "src\back-end\microservices\IdentityService\IdentityService.csproj", "{6A9E09B4-C10B-4B3E-8809-E8FEF0BDB78B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "src\back-end\microservices\IdentityService\IdentityService.csproj", "{6A9E09B4-C10B-4B3E-8809-E8FEF0BDB78B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gateways", "gateways", "{C59F0C16-EA67-48C4-B4C2-8153C6E94AAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "src\back-end\gateways\ApiGateway\ApiGateway.csproj", "{C998567F-75DF-4585-85E1-12507DD3211D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "src\back-end\gateways\ApiGateway\ApiGateway.csproj", "{C998567F-75DF-4585-85E1-12507DD3211D}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DCBA0605-5014-4386-92CE-0FE015ED25EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{1A83A607-9ED5-4EE0-854C-05C0EA377FD2} = {2C855623-C735-4A5F-92F2-471E2DB49458}
-		{F4177BC2-70F0-4973-AE6F-222969594A2D} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
-		{6A9E09B4-C10B-4B3E-8809-E8FEF0BDB78B} = {F4177BC2-70F0-4973-AE6F-222969594A2D}
-		{C59F0C16-EA67-48C4-B4C2-8153C6E94AAE} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
-		{C998567F-75DF-4585-85E1-12507DD3211D} = {C59F0C16-EA67-48C4-B4C2-8153C6E94AAE}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6A9E09B4-C10B-4B3E-8809-E8FEF0BDB78B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -33,5 +31,22 @@ Global
 		{C998567F-75DF-4585-85E1-12507DD3211D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C998567F-75DF-4585-85E1-12507DD3211D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C998567F-75DF-4585-85E1-12507DD3211D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCBA0605-5014-4386-92CE-0FE015ED25EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBA0605-5014-4386-92CE-0FE015ED25EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBA0605-5014-4386-92CE-0FE015ED25EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCBA0605-5014-4386-92CE-0FE015ED25EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A83A607-9ED5-4EE0-854C-05C0EA377FD2} = {2C855623-C735-4A5F-92F2-471E2DB49458}
+		{F4177BC2-70F0-4973-AE6F-222969594A2D} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
+		{6A9E09B4-C10B-4B3E-8809-E8FEF0BDB78B} = {F4177BC2-70F0-4973-AE6F-222969594A2D}
+		{C59F0C16-EA67-48C4-B4C2-8153C6E94AAE} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
+		{C998567F-75DF-4585-85E1-12507DD3211D} = {C59F0C16-EA67-48C4-B4C2-8153C6E94AAE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6CFA357-8DFC-4CC6-A57E-D1E92BBC71A6}
 	EndGlobalSection
 EndGlobal

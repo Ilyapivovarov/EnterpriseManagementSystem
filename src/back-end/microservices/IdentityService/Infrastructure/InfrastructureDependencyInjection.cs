@@ -11,8 +11,9 @@ public static class InfrastructureDependencyInjection
         #region Register context
 
         var dbConnectionSectionName = environment.IsDevelopment() ? "DevelopDbConnection" : "ReleaseDbConnection";
+        var conString = configuration.GetConnectionString(dbConnectionSectionName);
         serviceProvider.AddDbContext<ApplicationDbContext>(builder =>
-            builder.UseSqlServer(configuration.GetConnectionString(dbConnectionSectionName)));
+            builder.UseSqlServer(conString));
 
         #endregion
 

@@ -1,0 +1,42 @@
+version: '3.9'
+
+networks:
+  emsnetwork:
+    ipam:
+      config:
+        - subnet: 10.20.10.0/16
+services:
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: yourStrong(!)Password
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.5
+    ports:
+      - "1433:1433"
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: src/back-end/gateways/ApiGateway/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - identityservice
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.6
+
+  identityservice:
+    image: ${DOCKER_REGISTRY-}identityservice
+    build:
+      context: .
+      dockerfile: src/back-end/microservices/IdentityService/Dockerfile
+    depends_on:
+      - db
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.7

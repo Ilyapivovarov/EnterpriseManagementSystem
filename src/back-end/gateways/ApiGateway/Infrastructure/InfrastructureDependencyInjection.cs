@@ -1,6 +1,5 @@
 using ApiGateway.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ApiGateway.Infrastructure;
 
@@ -11,9 +10,8 @@ public static class InfrastructureDependencyInjection
     {
         serviceProvider.AddHttpClient<IAuthHttpClientService, AuthHttpClientService>(client =>
         {
-            client.BaseAddress = new Uri("https://localhost:7104/");
+            client.BaseAddress = new Uri("http://10.20.10.7/");
         });
-        
         
         #region Register Jwt auth
 

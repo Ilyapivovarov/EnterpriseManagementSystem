@@ -1,5 +1,3 @@
-using ApiGateway.Dto;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGateway.Controllers;
@@ -16,11 +14,9 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> Test()
     {
-        var result = await _authHttpClientService.GetUser(HttpContext.Request.Headers["Authorization"]);
-        return result;
+        return Ok();
     }
 
 
@@ -28,8 +24,15 @@ public class AuthController : ControllerBase
     [Route("sign-in")]
     public async Task<IActionResult> SingIn([FromBody] SignInDto signInDto)
     {
-        var actionResult = await _authHttpClientService.SignInAsync(signInDto);
-        return actionResult;
+        try
+        {
+            var actionResult = await _authHttpClientService.SignInAsync(signInDto);
+            return actionResult;
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
     
     [HttpPost]
