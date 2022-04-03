@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "IdentityService": {
+    "Development": {
       "commandName": "Project",
       "launchUrl": "swagger",
       "environmentVariables": {
@@ -18,12 +18,11 @@
       "applicationUrl": "https://localhost:7104;http://localhost:5104",
       "dotnetRunMessages": true
     },
-    "IIS Express": {
-      "commandName": "IISExpress",
+    "Release": {
+      "commandName": "Project",
       "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      "applicationUrl": "https://localhost:7104;http://localhost:5104",
+      "dotnetRunMessages": true
     },
     "Docker": {
       "commandName": "Docker",
