@@ -15,7 +15,7 @@ services:
       emsnetwork:
         ipv4_address: 10.20.10.5
     ports:
-      - "1433:1433"
+      - "1500:1433"
 
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway
