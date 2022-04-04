@@ -26,9 +26,9 @@ public class Startup
         services.AddSwaggerGen();
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
+    public void Configure(IApplicationBuilder app)
     {
-        if (environment.IsDevelopment())
+        if (Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
