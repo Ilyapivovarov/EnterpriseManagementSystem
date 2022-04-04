@@ -10,7 +10,7 @@ public static class InfrastructureDependencyInjection
     {
         serviceProvider.AddHttpClient<IAuthHttpClientService, AuthHttpClientService>(client =>
         {
-            client.BaseAddress = new Uri("http://10.20.10.7/");
+            client.BaseAddress = new Uri(configuration["IdentityServiceUrl"]);
         });
         
         #region Register Jwt auth
