@@ -1,6 +1,3 @@
-using IdentityService.Application.Models;
-using IdentityService.Application.Repositories;
-
 namespace IdentityService.Infrastructure.Implementations.Repositories;
 
 public class UserRepository : RepositoryBase, IUserRepository

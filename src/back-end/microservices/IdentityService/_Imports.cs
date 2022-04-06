@@ -11,3 +11,7 @@ global using IdentityService.Application.Services;
 global using IdentityService.Application.Models;
 global using IdentityService.Application.BlServices;
 global using IdentityService.Application.Mapper;
+global using IdentityService.Application;
+global using IdentityService.Infrastructure.Implementations.BlServices;
+global using IdentityService.Infrastructure.Implementations.Mediators.Auth;
+global using IdentityService.Application.Models.Base;

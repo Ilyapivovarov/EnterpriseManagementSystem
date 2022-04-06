@@ -1,8 +1,3 @@
-using IdentityService.Application.BlServices;
-using IdentityService.Application.Repositories;
-using IdentityService.Application.Services;
-using IdentityService.Infrastructure.Implementations.BlServices;
-using IdentityService.Infrastructure.Implementations.Mediators.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,8 +55,7 @@ public static class InfrastructureDependencyInjection
         #endregion
         
         #region Register services
-
-        serviceProvider.AddTransient<IAuthService, AuthService>();
+        
         serviceProvider.AddTransient<ISecurityService, SecurityService>();
 
         #endregion

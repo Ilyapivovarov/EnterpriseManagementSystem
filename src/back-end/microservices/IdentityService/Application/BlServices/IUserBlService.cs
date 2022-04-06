@@ -1,6 +1,3 @@
-using IdentityService.Application.Models;
-using Microsoft.AspNetCore.Mvc;
-
 namespace IdentityService.Application.BlServices;
 
 public interface IUserBlService

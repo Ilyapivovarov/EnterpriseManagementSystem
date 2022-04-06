@@ -1,5 +1,3 @@
-
-
 namespace IdentityService.Infrastructure.Implementations.Repositories;
 
 public class SessionRepository : RepositoryBase, ISessionRepository

@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using IdentityService.Application.Models.Base;
+
 
 namespace IdentityService.Application.Models;
 

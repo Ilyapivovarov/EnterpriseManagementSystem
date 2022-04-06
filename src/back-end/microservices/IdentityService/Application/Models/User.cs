@@ -1,5 +1,3 @@
-using IdentityService.Application.Models.Base;
-
 namespace IdentityService.Application.Models;
 
 public class User : DbEntityBase
