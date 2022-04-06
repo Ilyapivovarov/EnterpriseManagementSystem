@@ -1,3 +1,4 @@
+using IdentityService.Application.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Infrastructure.AppData;

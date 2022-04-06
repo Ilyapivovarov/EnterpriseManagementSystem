@@ -1,4 +1,4 @@
-using IdentityService.Application.RepositoryInterfaces;
+
 
 namespace IdentityService.Infrastructure.Implementations.Repositories;
 
@@ -8,7 +8,7 @@ public class SessionRepository : RepositoryBase, ISessionRepository
         : base(dbContext, logger)
     { }
     
-    public bool SaveSession(Session session)
+    public bool SaveOrUpdateSession(Session session)
     {
         return WriteData(db =>
             {
@@ -24,14 +24,12 @@ public class SessionRepository : RepositoryBase, ISessionRepository
                 {
                     db.Sessions.Add(session);
                 }
-
-                
             },
             $"Error while save session for user with email {session.User.Email}");
     }
 
-    public async Task<bool> SaveSessionAsync(Session session)
+    public async Task<bool> SaveOrUpdateSessionAsync(Session session)
     {
-        return await Task.Run(() => SaveSession(session));
+        return await Task.Run(() => SaveOrUpdateSession(session));
     }
 }

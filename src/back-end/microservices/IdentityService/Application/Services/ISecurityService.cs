@@ -1,4 +1,4 @@
-namespace IdentityService.Application.ServiceInterfaces;
+namespace IdentityService.Application.Services;
 
 public interface ISecurityService
 {

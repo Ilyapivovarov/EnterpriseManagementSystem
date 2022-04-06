@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace IdentityService.Application.MapperService;
+namespace IdentityService.Application.Mapper;
 
 public static class MapperExtensions
 {
@@ -9,7 +9,7 @@ public static class MapperExtensions
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<User, UserDto>());
 
-        var mapper = new Mapper(cfg);
+        var mapper = new AutoMapper.Mapper(cfg);
         return mapper.Map<User, UserDto>(user);
     }
 
@@ -21,7 +21,7 @@ public static class MapperExtensions
                     source 
                         => source.MapFrom(c => c.User.Id)));
 
-        var mapper = new Mapper(cfg);
+        var mapper = new AutoMapper.Mapper(cfg);
         return mapper.Map<Session, SessionDto>(user);
     }
 }

@@ -1,5 +1,3 @@
-global using IdentityService.Infrastructure.AppData.Models;
-global using IdentityService.Infrastructure.AppData.Models.Base;
 global using IdentityService.Infrastructure.AppData;
 global using IdentityService.Infrastructure;
 global using IdentityService.Dto;
@@ -7,6 +5,9 @@ global using IdentityService.Infrastructure.Implementations.Repositories.Base;
 global using IdentityService.Common;
 global using IdentityService.Infrastructure.Implementations.Services;
 global using IdentityService.Infrastructure.Implementations.Repositories;
-global using IdentityService.Application.RepositoryInterfaces;
-global using IdentityService.Application.ServiceInterfaces;
-global using IdentityService.Application.MapperService;
+global using IdentityService.Application.Mediators.Auth;
+global using IdentityService.Application.Repositories;
+global using IdentityService.Application.Services;
+global using IdentityService.Application.Models;
+global using IdentityService.Application.BlServices;
+global using IdentityService.Application.Mapper;

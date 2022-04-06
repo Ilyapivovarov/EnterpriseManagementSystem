@@ -1,3 +1,8 @@
+using IdentityService.Application.BlServices;
+using IdentityService.Application.Repositories;
+using IdentityService.Application.Services;
+using IdentityService.Infrastructure.Implementations.BlServices;
+using IdentityService.Infrastructure.Implementations.Mediators.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,6 +63,20 @@ public static class InfrastructureDependencyInjection
 
         serviceProvider.AddTransient<IAuthService, AuthService>();
         serviceProvider.AddTransient<ISecurityService, SecurityService>();
+
+        #endregion
+
+        #region Bl services
+
+        serviceProvider.AddTransient<IUserBlService, UserBlService>();
+        serviceProvider.AddTransient<ISessionBlService, SessionBlService>();
+
+        #endregion
+
+        #region Mediators
+
+        serviceProvider.AddTransient<ISignInMediator, SignInMediator>();
+        serviceProvider.AddTransient<ISignUpMediator, SignUpMediator>();
 
         #endregion
     }

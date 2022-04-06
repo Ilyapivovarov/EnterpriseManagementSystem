@@ -1,4 +1,6 @@
-namespace IdentityService.Application.RepositoryInterfaces;
+using IdentityService.Application.Models;
+
+namespace IdentityService.Application.Repositories;
 
 public interface IUserRepository
 {

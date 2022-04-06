@@ -1,4 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,13 +8,16 @@ namespace IdentityService.Controllers;
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
-    private readonly IAuthService _authService;
     private readonly IUserRepository _userRepository;
+    private readonly ISignInMediator _signInMediator;
+    private readonly ISignUpMediator _signUpMediator;
 
-    public AuthController(IAuthService authService, IUserRepository userRepository)
+    public AuthController(IUserRepository userRepository, ISignInMediator signInMediator, 
+        ISignUpMediator signUpMediator)
     {
-        _authService = authService;
         _userRepository = userRepository;
+        _signInMediator = signInMediator;
+        _signUpMediator = signUpMediator;
     }
 
     [HttpGet]
@@ -29,23 +31,15 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("sign-in")]
-    public async Task<ActionResult<SessionDto>> SignIn([FromBody] SignInDto? signIn)
+    public async Task<IActionResult> SignIn([FromBody] SignInDto? signIn)
     {
-        var result = await _authService.SignInUserAsync(signIn);
-        if (result.Value != null)
-            return Ok(result.Value.ToDto());
-        
-        return BadRequest(result.Error);
+        return await _signInMediator.SignInUser(signIn);
     }
 
     [HttpPost]
     [Route("sign-up")]
-    public async Task<ActionResult<SessionDto>> SignUp([FromBody] SignUpDto? signUp)
+    public async Task<IActionResult> SignUp([FromBody] SignUpDto? signUp)
     {
-        var result = await _authService.SignUpUserAsync(signUp);
-        if (result.Value != null)
-            return Ok(result.Value.ToDto());
-
-        return BadRequest(result.Error);
+        return await _signUpMediator.SignUpUser(signUp);
     }
 }

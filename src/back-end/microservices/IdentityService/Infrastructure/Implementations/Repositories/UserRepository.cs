@@ -1,4 +1,5 @@
-using IdentityService.Application.RepositoryInterfaces;
+using IdentityService.Application.Models;
+using IdentityService.Application.Repositories;
 
 namespace IdentityService.Infrastructure.Implementations.Repositories;
 

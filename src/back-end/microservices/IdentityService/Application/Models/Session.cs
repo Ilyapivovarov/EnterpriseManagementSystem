@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using IdentityService.Application.Models.Base;
 
-namespace IdentityService.Infrastructure.AppData.Models;
+namespace IdentityService.Application.Models;
 
 public class Session : DbEntityBase
 {
