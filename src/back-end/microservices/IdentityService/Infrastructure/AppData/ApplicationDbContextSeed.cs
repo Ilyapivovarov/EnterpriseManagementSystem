@@ -2,13 +2,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Infrastructure.AppData;
 
-public static class ApplicationDbContextSeed
+public class ApplicationDbContextSeed
 {
     public static async void SeedData(ApplicationDbContext context, ILogger logger)
     {
         try
         {
-            logger.LogInformation($"{context.Database.GetConnectionString()}");
+            logger.LogTrace($"{context.Database.GetConnectionString()}");
             if (await context.Database.CanConnectAsync())
             {
                 if (!context.Users.Any())
