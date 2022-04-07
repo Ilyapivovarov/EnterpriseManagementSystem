@@ -25,8 +25,10 @@ public class SignInMediator : ISignInMediator
         if (user == null)
             return new BadRequestObjectResult($"Not found user with email {userDto.Email}");
 
-        var session = _sessionBlService.CreateSession(user);
-        await _sessionRepository.SaveOrUpdateSessionAsync(session);
+        var session = await _sessionRepository.GetSEssionByUserIdAsync(user.Id);
+        var updatedSession = _sessionBlService.CreateOrUpdateSession(user, session);
+        
+        await _sessionRepository.SaveOrUpdateSessionAsync(updatedSession);
 
         return new OkObjectResult(session.ToDto());
     }

@@ -28,7 +28,31 @@ public class SessionBlService : ISessionBlService
 
         return session;
     }
-    
+
+    public Session CreateOrUpdateSession(User user, Session? session)
+    {
+        var accessToken = GenerateAccessToken(user);
+        var refreshToken = GenerateRefreshToken();
+        
+        if (session == null)
+        {
+            var newSession = new Session
+            {
+                User = user,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
+            };
+
+            return newSession;
+        }
+
+        session.User = user;
+        session.AccessToken = accessToken;
+        session.RefreshToken = refreshToken;
+        
+        return session;
+    }
+
     private string GenerateAccessToken(User user)
     {
         var authParams = _authOptions.Value;

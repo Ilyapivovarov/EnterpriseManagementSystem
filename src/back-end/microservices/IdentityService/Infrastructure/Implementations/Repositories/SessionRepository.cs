@@ -10,13 +10,9 @@ public class SessionRepository : RepositoryBase, ISessionRepository
     {
         return WriteData(db =>
             {
-                var activeSession = db.Sessions.FirstOrDefault(x => x.User.Id == session.User.Id);
-                if (activeSession != null)
+                if (session.Id != 0)
                 {
-                    activeSession.AccessToken = session.AccessToken;
-                    activeSession.RefreshToken = session.RefreshToken;
-                    
-                    db.Sessions.Update(activeSession);
+                    db.Sessions.Update(session);
                 }
                 else
                 {
@@ -29,5 +25,11 @@ public class SessionRepository : RepositoryBase, ISessionRepository
     public async Task<bool> SaveOrUpdateSessionAsync(Session session)
     {
         return await Task.Run(() => SaveOrUpdateSession(session));
+    }
+
+    public async Task<Session?> GetSEssionByUserIdAsync(int userId)
+    {
+        return await Task.Run(() => LoadData(db => db.Sessions.FirstOrDefault(x => x.User.Id == userId),
+            $"Error while searching user with id {userId}"));
     }
 }
