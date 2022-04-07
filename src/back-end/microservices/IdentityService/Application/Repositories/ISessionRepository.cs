@@ -6,5 +6,5 @@ public interface ISessionRepository
 
     public Task<bool> SaveOrUpdateSessionAsync(Session session);
 
-    public Task<Session?> GetSEssionByUserIdAsync(int userId);
+    public Task<Session?> GetSessionByUserIdAsync(int userId);
 }

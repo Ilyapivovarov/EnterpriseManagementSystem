@@ -31,14 +31,14 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("sign-in")]
-    public async Task<IActionResult> SignIn([FromBody] SignInDto? signIn)
+    public async Task<ActionResult<SessionDto>> SignIn([FromBody] SignInDto? signIn)
     {
         return await _signInMediator.SignInUser(signIn);
     }
 
     [HttpPost]
     [Route("sign-up")]
-    public async Task<IActionResult> SignUp([FromBody] SignUpDto? signUp)
+    public async Task<ActionResult<SessionDto>> SignUp([FromBody] SignUpDto? signUp)
     {
         return await _signUpMediator.SignUpUser(signUp);
     }

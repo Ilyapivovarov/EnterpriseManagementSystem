@@ -16,7 +16,7 @@ public class SignInMediator : ISignInMediator
         _sessionRepository = sessionRepository;
     }
 
-    public async Task<IActionResult> SignInUser(SignInDto? userDto)
+    public async Task<ActionResult<SessionDto>> SignInUser(SignInDto? userDto)
     {
         if (userDto == null)
             return new BadRequestObjectResult("Request body is empty");
@@ -25,11 +25,11 @@ public class SignInMediator : ISignInMediator
         if (user == null)
             return new BadRequestObjectResult($"Not found user with email {userDto.Email}");
 
-        var session = await _sessionRepository.GetSEssionByUserIdAsync(user.Id);
+        var session = await _sessionRepository.GetSessionByUserIdAsync(user.Id);
         var updatedSession = _sessionBlService.CreateOrUpdateSession(user, session);
         
         await _sessionRepository.SaveOrUpdateSessionAsync(updatedSession);
 
-        return new OkObjectResult(session.ToDto());
+        return new OkObjectResult(updatedSession.ToDto());
     }
 }

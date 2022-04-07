@@ -27,7 +27,7 @@ public class SessionRepository : RepositoryBase, ISessionRepository
         return await Task.Run(() => SaveOrUpdateSession(session));
     }
 
-    public async Task<Session?> GetSEssionByUserIdAsync(int userId)
+    public async Task<Session?> GetSessionByUserIdAsync(int userId)
     {
         return await Task.Run(() => LoadData(db => db.Sessions.FirstOrDefault(x => x.User.Id == userId),
             $"Error while searching user with id {userId}"));

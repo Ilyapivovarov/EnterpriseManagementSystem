@@ -4,5 +4,5 @@ namespace IdentityService.Application.Mediators.Auth;
 
 public interface ISignInMediator
 {
-    public Task<IActionResult> SignInUser(SignInDto? userDto);
+    public Task<ActionResult<SessionDto>> SignInUser(SignInDto? userDto);
 }
