@@ -1,4 +1,3 @@
-using EnterpriseManagementSystem.Contracts.WebContracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityService.Infrastructure.Implementations.Mediators.Auth;
@@ -40,6 +39,9 @@ public class SignUpMediator : ISignUpMediator
             return new BadRequestObjectResult("Error while save user");
         
         var session = _sessionBlService.CreateSession(user);
+        
+        await _sessionRepository.SaveOrUpdateSessionAsync(session);
+        
         return new OkObjectResult(session.ToDto());
     }
 }
