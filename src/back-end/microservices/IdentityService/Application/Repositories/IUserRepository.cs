@@ -63,6 +63,10 @@ public interface IUserRepository
     /// </summary>
     /// <param name="email"></param>
     public Task<User?> GetUserByEmailAsync(string email);
+
+    public User? GetUserByGuid(Guid guid);
     
-  
+    public Task<User?> GetUserByGuidAsync(Guid guid);
+
+
 }

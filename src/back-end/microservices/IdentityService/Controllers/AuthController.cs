@@ -12,13 +12,15 @@ public class AuthController : ControllerBase
     private readonly IUserRepository _userRepository;
     private readonly ISignInMediator _signInMediator;
     private readonly ISignUpMediator _signUpMediator;
+    private readonly ISignOutMediator _signOutMediator;
 
     public AuthController(IUserRepository userRepository, ISignInMediator signInMediator, 
-        ISignUpMediator signUpMediator)
+        ISignUpMediator signUpMediator, ISignOutMediator signOutMediator)
     {
         _userRepository = userRepository;
         _signInMediator = signInMediator;
         _signUpMediator = signUpMediator;
+        _signOutMediator = signOutMediator;
     }
 
     [HttpGet]
@@ -32,15 +34,24 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("sign-in")]
-    public async Task<ActionResult<SessionDto>> SignIn([FromBody] SignInDto? signIn)
+    public async Task<ActionResult<SessionDto>> SignInUser([FromBody] SignInDto? signIn)
     {
         return await _signInMediator.SignInUser(signIn);
     }
 
     [HttpPost]
     [Route("sign-up")]
-    public async Task<ActionResult<SessionDto>> SignUp([FromBody] SignUpDto? signUp)
+    public async Task<ActionResult<SessionDto>> SignUpUser([FromBody] SignUpDto? signUp)
     {
         return await _signUpMediator.SignUpUser(signUp);
+    }
+
+    [Authorize]
+    [HttpDelete]
+    [Route("sign-out")]
+    public async Task<ActionResult> SignOutUser()
+    {
+        var guidStr = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
+        return await _signOutMediator.SignOutUser(Guid.Parse(guidStr));
     }
 }

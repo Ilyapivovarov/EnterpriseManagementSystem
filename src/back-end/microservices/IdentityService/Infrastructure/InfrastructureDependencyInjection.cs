@@ -41,6 +41,7 @@ public static class InfrastructureDependencyInjection
 
         serviceProvider.AddTransient<ISignInMediator, SignInMediator>();
         serviceProvider.AddTransient<ISignUpMediator, SignUpMediator>();
+        serviceProvider.AddTransient<ISignOutMediator, SignOutMediator>();
 
         #endregion
     }
