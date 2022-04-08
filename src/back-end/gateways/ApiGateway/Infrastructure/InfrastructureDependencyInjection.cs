@@ -14,13 +14,11 @@ public static class InfrastructureDependencyInjection
         });
         
         #region Register Jwt auth
-
-        const string AuthSectionKey = "Auth";
         
-        var section = configuration.GetSection(AuthSectionKey);
+        var section = configuration.GetSection(ConfigurationSectionName.Auth);
         serviceProvider.Configure<AuthOption>(section);
         
-        var authOpt = configuration.GetSection(AuthSectionKey).Get<AuthOption>();
+        var authOpt = configuration.GetSection(ConfigurationSectionName.Auth).Get<AuthOption>();
         serviceProvider.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
