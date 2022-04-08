@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using EnterpriseManagementSystem.Contracts.WebContracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

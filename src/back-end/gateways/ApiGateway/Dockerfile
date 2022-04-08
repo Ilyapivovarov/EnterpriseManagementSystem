@@ -2,12 +2,13 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 81
-EXPOSE 444
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/back-end/gateways/ApiGateway/ApiGateway.csproj", "src/back-end/gateways/ApiGateway/"]
+COPY ["src/back-end/packages/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "src/back-end/packages/EnterpriseManagementSystem.Contracts/"]
 RUN dotnet restore "src/back-end/gateways/ApiGateway/ApiGateway.csproj"
 COPY . .
 WORKDIR "/src/src/back-end/gateways/ApiGateway"

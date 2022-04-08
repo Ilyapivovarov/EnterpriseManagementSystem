@@ -1,3 +1,4 @@
+using EnterpriseManagementSystem.Contracts.WebContracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGateway.Controllers;

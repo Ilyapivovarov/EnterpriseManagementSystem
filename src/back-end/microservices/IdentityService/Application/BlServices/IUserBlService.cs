@@ -7,4 +7,6 @@ public interface IUserBlService
     public User ChangeEmail(User user, string email);
 
     public User ChangePassword(User user, string password);
+
+    public User CreateUser(string email, string password);
 }

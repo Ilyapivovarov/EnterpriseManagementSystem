@@ -1,6 +1,5 @@
 global using IdentityService.Infrastructure.AppData;
 global using IdentityService.Infrastructure;
-global using IdentityService.Dto;
 global using IdentityService.Infrastructure.Implementations.Repositories.Base;
 global using IdentityService.Common;
 global using IdentityService.Infrastructure.Implementations.Services;
@@ -15,3 +14,4 @@ global using IdentityService.Application;
 global using IdentityService.Infrastructure.Implementations.BlServices;
 global using IdentityService.Infrastructure.Implementations.Mediators.Auth;
 global using IdentityService.Application.Models.Base;
+global using EnterpriseManagementSystem.Contracts.WebContracts;

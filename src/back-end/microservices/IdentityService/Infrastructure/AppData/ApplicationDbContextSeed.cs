@@ -8,7 +8,7 @@ public class ApplicationDbContextSeed
     {
         try
         {
-            logger.LogTrace($"{context.Database.GetConnectionString()}");
+            logger.LogInformation($"{context.Database.GetConnectionString()}");
             if (await context.Database.CanConnectAsync())
             {
                 if (!context.Users.Any())

@@ -43,7 +43,13 @@ public interface IUserRepository
     /// Create new user with this email and password
     /// </summary>
     /// <param name="user"></param>
-    public bool CreateUser(User user);
+    public bool SaveUser(User user);
+    
+    /// <summary>
+    /// Create new user with this email and password
+    /// </summary>
+    /// <param name="user"></param>
+    public Task<bool> SaveUserAsync(User user);
 
     /// <summary>
     /// Getting user by email

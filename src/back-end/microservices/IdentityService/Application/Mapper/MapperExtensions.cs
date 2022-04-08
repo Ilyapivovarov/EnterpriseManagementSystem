@@ -17,9 +17,9 @@ public static class MapperExtensions
     {
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<Session, SessionDto>()
-                .ForMember(dto => dto.UserId,
+                .ForMember(dto => dto.UserGuid,
                     source 
-                        => source.MapFrom(c => c.User.Id)));
+                        => source.MapFrom(c => c.User.Guid)));
 
         var mapper = new AutoMapper.Mapper(cfg);
         return mapper.Map<Session, SessionDto>(user);

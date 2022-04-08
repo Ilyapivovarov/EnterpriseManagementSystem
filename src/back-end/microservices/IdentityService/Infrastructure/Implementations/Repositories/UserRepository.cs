@@ -25,9 +25,14 @@ public class UserRepository : RepositoryBase, IUserRepository
         LoadData(db => db.Users.Any(x => x.Email == email),
             "Error while checking email");
 
-    public bool CreateUser(User user) =>
+    public bool SaveUser(User user) =>
         WriteData(db => db.Users.Add(user),
             $"Error while creating user with email {user.Email}");
+
+    public async Task<bool> SaveUserAsync(User user)
+    {
+        return await Task.Run(() => SaveUser(user));
+    }
 
     public User? GetUserByEmail(string email) => 
         LoadData(db => db.Users.FirstOrDefault(x => x.Email == email), 

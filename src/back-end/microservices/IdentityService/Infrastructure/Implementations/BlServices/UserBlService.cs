@@ -16,4 +16,13 @@ public class UserBlService : IUserBlService
     {
         throw new NotImplementedException();
     }
+
+    public User CreateUser(string email, string password)
+    {
+        return new User
+        {
+            Email = email,
+            Password = password
+        };
+    }
 }
