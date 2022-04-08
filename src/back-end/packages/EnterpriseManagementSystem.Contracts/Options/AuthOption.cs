@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ApiGateway.Common;
+namespace EnterpriseManagementSystem.Contracts.Options;
 
 public class AuthOption
 {

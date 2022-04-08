@@ -1,4 +1,3 @@
-using ApiGateway.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ApiGateway.Infrastructure;

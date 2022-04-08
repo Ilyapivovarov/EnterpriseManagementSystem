@@ -4,3 +4,4 @@ global using ApiGateway.Infrastructure.HttpClientServices;
 global using ApiGateway.Application;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
 global using EnterpriseManagementSystem.Contracts.Constants;
+global using EnterpriseManagementSystem.Contracts.Options;
