@@ -21,6 +21,34 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseManagementSystem.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{1E5201C6-325F-42F9-82EE-77917772C1A4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "front-end", "front-end", "{D90B0A74-34BE-4C70-B03B-496430276D72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react-client-app", "react-client-app", "{CC8DFE00-97AE-46A4-A2CB-011B277B77B1}"
+	ProjectSection(SolutionItems) = preProject
+		src\front-end\react-client-app\README.md = src\front-end\react-client-app\README.md
+		src\front-end\react-client-app\.gitignore = src\front-end\react-client-app\.gitignore
+		src\front-end\react-client-app\package.json = src\front-end\react-client-app\package.json
+		src\front-end\react-client-app\tsconfig.json = src\front-end\react-client-app\tsconfig.json
+		src\front-end\react-client-app\package-lock.json = src\front-end\react-client-app\package-lock.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "public", "public", "{0913B2AD-8E92-4F48-AF6A-9AF92A730B90}"
+	ProjectSection(SolutionItems) = preProject
+		src\front-end\react-client-app\public\index.html = src\front-end\react-client-app\public\index.html
+		src\front-end\react-client-app\public\robots.txt = src\front-end\react-client-app\public\robots.txt
+		src\front-end\react-client-app\public\favicon.ico = src\front-end\react-client-app\public\favicon.ico
+		src\front-end\react-client-app\public\logo192.png = src\front-end\react-client-app\public\logo192.png
+		src\front-end\react-client-app\public\logo512.png = src\front-end\react-client-app\public\logo512.png
+		src\front-end\react-client-app\public\manifest.json = src\front-end\react-client-app\public\manifest.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0236FE7B-2C80-4543-A76D-DFAC3DFE2CD0}"
+	ProjectSection(SolutionItems) = preProject
+		src\front-end\react-client-app\src\App.tsx = src\front-end\react-client-app\src\App.tsx
+		src\front-end\react-client-app\src\logo.svg = src\front-end\react-client-app\src\logo.svg
+		src\front-end\react-client-app\src\index.tsx = src\front-end\react-client-app\src\index.tsx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +83,10 @@ Global
 		{C998567F-75DF-4585-85E1-12507DD3211D} = {C59F0C16-EA67-48C4-B4C2-8153C6E94AAE}
 		{1E5201C6-325F-42F9-82EE-77917772C1A4} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
 		{AF53AE7E-1B17-4AC0-BA9F-230167D8E3E0} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
+		{D90B0A74-34BE-4C70-B03B-496430276D72} = {2C855623-C735-4A5F-92F2-471E2DB49458}
+		{CC8DFE00-97AE-46A4-A2CB-011B277B77B1} = {D90B0A74-34BE-4C70-B03B-496430276D72}
+		{0913B2AD-8E92-4F48-AF6A-9AF92A730B90} = {CC8DFE00-97AE-46A4-A2CB-011B277B77B1}
+		{0236FE7B-2C80-4543-A76D-DFAC3DFE2CD0} = {CC8DFE00-97AE-46A4-A2CB-011B277B77B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6CFA357-8DFC-4CC6-A57E-D1E92BBC71A6}
