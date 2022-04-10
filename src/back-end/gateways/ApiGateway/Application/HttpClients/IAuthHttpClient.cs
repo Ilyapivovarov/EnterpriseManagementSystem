@@ -1,9 +1,8 @@
-using EnterpriseManagementSystem.Contracts.WebContracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiGateway.Application.ServiceInterfaces;
+namespace ApiGateway.Application.HttpClients;
 
-public interface IAuthHttpClientService
+public interface IAuthHttpClient
 {
     public Task<IActionResult> SignInAsync(SignInDto signIn);
 

@@ -1,3 +1,4 @@
+using ApiGateway.Application.HttpClients;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,9 +8,9 @@ namespace ApiGateway.Controllers;
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
-    private readonly IAuthHttpClientService _authHttpClientService;
+    private readonly IAuthHttpClient _authHttpClientService;
 
-    public AuthController(IAuthHttpClientService authHttpClientService)
+    public AuthController(IAuthHttpClient authHttpClientService)
     {
         _authHttpClientService = authHttpClientService;
     }

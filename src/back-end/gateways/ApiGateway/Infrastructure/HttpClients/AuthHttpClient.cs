@@ -1,16 +1,15 @@
 using System.Text.Json;
-using EnterpriseManagementSystem.Contracts.WebContracts;
+using ApiGateway.Application.HttpClients;
 using Microsoft.AspNetCore.Mvc;
 
+namespace ApiGateway.Infrastructure.HttpClients;
 
-namespace ApiGateway.Infrastructure.HttpClientServices;
-
-public class AuthHttpClientService : IAuthHttpClientService
+public class AuthHttpClient : IAuthHttpClient
 {
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-    public AuthHttpClientService(HttpClient httpClient)
+    public AuthHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
         _jsonSerializerOptions = new JsonSerializerOptions
