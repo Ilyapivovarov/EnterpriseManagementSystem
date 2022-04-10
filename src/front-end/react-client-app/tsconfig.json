@@ -6,19 +6,29 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    // Linter Checks
+    "noImplicitReturns": true, // https://eslint.org/docs/rules/consistent-return ?
+    "noFallthroughCasesInSwitch": true, // https://eslint.org/docs/rules/no-fallthrough
+    "noUnusedLocals": true, // https://eslint.org/docs/rules/no-unused-vars
+    "noUnusedParameters": true, // https://eslint.org/docs/rules/no-unused-vars#args
+    "allowUnreachableCode": false, // https://eslint.org/docs/rules/no-unreachable ?
+    "allowUnusedLabels": false, // https://eslint.org/docs/rules/no-unused-labels
+    // Base Strict Checks
+    "noImplicitUseStrict": false,
+    "suppressExcessPropertyErrors": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "noStrictGenericChecks": false,
+    "jsx": "react-jsx",
+
   },
   "include": [
     "src"
