@@ -1,3 +1,4 @@
+using IdentityService.Application.Mediators.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

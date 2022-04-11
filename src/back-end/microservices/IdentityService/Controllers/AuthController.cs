@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using IdentityService.Application.Mediators.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ public class AuthController : ControllerBase
     
     [HttpPost]
     [Route("sign-in")]
-    public async Task<IActionResult> SignInUser([FromBody] SignInDto? signIn)
+    public async Task<IActionResult> SignInUser([FromBody] SignInDto signIn)
     {
         return await _mediator.Send(new SignInUserRequest(signIn));
     }

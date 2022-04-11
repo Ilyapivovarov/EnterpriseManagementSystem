@@ -1,15 +1,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityService.Application.Mediators.Commands;
+namespace IdentityService.Application.Mediators.Requests;
 
 public class SignInUserRequest : IRequest<IActionResult>
 {
-    public SignInUserRequest(SignInDto? signInDto)
+    public SignInUserRequest(SignInDto signInDto)
     {
         SignInDto = signInDto;
     }
     
-    public SignInDto? SignInDto { get; }
+    public SignInDto SignInDto { get; }
 
 }
