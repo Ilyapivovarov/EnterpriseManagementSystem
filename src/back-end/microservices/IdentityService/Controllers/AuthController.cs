@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using EnterpriseManagementSystem.Contracts.WebContracts;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,34 +9,23 @@ namespace IdentityService.Controllers;
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
-    private readonly IUserRepository _userRepository;
-    private readonly ISignInMediator _signInMediator;
     private readonly ISignUpMediator _signUpMediator;
     private readonly ISignOutMediator _signOutMediator;
+    private readonly IMediator _mediator;
 
-    public AuthController(IUserRepository userRepository, ISignInMediator signInMediator, 
-        ISignUpMediator signUpMediator, ISignOutMediator signOutMediator)
+    public AuthController(ISignUpMediator signUpMediator,
+        ISignOutMediator signOutMediator, IMediator mediator)
     {
-        _userRepository = userRepository;
-        _signInMediator = signInMediator;
         _signUpMediator = signUpMediator;
         _signOutMediator = signOutMediator;
+        _mediator = mediator;
     }
-
-    [HttpGet]
-    [Authorize]
-    public ActionResult Test()
-    {
-        var email = User.Claims.Single(x => x.Type == ClaimTypes.Email).Value;
-        var user =  _userRepository.GetUserByEmail(email);
-        return Ok(user);
-    }
-
+    
     [HttpPost]
     [Route("sign-in")]
-    public async Task<ActionResult<SessionDto>> SignInUser([FromBody] SignInDto? signIn)
+    public async Task<IActionResult> SignInUser([FromBody] SignInDto? signIn)
     {
-        return await _signInMediator.SignInUser(signIn);
+        return await _mediator.Send(new SignInUserRequest(signIn));
     }
 
     [HttpPost]

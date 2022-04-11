@@ -1,4 +1,5 @@
 using System.Reflection;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace IdentityService.Application;
@@ -8,7 +9,9 @@ public static class ApplicationDependencyInjection
     public static void AddApplication(this IServiceCollection serviceProvider, IConfiguration configuration,
         IWebHostEnvironment environment)
     {
+        serviceProvider.AddMediatR(Assembly.GetExecutingAssembly());
         serviceProvider.AddAutoMapper(Assembly.GetExecutingAssembly());
+        
         
         #region Register Jwt auth
         
