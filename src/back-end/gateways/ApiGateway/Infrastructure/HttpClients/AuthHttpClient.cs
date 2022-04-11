@@ -1,3 +1,5 @@
+using System.Net.Mime;
+using System.Text;
 using System.Text.Json;
 using ApiGateway.Application.HttpClients;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +22,7 @@ public class AuthHttpClient : IAuthHttpClient
     
     public async Task<IActionResult> SignInAsync(SignInDto signIn)
     {
-        var content = new StringContent(JsonSerializer.Serialize(signIn), System.Text.Encoding.UTF8, "application/json");
+        var content = new StringContent(JsonSerializer.Serialize(signIn), Encoding.UTF8, MediaTypeNames.Application.Json);
         var response = await _httpClient.PostAsync(UrlConfig.IdentityApi.SignIn, content);
         
         var sessionDraft = await response.Content.ReadAsStringAsync();
@@ -35,7 +37,7 @@ public class AuthHttpClient : IAuthHttpClient
 
     public async Task<IActionResult> SignUpAsync(SignUpDto signUpDto)
     {
-        var content = new StringContent(JsonSerializer.Serialize(signUpDto), System.Text.Encoding.UTF8, "application/json");
+        var content = new StringContent(JsonSerializer.Serialize(signUpDto), Encoding.UTF8, MediaTypeNames.Application.Json);
         var response = await _httpClient.PostAsync(UrlConfig.IdentityApi.SignUp, content);
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
@@ -47,17 +49,17 @@ public class AuthHttpClient : IAuthHttpClient
         return new BadRequestObjectResult(sessionDraft); 
     }
 
-    public async Task<IActionResult> GetUser(string token)
+    public async Task<IActionResult> SignOutUser()
     {
-        _httpClient.DefaultRequestHeaders.Add("Authorization", token);
-        var response = await _httpClient.GetAsync(UrlConfig.IdentityApi.Auth, HttpCompletionOption.ResponseContentRead);
+        var response = await _httpClient.DeleteAsync(UrlConfig.IdentityApi.SignIn);
+        
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-            var sessionDto = JsonSerializer.Deserialize<UserDto>(sessionDraft, _jsonSerializerOptions);
+            var sessionDto = JsonSerializer.Deserialize<SessionDto>(sessionDraft, _jsonSerializerOptions);
             return new OkObjectResult(sessionDto);
         } 
         
-        return new BadRequestObjectResult(sessionDraft); 
+        return new BadRequestObjectResult(sessionDraft);
     }
 }

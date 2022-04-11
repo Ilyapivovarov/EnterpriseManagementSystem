@@ -1,6 +1,6 @@
 namespace EnterpriseManagementSystem.Contracts.Constants;
 
-public class ConfigurationSectionName
+public static class ConfigurationSectionName
 {
     public const string Auth = "Auth";
 }

@@ -1,5 +1,6 @@
 using ApiGateway.Application.HttpClients;
 using EnterpriseManagementSystem.Contracts.WebContracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGateway.Controllers;
@@ -15,33 +16,25 @@ public class AuthController : ControllerBase
         _authHttpClientService = authHttpClientService;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Test()
-    {
-        return Ok();
-    }
-
-
     [HttpPost]
     [Route("sign-in")]
-    public async Task<IActionResult> SingIn([FromBody] SignInDto signInDto)
+    public async Task<IActionResult> SingInUser([FromBody] SignInDto signInDto)
     {
-        try
-        {
-            var actionResult = await _authHttpClientService.SignInAsync(signInDto);
-            return actionResult;
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+        return await _authHttpClientService.SignInAsync(signInDto);
     }
-    
+
     [HttpPost]
     [Route("sign-up")]
-    public async Task<IActionResult> SingIn([FromBody] SignUpDto signUpDto)
+    public async Task<IActionResult> SingInUser([FromBody] SignUpDto signUpDto)
     {
-        var actionResult = await _authHttpClientService.SignUpAsync(signUpDto);
-        return actionResult;
+        return await _authHttpClientService.SignUpAsync(signUpDto);
+    }
+
+    [Authorize]
+    [HttpDelete]
+    [Route("sign-out")]
+    public async Task<IActionResult> SignOutUser()
+    {
+        return await _authHttpClientService.SignOutUser();
     }
 }

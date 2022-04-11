@@ -8,5 +8,5 @@ public interface IAuthHttpClient
 
     public Task<IActionResult> SignUpAsync(SignUpDto signUpDto);
 
-    public Task<IActionResult> GetUser(string token);
+    public Task<IActionResult> SignOutUser();
 }
