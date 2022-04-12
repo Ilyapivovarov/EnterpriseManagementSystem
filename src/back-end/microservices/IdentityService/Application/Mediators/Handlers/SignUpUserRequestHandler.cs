@@ -1,16 +1,17 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityService.Infrastructure.Implementations.Mediators.Auth;
+namespace IdentityService.Application.Mediators.Handlers;
 
-public class SignUpMediator : ISignUpMediator
+public class SignUpUserRequestHandler : IRequestHandler<Request<SignUpDto>, IActionResult>
 {
     private readonly IUserBlService _userBlService;
     private readonly IUserRepository _userRepository;
     private readonly ISessionBlService _sessionBlService;
     private readonly ISessionRepository _sessionRepository;
     private readonly ISecurityService _securityService;
-
-    public SignUpMediator(IUserBlService userBlService, IUserRepository userRepository,
+    
+    public SignUpUserRequestHandler(IUserBlService userBlService, IUserRepository userRepository,
         ISessionBlService sessionBlService, ISessionRepository sessionRepository, ISecurityService securityService)
     {
         _userBlService = userBlService;
@@ -19,9 +20,10 @@ public class SignUpMediator : ISignUpMediator
         _sessionRepository = sessionRepository;
         _securityService = securityService;
     }
-
-    public async Task<ActionResult<SessionDto>> SignUpUser(SignUpDto? signUpDto)
+    
+    public async Task<IActionResult> Handle(Request<SignUpDto> request, CancellationToken cancellationToken)
     {
+        var signUpDto = request.Body;
         if (signUpDto == null)
             return new BadRequestObjectResult("Request body is empty");
 

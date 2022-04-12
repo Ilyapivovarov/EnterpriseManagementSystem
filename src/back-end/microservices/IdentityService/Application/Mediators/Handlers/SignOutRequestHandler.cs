@@ -1,18 +1,20 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityService.Infrastructure.Implementations.Mediators.Auth;
+namespace IdentityService.Application.Mediators.Handlers;
 
-public class SignOutMediator : ISignOutMediator
+public class SignOutRequestHandler : IRequestHandler<Request<Guid>, IActionResult>
 {
     private readonly ISessionRepository _sessionRepository;
 
-    public SignOutMediator(ISessionRepository sessionRepository)
+    public SignOutRequestHandler(ISessionRepository sessionRepository)
     {
         _sessionRepository = sessionRepository;
     }
-
-    public async Task<ActionResult> SignOutUser(Guid userGuid)
+    
+    public async Task<IActionResult> Handle(Request<Guid> request, CancellationToken cancellationToken)
     {
+        var userGuid = request.Body;
         var session = await _sessionRepository.GetSessionByUserGuid(userGuid);
         if (session == null)
             return new BadRequestResult();

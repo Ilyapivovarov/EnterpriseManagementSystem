@@ -1,10 +1,9 @@
-using IdentityService.Application.Mediators.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityService.Application.Mediators.Handlers;
 
-public class SignInUserRequestHandler : IRequestHandler<SignInUserRequest, IActionResult>
+public class SignInUserRequestHandler : IRequestHandler<Request<SignInDto>, IActionResult>
 {
     private readonly IUserRepository _userRepository;
     private readonly ISessionRepository _sessionRepository;
@@ -18,9 +17,9 @@ public class SignInUserRequestHandler : IRequestHandler<SignInUserRequest, IActi
         _sessionBlService = sessionBlService;
     }
     
-    public async Task<IActionResult> Handle(SignInUserRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(Request<SignInDto> request, CancellationToken cancellationToken)
     {
-        var signInDto = request.SignInDto;
+        var signInDto = request.Body;
         if (signInDto == null)
             return new BadRequestObjectResult("Request body is empty");
 
