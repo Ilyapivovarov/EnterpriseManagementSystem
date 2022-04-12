@@ -5,7 +5,9 @@ namespace IdentityService.Application.Mediators.Requests;
 
 public class Request<T> : IRequest<IActionResult>
 {
-    public Request(T? value)
+    public static Request<T> Create(T? body) => new(body); 
+    
+    private Request(T? value)
     {
         Body = value;
     }
