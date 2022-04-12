@@ -4,7 +4,6 @@ global using IdentityService.Infrastructure.Implementations.Repositories.Base;
 global using EnterpriseManagementSystem.Contracts.Options;
 global using IdentityService.Infrastructure.Implementations.Services;
 global using IdentityService.Infrastructure.Implementations.Repositories;
-global using IdentityService.Application.Mediators.Auth;
 global using IdentityService.Application.Repositories;
 global using IdentityService.Application.Services;
 global using IdentityService.Application.Models;

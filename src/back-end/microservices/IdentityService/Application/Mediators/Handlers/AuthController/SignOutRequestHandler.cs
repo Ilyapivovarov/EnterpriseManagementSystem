@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityService.Application.Mediators.Handlers;
+namespace IdentityService.Application.Mediators.Handlers.AuthController;
 
 public class SignOutRequestHandler : IRequestHandler<Request<Guid>, IActionResult>
 {
