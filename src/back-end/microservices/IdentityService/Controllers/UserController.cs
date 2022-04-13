@@ -1,10 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace IdentityService.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class UserController : ControllerBase
@@ -16,9 +17,13 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
-    public Task<IActionResult> GetUserByGuid(Guid? guid)
-    {
-        return _mediator.Send(Request<Guid?>.Create(guid));
-    }
 
+    [HttpGet] 
+    public Task<IActionResult> GetAllUser(int page = 0) =>
+        _mediator.Send(Request<int>.Create(page));
+
+
+    [HttpGet("{guid}")]
+    public Task<IActionResult> GetUserByGuid(Guid? guid) =>
+        _mediator.Send(Request<Guid?>.Create(guid));
 }

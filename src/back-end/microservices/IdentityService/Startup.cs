@@ -1,3 +1,6 @@
+using IdentityService.Application.Policy;
+using Microsoft.AspNetCore.Mvc.Authorization;
+
 namespace IdentityService;
 
 public class Startup
@@ -17,12 +20,12 @@ public class Startup
         services.AddApplication(Configuration, Environment);
         services.AddInfrastructure(Configuration, Environment);
 
-        services.AddRouting(options =>
-        {
-            options.LowercaseUrls = true;
-        });
+        services.AddRouting(options => 
+            options.LowercaseUrls = true);
         
-        services.AddControllers();
+        services.AddControllers(configure => 
+            configure.Filters.Add(new AuthorizeFilter(ApplicationPolicy.GetAuthorizationPolicy())));
+        
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
     }
