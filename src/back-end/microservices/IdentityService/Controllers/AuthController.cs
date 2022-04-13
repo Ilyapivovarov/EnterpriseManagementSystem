@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IdentityService.Controllers;
 
 [ApiController]
+[AllowAnonymous]
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {

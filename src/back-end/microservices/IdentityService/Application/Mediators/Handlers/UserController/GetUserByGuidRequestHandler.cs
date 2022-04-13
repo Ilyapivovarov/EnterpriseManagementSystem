@@ -23,6 +23,6 @@ public class GetUserByGuidRequestHandler : IRequestHandler<Request<Guid>, IActio
         if (user == null)
             return new BadRequestObjectResult($"Not found user with guid {guid}");
 
-        return new OkObjectResult(user);
+        return new OkObjectResult(user.ToDto());
     }
 }

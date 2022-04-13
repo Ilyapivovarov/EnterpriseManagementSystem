@@ -4,8 +4,9 @@ public class UserRepository : RepositoryBase, IUserRepository
 {
     public UserRepository(ApplicationDbContext dbContext, ILogger<UserRepository> logger)
         : base(dbContext, logger)
-    {
-    }
+    { }
+
+    #region Queries
 
     public User? GetUserById(int id) =>
         LoadData(db => db.Users.FirstOrDefault(x => x.Id == id),
@@ -25,17 +26,8 @@ public class UserRepository : RepositoryBase, IUserRepository
         LoadData(db => db.Users.Any(x => x.Email == email),
             "Error while checking email");
 
-    public bool SaveUser(User user) =>
-        UpdateData(db => db.Users.Add(user),
-            $"Error while creating user with email {user.Email}");
-
-    public async Task<bool> SaveUserAsync(User user)
-    {
-        return await Task.Run(() => SaveUser(user));
-    }
-
-    public User? GetUserByEmail(string email) => 
-        LoadData(db => db.Users.FirstOrDefault(x => x.Email == email), 
+    public User? GetUserByEmail(string email) =>
+        LoadData(db => db.Users.FirstOrDefault(x => x.Email == email),
             $"Error while searching user with email {email}");
 
     public async Task<User?> GetUserByEmailAsync(string email)
@@ -51,4 +43,31 @@ public class UserRepository : RepositoryBase, IUserRepository
     {
         return await Task.Run(() => GetUserByGuid(guid));
     }
+
+    public async Task<User[]?> GetUsersByPageAsync(int page = 0)
+    {
+        var rangeStart = page * 100;
+        return await Task.Run(() =>
+        {
+            return LoadData(db => db.Users.OrderBy(x => x.Id)
+                .Skip(rangeStart)
+                .Take(rangeStart + 100)
+                .ToArray(), "Error while getting users");
+        });
+    }
+
+    #endregion
+
+    #region Command
+
+    public bool SaveUser(User user) =>
+        UpdateData(db => db.Users.Add(user),
+            $"Error while creating user with email {user.Email}");
+
+    public async Task<bool> SaveUserAsync(User user)
+    {
+        return await Task.Run(() => SaveUser(user));
+    }
+
+    #endregion
 }
