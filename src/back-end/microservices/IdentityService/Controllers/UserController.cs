@@ -20,10 +20,10 @@ public class UserController : ControllerBase
 
     [HttpGet] 
     public Task<IActionResult> GetAllUser(int page = 0) =>
-        _mediator.Send(Request<int>.Create(page));
+        _mediator.Send(Request<int, UserController>.Create(page));
 
 
     [HttpGet("{guid}")]
     public Task<IActionResult> GetUserByGuid(Guid? guid) =>
-        _mediator.Send(Request<Guid?>.Create(guid));
+        _mediator.Send(Request<Guid?, UserController>.Create(guid));
 }

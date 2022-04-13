@@ -1,9 +1,6 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+namespace IdentityService.Application.Mediators.Handlers.User;
 
-namespace IdentityService.Application.Mediators.Handlers.UserController;
-
-public class GetUserByGuidRequestHandler : IRequestHandler<Request<Guid>, IActionResult>
+public class GetUserByGuidRequestHandler : IRequestHandler<Request<Guid, UserController>, IActionResult>
 {
     private readonly IUserRepository _userRepository;
 
@@ -13,7 +10,7 @@ public class GetUserByGuidRequestHandler : IRequestHandler<Request<Guid>, IActio
     }
 
 
-    public async Task<IActionResult> Handle(Request<Guid> request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(Request<Guid, UserController> request, CancellationToken cancellationToken)
     {
         var guid = request.Body;
         if (guid == Guid.Empty)

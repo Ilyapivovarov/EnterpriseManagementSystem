@@ -15,3 +15,6 @@ global using IdentityService.Application.Models.Base;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
 global using EnterpriseManagementSystem.Contracts.Constants;
 global using IdentityService.Application.Mediators.Requests;
+global using IdentityService.Controllers;
+global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
