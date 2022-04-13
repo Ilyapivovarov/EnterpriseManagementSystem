@@ -1,9 +1,6 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+namespace IdentityService.Application.Mediators.Handlers.Auth;
 
-namespace IdentityService.Application.Mediators.Handlers.AuthController;
-
-public class SignUpUserRequestHandler : IRequestHandler<Request<SignUpDto>, IActionResult>
+public class SignUpUserRequestHandler : IRequestHandler<Request<SignUpDto, AuthController>, IActionResult>
 {
     private readonly IUserBlService _userBlService;
     private readonly IUserRepository _userRepository;
@@ -21,7 +18,7 @@ public class SignUpUserRequestHandler : IRequestHandler<Request<SignUpDto>, IAct
         _securityService = securityService;
     }
     
-    public async Task<IActionResult> Handle(Request<SignUpDto> request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(Request<SignUpDto, AuthController> request, CancellationToken cancellationToken)
     {
         var signUpDto = request.Body;
         if (signUpDto == null)

@@ -1,9 +1,6 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+namespace IdentityService.Application.Mediators.Handlers.User;
 
-namespace IdentityService.Application.Mediators.Handlers.UserController;
-
-public class GetUsersRequestHandler : IRequestHandler<Request<int>, IActionResult>
+public class GetUsersRequestHandler : IRequestHandler<Request<int, UserController>, IActionResult>
 {
     private readonly IUserRepository _userRepository;
 
@@ -12,7 +9,7 @@ public class GetUsersRequestHandler : IRequestHandler<Request<int>, IActionResul
         _userRepository = userRepository;
     }
 
-    public async Task<IActionResult> Handle(Request<int> request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(Request<int, UserController> request, CancellationToken cancellationToken)
     {
         var data = await _userRepository.GetUsersByPageAsync(request.Body);
         return new OkObjectResult(data);
