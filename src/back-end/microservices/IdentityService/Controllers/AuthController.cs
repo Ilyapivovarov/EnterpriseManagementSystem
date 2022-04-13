@@ -23,7 +23,7 @@ public class AuthController : ControllerBase
     [HttpPost]
     [Route("sign-in")]
     public async Task<IActionResult> SignInUser([FromBody] SignInDto? signIn) =>
-        await _mediator.Send(Request<SignInDto>.Create(signIn));
+        await _mediator.Send(Request<SignInDto, AuthController>.Create(signIn));
 
     /// <summary>
     /// Register and authorize user 
@@ -33,7 +33,7 @@ public class AuthController : ControllerBase
     [HttpPost]
     [Route("sign-up")]
     public async Task<IActionResult> SignUpUser([FromBody] SignUpDto? signUp) =>
-        await _mediator.Send(Request<SignUpDto>.Create(signUp));
+        await _mediator.Send(Request<SignUpDto, AuthController>.Create(signUp));
 
     /// <summary>
     /// Logout user
@@ -45,6 +45,6 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> SignOutUser()
     {
         var guidStr = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
-        return await _mediator.Send(Request<Guid>.Create(Guid.Parse(guidStr)));
+        return await _mediator.Send(Request<Guid, AuthController>.Create(Guid.Parse(guidStr)));
     }
 }

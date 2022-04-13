@@ -1,9 +1,6 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+namespace IdentityService.Application.Mediators.Handlers.Auth;
 
-namespace IdentityService.Application.Mediators.Handlers.AuthController;
-
-public class SignOutRequestHandler : IRequestHandler<Request<Guid>, IActionResult>
+public class SignOutRequestHandler : IRequestHandler<Request<Guid, AuthController>, IActionResult>
 {
     private readonly ISessionRepository _sessionRepository;
 
@@ -12,7 +9,7 @@ public class SignOutRequestHandler : IRequestHandler<Request<Guid>, IActionResul
         _sessionRepository = sessionRepository;
     }
     
-    public async Task<IActionResult> Handle(Request<Guid> request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(Request<Guid, AuthController> request, CancellationToken cancellationToken)
     {
         var userGuid = request.Body;
         var session = await _sessionRepository.GetSessionByUserGuid(userGuid);

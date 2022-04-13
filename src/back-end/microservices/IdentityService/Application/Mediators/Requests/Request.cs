@@ -1,11 +1,8 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
 namespace IdentityService.Application.Mediators.Requests;
 
-public class Request<T> : IRequest<IActionResult>
+public class Request<T, TControllerType> : IRequest<IActionResult>
 {
-    public static Request<T> Create(T? body) => new(body); 
+    public static Request<T, TControllerType> Create(T? body) => new(body); 
     
     private Request(T? value)
     {
