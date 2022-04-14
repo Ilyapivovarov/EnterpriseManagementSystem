@@ -1,0 +1,8 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6361c90e_002D733d_002D45f4_002D97a2_002Dacd1ac6b09d5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::30F5913C-5706-437C-A6DC-96200ABD7B5A::net6.0::IdentityService.Tests.MapperTests.Test1&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::CCBF76EC-477F-4DCB-8C65-25A150AE4B35::net6.0::IdentityService.IntegrationTests.DatabaseConnectionTest.Test1&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::CCBF76EC-477F-4DCB-8C65-25A150AE4B35::net6.0::IdentityService.IntegrationTests.IdentityServiceIntegrationTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

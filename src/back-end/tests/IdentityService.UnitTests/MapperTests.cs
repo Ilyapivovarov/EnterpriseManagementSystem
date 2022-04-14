@@ -2,7 +2,7 @@ using IdentityService.Application.Mapper;
 using IdentityService.Application.Models;
 using NUnit.Framework;
 
-namespace IdentityService.Tests;
+namespace IdentityService.UnitTests;
 
 public class MapperTests
 {
@@ -12,7 +12,7 @@ public class MapperTests
     }
 
     [Test]
-    public void Test1()
+    public void TestMappingUserToUserDto()
     {
         var user = new User()
         {
