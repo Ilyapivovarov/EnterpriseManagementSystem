@@ -1,14 +1,11 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace IdentityService.Infrastructure.AppData;
 
 public class ApplicationDbContextSeed
 {
-    public static async void SeedData(ApplicationDbContext context, ILogger logger)
+    public static async Task SeedData(ApplicationDbContext context, ILogger logger)
     {
         try
         {
-            logger.LogInformation($"{context.Database.GetConnectionString()}");
             if (await context.Database.CanConnectAsync())
             {
                 if (!context.Users.Any())
@@ -20,7 +17,7 @@ public class ApplicationDbContextSeed
                         FirstName = "Admin",
                         LastName = "Admin"
                     });
-                    
+
                     await context.SaveChangesAsync();
                 }
             }
