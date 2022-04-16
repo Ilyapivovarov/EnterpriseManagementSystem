@@ -1,3 +1,5 @@
+using Session = IdentityService.Application.Models.Session;
+
 namespace IdentityService.Infrastructure.Implementations.Repositories;
 
 public class SessionRepository : RepositoryBase, ISessionRepository

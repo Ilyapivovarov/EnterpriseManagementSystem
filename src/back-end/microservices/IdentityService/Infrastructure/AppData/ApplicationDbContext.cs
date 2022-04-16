@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Session = IdentityService.Application.Models.Session;
 
 namespace IdentityService.Infrastructure.AppData;
 

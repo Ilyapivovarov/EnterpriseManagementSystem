@@ -1,27 +1,28 @@
 using AutoMapper;
+using Session = EnterpriseManagementSystem.Contracts.WebContracts.Session;
 
 namespace IdentityService.Application.Mapper;
 
 public static class MapperExtensions
 {
-    public static UserDto ToDto(this User user)
+    public static Account ToDto(this User user)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<User, UserDto>());
+            cfg.CreateMap<User, Account>());
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<User, UserDto>(user);
+        return mapper.Map<User, Account>(user);
     }
 
-    public static SessionDto ToDto(this Session user)
+    public static Session ToDto(this Models.Session user)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<Session, SessionDto>()
+            cfg.CreateMap<Models.Session, Session>()
                 .ForMember(dto => dto.UserGuid,
                     source 
                         => source.MapFrom(c => c.User.Guid)));
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<Session, SessionDto>(user);
+        return mapper.Map<Models.Session, Session>(user);
     }
 }

@@ -13,7 +13,7 @@ var host = Host.CreateDefaultBuilder(args)
 var scope = host.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 var logger = scope.ServiceProvider.GetRequiredService<ILogger<ApplicationDbContextSeed>>();
-ApplicationDbContextSeed.SeedData(context, logger);
+await ApplicationDbContextSeed.SeedData(context, logger);
 
 
 await host.RunAsync();

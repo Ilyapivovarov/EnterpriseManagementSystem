@@ -20,7 +20,7 @@ public class AuthHttpClient : IAuthHttpClient
         };
     }
     
-    public async Task<IActionResult> SignInAsync(SignInDto signIn)
+    public async Task<IActionResult> SignInAsync(SignIn signIn)
     {
         var content = new StringContent(JsonSerializer.Serialize(signIn), Encoding.UTF8, MediaTypeNames.Application.Json);
         var response = await _httpClient.PostAsync(UrlConfig.IdentityApi.SignIn, content);
@@ -28,7 +28,7 @@ public class AuthHttpClient : IAuthHttpClient
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-           var sessionDto = JsonSerializer.Deserialize<SessionDto>(sessionDraft, _jsonSerializerOptions);
+           var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, _jsonSerializerOptions);
            return new OkObjectResult(sessionDto);
         } 
         
@@ -42,7 +42,7 @@ public class AuthHttpClient : IAuthHttpClient
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-            var sessionDto = JsonSerializer.Deserialize<SessionDto>(sessionDraft, _jsonSerializerOptions);
+            var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, _jsonSerializerOptions);
             return new OkObjectResult(sessionDto);
         } 
         
@@ -56,7 +56,7 @@ public class AuthHttpClient : IAuthHttpClient
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-            var sessionDto = JsonSerializer.Deserialize<SessionDto>(sessionDraft, _jsonSerializerOptions);
+            var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, _jsonSerializerOptions);
             return new OkObjectResult(sessionDto);
         } 
         

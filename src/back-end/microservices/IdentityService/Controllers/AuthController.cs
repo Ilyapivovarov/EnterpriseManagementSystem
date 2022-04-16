@@ -22,8 +22,8 @@ public class AuthController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [Route("sign-in")]
-    public async Task<IActionResult> SignInUser([FromBody] SignInDto? signIn) =>
-        await _mediator.Send(Request<SignInDto, AuthController>.Create(signIn));
+    public async Task<IActionResult> SignInUser([FromBody] SignIn? signIn) =>
+        await _mediator.Send(Request<SignIn, AuthController>.Create(signIn));
 
     /// <summary>
     /// Register and authorize user 

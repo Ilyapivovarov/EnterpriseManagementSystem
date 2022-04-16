@@ -1,3 +1,5 @@
+using Session = IdentityService.Application.Models.Session;
+
 namespace IdentityService.Application.BlServices;
 
 public interface ISessionBlService

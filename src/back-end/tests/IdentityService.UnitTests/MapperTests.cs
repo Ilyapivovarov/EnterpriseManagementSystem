@@ -29,12 +29,12 @@ public class MapperTests
         Assert.True(PeroperyComparer(user, userDto));
     }
 
-    private static bool PeroperyComparer(User user, UserDto userDto)
+    private static bool PeroperyComparer(User user, Account account)
     {
-        return user.Email == userDto.Email
-               && user.Role.ToString() == userDto.Role
-               && user.FirstName == userDto.FirstName
-               && user.LastName == userDto.LastName
-               && user.Guid == userDto.Guid;
+        return user.Email == account.Email
+               && user.Role.ToString() == account.Role
+               && user.FirstName == account.FirstName
+               && user.LastName == account.LastName
+               && user.Guid == account.Guid;
     }
 }

@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Handlers.Auth;
 
-public class SignInUserRequestHandler : IRequestHandler<Request<SignInDto, AuthController>, IActionResult>
+public class SignInUserRequestHandler : IRequestHandler<Request<SignIn, AuthController>, IActionResult>
 {
     private readonly IUserRepository _userRepository;
     private readonly ISessionRepository _sessionRepository;
@@ -14,7 +14,7 @@ public class SignInUserRequestHandler : IRequestHandler<Request<SignInDto, AuthC
         _sessionBlService = sessionBlService;
     }
     
-    public async Task<IActionResult> Handle(Request<SignInDto, AuthController> request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(Request<SignIn, AuthController> request, CancellationToken cancellationToken)
     {
         var signInDto = request.Body;
         if (signInDto == null)

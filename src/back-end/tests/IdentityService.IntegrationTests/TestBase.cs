@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Reflection;
 using IdentityService.Infrastructure.AppData;
@@ -14,7 +15,7 @@ public class TestBase
         var path = Assembly.GetExecutingAssembly().Location;
 
         var hostBuilder = new WebHostBuilder()
-            .UseContentRoot(Path.GetDirectoryName(path))
+            .UseContentRoot(Path.GetDirectoryName(path) ?? throw new ArgumentNullException(path))
             .ConfigureAppConfiguration(configuration =>
             {
                 configuration.AddJsonFile("appsettings.json", false)
