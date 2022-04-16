@@ -63,7 +63,8 @@ public class SessionBlService : ISessionBlService
         var claims = new List<Claim>
         {
             new(ClaimTypes.Email, user.Email),
-            new(ClaimTypes.NameIdentifier, user.Guid.ToString())
+            new(ClaimTypes.NameIdentifier, user.Guid.ToString()),
+            new(ClaimTypes.Role, user.Role.ToString())
         };
 
         var token = new JwtSecurityToken(
