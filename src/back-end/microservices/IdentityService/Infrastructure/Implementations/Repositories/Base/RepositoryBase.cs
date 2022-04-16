@@ -24,7 +24,7 @@ public abstract class RepositoryBase
         }
     }
 
-    protected bool UpdateData(Action<ApplicationDbContext> writeFunc, string message)
+    protected bool SaveData(Action<ApplicationDbContext> writeFunc, string message)
     {
         try
         {
@@ -39,7 +39,7 @@ public abstract class RepositoryBase
         }
     }
     
-    protected async Task<bool> UpdateDataAsync(Action<ApplicationDbContext> writeFunc, string message)
+    protected async Task<bool> SaveDataAsync(Action<ApplicationDbContext> writeFunc, string message)
     {
         try
         {

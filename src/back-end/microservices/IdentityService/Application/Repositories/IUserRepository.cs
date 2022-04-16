@@ -86,5 +86,19 @@ public interface IUserRepository
     /// <param name="user"></param>
     public Task<bool> SaveUserAsync(User user);
 
+    /// <summary>
+    /// Update user
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    public bool UpdateUser(User user);
+
+    /// <summary>
+    /// Update user
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    public Task<bool> UpadteUserAsync(User user);
+
     #endregion
 }

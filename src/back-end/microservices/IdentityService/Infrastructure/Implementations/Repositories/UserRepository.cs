@@ -4,7 +4,8 @@ public class UserRepository : RepositoryBase, IUserRepository
 {
     public UserRepository(ApplicationDbContext dbContext, ILogger<UserRepository> logger)
         : base(dbContext, logger)
-    { }
+    {
+    }
 
     #region Queries
 
@@ -61,13 +62,19 @@ public class UserRepository : RepositoryBase, IUserRepository
     #region Command
 
     public bool SaveUser(User user) =>
-        UpdateData(db => db.Users.Add(user),
+        SaveData(db => db.Users.Add(user),
             $"Error while creating user with email {user.Email}");
 
     public async Task<bool> SaveUserAsync(User user)
     {
         return await Task.Run(() => SaveUser(user));
     }
+
+    public bool UpdateUser(User user) =>
+        SaveData(db => db.Update(user), "Error while update user data");
+
+    public async Task<bool> UpadteUserAsync(User user) =>
+        await Task.Run(() => UpdateUser(user));
 
     #endregion
 }

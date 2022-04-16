@@ -1,9 +1,3 @@
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Mvc.Filters;
-
 namespace IdentityService.Controllers;
 
 [ApiController]
@@ -18,12 +12,17 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpGet] 
-    public Task<IActionResult> GetAllUser(int page = 0) =>
-        _mediator.Send(Request<int, UserController>.Create(page));
+    [HttpGet]
+    public async Task<IActionResult> GetAllUser(int page = 0) =>
+        await _mediator.Send(Request<int, UserController>.Create(page));
 
 
     [HttpGet("{guid}")]
-    public Task<IActionResult> GetUserByGuid(Guid? guid) =>
-        _mediator.Send(Request<Guid?, UserController>.Create(guid));
+    public async Task<IActionResult> GetUserByGuid(Guid? guid) =>
+        await _mediator.Send(Request<Guid?, UserController>.Create(guid));
+
+    [HttpPost]
+    [Route("update")]
+    public async Task<IActionResult> GetAllUser([FromBody] UserInfo? userInfo) =>
+        await _mediator.Send(Request<UserInfo?, UserController>.Create(userInfo));
 }

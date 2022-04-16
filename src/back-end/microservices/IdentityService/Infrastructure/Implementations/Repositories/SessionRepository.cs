@@ -10,7 +10,7 @@ public class SessionRepository : RepositoryBase, ISessionRepository
     
     public bool SaveOrUpdateSession(Session session)
     {
-        return UpdateData(db =>
+        return SaveData(db =>
             {
                 if (session.Id != 0)
                 {
@@ -43,7 +43,7 @@ public class SessionRepository : RepositoryBase, ISessionRepository
 
     public async Task<bool> RemoveSession(Session session)
     {
-        return await UpdateDataAsync(db => db.Sessions.Remove(session), 
+        return await SaveDataAsync(db => db.Sessions.Remove(session), 
             $"Error while removind sessiong with guid {session.Guid}");
     }
 }

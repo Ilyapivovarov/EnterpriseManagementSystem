@@ -15,7 +15,8 @@ public class ApplicationDbContextSeed
                         Email = "admin@admin.com",
                         Password = "admin",
                         FirstName = "Admin",
-                        LastName = "Admin"
+                        LastName = "Admin",
+                        Role = UserRole.Admin
                     });
 
                     await context.SaveChangesAsync();
