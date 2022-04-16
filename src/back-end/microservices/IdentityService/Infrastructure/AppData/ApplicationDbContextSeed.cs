@@ -24,7 +24,7 @@ public class ApplicationDbContextSeed
         }
         catch (Exception ex)
         {
-            logger.LogCritical("An error occurred while migrating or seeding the database", ex);
+            logger.LogCritical(ex, "An error occurred while migrating or seeding the database");
         }
     }
 }
