@@ -8,7 +8,8 @@ public class IdentityServiceIntegrationTests : TestBase
 {
     [SetUp]
     public void Setup()
-    { }
+    {
+    }
 
     [Test]
     public void TestConnectionToDatabase()
