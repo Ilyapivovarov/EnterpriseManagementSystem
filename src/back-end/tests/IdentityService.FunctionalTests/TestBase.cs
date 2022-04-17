@@ -20,9 +20,12 @@ public class TestBase
     public TestBase()
     {
         EmptyServer = GetEmptyTestServer();
+        User = GetUser();
     }
 
-    protected TestServer EmptyServer { get; }
+    protected User User { get; }
+    
+    private TestServer EmptyServer { get; }
 
     [OneTimeTearDown]
     public void RemoveDatabase()
@@ -46,10 +49,9 @@ public class TestBase
         return new TestServer(hostBuilder);
     }
 
-    protected static TestServer GetTestServer()
+    protected TestServer GetTestServer()
     {
         var path = Assembly.GetExecutingAssembly().Location;
-
         var hostBuilder = new WebHostBuilder()
             .UseContentRoot(Path.GetDirectoryName(path) ?? throw new ArgumentNullException(nameof(path)))
             .ConfigureAppConfiguration(configuration =>
@@ -62,20 +64,23 @@ public class TestBase
         var context = test.Services.GetRequiredService<ApplicationDbContext>();
         if (!context.Users.Any())
         {
-            context.Users.Add(new User
-            {
-                Email = "admin@admin.com",
-                Password = "admin",
-                FirstName = "Admin",
-                LastName = "Admin",
-                Role = UserRole.Admin
-            });
-            
+            context.Users.Add(User);
             
             context.SaveChanges();
         }
-
-
+        
         return test;
+    }
+
+    private User GetUser()
+    {
+        return new User()
+        {
+            Email = "admin@admin.com",
+            Password = "admin",
+            FirstName = "Admin",
+            LastName = "Admin",
+            Role = UserRole.Admin
+        };
     }
 }

@@ -2,9 +2,9 @@ namespace IdentityService.Infrastructure.Implementations.BlServices;
 
 public class UserBlService : IUserBlService
 {
-    private readonly ILogger<UserBlService> _logger;
+    private readonly ILogger<UserBlService>? _logger;
 
-    public UserBlService(ILogger<UserBlService> logger)
+    public UserBlService(ILogger<UserBlService>? logger)
     {
         _logger = logger;
     }
@@ -28,10 +28,10 @@ public class UserBlService : IUserBlService
     {
         try
         {
-            if (firstName != null)
+            if (!string.IsNullOrWhiteSpace(firstName))
                 user.FirstName = firstName;
 
-            if (string.IsNullOrWhiteSpace(lastName))
+            if (!string.IsNullOrWhiteSpace(lastName))
                 user.LastName = lastName;
 
             if (role != null)
@@ -39,7 +39,7 @@ public class UserBlService : IUserBlService
 
             return true;
         }
-        catch (Exception e)
+        catch (Exception? e)
         {
             _logger.LogError(e, "Error while update user info");
             return false;
