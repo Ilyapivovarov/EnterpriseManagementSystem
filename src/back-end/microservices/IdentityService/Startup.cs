@@ -19,12 +19,11 @@ public class Startup
     {
         services.AddApplication(Configuration, Environment);
         services.AddInfrastructure(Configuration, Environment);
-
+        
         services.AddRouting(options => 
             options.LowercaseUrls = true);
-        
-        services.AddControllers(configure => 
-            configure.Filters.Add(new AuthorizeFilter(ApplicationPolicy.GetAuthorizationPolicy())));
+
+        services.AddControllers();
         
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();

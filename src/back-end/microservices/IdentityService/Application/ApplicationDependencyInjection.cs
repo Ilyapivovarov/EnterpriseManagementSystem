@@ -26,10 +26,10 @@ public static class ApplicationDependencyInjection
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = false,
+                    ValidateIssuer = true,
                     ValidIssuer = authOpt.Issuer,
 
-                    ValidateAudience = false,
+                    ValidateAudience = true,
                     ValidAudience = authOpt.Audience,
 
                     ValidateLifetime = true,
@@ -38,7 +38,6 @@ public static class ApplicationDependencyInjection
                     ValidateIssuerSigningKey = true
                 };
             });
-
 
         #endregion
     }
