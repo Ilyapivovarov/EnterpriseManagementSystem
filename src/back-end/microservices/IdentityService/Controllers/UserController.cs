@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-
 namespace IdentityService.Controllers;
 
 [ApiController]
@@ -16,15 +14,15 @@ public class UserController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> GetAllUser(int page = 0) =>
-        await _mediator.Send(Request<int, UserController>.Create(page));
+        await _mediator.Send(UserControllerRequest<int>.Create(page));
 
 
-    [HttpGet("{guid}")]
-    public async Task<IActionResult> GetUserByGuid(Guid? guid) =>
-        await _mediator.Send(Request<Guid?, UserController>.Create(guid));
+    [HttpGet("{guid:guid}")]
+    public async Task<IActionResult> GetUserByGuid(Guid guid) =>
+        await _mediator.Send(UserControllerRequest<Guid>.Create(guid));
 
     [HttpPost]
     [Route("update")]
     public async Task<IActionResult> GetAllUser([FromBody] UserInfo? userInfo) =>
-        await _mediator.Send(Request<UserInfo?, UserController>.Create(userInfo));
+        await _mediator.Send(UserControllerRequest<UserInfo?>.Create(userInfo));
 }

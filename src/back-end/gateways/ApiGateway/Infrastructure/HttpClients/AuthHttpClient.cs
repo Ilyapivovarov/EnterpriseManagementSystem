@@ -35,9 +35,9 @@ public class AuthHttpClient : IAuthHttpClient
         return new BadRequestObjectResult(sessionDraft);
     }
 
-    public async Task<IActionResult> SignUpAsync(SignUpDto signUpDto)
+    public async Task<IActionResult> SignUpAsync(SignUp signUp)
     {
-        var content = new StringContent(JsonSerializer.Serialize(signUpDto), Encoding.UTF8, MediaTypeNames.Application.Json);
+        var content = new StringContent(JsonSerializer.Serialize(signUp), Encoding.UTF8, MediaTypeNames.Application.Json);
         var response = await _httpClient.PostAsync(UrlConfig.IdentityApi.SignUp, content);
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)

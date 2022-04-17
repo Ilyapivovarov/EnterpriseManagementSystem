@@ -2,7 +2,7 @@ namespace EnterpriseManagementSystem.Contracts.WebContracts;
 
 public record SignIn(string Email, string Password);
 
-public record SignUpDto(string Email, string Password, string ConfirmPassword);
+public record SignUp(string Email, string Password, string ConfirmPassword);
 
 public record Session(string AccessToken, string RefreshToken, Guid UserGuid);
 

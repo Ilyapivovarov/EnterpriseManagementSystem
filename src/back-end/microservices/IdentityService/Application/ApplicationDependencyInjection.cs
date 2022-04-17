@@ -1,4 +1,6 @@
 using System.Reflection;
+using IdentityService.Application.Mediators.Handlers.Auth;
+using IdentityService.Application.Mediators.Handlers.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 

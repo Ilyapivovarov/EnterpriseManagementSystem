@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Handlers.User;
 
-public class GetUsersRequestHandler : IRequestHandler<Request<int, UserController>, IActionResult>
+public class GetUsersRequestHandler : IRequestHandler<UserControllerRequest<int>, IActionResult>
 {
     private readonly IUserRepository _userRepository;
 
@@ -9,7 +9,7 @@ public class GetUsersRequestHandler : IRequestHandler<Request<int, UserControlle
         _userRepository = userRepository;
     }
 
-    public async Task<IActionResult> Handle(Request<int, UserController> request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(UserControllerRequest<int> request, CancellationToken cancellationToken)
     {
         var data = await _userRepository.GetUsersByPageAsync(request.Body);
         return new OkObjectResult(data);

@@ -25,9 +25,9 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("sign-up")]
-    public async Task<IActionResult> SingInUser([FromBody] SignUpDto signUpDto)
+    public async Task<IActionResult> SingInUser([FromBody] SignUp signUp)
     {
-        return await _authHttpClientService.SignUpAsync(signUpDto);
+        return await _authHttpClientService.SignUpAsync(signUp);
     }
 
     [Authorize]

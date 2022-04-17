@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Handlers.User;
 
-public class GetUserByGuidRequestHandler : IRequestHandler<Request<Guid, UserController>, IActionResult>
+public class GetUserByGuidRequestHandler : IRequestHandler<UserControllerRequest<Guid>, IActionResult>
 {
     private readonly IUserRepository _userRepository;
 
@@ -10,7 +10,7 @@ public class GetUserByGuidRequestHandler : IRequestHandler<Request<Guid, UserCon
     }
 
 
-    public async Task<IActionResult> Handle(Request<Guid, UserController> request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(UserControllerRequest<Guid> request, CancellationToken cancellationToken)
     {
         var guid = request.Body;
         if (guid == Guid.Empty)

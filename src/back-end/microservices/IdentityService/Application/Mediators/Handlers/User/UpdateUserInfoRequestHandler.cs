@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Handlers.User;
 
-public class UpdateUserInfoRequestHandler : IRequestHandler<Request<UserInfo, UserController>, IActionResult>
+public class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerRequest<UserInfo>, IActionResult>
 {
     private readonly IUserRepository _userRepository;
     private readonly IUserBlService _userBlService;
@@ -11,7 +11,7 @@ public class UpdateUserInfoRequestHandler : IRequestHandler<Request<UserInfo, Us
         _userBlService = userBlService;
     }
 
-    public async Task<IActionResult> Handle(Request<UserInfo, UserController> request,
+    public async Task<IActionResult> Handle(UserControllerRequest<UserInfo> request,
         CancellationToken cancellationToken)
     {
         var userInfo = request.Body;

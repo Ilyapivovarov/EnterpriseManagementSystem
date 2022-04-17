@@ -6,7 +6,7 @@ public interface IAuthHttpClient
 {
     public Task<IActionResult> SignInAsync(SignIn signIn);
 
-    public Task<IActionResult> SignUpAsync(SignUpDto signUpDto);
+    public Task<IActionResult> SignUpAsync(SignUp signUp);
 
     public Task<IActionResult> SignOutUser();
 }
