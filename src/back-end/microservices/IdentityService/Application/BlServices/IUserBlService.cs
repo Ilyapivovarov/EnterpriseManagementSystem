@@ -2,12 +2,14 @@ namespace IdentityService.Application.BlServices;
 
 public interface IUserBlService
 {
-    public User ChngeUserBioInfo(User user, string firstName, string lastName);
-
-    public User ChangeEmail(User user, string email);
-
-    public User ChangePassword(User user, string password);
-
+    /// <summary>
+    /// Create new User
+    /// </summary>
+    /// <param name="email"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
+    public User CreateUser(string email, string password);
+    
     /// <summary>
     /// Change role for user
     /// </summary>
@@ -17,6 +19,4 @@ public interface IUserBlService
     /// <param name="role"></param>
     /// <returns></returns>
     public bool ChangeUserInfo(User user, string? firstName, string? lastName, string? role);
-    
-    public User CreateUser(string email, string password);
 }
