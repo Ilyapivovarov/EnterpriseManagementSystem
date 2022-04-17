@@ -24,17 +24,13 @@ public class Startup
             options.LowercaseUrls = true);
 
         services.AddControllers();
-        
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
     }
 
     public void Configure(IApplicationBuilder app)
     {
         if (Environment.IsDevelopment())
         {
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseDeveloperExceptionPage();
         }
 
         app.UseRouting();
