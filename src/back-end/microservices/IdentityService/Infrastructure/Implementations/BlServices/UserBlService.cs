@@ -2,28 +2,22 @@ namespace IdentityService.Infrastructure.Implementations.BlServices;
 
 public class UserBlService : IUserBlService
 {
-    private readonly ILogger<UserBlService>? _logger;
+    private readonly ILogger<UserBlService> _logger;
 
-    public UserBlService(ILogger<UserBlService>? logger)
+    public UserBlService(ILogger<UserBlService> logger)
     {
         _logger = logger;
     }
-
-    public User ChngeUserBioInfo(User user, string firstName, string lastName)
+    
+    public User CreateUser(string email, string password)
     {
-        throw new NotImplementedException();
+        return new User
+        {
+            Email = email,
+            Password = password
+        };
     }
-
-    public User ChangeEmail(User user, string email)
-    {
-        throw new NotImplementedException();
-    }
-
-    public User ChangePassword(User user, string password)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public bool ChangeUserInfo(User user, string? firstName, string? lastName, string? role)
     {
         try
@@ -39,19 +33,10 @@ public class UserBlService : IUserBlService
 
             return true;
         }
-        catch (Exception? e)
+        catch (Exception e)
         {
             _logger.LogError(e, "Error while update user info");
             return false;
         }
-    }
-
-    public User CreateUser(string email, string password)
-    {
-        return new User
-        {
-            Email = email,
-            Password = password
-        };
     }
 }

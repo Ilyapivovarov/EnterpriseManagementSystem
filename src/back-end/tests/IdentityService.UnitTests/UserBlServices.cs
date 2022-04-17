@@ -8,7 +8,12 @@ namespace IdentityService.UnitTests;
 
 public class UserBlServiceTests 
 {
-    public ILogger<UserBlService>? Logger { get; set; }
+    public UserBlServiceTests()
+    {
+        Logger = Logger = Mock.Of<ILogger<UserBlService>>();
+    }
+    
+    public ILogger<UserBlService> Logger { get; set; }
 
     [SetUp]
     public void SetUp()
