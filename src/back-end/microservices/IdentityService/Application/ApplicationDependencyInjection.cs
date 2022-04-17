@@ -1,5 +1,4 @@
 using System.Reflection;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,32 +11,32 @@ public static class ApplicationDependencyInjection
     {
         serviceProvider.AddMediatR(Assembly.GetExecutingAssembly());
         serviceProvider.AddAutoMapper(Assembly.GetExecutingAssembly());
-        
-        
+
         #region Register Jwt auth
-        
+
         var section = configuration.GetSection(ConfigurationSectionName.Auth);
         serviceProvider.Configure<AuthOption>(section);
-        
-        var authOpt = configuration.GetSection(ConfigurationSectionName.Auth).Get<AuthOption>();
+
+        var authOpt = section.Get<AuthOption>();
+
         serviceProvider.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = new TokenValidationParameters
             {
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = authOpt.Issuer,
+                ValidateIssuer = true,
+                ValidIssuer = authOpt.Issuer,
 
-                    ValidateAudience = true,
-                    ValidAudience = authOpt.Audience,
+                ValidateAudience = true,
+                ValidAudience = authOpt.Audience,
 
-                    ValidateLifetime = true,
+                ValidateLifetime = true,
 
-                    IssuerSigningKey = authOpt.GetSymmetricSecurityKey(),
-                    ValidateIssuerSigningKey = true
-                };
-            });
+                IssuerSigningKey = authOpt.GetSymmetricSecurityKey(),
+                ValidateIssuerSigningKey = true
+            };
+        });
 
         #endregion
     }

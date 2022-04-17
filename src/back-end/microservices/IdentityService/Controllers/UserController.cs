@@ -15,13 +15,11 @@ public class UserController : ControllerBase
 
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetAllUser(int page = 0) =>
         await _mediator.Send(Request<int, UserController>.Create(page));
 
 
     [HttpGet("{guid}")]
-    [Authorize]
     public async Task<IActionResult> GetUserByGuid(Guid? guid) =>
         await _mediator.Send(Request<Guid?, UserController>.Create(guid));
 
