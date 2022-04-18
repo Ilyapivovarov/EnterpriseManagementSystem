@@ -5,24 +5,24 @@ namespace IdentityService.Application.Mapper;
 
 public static class MapperExtensions
 {
-    public static Account ToDto(this User user)
+    public static Account ToDto(this UserDbEntity user)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<User, Account>());
+            cfg.CreateMap<UserDbEntity, Account>());
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<User, Account>(user);
+        return mapper.Map<UserDbEntity, Account>(user);
     }
 
-    public static Session ToDto(this Models.Session user)
+    public static Session ToDto(this Models.SessionDbEntity user)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<Models.Session, Session>()
+            cfg.CreateMap<Models.SessionDbEntity, Session>()
                 .ForMember(dto => dto.UserGuid,
                     source 
                         => source.MapFrom(c => c.User.Guid)));
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<Models.Session, Session>(user);
+        return mapper.Map<Models.SessionDbEntity, Session>(user);
     }
 }

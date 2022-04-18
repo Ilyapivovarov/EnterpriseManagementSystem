@@ -9,14 +9,14 @@ public interface IUserRepository
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public User? GetUserById(int id);
+    public UserDbEntity? GetUserById(int id);
 
     /// <summary>
     /// Getting user from database by Id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<User?> GetUserByIdAsync(int id);
+    public Task<UserDbEntity?> GetUserByIdAsync(int id);
 
     /// <summary>
     /// Getting user from database by email
@@ -24,7 +24,7 @@ public interface IUserRepository
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public User? GetUserByEmailAndPassword(string email, string password);
+    public UserDbEntity? GetUserByEmailAndPassword(string email, string password);
 
     /// <summary>
     /// Getting user from database by email
@@ -32,7 +32,7 @@ public interface IUserRepository
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public Task<User?> GetUserByEmailAndPasswordAsync(string email, string password);
+    public Task<UserDbEntity?> GetUserByEmailAndPasswordAsync(string email, string password);
 
     /// <summary>
     /// Checks if the email exists
@@ -46,29 +46,29 @@ public interface IUserRepository
     /// </summary>
     /// <param name="email"></param>
     /// <returns></returns>
-    public User? GetUserByEmail(string email);
+    public UserDbEntity? GetUserByEmail(string email);
 
     /// <summary>
     /// Getting user by email async
     /// </summary>
     /// <param name="email"></param>
-    public Task<User?> GetUserByEmailAsync(string email);
+    public Task<UserDbEntity?> GetUserByEmailAsync(string email);
 
-    public User? GetUserByGuid(Guid guid);
+    public UserDbEntity? GetUserByGuid(Guid guid);
 
     /// <summary>
     /// Geting user by guid async 
     /// </summary>
     /// <param name="guid">User guid</param>
     /// <returns></returns>
-    public Task<User?> GetUserByGuidAsync(Guid guid);
+    public Task<UserDbEntity?> GetUserByGuidAsync(Guid guid);
 
     /// <summary>
     /// Getting users by page, if page equals default return all users
     /// </summary>
     /// <param name="page"></param>
     /// <returns></returns>
-    public Task<User[]?> GetUsersByPageAsync(int page = 0);
+    public Task<UserDbEntity[]?> GetUsersByPageAsync(int page = 0);
 
     #endregion
 
@@ -78,27 +78,27 @@ public interface IUserRepository
     /// Create new user with this email and password
     /// </summary>
     /// <param name="user"></param>
-    public bool SaveUser(User user);
+    public bool SaveUser(UserDbEntity user);
 
     /// <summary>
     /// Create new user with this email and password
     /// </summary>
     /// <param name="user"></param>
-    public Task<bool> SaveUserAsync(User user);
+    public Task<bool> SaveUserAsync(UserDbEntity user);
 
     /// <summary>
     /// Update user
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
-    public bool UpdateUser(User user);
+    public bool UpdateUser(UserDbEntity user);
 
     /// <summary>
     /// Update user
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
-    public Task<bool> UpadteUserAsync(User user);
+    public Task<bool> UpadteUserAsync(UserDbEntity user);
 
     #endregion
 }

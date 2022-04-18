@@ -8,7 +8,7 @@ public interface IUserBlService
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public User CreateUser(string email, string password);
+    public UserDbEntity CreateUser(string email, string password);
     
     /// <summary>
     /// Change role for user
@@ -18,5 +18,5 @@ public interface IUserBlService
     /// <param name="lastName"></param>
     /// <param name="role"></param>
     /// <returns></returns>
-    public bool ChangeUserInfo(User user, string? firstName, string? lastName, string? role);
+    public bool ChangeUserInfo(UserDbEntity user, string? firstName, string? lastName, string? role);
 }

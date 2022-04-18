@@ -1,17 +1,15 @@
-using Session = IdentityService.Application.Models.Session;
-
 namespace IdentityService.Application.Repositories;
 
 public interface ISessionRepository
 {
-    public bool SaveOrUpdateSession(Session session);
+    public bool SaveOrUpdateSession(SessionDbEntity session);
 
-    public Task<bool> SaveOrUpdateSessionAsync(Session session);
+    public Task<bool> SaveOrUpdateSessionAsync(SessionDbEntity session);
 
-    public Task<Session?> GetSessionByUserIdAsync(int userId);
+    public Task<SessionDbEntity?> GetSessionByUserIdAsync(int userId);
 
-    public Task<Session?> GetSessionByUserGuid(Guid userGuid);
+    public Task<SessionDbEntity?> GetSessionByUserGuid(Guid userGuid);
 
-    public Task<bool> RemoveSession(Session session);
+    public Task<bool> RemoveSession(SessionDbEntity session);
 
 }

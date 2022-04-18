@@ -15,7 +15,7 @@ public class MapperTests
     [Test]
     public void TestMappingUserToUserDto()
     {
-        var user = new User()
+        var user = new UserDbEntity()
         {
             Email = "test@email.com",
             FirstName = "Test",
@@ -29,7 +29,7 @@ public class MapperTests
         Assert.True(PeroperyComparer(user, userDto));
     }
 
-    private static bool PeroperyComparer(User user, Account account)
+    private static bool PeroperyComparer(UserDbEntity user, Account account)
     {
         return user.Email == account.Email
                && user.Role.ToString() == account.Role

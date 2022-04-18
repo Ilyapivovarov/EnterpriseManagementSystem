@@ -25,7 +25,7 @@ public class UserBlServiceTests
     public void ChnageUserInfoTests()
     {
         var userBlService = new UserBlService(Logger);
-        var user = new User()
+        var user = new UserDbEntity()
         {
             Email = "admin@admin.com",
             Password = "admin",

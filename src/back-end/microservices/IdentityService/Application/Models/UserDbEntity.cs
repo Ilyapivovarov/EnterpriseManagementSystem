@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 namespace IdentityService.Application.Models;
 
 [Index(nameof(Email), IsUnique = true)]
-public class User : DbEntityBase
+public class UserDbEntity : DbEntityBase
 {
     public string Email { get; set; } = null!;
 

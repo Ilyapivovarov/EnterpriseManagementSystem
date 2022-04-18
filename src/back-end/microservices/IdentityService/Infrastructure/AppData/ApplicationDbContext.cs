@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Session = IdentityService.Application.Models.Session;
 
 namespace IdentityService.Infrastructure.AppData;
 
@@ -11,7 +10,7 @@ public sealed class ApplicationDbContext : DbContext
         Database.Migrate();
     }
 
-    public DbSet<User> Users => Set<User>();
+    public DbSet<UserDbEntity> Users => Set<UserDbEntity>();
 
-    public DbSet<Session> Sessions => Set<Session>();
+    public DbSet<SessionDbEntity> Sessions => Set<SessionDbEntity>();
 }

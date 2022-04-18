@@ -10,7 +10,7 @@ public class ApplicationDbContextSeed
             {
                 if (!context.Users.Any())
                 {
-                    context.Users.Add(new User()
+                    context.Users.Add(new UserDbEntity()
                     {
                         Email = "admin@admin.com",
                         Password = "admin",

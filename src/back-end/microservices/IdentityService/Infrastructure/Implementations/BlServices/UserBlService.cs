@@ -9,16 +9,16 @@ public class UserBlService : IUserBlService
         _logger = logger;
     }
     
-    public User CreateUser(string email, string password)
+    public UserDbEntity CreateUser(string email, string password)
     {
-        return new User
+        return new UserDbEntity
         {
             Email = email,
             Password = password
         };
     }
     
-    public bool ChangeUserInfo(User user, string? firstName, string? lastName, string? role)
+    public bool ChangeUserInfo(UserDbEntity user, string? firstName, string? lastName, string? role)
     {
         try
         {

@@ -1,10 +1,8 @@
-using Session = IdentityService.Application.Models.Session;
-
 namespace IdentityService.Application.BlServices;
 
 public interface ISessionBlService
 {
-    public Session CreateSession(User user);
+    public SessionDbEntity CreateSession(UserDbEntity user);
 
-    public Session CreateOrUpdateSession(User user, Session? session);
+    public SessionDbEntity CreateOrUpdateSession(UserDbEntity user, SessionDbEntity? session);
 }

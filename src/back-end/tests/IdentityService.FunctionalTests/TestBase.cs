@@ -22,7 +22,7 @@ public class TestBase
         JsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
     }
     
-    protected User User { get; }
+    protected UserDbEntity User { get; }
     
     protected  TestServer Server { get; }
     
@@ -59,9 +59,9 @@ public class TestBase
         return test;
     }
     
-    private User GetUser()
+    private UserDbEntity GetUser()
     {
-        return new User()
+        return new UserDbEntity()
         {
             Email = "admin@admin.com",
             Password = "admin",

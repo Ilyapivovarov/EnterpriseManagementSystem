@@ -3,7 +3,6 @@ using System.Security.Claims;
 using EnterpriseManagementSystem.JwtAuthorization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Session = IdentityService.Application.Models.Session;
 
 namespace IdentityService.Infrastructure.Implementations.BlServices;
 
@@ -16,12 +15,12 @@ public class SessionBlService : ISessionBlService
         _authOptions = authOptions;
     }
 
-    public Session CreateSession(User user)
+    public SessionDbEntity CreateSession(UserDbEntity user)
     {
         var accessToken = GenerateAccessToken(user);
         var refreshToken = GenerateRefreshToken();
 
-        var session = new Session
+        var session = new SessionDbEntity
         {
             User = user,
             AccessToken = accessToken,
@@ -31,14 +30,14 @@ public class SessionBlService : ISessionBlService
         return session;
     }
 
-    public Session CreateOrUpdateSession(User user, Session? session)
+    public SessionDbEntity CreateOrUpdateSession(UserDbEntity user, SessionDbEntity? session)
     {
         var accessToken = GenerateAccessToken(user);
         var refreshToken = GenerateRefreshToken();
         
         if (session == null)
         {
-            var newSession = new Session
+            var newSession = new SessionDbEntity
             {
                 User = user,
                 AccessToken = accessToken,
@@ -55,7 +54,7 @@ public class SessionBlService : ISessionBlService
         return session;
     }
 
-    private string GenerateAccessToken(User user)
+    private string GenerateAccessToken(UserDbEntity user)
     {
         var authParams = _authOptions.Value;
 
