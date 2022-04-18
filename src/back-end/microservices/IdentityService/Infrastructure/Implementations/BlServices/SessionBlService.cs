@@ -18,13 +18,11 @@ public class SessionBlService : ISessionBlService
     public SessionDbEntity CreateSession(UserDbEntity user)
     {
         var accessToken = GenerateAccessToken(user);
-        var refreshToken = GenerateRefreshToken();
 
         var session = new SessionDbEntity
         {
             User = user,
-            AccessToken = accessToken,
-            RefreshToken = refreshToken
+            AccessToken = accessToken
         };
 
         return session;
@@ -33,7 +31,6 @@ public class SessionBlService : ISessionBlService
     public SessionDbEntity CreateOrUpdateSession(UserDbEntity user, SessionDbEntity? session)
     {
         var accessToken = GenerateAccessToken(user);
-        var refreshToken = GenerateRefreshToken();
         
         if (session == null)
         {
@@ -41,7 +38,6 @@ public class SessionBlService : ISessionBlService
             {
                 User = user,
                 AccessToken = accessToken,
-                RefreshToken = refreshToken
             };
 
             return newSession;
@@ -49,8 +45,7 @@ public class SessionBlService : ISessionBlService
 
         session.User = user;
         session.AccessToken = accessToken;
-        session.RefreshToken = refreshToken;
-        
+
         return session;
     }
 
@@ -73,19 +68,6 @@ public class SessionBlService : ISessionBlService
             authParams.Audience,
             claims,
             expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
-            signingCredentials: credentials);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
-    }
-
-    private string GenerateRefreshToken()
-    {
-        var authParams = _authOptions.Value;
-        var securityKey = authParams.GetSymmetricSecurityKey();
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            expires: DateTime.Now.AddDays(60),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
