@@ -1,6 +1,3 @@
-using IdentityService.Application.Policy;
-using Microsoft.AspNetCore.Mvc.Authorization;
-
 namespace IdentityService;
 
 public class Startup
