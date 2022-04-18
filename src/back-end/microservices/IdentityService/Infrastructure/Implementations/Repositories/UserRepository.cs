@@ -17,18 +17,18 @@ public class UserRepository : RepositoryBase, IUserRepository
         await Task.Run(() => { return GetUserById(id); });
 
     public UserDbEntity? GetUserByEmailAndPassword(string email, string password) =>
-        LoadData(db => db.Users.FirstOrDefault(x => x.Email == email && x.Password == password),
+        LoadData(db => db.Users.FirstOrDefault(x => x.EmailAddress.Email == email && x.Password == password),
             $"Error while searching user with email {email} and password");
 
     public async Task<UserDbEntity?> GetUserByEmailAndPasswordAsync(string email, string password)
         => await Task.Run(() => GetUserByEmailAndPassword(email, password));
 
     public bool IsEmailExist(string email) =>
-        LoadData(db => db.Users.Any(x => x.Email == email),
+        LoadData(db => db.Users.Any(x => x.EmailAddress.Email == email),
             "Error while checking email");
 
     public UserDbEntity? GetUserByEmail(string email) =>
-        LoadData(db => db.Users.FirstOrDefault(x => x.Email == email),
+        LoadData(db => db.Users.FirstOrDefault(x => x.EmailAddress.Email == email),
             $"Error while searching user with email {email}");
 
     public async Task<UserDbEntity?> GetUserByEmailAsync(string email)
@@ -63,7 +63,7 @@ public class UserRepository : RepositoryBase, IUserRepository
 
     public bool SaveUser(UserDbEntity user) =>
         SaveData(db => db.Users.Add(user),
-            $"Error while creating user with email {user.Email}");
+            $"Error while creating user with email {user.EmailAddress.Email}");
 
     public async Task<bool> SaveUserAsync(UserDbEntity user)
     {

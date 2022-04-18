@@ -13,7 +13,11 @@ public class UserBlService : IUserBlService
     {
         return new UserDbEntity
         {
-            Email = email,
+            EmailAddress = new EmailAddressDbEntity()
+            {
+                Email = email,
+                IsVerified = false
+            },
             Password = password
         };
     }

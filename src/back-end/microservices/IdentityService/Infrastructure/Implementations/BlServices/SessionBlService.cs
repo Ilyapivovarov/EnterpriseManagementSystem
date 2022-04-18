@@ -58,7 +58,7 @@ public class SessionBlService : ISessionBlService
 
         var claims = new List<Claim>
         {
-            new("Email", user.Email),
+            new("Email", user.EmailAddress.Email),
             new("Guid", user.Guid.ToString()),
             new(ClaimTypes.Role, user.Role.ToString())
         };

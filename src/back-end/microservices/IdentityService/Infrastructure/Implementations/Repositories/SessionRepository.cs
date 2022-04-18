@@ -19,7 +19,7 @@ public class SessionRepository : RepositoryBase, ISessionRepository
                     db.Sessions.Add(session);
                 }
             },
-            $"Error while save session for user with email {session.User.Email}");
+            $"Error while save session for user with email {session.User.EmailAddress.Email}");
     }
 
     public async Task<bool> SaveOrUpdateSessionAsync(SessionDbEntity session)

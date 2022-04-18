@@ -27,7 +27,11 @@ public class UserBlServiceTests
         var userBlService = new UserBlService(Logger);
         var user = new UserDbEntity()
         {
-            Email = "admin@admin.com",
+            EmailAddress = new EmailAddressDbEntity
+            {
+                Email = "admin@admin.com",
+                IsVerified = true
+            },
             Password = "admin",
             FirstName = "Admin",
             LastName = "Admin",

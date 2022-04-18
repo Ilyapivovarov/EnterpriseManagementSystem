@@ -63,7 +63,11 @@ public class TestBase
     {
         return new UserDbEntity()
         {
-            Email = "admin@admin.com",
+            EmailAddress = new EmailAddressDbEntity()
+            {
+                Email = "admin@admin.com",
+                IsVerified = false
+            },
             Password = "admin",
             FirstName = "Admin",
             LastName = "Admin",

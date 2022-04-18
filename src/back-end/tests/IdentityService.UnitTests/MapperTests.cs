@@ -17,7 +17,11 @@ public class MapperTests
     {
         var user = new UserDbEntity()
         {
-            Email = "test@email.com",
+            EmailAddress = new EmailAddressDbEntity()
+            {
+                Email = "test@email.com",
+                IsVerified = false
+            },
             FirstName = "Test",
             LastName = "Test",
             Password = "Password",
@@ -31,7 +35,7 @@ public class MapperTests
 
     private static bool PeroperyComparer(UserDbEntity user, Account account)
     {
-        return user.Email == account.Email
+        return user.EmailAddress.Email == account.Email
                && user.Role.ToString() == account.Role
                && user.FirstName == account.FirstName
                && user.LastName == account.LastName

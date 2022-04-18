@@ -15,7 +15,7 @@ public class UserControllerTests : TestBase
     public async Task SetUp()
     {
         var client = Server.CreateClient();
-        var signInContent = new StringContent(JsonSerializer.Serialize(new SignIn(User.Email, User.Password)), Encoding.UTF8, MediaTypeNames.Application.Json);
+        var signInContent = new StringContent(JsonSerializer.Serialize(new SignIn(User.EmailAddress.Email, User.Password)), Encoding.UTF8, MediaTypeNames.Application.Json);
         var response = await client.PostAsync("auth/sign-in", signInContent);
         
         var sessionDraft = await response.Content.ReadAsStringAsync();
