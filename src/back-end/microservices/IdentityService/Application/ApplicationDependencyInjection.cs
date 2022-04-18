@@ -1,4 +1,5 @@
 using System.Reflection;
+using EnterpriseManagementSystem.JwtAuthorization;
 using IdentityService.Application.Mediators.Handlers.Auth;
 using IdentityService.Application.Mediators.Handlers.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,29 +17,7 @@ public static class ApplicationDependencyInjection
 
         #region Register Jwt auth
 
-        var section = configuration.GetSection(ConfigurationSectionName.Auth);
-        serviceProvider.Configure<AuthOption>(section);
-
-        var authOpt = section.Get<AuthOption>();
-
-        serviceProvider.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-        {
-            options.RequireHttpsMetadata = false;
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidIssuer = authOpt.Issuer,
-
-                ValidateAudience = true,
-                ValidAudience = authOpt.Audience,
-
-                ValidateLifetime = true,
-
-                IssuerSigningKey = authOpt.GetSymmetricSecurityKey(),
-                ValidateIssuerSigningKey = true
-            };
-        });
+        serviceProvider.AddJwtAuthorization(configuration);
 
         #endregion
     }

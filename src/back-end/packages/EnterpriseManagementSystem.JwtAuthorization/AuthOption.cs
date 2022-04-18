@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace EnterpriseManagementSystem.Contracts.Options;
+namespace EnterpriseManagementSystem.JwtAuthorization;
 
 public class AuthOption
 {
