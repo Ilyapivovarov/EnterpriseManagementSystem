@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Handlers.Auth;
 
-public class SignOutRequestHandler : IRequestHandler<AuthRequest<Guid>, IActionResult>
+public sealed class SignOutRequestHandler : IRequestHandler<AuthRequest<Guid>, IActionResult>
 {
     private readonly ILogger<SignOutRequestHandler> _logger;
     private readonly ISessionRepository _sessionRepository;

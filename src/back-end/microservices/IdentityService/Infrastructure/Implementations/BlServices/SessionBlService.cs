@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace IdentityService.Infrastructure.Implementations.BlServices;
 
-public class SessionBlService : ISessionBlService
+public sealed class SessionBlService : ISessionBlService
 {
     private readonly IOptions<AuthOption> _authOptions;
 

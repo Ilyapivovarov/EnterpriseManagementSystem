@@ -1,6 +1,6 @@
 namespace IdentityService.Infrastructure.AppData;
 
-public class ApplicationDbContextSeed
+public sealed class ApplicationDbContextSeed
 {
     public static async Task SeedData(ApplicationDbContext context, ILogger logger)
     {

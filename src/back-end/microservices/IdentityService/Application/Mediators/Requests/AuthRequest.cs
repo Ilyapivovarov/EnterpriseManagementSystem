@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Requests;
 
-public class AuthRequest<T> : IRequest<IActionResult>
+public sealed class AuthRequest<T> : IRequest<IActionResult>
 {
     private AuthRequest(T? value)
     {

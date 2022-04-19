@@ -1,6 +1,6 @@
 namespace IdentityService.Infrastructure.Implementations.Repositories;
 
-public class UserRepository : RepositoryBase, IUserRepository
+public sealed class UserRepository : RepositoryBase, IUserRepository
 {
     public UserRepository(ApplicationDbContext dbContext, ILogger<UserRepository> logger)
         : base(dbContext, logger)

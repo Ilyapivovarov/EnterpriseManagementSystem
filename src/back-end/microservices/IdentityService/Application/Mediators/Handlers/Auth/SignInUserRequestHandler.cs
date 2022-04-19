@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Handlers.Auth;
 
-public class SignInUserRequestHandler : IRequestHandler<AuthRequest<SignIn>, IActionResult>
+public sealed class SignInUserRequestHandler : IRequestHandler<AuthRequest<SignIn>, IActionResult>
 {
     private readonly ILogger<SignInUserRequestHandler> _logger;
     private readonly ISessionBlService _sessionBlService;

@@ -2,7 +2,7 @@ using AutoMapper;
 
 namespace IdentityService.Application.Mapper.Converters;
 
-public class UserDbEntityToAccountConverter : ITypeConverter<UserDbEntity, Account>
+public sealed class UserDbEntityToAccountConverter : ITypeConverter<UserDbEntity, Account>
 {
     public Account Convert(UserDbEntity source, Account destination, ResolutionContext context)
     {

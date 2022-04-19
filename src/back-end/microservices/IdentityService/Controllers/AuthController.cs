@@ -6,7 +6,7 @@ namespace IdentityService.Controllers;
 [ApiController]
 [AllowAnonymous]
 [Route("[controller]")]
-public class AuthController : ControllerBase
+public sealed class AuthController : ControllerBase
 {
     private readonly IMediator _mediator;
 

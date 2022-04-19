@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Requests;
 
-public class UserControllerRequest<T> : IRequest<IActionResult>
+public sealed class UserControllerRequest<T> : IRequest<IActionResult>
 {
     private UserControllerRequest(T? value)
     {

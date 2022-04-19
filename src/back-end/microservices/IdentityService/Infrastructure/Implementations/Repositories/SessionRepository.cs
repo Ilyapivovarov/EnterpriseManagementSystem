@@ -1,6 +1,6 @@
 namespace IdentityService.Infrastructure.Implementations.Repositories;
 
-public class SessionRepository : RepositoryBase, ISessionRepository
+public sealed class SessionRepository : RepositoryBase, ISessionRepository
 {
     public SessionRepository(ApplicationDbContext dbContext, ILogger<SessionRepository> logger)
         : base(dbContext, logger)

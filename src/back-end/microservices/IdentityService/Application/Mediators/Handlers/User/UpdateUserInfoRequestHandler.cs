@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Handlers.User;
 
-public class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerRequest<UserInfo>, IActionResult>
+public sealed class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerRequest<UserInfo>, IActionResult>
 {
     private readonly ILogger<UpdateUserInfoRequestHandler> _logger;
     private readonly IUserBlService _userBlService;

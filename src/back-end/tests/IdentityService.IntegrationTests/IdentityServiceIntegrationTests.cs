@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace IdentityService.IntegrationTests;
 
-public class IdentityServiceIntegrationTests : TestBase
+public sealed class IdentityServiceIntegrationTests : TestBase
 {
     [SetUp]
     public void Setup()

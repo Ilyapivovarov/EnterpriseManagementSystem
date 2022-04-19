@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Handlers.User;
 
-public class GetUsersRequestHandler : IRequestHandler<UserControllerRequest<int>, IActionResult>
+public sealed class GetUsersRequestHandler : IRequestHandler<UserControllerRequest<int>, IActionResult>
 {
     private readonly ILogger<GetUsersRequestHandler> _logger;
     private readonly IUserRepository _userRepository;

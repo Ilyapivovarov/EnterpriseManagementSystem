@@ -2,7 +2,7 @@ namespace IdentityService.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UserController : ControllerBase
+public sealed class UserController : ControllerBase
 {
     private readonly IMediator _mediator;
 

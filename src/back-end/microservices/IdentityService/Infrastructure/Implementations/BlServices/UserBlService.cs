@@ -1,6 +1,6 @@
 namespace IdentityService.Infrastructure.Implementations.BlServices;
 
-public class UserBlService : IUserBlService
+public sealed class UserBlService : IUserBlService
 {
     private readonly ILogger<UserBlService> _logger;
 

@@ -1,6 +1,6 @@
 namespace IdentityService.Application.Mediators.Handlers.Auth;
 
-public class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IActionResult>
+public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IActionResult>
 {
     private readonly ILogger<SignUpUserRequestHandler> _logger;
     private readonly ISecurityService _securityService;
