@@ -1,4 +1,5 @@
 using IdentityService.Infrastructure.AppData;
+using IdentityService.IntegrationTests.Base;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 

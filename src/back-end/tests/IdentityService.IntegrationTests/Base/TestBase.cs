@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 
-namespace IdentityService.IntegrationTests;
+namespace IdentityService.IntegrationTests.Base;
 
 public class TestBase
 {

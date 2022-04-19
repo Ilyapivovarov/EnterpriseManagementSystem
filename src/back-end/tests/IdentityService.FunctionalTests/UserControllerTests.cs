@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.FunctionalTests.Base;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NUnit.Framework;
 
 namespace IdentityService.FunctionalTests;
@@ -19,14 +20,14 @@ public class UserControllerTests : TestBase
     {
         Client = Server.CreateClient();
         Client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", AccessToken);
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
     }
 
     [Test]
     public async Task GetUserByGuidTest()
     {
         Client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", AccessToken);
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
         var response = await Client.GetAsync($"user/{User.Guid.ToString()}");
 
         Assert.IsTrue(response.IsSuccessStatusCode);
