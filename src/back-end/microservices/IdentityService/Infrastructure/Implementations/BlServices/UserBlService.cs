@@ -32,8 +32,8 @@ public class UserBlService : IUserBlService
             if (!string.IsNullOrWhiteSpace(lastName))
                 user.LastName = lastName;
 
-            if (role != null)
-                user.Role = Enum.Parse<UserRole>(role);
+            // if (role != null)
+            //     user.Role = Enum.Parse<UserRole>(role);
 
             return true;
         }

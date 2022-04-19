@@ -52,6 +52,10 @@ public class TestBase
         var context = test.Services.GetRequiredService<ApplicationDbContext>();
         if (!context.Users.Any())
         {
+            context.EmailAddresses.Add(User.EmailAddress);
+            context.SaveChanges();
+            context.UserRoles.Add(User.Role);
+            context.SaveChanges();
             context.Users.Add(User);
             context.SaveChanges();
         }
@@ -71,7 +75,16 @@ public class TestBase
             Password = "admin",
             FirstName = "Admin",
             LastName = "Admin",
-            Role = UserRole.Admin
+            Role = new UserRoleDbEntity()
+            {
+                Name = "Admin"
+            }
         };
+    }
+
+    protected UserDbEntity GetUserFromDb()
+    {
+        var context = Server.Services.GetRequiredService<ApplicationDbContext>();
+        return context.Users.First();
     }
 }

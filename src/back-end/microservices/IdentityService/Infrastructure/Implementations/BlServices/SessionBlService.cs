@@ -60,7 +60,7 @@ public class SessionBlService : ISessionBlService
         {
             new("Email", user.EmailAddress.Email),
             new("Guid", user.Guid.ToString()),
-            new(ClaimTypes.Role, user.Role.ToString())
+            new(ClaimTypes.Role, user.Role.Name)
         };
 
         var token = new JwtSecurityToken(

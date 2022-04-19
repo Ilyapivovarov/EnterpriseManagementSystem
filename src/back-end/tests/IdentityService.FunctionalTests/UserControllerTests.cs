@@ -15,7 +15,7 @@ public class UserControllerTests : TestBase
     public async Task SetUp()
     {
         var client = Server.CreateClient();
-        var signInContent = new StringContent(JsonSerializer.Serialize(new SignIn(User.EmailAddress.Email, User.Password)), Encoding.UTF8, MediaTypeNames.Application.Json);
+        var signInContent = new StringContent(JsonSerializer.Serialize(new SignIn(User.EmailAddress.Email, User.Password), JsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
         var response = await client.PostAsync("auth/sign-in", signInContent);
         
         var sessionDraft = await response.Content.ReadAsStringAsync();
@@ -27,8 +27,9 @@ public class UserControllerTests : TestBase
     [Test]
     public async Task ChangeUserInfoTest()
     {
+        var user = GetUserFromDb();
         var client = Server.CreateClient();
-        var data = new UserInfo(User.Guid, "Test", "Test", "Reader");
+        var data = new UserInfo(user.Guid, "Test", "Test", "Reader");
         var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
         client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", AccessToken);

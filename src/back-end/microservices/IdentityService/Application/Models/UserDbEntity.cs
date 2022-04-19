@@ -12,5 +12,5 @@ public class UserDbEntity : DbEntityBase
     
     public EmailAddressDbEntity EmailAddress { get; set; }
 
-    public UserRole Role { get; set; } = UserRole.Reader;
+    public UserRoleDbEntity Role { get; set; }
 }

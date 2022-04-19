@@ -8,7 +8,13 @@ public static class MapperExtensions
     public static Account ToDto(this UserDbEntity user)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<UserDbEntity, Account>());
+        {
+            cfg.CreateMap<UserDbEntity, Account>()
+                .ForMember(x => x.EmailAddress, expression =>
+                    expression.MapFrom(x => x.EmailAddress.Email))
+                .ForMember(x => x.Role, opt => 
+                    opt.MapFrom(x => x.Role.Name));
+        });
 
         var mapper = new AutoMapper.Mapper(cfg);
         return mapper.Map<UserDbEntity, Account>(user);
@@ -19,7 +25,7 @@ public static class MapperExtensions
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<Models.SessionDbEntity, Session>()
                 .ForMember(dto => dto.UserGuid,
-                    source 
+                    source
                         => source.MapFrom(c => c.User.Guid)));
 
         var mapper = new AutoMapper.Mapper(cfg);

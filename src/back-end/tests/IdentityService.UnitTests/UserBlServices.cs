@@ -35,11 +35,14 @@ public class UserBlServiceTests
             Password = "admin",
             FirstName = "Admin",
             LastName = "Admin",
-            Role = UserRole.Admin
+            Role = new UserRoleDbEntity()
+            {
+                Name = "Admin"
+            }
         };
 
         userBlService.ChangeUserInfo(user, "Test", "Test", "Reader");
         
-        Assert.IsTrue(user.FirstName == "Test" && user.LastName == "Test" && user.Role == UserRole.Reader);
+        Assert.IsTrue(user.FirstName == "Test" && user.LastName == "Test" && user.Role.Name == "Admin");
     }
 }

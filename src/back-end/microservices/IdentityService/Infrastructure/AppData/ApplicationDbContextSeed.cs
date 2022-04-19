@@ -23,7 +23,10 @@ public class ApplicationDbContextSeed
                         Password = "admin",
                         FirstName = "Admin",
                         LastName = "Admin",
-                        Role = UserRole.Admin
+                        Role = new UserRoleDbEntity()
+                        {
+                            Name = "Admin"
+                        }
                     });
 
                     await context.SaveChangesAsync();

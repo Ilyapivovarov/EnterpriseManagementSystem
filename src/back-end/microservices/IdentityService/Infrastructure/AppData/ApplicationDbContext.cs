@@ -13,4 +13,8 @@ public sealed class ApplicationDbContext : DbContext
     public DbSet<UserDbEntity> Users => Set<UserDbEntity>();
 
     public DbSet<SessionDbEntity> Sessions => Set<SessionDbEntity>();
+
+    public DbSet<EmailAddressDbEntity> EmailAddresses => Set<EmailAddressDbEntity>();
+
+    public DbSet<UserRoleDbEntity> UserRoles => Set<UserRoleDbEntity>();
 }

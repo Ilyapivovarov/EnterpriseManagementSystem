@@ -2,7 +2,7 @@
 
 namespace IdentityService.Application.Models;
 
-public class UserRoleDbEntity
+public class UserRoleDbEntity : DbEntityBase
 {
     public string Name { get; set; }
 }

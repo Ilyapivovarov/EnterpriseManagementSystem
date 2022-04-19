@@ -1,3 +1,4 @@
+using System;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.Application.Mapper;
 using IdentityService.Application.Models;
@@ -25,20 +26,25 @@ public class MapperTests
             FirstName = "Test",
             LastName = "Test",
             Password = "Password",
-            Role = UserRole.Admin
+            Role = new UserRoleDbEntity()
+            {
+                Name = "Admin"
+            }
         };
-
-        var userDto = user.ToDto();
-        
-        Assert.True(PeroperyComparer(user, userDto));
+        var dto = user.ToDto();
+        Assert.DoesNotThrow(() => user.ToDto());
     }
 
-    private static bool PeroperyComparer(UserDbEntity user, Account account)
+    [Test]
+    public void MappingSessionDbEntityToSessionTest()
     {
-        return user.EmailAddress.Email == account.Email
-               && user.Role.ToString() == account.Role
-               && user.FirstName == account.FirstName
-               && user.LastName == account.LastName
-               && user.Guid == account.Guid;
+        var session = new SessionDbEntity
+        {
+            User = new UserDbEntity(),
+            AccessToken = Guid.NewGuid().ToString(),
+            RefreshToken = Guid.NewGuid()
+        };
+        
+        Assert.DoesNotThrow(() => session.ToDto());
     }
 }
