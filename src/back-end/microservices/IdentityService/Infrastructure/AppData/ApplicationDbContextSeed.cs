@@ -10,14 +10,6 @@ public class ApplicationDbContextSeed
             {
                 if (!context.Users.Any())
                 {
-                    var emailAddress = new EmailAddressDbEntity()
-                    {
-                        Email = "admin@admin.com",
-                        IsVerified = true
-                    };
-
-                    await context.SaveChangesAsync();
-                    
                     context.Users.Add(new UserDbEntity()
                     {
                         Password = "admin",
@@ -26,6 +18,11 @@ public class ApplicationDbContextSeed
                         Role = new UserRoleDbEntity()
                         {
                             Name = "Admin"
+                        },
+                        EmailAddress = new EmailAddressDbEntity()
+                        {
+                            Email = "admin@admin.com",
+                            IsVerified = true
                         }
                     });
 

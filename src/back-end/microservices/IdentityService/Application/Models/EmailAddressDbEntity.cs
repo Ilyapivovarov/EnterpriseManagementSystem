@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8618
 
@@ -12,5 +13,6 @@ public class EmailAddressDbEntity : DbEntityBase
 
     public bool IsVerified { get; set; }
     
+    [ForeignKey("UserId")]
     public int UserId { get; set; }
 }

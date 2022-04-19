@@ -12,7 +12,9 @@ public static class InfrastructureDependencyInjection
 
         var conString = configuration.GetConnectionString("DefaultConnection");
         serviceProvider.AddDbContext<ApplicationDbContext>(builder =>
-            builder.UseSqlServer(conString));
+            builder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(conString));
 
         #endregion
         

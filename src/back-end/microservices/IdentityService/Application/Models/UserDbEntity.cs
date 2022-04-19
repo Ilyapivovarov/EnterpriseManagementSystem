@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 #pragma warning disable CS8618
 
 namespace IdentityService.Application.Models;
@@ -10,7 +12,9 @@ public class UserDbEntity : DbEntityBase
 
     public string? LastName { get; set; }
     
-    public EmailAddressDbEntity EmailAddress { get; set; }
+    [ForeignKey("EmailAddressesId")]
+    public virtual EmailAddressDbEntity EmailAddress { get; set; }
 
-    public UserRoleDbEntity Role { get; set; }
+    [ForeignKey("UserRoleId")]
+    public virtual UserRoleDbEntity Role { get; set; }
 }

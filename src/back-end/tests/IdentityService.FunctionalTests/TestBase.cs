@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using IdentityService.Application.Models;
+using IdentityService.Controllers;
 using IdentityService.Infrastructure.AppData;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -52,10 +53,6 @@ public class TestBase
         var context = test.Services.GetRequiredService<ApplicationDbContext>();
         if (!context.Users.Any())
         {
-            context.EmailAddresses.Add(User.EmailAddress);
-            context.SaveChanges();
-            context.UserRoles.Add(User.Role);
-            context.SaveChanges();
             context.Users.Add(User);
             context.SaveChanges();
         }
