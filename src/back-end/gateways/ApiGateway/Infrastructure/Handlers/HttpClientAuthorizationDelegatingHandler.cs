@@ -21,9 +21,7 @@ public class HttpClientAuthorizationDelegatingHandler
                 .Request.Headers[HeaderNames.Authorization];
 
             if (!string.IsNullOrWhiteSpace(authorizationHeader))
-            {
                 request.Headers.Add(HeaderNames.Authorization, authorizationHeader.ToArray());
-            }
         }
 
         return await base.SendAsync(request, cancellationToken);

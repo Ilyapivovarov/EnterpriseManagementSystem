@@ -7,19 +7,18 @@ public class ApplicationDbContextSeed
         try
         {
             if (await context.Database.CanConnectAsync())
-            {
                 if (!context.Users.Any())
                 {
-                    context.Users.Add(new UserDbEntity()
+                    context.Users.Add(new UserDbEntity
                     {
                         Password = "admin",
                         FirstName = "Admin",
                         LastName = "Admin",
-                        Role = new UserRoleDbEntity()
+                        Role = new UserRoleDbEntity
                         {
                             Name = "Admin"
                         },
-                        EmailAddress = new EmailAddressDbEntity()
+                        EmailAddress = new EmailAddressDbEntity
                         {
                             Email = "admin@admin.com",
                             IsVerified = true
@@ -28,7 +27,6 @@ public class ApplicationDbContextSeed
 
                     await context.SaveChangesAsync();
                 }
-            }
         }
         catch (Exception ex)
         {

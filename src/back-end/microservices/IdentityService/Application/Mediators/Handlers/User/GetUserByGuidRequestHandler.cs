@@ -5,7 +5,7 @@ public class GetUserByGuidRequestHandler : IRequestHandler<UserControllerRequest
     private readonly ILogger<GetUserByGuidRequestHandler> _logger;
     private readonly IUserRepository _userRepository;
 
-    public GetUserByGuidRequestHandler(ILogger<GetUserByGuidRequestHandler> logger,  IUserRepository userRepository)
+    public GetUserByGuidRequestHandler(ILogger<GetUserByGuidRequestHandler> logger, IUserRepository userRepository)
     {
         _logger = logger;
         _userRepository = userRepository;

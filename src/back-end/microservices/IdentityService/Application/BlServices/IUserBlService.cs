@@ -3,15 +3,15 @@ namespace IdentityService.Application.BlServices;
 public interface IUserBlService
 {
     /// <summary>
-    /// Create new User
+    ///     Create new User
     /// </summary>
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
     public UserDbEntity CreateUser(string email, string password);
-    
+
     /// <summary>
-    /// Change role for user
+    ///     Change role for user
     /// </summary>
     /// <param name="user"></param>
     /// <param name="firstName"></param>

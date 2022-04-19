@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using IdentityService.Infrastructure.AppData;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +22,7 @@ public class TestBase
             }).UseStartup<Startup>();
 
         var testServer = new TestServer(hostBuilder);
-        
+
         return testServer;
     }
 }

@@ -1,14 +1,13 @@
-using ILogger = Castle.Core.Logging.ILogger;
-
 namespace IdentityService.Application.Mediators.Handlers.User;
 
 public class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerRequest<UserInfo>, IActionResult>
 {
     private readonly ILogger<UpdateUserInfoRequestHandler> _logger;
-    private readonly IUserRepository _userRepository;
     private readonly IUserBlService _userBlService;
+    private readonly IUserRepository _userRepository;
 
-    public UpdateUserInfoRequestHandler(ILogger<UpdateUserInfoRequestHandler> logger, IUserRepository userRepository, IUserBlService userBlService)
+    public UpdateUserInfoRequestHandler(ILogger<UpdateUserInfoRequestHandler> logger, IUserRepository userRepository,
+        IUserBlService userBlService)
     {
         _logger = logger;
         _userRepository = userRepository;
@@ -26,11 +25,11 @@ public class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerReques
 
             var user = await _userRepository.GetUserByGuidAsync(userInfo.Guid);
             if (user == null)
-                return new BadRequestObjectResult($"User is not found");
+                return new BadRequestObjectResult("User is not found");
 
             _userBlService.ChangeUserInfo(user, userInfo.FirstName, userInfo.LastName, userInfo.Role);
             if (!await _userRepository.UpadteUserAsync(user))
-                return new BadRequestObjectResult($"Error while save user data");
+                return new BadRequestObjectResult("Error while save user data");
 
             return new OkResult();
         }
@@ -40,5 +39,4 @@ public class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerReques
             return new BadRequestObjectResult(e.Message);
         }
     }
-    
 }

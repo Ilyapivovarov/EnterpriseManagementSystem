@@ -9,15 +9,15 @@ public class Startup
     }
 
     private IConfiguration Configuration { get; }
-    
+
     private IWebHostEnvironment Environment { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddApplication(Configuration, Environment);
         services.AddInfrastructure(Configuration, Environment);
-        
-        services.AddRouting(options => 
+
+        services.AddRouting(options =>
             options.LowercaseUrls = true);
 
         services.AddControllers();
@@ -25,10 +25,7 @@ public class Startup
 
     public void Configure(IApplicationBuilder app)
     {
-        if (Environment.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
+        if (Environment.IsDevelopment()) app.UseDeveloperExceptionPage();
 
         app.UseRouting();
 

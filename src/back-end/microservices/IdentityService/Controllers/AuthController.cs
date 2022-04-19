@@ -1,7 +1,5 @@
 using System.Security.Claims;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityService.Controllers;
 
@@ -12,31 +10,37 @@ public class AuthController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public AuthController(IMediator mediator) =>
+    public AuthController(IMediator mediator)
+    {
         _mediator = mediator;
+    }
 
     /// <summary>
-    /// User authentication   
+    ///     User authentication
     /// </summary>
     /// <param name="signIn">Authentication data</param>
     /// <returns></returns>
     [HttpPost]
     [Route("sign-in")]
-    public async Task<IActionResult> SignInUser([FromBody] SignIn? signIn) =>
-        await _mediator.Send(AuthRequest<SignIn>.Create(signIn));
+    public async Task<IActionResult> SignInUser([FromBody] SignIn? signIn)
+    {
+        return await _mediator.Send(AuthRequest<SignIn>.Create(signIn));
+    }
 
     /// <summary>
-    /// Register and authorize user 
+    ///     Register and authorize user
     /// </summary>
     /// <param name="signUp">Register data</param>
     /// <returns></returns>
     [HttpPost]
     [Route("sign-up")]
-    public async Task<IActionResult> SignUpUser([FromBody] SignUp? signUp) =>
-        await _mediator.Send(AuthRequest<SignUp>.Create(signUp));
+    public async Task<IActionResult> SignUpUser([FromBody] SignUp? signUp)
+    {
+        return await _mediator.Send(AuthRequest<SignUp>.Create(signUp));
+    }
 
     /// <summary>
-    /// Logout user
+    ///     Logout user
     /// </summary>
     /// <returns></returns>
     [Authorize]

@@ -3,7 +3,7 @@ namespace IdentityService.Application.Services;
 public interface ISecurityService
 {
     /// <summary>
-    /// Encrypt password
+    ///     Encrypt password
     /// </summary>
     /// <param name="password"></param>
     /// <returns></returns>

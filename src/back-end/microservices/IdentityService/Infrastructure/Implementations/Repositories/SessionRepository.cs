@@ -2,22 +2,19 @@ namespace IdentityService.Infrastructure.Implementations.Repositories;
 
 public class SessionRepository : RepositoryBase, ISessionRepository
 {
-    public SessionRepository(ApplicationDbContext dbContext,  ILogger<SessionRepository> logger) 
+    public SessionRepository(ApplicationDbContext dbContext, ILogger<SessionRepository> logger)
         : base(dbContext, logger)
-    { }
-    
+    {
+    }
+
     public bool SaveOrUpdateSession(SessionDbEntity session)
     {
         return SaveData(db =>
             {
                 if (session.Id != 0)
-                {
                     db.Sessions.Update(session);
-                }
                 else
-                {
                     db.Sessions.Add(session);
-                }
             },
             $"Error while save session for user with email {session.User.EmailAddress.Email}");
     }
@@ -36,12 +33,12 @@ public class SessionRepository : RepositoryBase, ISessionRepository
     public async Task<SessionDbEntity?> GetSessionByUserGuid(Guid userGuid)
     {
         return await Task.Run(() => LoadData(db => db.Sessions.FirstOrDefault(x => x.User.Guid == userGuid),
-                $"Error while searching session with user guid {userGuid}"));
+            $"Error while searching session with user guid {userGuid}"));
     }
 
     public async Task<bool> RemoveSession(SessionDbEntity session)
     {
-        return await SaveDataAsync(db => db.Sessions.Remove(session), 
+        return await SaveDataAsync(db => db.Sessions.Remove(session),
             $"Error while removind sessiong with guid {session.Guid}");
     }
 }

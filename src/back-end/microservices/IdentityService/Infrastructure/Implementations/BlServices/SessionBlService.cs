@@ -31,13 +31,13 @@ public class SessionBlService : ISessionBlService
     public SessionDbEntity CreateOrUpdateSession(UserDbEntity user, SessionDbEntity? session)
     {
         var accessToken = GenerateAccessToken(user);
-        
+
         if (session == null)
         {
             var newSession = new SessionDbEntity
             {
                 User = user,
-                AccessToken = accessToken,
+                AccessToken = accessToken
             };
 
             return newSession;

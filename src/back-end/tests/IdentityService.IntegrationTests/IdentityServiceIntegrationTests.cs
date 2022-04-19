@@ -16,7 +16,7 @@ public class IdentityServiceIntegrationTests : TestBase
     {
         var testServer = GetTestServer();
         var context = testServer.Services.GetRequiredService<ApplicationDbContext>();
-        
+
         Assert.IsTrue(context.Database.CanConnect());
     }
 }

@@ -28,7 +28,7 @@ public class UserControllerTests : TestBase
         Client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", AccessToken);
         var response = await Client.GetAsync($"user/{User.Guid.ToString()}");
-        
+
         Assert.IsTrue(response.IsSuccessStatusCode);
     }
 

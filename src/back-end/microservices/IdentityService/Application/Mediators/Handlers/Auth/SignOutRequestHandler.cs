@@ -10,7 +10,7 @@ public class SignOutRequestHandler : IRequestHandler<AuthRequest<Guid>, IActionR
         _logger = logger;
         _sessionRepository = sessionRepository;
     }
-    
+
     public async Task<IActionResult> Handle(AuthRequest<Guid> authRequest, CancellationToken cancellationToken)
     {
         try

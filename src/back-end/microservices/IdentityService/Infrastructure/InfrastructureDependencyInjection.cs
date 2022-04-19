@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Infrastructure;
@@ -17,7 +16,7 @@ public static class InfrastructureDependencyInjection
                 .UseSqlServer(conString));
 
         #endregion
-        
+
         #region Register repositories
 
         serviceProvider.AddTransient<ISessionRepository, SessionRepository>();
@@ -25,9 +24,9 @@ public static class InfrastructureDependencyInjection
         serviceProvider.AddTransient<ISessionRepository, SessionRepository>();
 
         #endregion
-        
+
         #region Register services
-        
+
         serviceProvider.AddTransient<ISecurityService, SecurityService>();
 
         #endregion
@@ -38,6 +37,5 @@ public static class InfrastructureDependencyInjection
         serviceProvider.AddTransient<ISessionBlService, SessionBlService>();
 
         #endregion
-        
     }
 }

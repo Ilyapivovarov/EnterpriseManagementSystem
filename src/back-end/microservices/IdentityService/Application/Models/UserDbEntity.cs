@@ -11,10 +11,8 @@ public class UserDbEntity : DbEntityBase
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }
-    
-    [ForeignKey("EmailAddressesId")]
-    public virtual EmailAddressDbEntity EmailAddress { get; set; }
 
-    [ForeignKey("UserRoleId")]
-    public virtual UserRoleDbEntity Role { get; set; }
+    [ForeignKey("EmailAddressesId")] public virtual EmailAddressDbEntity EmailAddress { get; set; }
+
+    [ForeignKey("UserRoleId")] public virtual UserRoleDbEntity Role { get; set; }
 }

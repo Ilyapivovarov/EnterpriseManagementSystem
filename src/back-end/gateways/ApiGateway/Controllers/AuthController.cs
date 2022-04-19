@@ -1,5 +1,4 @@
 using ApiGateway.Application.HttpClients;
-using EnterpriseManagementSystem.Contracts.WebContracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

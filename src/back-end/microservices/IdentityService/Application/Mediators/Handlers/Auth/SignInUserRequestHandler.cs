@@ -3,11 +3,11 @@ namespace IdentityService.Application.Mediators.Handlers.Auth;
 public class SignInUserRequestHandler : IRequestHandler<AuthRequest<SignIn>, IActionResult>
 {
     private readonly ILogger<SignInUserRequestHandler> _logger;
-    private readonly IUserRepository _userRepository;
-    private readonly ISessionRepository _sessionRepository;
     private readonly ISessionBlService _sessionBlService;
+    private readonly ISessionRepository _sessionRepository;
+    private readonly IUserRepository _userRepository;
 
-    public SignInUserRequestHandler(ILogger<SignInUserRequestHandler> logger, IUserRepository userRepository, 
+    public SignInUserRequestHandler(ILogger<SignInUserRequestHandler> logger, IUserRepository userRepository,
         ISessionRepository sessionRepository, ISessionBlService sessionBlService)
     {
         _logger = logger;
@@ -15,7 +15,7 @@ public class SignInUserRequestHandler : IRequestHandler<AuthRequest<SignIn>, IAc
         _sessionRepository = sessionRepository;
         _sessionBlService = sessionBlService;
     }
-    
+
     public async Task<IActionResult> Handle(AuthRequest<SignIn> authRequest, CancellationToken cancellationToken)
     {
         try
@@ -30,7 +30,7 @@ public class SignInUserRequestHandler : IRequestHandler<AuthRequest<SignIn>, IAc
 
             var session = await _sessionRepository.GetSessionByUserIdAsync(user.Id);
             var updatedSession = _sessionBlService.CreateOrUpdateSession(user, session);
-        
+
             await _sessionRepository.SaveOrUpdateSessionAsync(updatedSession);
 
             return new OkObjectResult(updatedSession.ToDto());

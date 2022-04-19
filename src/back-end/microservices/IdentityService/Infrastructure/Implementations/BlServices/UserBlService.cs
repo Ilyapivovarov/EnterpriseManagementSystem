@@ -8,12 +8,12 @@ public class UserBlService : IUserBlService
     {
         _logger = logger;
     }
-    
+
     public UserDbEntity CreateUser(string email, string password)
     {
         return new UserDbEntity
         {
-            EmailAddress = new EmailAddressDbEntity()
+            EmailAddress = new EmailAddressDbEntity
             {
                 Email = email,
                 IsVerified = false
@@ -21,7 +21,7 @@ public class UserBlService : IUserBlService
             Password = password
         };
     }
-    
+
     public bool ChangeUserInfo(UserDbEntity user, string? firstName, string? lastName, string? role)
     {
         try

@@ -38,7 +38,7 @@ public abstract class RepositoryBase
             return false;
         }
     }
-    
+
     protected async Task<bool> SaveDataAsync(Action<ApplicationDbContext> writeFunc, string message)
     {
         try

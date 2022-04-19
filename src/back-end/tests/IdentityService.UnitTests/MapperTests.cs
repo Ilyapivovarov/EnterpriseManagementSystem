@@ -1,5 +1,4 @@
 using System;
-using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.Application.Mapper;
 using IdentityService.Application.Models;
 using NUnit.Framework;
@@ -16,9 +15,9 @@ public class MapperTests
     [Test]
     public void TestMappingUserToUserDto()
     {
-        var user = new UserDbEntity()
+        var user = new UserDbEntity
         {
-            EmailAddress = new EmailAddressDbEntity()
+            EmailAddress = new EmailAddressDbEntity
             {
                 Email = "test@email.com",
                 IsVerified = false
@@ -26,7 +25,7 @@ public class MapperTests
             FirstName = "Test",
             LastName = "Test",
             Password = "Password",
-            Role = new UserRoleDbEntity()
+            Role = new UserRoleDbEntity
             {
                 Name = "Admin"
             }
@@ -44,7 +43,7 @@ public class MapperTests
             AccessToken = Guid.NewGuid().ToString(),
             RefreshToken = Guid.NewGuid()
         };
-        
+
         Assert.DoesNotThrow(() => session.ToDto());
     }
 }

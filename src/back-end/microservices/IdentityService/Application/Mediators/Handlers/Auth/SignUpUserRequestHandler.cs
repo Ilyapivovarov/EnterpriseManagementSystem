@@ -3,13 +3,14 @@ namespace IdentityService.Application.Mediators.Handlers.Auth;
 public class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IActionResult>
 {
     private readonly ILogger<SignUpUserRequestHandler> _logger;
-    private readonly IUserBlService _userBlService;
-    private readonly IUserRepository _userRepository;
+    private readonly ISecurityService _securityService;
     private readonly ISessionBlService _sessionBlService;
     private readonly ISessionRepository _sessionRepository;
-    private readonly ISecurityService _securityService;
-    
-    public SignUpUserRequestHandler(ILogger<SignUpUserRequestHandler> logger, IUserBlService userBlService, IUserRepository userRepository,
+    private readonly IUserBlService _userBlService;
+    private readonly IUserRepository _userRepository;
+
+    public SignUpUserRequestHandler(ILogger<SignUpUserRequestHandler> logger, IUserBlService userBlService,
+        IUserRepository userRepository,
         ISessionBlService sessionBlService, ISessionRepository sessionRepository, ISecurityService securityService)
     {
         _logger = logger;
@@ -19,7 +20,7 @@ public class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IAc
         _sessionRepository = sessionRepository;
         _securityService = securityService;
     }
-    
+
     public async Task<IActionResult> Handle(AuthRequest<SignUp> authRequest, CancellationToken cancellationToken)
     {
         try
@@ -40,11 +41,11 @@ public class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IAc
             var user = _userBlService.CreateUser(email, encryptPassword);
             if (!await _userRepository.SaveUserAsync(user))
                 return new BadRequestObjectResult("Error while save user");
-        
+
             var session = _sessionBlService.CreateSession(user);
-        
+
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
-        
+
             return new OkObjectResult(session.ToDto());
         }
         catch (Exception e)

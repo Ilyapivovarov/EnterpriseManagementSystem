@@ -13,16 +13,22 @@ public class UserController : ControllerBase
 
 
     [HttpGet]
-    public async Task<IActionResult> GetAllUser(int page = 0) =>
-        await _mediator.Send(UserControllerRequest<int>.Create(page));
+    public async Task<IActionResult> GetAllUser(int page = 0)
+    {
+        return await _mediator.Send(UserControllerRequest<int>.Create(page));
+    }
 
 
     [HttpGet("{guid:guid}")]
-    public async Task<IActionResult> GetUserByGuid(Guid guid) =>
-        await _mediator.Send(UserControllerRequest<Guid>.Create(guid));
+    public async Task<IActionResult> GetUserByGuid(Guid guid)
+    {
+        return await _mediator.Send(UserControllerRequest<Guid>.Create(guid));
+    }
 
     [HttpPost]
     [Route("update")]
-    public async Task<IActionResult> GetAllUser([FromBody] UserInfo? userInfo) =>
-        await _mediator.Send(UserControllerRequest<UserInfo?>.Create(userInfo));
+    public async Task<IActionResult> GetAllUser([FromBody] UserInfo? userInfo)
+    {
+        return await _mediator.Send(UserControllerRequest<UserInfo?>.Create(userInfo));
+    }
 }

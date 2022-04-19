@@ -19,47 +19,49 @@ public class AuthHttpClient : IAuthHttpClient
             PropertyNameCaseInsensitive = true
         };
     }
-    
+
     public async Task<IActionResult> SignInAsync(SignIn signIn)
     {
-        var content = new StringContent(JsonSerializer.Serialize(signIn), Encoding.UTF8, MediaTypeNames.Application.Json);
+        var content = new StringContent(JsonSerializer.Serialize(signIn), Encoding.UTF8,
+            MediaTypeNames.Application.Json);
         var response = await _httpClient.PostAsync(UrlConfig.IdentityApi.SignIn, content);
-        
+
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-           var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, _jsonSerializerOptions);
-           return new OkObjectResult(sessionDto);
-        } 
-        
+            var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, _jsonSerializerOptions);
+            return new OkObjectResult(sessionDto);
+        }
+
         return new BadRequestObjectResult(sessionDraft);
     }
 
     public async Task<IActionResult> SignUpAsync(SignUp signUp)
     {
-        var content = new StringContent(JsonSerializer.Serialize(signUp), Encoding.UTF8, MediaTypeNames.Application.Json);
+        var content = new StringContent(JsonSerializer.Serialize(signUp), Encoding.UTF8,
+            MediaTypeNames.Application.Json);
         var response = await _httpClient.PostAsync(UrlConfig.IdentityApi.SignUp, content);
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
             var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, _jsonSerializerOptions);
             return new OkObjectResult(sessionDto);
-        } 
-        
-        return new BadRequestObjectResult(sessionDraft); 
+        }
+
+        return new BadRequestObjectResult(sessionDraft);
     }
 
     public async Task<IActionResult> SignOutUser()
     {
         var response = await _httpClient.DeleteAsync(UrlConfig.IdentityApi.SignIn);
-        
+
         var sessionDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
             var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, _jsonSerializerOptions);
             return new OkObjectResult(sessionDto);
-        } 
-        
+        }
+
         return new BadRequestObjectResult(sessionDraft);
     }
 }
