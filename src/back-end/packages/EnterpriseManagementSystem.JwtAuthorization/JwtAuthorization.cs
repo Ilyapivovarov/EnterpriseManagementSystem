@@ -18,10 +18,10 @@ public static class JwtAuthorization
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
+                    ValidateIssuer = false,
                     ValidIssuer = authOpt.Issuer,
 
-                    ValidateAudience = true,
+                    ValidateAudience = false,
                     ValidAudience = authOpt.Audience,
 
                     ValidateLifetime = true,
