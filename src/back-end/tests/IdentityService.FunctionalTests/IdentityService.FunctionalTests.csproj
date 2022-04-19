@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="appsettings.json">
+      <Content Include="Base\appsettings.json">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

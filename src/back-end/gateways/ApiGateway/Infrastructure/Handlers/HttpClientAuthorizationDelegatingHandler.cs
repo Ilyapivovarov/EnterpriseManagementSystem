@@ -12,7 +12,8 @@ public class HttpClientAuthorizationDelegatingHandler
         _httpContextAccessor = httpContextAccessor;
     }
 
-    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+        CancellationToken cancellationToken)
     {
         if (_httpContextAccessor.HttpContext != null)
         {

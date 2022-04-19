@@ -5,38 +5,42 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts;
+using IdentityService.FunctionalTests.Base;
 using NUnit.Framework;
 
 namespace IdentityService.FunctionalTests;
 
 public class UserControllerTests : TestBase
 {
-    [SetUp]
-    public async Task SetUp()
-    {
-        var client = Server.CreateClient();
-        var user = GetUserFromDb();
-        var signInContent = new StringContent(JsonSerializer.Serialize(new SignIn(user.EmailAddress.Email, user.Password), JsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
-        var response = await client.PostAsync("auth/sign-in", signInContent);
-        
-        var sessionDraft = await response.Content.ReadAsStringAsync();
-        var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, JsonSerializerOptions);
+    private HttpClient Client { get; set; } = null!;
 
-        AccessToken = sessionDto?.AccessToken;
+    [SetUp]
+    public void SetUp()
+    {
+        Client = Server.CreateClient();
+        Client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", AccessToken);
     }
-    
+
+    [Test]
+    public async Task GetUserByGuidTest()
+    {
+        Client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", AccessToken);
+        var response = await Client.GetAsync($"user/{User.Guid.ToString()}");
+        
+        Assert.IsTrue(response.IsSuccessStatusCode);
+    }
+
     [Test]
     public async Task ChangeUserInfoTest()
     {
-        var user = GetUserFromDb();
-        var client = Server.CreateClient();
-        var data = new UserInfo(user.Guid, "Test", "Test", "Reader");
-        var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
-        client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", AccessToken);
-        
-        var response = await client.PostAsync("user/update", content);
-        
+        var data = new UserInfo(User.Guid, "Test", "Test", "Reader");
+        var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
+            MediaTypeNames.Application.Json);
+
+        var response = await Client.PostAsync("user/update", content);
+
         Assert.IsTrue(response.IsSuccessStatusCode);
     }
 }
