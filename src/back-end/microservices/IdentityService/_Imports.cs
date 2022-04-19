@@ -15,3 +15,4 @@ global using EnterpriseManagementSystem.Contracts.WebContracts;
 global using IdentityService.Application.Mediators.Requests;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
+global using IdentityService.Application.Mapper.Converters;
