@@ -1,12 +1,16 @@
+using ILogger = Castle.Core.Logging.ILogger;
+
 namespace IdentityService.Application.Mediators.Handlers.User;
 
 public class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerRequest<UserInfo>, IActionResult>
 {
+    private readonly ILogger<UpdateUserInfoRequestHandler> _logger;
     private readonly IUserRepository _userRepository;
     private readonly IUserBlService _userBlService;
 
-    public UpdateUserInfoRequestHandler(IUserRepository userRepository, IUserBlService userBlService)
+    public UpdateUserInfoRequestHandler(ILogger<UpdateUserInfoRequestHandler> logger, IUserRepository userRepository, IUserBlService userBlService)
     {
+        _logger = logger;
         _userRepository = userRepository;
         _userBlService = userBlService;
     }
@@ -14,19 +18,27 @@ public class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerReques
     public async Task<IActionResult> Handle(UserControllerRequest<UserInfo> request,
         CancellationToken cancellationToken)
     {
-        var userInfo = request.Body;
-        if (userInfo == null)
-            return new BadRequestObjectResult("Body is empty");
+        try
+        {
+            var userInfo = request.Body;
+            if (userInfo == null)
+                return new BadRequestObjectResult("Body is empty");
 
-        var user = await _userRepository.GetUserByGuidAsync(userInfo.Guid);
-        if (user == null)
-            return new BadRequestObjectResult($"User is not found");
+            var user = await _userRepository.GetUserByGuidAsync(userInfo.Guid);
+            if (user == null)
+                return new BadRequestObjectResult($"User is not found");
 
-        _userBlService.ChangeUserInfo(user, userInfo.FirstName, userInfo.LastName, userInfo.Role);
-        if (!await _userRepository.UpadteUserAsync(user))
-            return new BadRequestObjectResult($"Error while save user data");
+            _userBlService.ChangeUserInfo(user, userInfo.FirstName, userInfo.LastName, userInfo.Role);
+            if (!await _userRepository.UpadteUserAsync(user))
+                return new BadRequestObjectResult($"Error while save user data");
 
-        return new OkResult();
+            return new OkResult();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return new BadRequestObjectResult(e.Message);
+        }
     }
     
 }

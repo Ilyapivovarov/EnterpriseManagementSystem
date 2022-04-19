@@ -2,15 +2,17 @@ namespace IdentityService.Application.Mediators.Handlers.Auth;
 
 public class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IActionResult>
 {
+    private readonly ILogger<SignUpUserRequestHandler> _logger;
     private readonly IUserBlService _userBlService;
     private readonly IUserRepository _userRepository;
     private readonly ISessionBlService _sessionBlService;
     private readonly ISessionRepository _sessionRepository;
     private readonly ISecurityService _securityService;
     
-    public SignUpUserRequestHandler(IUserBlService userBlService, IUserRepository userRepository,
+    public SignUpUserRequestHandler(ILogger<SignUpUserRequestHandler> logger, IUserBlService userBlService, IUserRepository userRepository,
         ISessionBlService sessionBlService, ISessionRepository sessionRepository, ISecurityService securityService)
     {
+        _logger = logger;
         _userBlService = userBlService;
         _userRepository = userRepository;
         _sessionBlService = sessionBlService;
@@ -20,27 +22,35 @@ public class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IAc
     
     public async Task<IActionResult> Handle(AuthRequest<SignUp> authRequest, CancellationToken cancellationToken)
     {
-        var signUpDto = authRequest.Body;
-        if (signUpDto == null)
-            return new BadRequestObjectResult("Request body is empty");
+        try
+        {
+            var signUpDto = authRequest.Body;
+            if (signUpDto == null)
+                return new BadRequestObjectResult("Request body is empty");
 
-        var (email, password, confirmPassword) = signUpDto;
-        if (!password.Equals(confirmPassword, StringComparison.Ordinal))
-            return new BadRequestObjectResult("Passwords is not same");
+            var (email, password, confirmPassword) = signUpDto;
+            if (!password.Equals(confirmPassword, StringComparison.Ordinal))
+                return new BadRequestObjectResult("Passwords is not same");
 
-        var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
-        if (userWithSameEmail != null)
-            return new BadRequestObjectResult("This email already exist");
+            var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
+            if (userWithSameEmail != null)
+                return new BadRequestObjectResult("This email already exist");
 
-        var encryptPassword = _securityService.EncryptPassword(password);
-        var user = _userBlService.CreateUser(email, encryptPassword);
-        if (!await _userRepository.SaveUserAsync(user))
-            return new BadRequestObjectResult("Error while save user");
+            var encryptPassword = _securityService.EncryptPassword(password);
+            var user = _userBlService.CreateUser(email, encryptPassword);
+            if (!await _userRepository.SaveUserAsync(user))
+                return new BadRequestObjectResult("Error while save user");
         
-        var session = _sessionBlService.CreateSession(user);
+            var session = _sessionBlService.CreateSession(user);
         
-        await _sessionRepository.SaveOrUpdateSessionAsync(session);
+            await _sessionRepository.SaveOrUpdateSessionAsync(session);
         
-        return new OkObjectResult(session.ToDto());
+            return new OkObjectResult(session.ToDto());
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return new BadRequestObjectResult(e.Message);
+        }
     }
 }
