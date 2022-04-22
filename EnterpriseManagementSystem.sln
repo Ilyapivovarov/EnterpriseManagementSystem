@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseManagementSystem.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{83A96D21-A873-499F-8C9C-239954605D5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "src\back-end\microservices\EmailService\EmailService.csproj", "{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{821A4D50-186F-48B8-94A2-28FCEC67D89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{821A4D50-186F-48B8-94A2-28FCEC67D89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{821A4D50-186F-48B8-94A2-28FCEC67D89B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{0B8DA111-AA40-42DD-BA5C-43650EF9E11A} = {83A96D21-A873-499F-8C9C-239954605D5C}
 		{CCBF76EC-477F-4DCB-8C65-25A150AE4B35} = {83A96D21-A873-499F-8C9C-239954605D5C}
 		{30F5913C-5706-437C-A6DC-96200ABD7B5A} = {83A96D21-A873-499F-8C9C-239954605D5C}
+		{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB} = {F4177BC2-70F0-4973-AE6F-222969594A2D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6CFA357-8DFC-4CC6-A57E-D1E92BBC71A6}
