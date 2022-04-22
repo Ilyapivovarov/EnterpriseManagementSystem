@@ -9,6 +9,8 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/back-end/gateways/ApiGateway/ApiGateway.csproj", "src/back-end/gateways/ApiGateway/"]
 COPY ["src/back-end/packages/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "src/back-end/packages/EnterpriseManagementSystem.Contracts/"]
+COPY ["src/back-end/packages/EnterpriseManagementSystem.JwtAuthorization/EnterpriseManagementSystem.JwtAuthorization.csproj", "src/back-end/packages/EnterpriseManagementSystem.JwtAuthorization/"]
+
 RUN dotnet restore "src/back-end/gateways/ApiGateway/ApiGateway.csproj"
 COPY . .
 WORKDIR "/src/src/back-end/gateways/ApiGateway"
