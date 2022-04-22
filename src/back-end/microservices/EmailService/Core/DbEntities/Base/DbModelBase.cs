@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmailService.Application.DbModels.Base;
+namespace EmailService.Core.DbEntities.Base;
 
 [Index(nameof(Guid), IsUnique = true)]
-public class DbModelBase
+public abstract class DbEntityBase
 {
     [Key]
     public int Id { get;  protected set; }

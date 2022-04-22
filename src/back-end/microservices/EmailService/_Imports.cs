@@ -1,3 +1,3 @@
 // Global using directives
 
-global using EmailService.Application.DbModels.Base;
+global using EmailService.Core.DbEntities.Base;
