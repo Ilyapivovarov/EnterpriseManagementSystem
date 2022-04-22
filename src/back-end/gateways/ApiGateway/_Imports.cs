@@ -1,3 +1,10 @@
+global using System.Net.Mime;
+global using System.Text;
+global using System.Text.Json;
 global using ApiGateway;
 global using ApiGateway.Application;
+global using ApiGateway.Application.HttpClients;
+global using ApiGateway.Infrastructure.Handlers;
+global using ApiGateway.Infrastructure.HttpClients.Identity;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
+global using Microsoft.AspNetCore.Mvc;

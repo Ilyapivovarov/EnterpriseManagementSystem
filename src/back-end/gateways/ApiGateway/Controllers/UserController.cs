@@ -1,24 +1,24 @@
-namespace IdentityService.Controllers;
+namespace ApiGateway.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public sealed class UserController : ControllerBase
+public class UserController : ControllerBase
 {
-    private readonly IMediator _mediator;
+    private readonly IIdentityHttpClient _identityHttpClient;
 
-    public UserController(IMediator mediator)
+    public UserController(IIdentityHttpClient identityHttpClient)
     {
-        _mediator = mediator;
+        _identityHttpClient = identityHttpClient;
     }
-    
+
     /// <summary>
     /// TODO: Add comment
     /// </summary>
     /// <param name="page"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> GetAllUser(int page = 0) 
-        => await _mediator.Send(UserControllerRequest<int>.Create(page));
+    public async Task<IActionResult> GetAllUsers(int page) =>
+        await _identityHttpClient.GetAllUsers(page);
     
     /// <summary>
     /// TODO: Add comment
@@ -27,8 +27,8 @@ public sealed class UserController : ControllerBase
     /// <returns></returns>
     [HttpGet("{guid:guid}")]
     public async Task<IActionResult> GetUserByGuid(Guid guid) 
-        => await _mediator.Send(UserControllerRequest<Guid>.Create(guid));
-
+        => await _identityHttpClient.GetUserByGuid(guid);
+    
     /// <summary>
     /// TODO: Add comment
     /// </summary>
@@ -37,5 +37,5 @@ public sealed class UserController : ControllerBase
     [HttpPost]
     [Route("update")]
     public async Task<IActionResult> UpdateUserData([FromBody] UserInfo? userInfo) 
-        => await _mediator.Send(UserControllerRequest<UserInfo?>.Create(userInfo));
+        => await _identityHttpClient.UpdateUserData(userInfo);
 }
