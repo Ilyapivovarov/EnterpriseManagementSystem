@@ -11,5 +11,6 @@ public class SessionDbEntity : DbEntityBase
 
     public Guid RefreshToken { get; set; } = Guid.NewGuid();
 
-    [ForeignKey("UserId")] public virtual UserDbEntity User { get; set; } = null!;
+    [ForeignKey("UserId")] 
+    public virtual UserDbEntity User { get; set; } = null!;
 }

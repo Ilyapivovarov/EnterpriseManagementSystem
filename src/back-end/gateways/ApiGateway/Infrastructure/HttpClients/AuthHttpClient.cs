@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGateway.Infrastructure.HttpClients;
 
-public class AuthHttpClient : IAuthHttpClient
+public sealed class AuthHttpClient : IAuthHttpClient
 {
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions;

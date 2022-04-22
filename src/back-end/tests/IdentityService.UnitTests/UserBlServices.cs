@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace IdentityService.UnitTests;
 
-public class UserBlServiceTests
+public sealed class UserBlServiceTests
 {
     public UserBlServiceTests()
     {

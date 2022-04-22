@@ -2,7 +2,7 @@ using Microsoft.Net.Http.Headers;
 
 namespace ApiGateway.Infrastructure.Handlers;
 
-public class HttpClientAuthorizationDelegatingHandler
+public sealed class HttpClientAuthorizationDelegatingHandler
     : DelegatingHandler
 {
     private readonly IHttpContextAccessor _httpContextAccessor;

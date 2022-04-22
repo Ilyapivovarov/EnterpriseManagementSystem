@@ -11,7 +11,7 @@ using NUnit.Framework;
 
 namespace IdentityService.FunctionalTests;
 
-public class UserControllerTests : TestBase
+public sealed class UserControllerTests : TestBase
 {
     private HttpClient Client { get; set; } = null!;
 
