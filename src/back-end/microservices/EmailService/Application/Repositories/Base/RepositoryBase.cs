@@ -30,7 +30,9 @@ public class RepositoryBase
         try
         {
             action(_dbContext);
-            await _dbContext.SaveChangesAsync();
+            var statusCode = await _dbContext.SaveChangesAsync();
+            _logger.LogInformation($"Save opperation finish with code {statusCode}");
+            
             return true;
         }
         catch (Exception e)
