@@ -58,8 +58,8 @@ public sealed class SessionBlService : ISessionBlService
 
         var claims = new List<Claim>
         {
-            new("Email", user.EmailAddress.Email),
-            new("Guid", user.Guid.ToString()),
+            new(ClaimTypes.Email, user.EmailAddress.Email),
+            new(ClaimTypes.UserData, user.Guid.ToString()),
             new(ClaimTypes.Role, user.Role.Name)
         };
 
