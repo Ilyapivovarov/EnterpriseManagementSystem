@@ -4,7 +4,7 @@ namespace EmailService.Application.Contexts;
 
 public interface IEmailServiceDbContext
 {
-    public DbSet<UserDbEntity> Users { get; }
+    public DbSet<AuthorDbEntity> Authors { get; }
     
     public DbSet<EmailDbEntity> Emails { get; }
     

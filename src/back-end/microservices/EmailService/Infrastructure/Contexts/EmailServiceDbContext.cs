@@ -12,11 +12,16 @@ public sealed class EmailServiceDbContext : DbContext, IEmailServiceDbContext
 
     #region Implement IEmailServiceDbContext
 
-    public DbSet<UserDbEntity> Users => Set<UserDbEntity>();
-    
+    public DbSet<AuthorDbEntity> Authors => Set<AuthorDbEntity>();
+
     public DbSet<EmailDbEntity> Emails => Set<EmailDbEntity>();
-    
-    public DbSet<EmailAddressDbEntity> EmailAddresses  => Set<EmailAddressDbEntity>();
+
+    public DbSet<EmailAddressDbEntity> EmailAddresses => Set<EmailAddressDbEntity>();
+
+    public new async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return await base.SaveChangesAsync(cancellationToken);
+    }
 
     #endregion
 }
