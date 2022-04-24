@@ -1,5 +1,3 @@
-using EmailService.Application.DbContext;
-
 namespace EmailService.Application.Repositories.Base;
 
 public class RepositoryBase
@@ -13,12 +11,12 @@ public class RepositoryBase
         _logger = logger;
     }
 
-    protected T? LoadData<T>(Func<IEmailServiceDbContext, T> loadFunc, string errorMessage)
+    protected async Task<T?> LoadDataAsync<T>(Func<IEmailServiceDbContext, T> loadFunc, string errorMessage)
         where T : DbEntityBase
     {
         try
         {
-            return loadFunc(_dbContext);
+            return await Task.Run(() => loadFunc(_dbContext));
         }
         catch (Exception e)
         {
@@ -27,10 +25,12 @@ public class RepositoryBase
         }
     }
 
-    protected async Task<bool> UpdateData(Action<IEmailServiceDbContext> action, string errorMessage)
+    protected async Task<bool> UpdateDataAsync(Action<IEmailServiceDbContext> action, string errorMessage)
     {
         try
         {
+            action(_dbContext);
+            await _dbContext.SaveChangesAsync();
             return true;
         }
         catch (Exception e)
