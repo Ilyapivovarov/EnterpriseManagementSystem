@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using IdentityService.Core.DbEntities.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Core.DbEntities;

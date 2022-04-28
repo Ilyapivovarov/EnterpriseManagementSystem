@@ -1,5 +1,3 @@
-using IdentityService.Core.DbEntities.Base;
-
 #pragma warning disable CS8618
 
 namespace IdentityService.Core.DbEntities;

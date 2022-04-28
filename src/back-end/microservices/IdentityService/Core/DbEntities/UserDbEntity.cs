@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using IdentityService.Core.DbEntities.Base;
 
 namespace IdentityService.Core.DbEntities;
 

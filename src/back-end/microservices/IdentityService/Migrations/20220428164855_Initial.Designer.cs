@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityService.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220419095110_Initial")]
+    [Migration("20220428164855_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace IdentityService.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("IdentityService.Application.Models.EmailAddressDbEntity", b =>
+            modelBuilder.Entity("IdentityService.Core.DbEntities.EmailAddressDbEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace IdentityService.Migrations
                     b.ToTable("EmailAddresses");
                 });
 
-            modelBuilder.Entity("IdentityService.Application.Models.SessionDbEntity", b =>
+            modelBuilder.Entity("IdentityService.Core.DbEntities.SessionDbEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,8 @@ namespace IdentityService.Migrations
 
                     b.Property<string>("AccessToken")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(700)
+                        .HasColumnType("nvarchar(700)");
 
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
@@ -95,7 +96,7 @@ namespace IdentityService.Migrations
                     b.ToTable("Sessions");
                 });
 
-            modelBuilder.Entity("IdentityService.Application.Models.UserDbEntity", b =>
+            modelBuilder.Entity("IdentityService.Core.DbEntities.UserDbEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +136,7 @@ namespace IdentityService.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("IdentityService.Application.Models.UserRoleDbEntity", b =>
+            modelBuilder.Entity("IdentityService.Core.DbEntities.UserRoleDbEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,9 +160,9 @@ namespace IdentityService.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("IdentityService.Application.Models.SessionDbEntity", b =>
+            modelBuilder.Entity("IdentityService.Core.DbEntities.SessionDbEntity", b =>
                 {
-                    b.HasOne("IdentityService.Application.Models.UserDbEntity", "User")
+                    b.HasOne("IdentityService.Core.DbEntities.UserDbEntity", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -170,21 +171,21 @@ namespace IdentityService.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("IdentityService.Application.Models.UserDbEntity", b =>
+            modelBuilder.Entity("IdentityService.Core.DbEntities.UserDbEntity", b =>
                 {
-                    b.HasOne("IdentityService.Application.Models.EmailAddressDbEntity", "EmailAddress")
+                    b.HasOne("IdentityService.Core.DbEntities.EmailAddressDbEntity", "Address")
                         .WithMany()
                         .HasForeignKey("EmailAddressesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IdentityService.Application.Models.UserRoleDbEntity", "Role")
+                    b.HasOne("IdentityService.Core.DbEntities.UserRoleDbEntity", "Role")
                         .WithMany()
                         .HasForeignKey("UserRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EmailAddress");
+                    b.Navigation("Address");
 
                     b.Navigation("Role");
                 });
