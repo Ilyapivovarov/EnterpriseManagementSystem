@@ -18,7 +18,11 @@ public sealed class UserBlService : IUserBlService
                 Email = email,
                 IsVerified = false
             },
-            Password = password
+            Password = password,
+            Role = new UserRoleDbEntity()
+            {
+                Name = "Test"
+            }
         };
     }
 

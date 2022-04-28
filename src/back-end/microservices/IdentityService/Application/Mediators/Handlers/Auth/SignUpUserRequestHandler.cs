@@ -4,14 +4,15 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
 {
     private readonly ILogger<SignUpUserRequestHandler> _logger;
     private readonly ISecurityService _securityService;
+    private readonly IBus _bus;
     private readonly ISessionBlService _sessionBlService;
     private readonly ISessionRepository _sessionRepository;
     private readonly IUserBlService _userBlService;
     private readonly IUserRepository _userRepository;
 
     public SignUpUserRequestHandler(ILogger<SignUpUserRequestHandler> logger, IUserBlService userBlService,
-        IUserRepository userRepository,
-        ISessionBlService sessionBlService, ISessionRepository sessionRepository, ISecurityService securityService)
+        IUserRepository userRepository, ISessionBlService sessionBlService, ISessionRepository sessionRepository,
+        ISecurityService securityService, IBus bus)
     {
         _logger = logger;
         _userBlService = userBlService;
@@ -19,6 +20,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
         _sessionBlService = sessionBlService;
         _sessionRepository = sessionRepository;
         _securityService = securityService;
+        _bus = bus;
     }
 
     public async Task<IActionResult> Handle(AuthRequest<SignUp> authRequest, CancellationToken cancellationToken)
@@ -45,7 +47,8 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
             var session = _sessionBlService.CreateSession(user);
 
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
-
+            await _bus.Publish(new EmailForNewUser("Welcome"), cancellationToken);
+            
             return new OkObjectResult(session.ToDto());
         }
         catch (Exception e)

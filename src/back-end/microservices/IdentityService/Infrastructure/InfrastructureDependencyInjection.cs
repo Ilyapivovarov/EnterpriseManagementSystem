@@ -4,13 +4,13 @@ namespace IdentityService.Infrastructure;
 
 public static class InfrastructureDependencyInjection
 {
-    public static void AddInfrastructure(this IServiceCollection serviceProvider, IConfiguration configuration,
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment)
     {
         #region Register context
 
         var conString = configuration.GetConnectionString("DefaultConnection");
-        serviceProvider.AddDbContext<ApplicationDbContext>(builder =>
+        services.AddDbContext<ApplicationDbContext>(builder =>
             builder
                 .UseLazyLoadingProxies()
                 .UseSqlServer(conString));
@@ -19,23 +19,37 @@ public static class InfrastructureDependencyInjection
 
         #region Register repositories
 
-        serviceProvider.AddTransient<ISessionRepository, SessionRepository>();
-        serviceProvider.AddTransient<IUserRepository, UserRepository>();
-        serviceProvider.AddTransient<ISessionRepository, SessionRepository>();
+        services.AddTransient<ISessionRepository, SessionRepository>();
+        services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<ISessionRepository, SessionRepository>();
 
         #endregion
 
         #region Register services
 
-        serviceProvider.AddTransient<ISecurityService, SecurityService>();
+        services.AddTransient<ISecurityService, SecurityService>();
 
         #endregion
 
         #region Bl services
 
-        serviceProvider.AddTransient<IUserBlService, UserBlService>();
-        serviceProvider.AddTransient<ISessionBlService, SessionBlService>();
+        services.AddTransient<IUserBlService, UserBlService>();
+        services.AddTransient<ISessionBlService, SessionBlService>();
 
         #endregion
+        
+        services.AddMassTransit(x =>
+        {
+            x.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.Host("localhost", "/", h =>
+                {
+                    h.Username("guest");
+                    h.Password("guest");
+                });
+                            
+                cfg.ConfigureEndpoints(context);
+            });
+        });
     }
 }

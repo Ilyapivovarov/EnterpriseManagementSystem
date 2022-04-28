@@ -14,5 +14,6 @@ global using IdentityService.Infrastructure.Implementations.BlServices;
 global using IdentityService.Infrastructure.Implementations.Repositories;
 global using IdentityService.Infrastructure.Implementations.Repositories.Base;
 global using IdentityService.Infrastructure.Implementations.Services;
+global using MassTransit;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
