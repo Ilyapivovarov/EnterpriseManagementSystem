@@ -31,13 +31,21 @@ public static class InfrastructureDependencyInjection
 
         #endregion
 
-        #region Bl services
+        #region Register bl services
 
         services.AddTransient<IUserBlService, UserBlService>();
         services.AddTransient<ISessionBlService, SessionBlService>();
 
         #endregion
         
+        #region Register Jwt auth
+
+        services.AddJwtAuthorization(configuration);
+
+        #endregion
+        
+        #region Register event bus
+
         services.AddMassTransit(x =>
         {
             x.UsingRabbitMq((context, cfg) =>
@@ -51,5 +59,7 @@ public static class InfrastructureDependencyInjection
                 cfg.ConfigureEndpoints(context);
             });
         });
+
+        #endregion
     }
 }

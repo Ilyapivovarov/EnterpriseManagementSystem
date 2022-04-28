@@ -1,4 +1,5 @@
 global using EnterpriseManagementSystem.Contracts.WebContracts;
+global using EnterpriseManagementSystem.JwtAuthorization;
 global using IdentityService.Application;
 global using IdentityService.Application.BlServices;
 global using IdentityService.Application.Mapper;
