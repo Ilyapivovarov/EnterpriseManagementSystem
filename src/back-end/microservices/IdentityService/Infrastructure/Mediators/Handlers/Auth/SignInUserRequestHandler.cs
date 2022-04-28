@@ -1,4 +1,7 @@
-namespace IdentityService.Application.Mediators.Handlers.Auth;
+using IdentityService.Infrastructure.Mapper;
+using IdentityService.Infrastructure.Mediators.Requests;
+
+namespace IdentityService.Infrastructure.Mediators.Handlers.Auth;
 
 public sealed class SignInUserRequestHandler : IRequestHandler<AuthRequest<SignIn>, IActionResult>
 {

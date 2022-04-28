@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper.Internal;
 using EnterpriseManagementSystem.Contracts.WebContracts;
-using IdentityService.Application.Mapper;
 using IdentityService.Core.DbEntities;
+using IdentityService.Infrastructure.Mapper;
 using NUnit.Framework;
 
 namespace IdentityService.UnitTests;

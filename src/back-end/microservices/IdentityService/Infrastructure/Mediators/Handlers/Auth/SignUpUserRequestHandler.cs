@@ -1,4 +1,7 @@
-namespace IdentityService.Application.Mediators.Handlers.Auth;
+using IdentityService.Infrastructure.Mapper;
+using IdentityService.Infrastructure.Mediators.Requests;
+
+namespace IdentityService.Infrastructure.Mediators.Handlers.Auth;
 
 public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IActionResult>
 {
@@ -47,7 +50,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
             var session = _sessionBlService.CreateSession(user);
 
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
-            await _bus.Publish(new EmailForNewUser("Welcome"), cancellationToken);
+            await _bus.Publish(new EmailForNewUser($"Welcome {user.EmailAddress}"), cancellationToken);
             
             return new OkObjectResult(session.ToDto());
         }

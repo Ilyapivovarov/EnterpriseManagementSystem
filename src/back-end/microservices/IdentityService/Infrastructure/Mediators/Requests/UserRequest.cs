@@ -1,4 +1,4 @@
-namespace IdentityService.Application.Mediators.Requests;
+namespace IdentityService.Infrastructure.Mediators.Requests;
 
 public sealed class UserControllerRequest<T> : IRequest<IActionResult>
 {

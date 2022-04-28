@@ -1,7 +1,8 @@
 using AutoMapper;
 using IdentityService.Core.DbEntities;
+using IdentityService.Infrastructure.Mapper.Converters;
 
-namespace IdentityService.Application.Mapper;
+namespace IdentityService.Infrastructure.Mapper;
 
 public static class MapperExtensions
 {

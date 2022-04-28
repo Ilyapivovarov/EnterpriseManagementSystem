@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using IdentityService.Infrastructure.Mediators.Requests;
 using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityService.Controllers;

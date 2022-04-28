@@ -1,4 +1,6 @@
-namespace IdentityService.Application.Mediators.Handlers.User;
+using IdentityService.Infrastructure.Mediators.Requests;
+
+namespace IdentityService.Infrastructure.Mediators.Handlers.User;
 
 public sealed class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerRequest<UserInfo>, IActionResult>
 {
