@@ -48,9 +48,10 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
                 return new BadRequestObjectResult("Error while save user");
 
             var session = _sessionBlService.CreateSession(user);
-
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
-            await _bus.Publish(new EmailForNewUser($"Welcome {user.Address}"), cancellationToken);
+            
+            var @event = new EmailForNewUser($"Welcome {user.Address}");
+            await _bus.Publish(@event, cancellationToken);
             
             return new OkObjectResult(session.ToDto());
         }
