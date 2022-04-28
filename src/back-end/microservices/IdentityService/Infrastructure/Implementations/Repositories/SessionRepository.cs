@@ -1,4 +1,5 @@
 using IdentityService.Core.DbEntities;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Infrastructure.Implementations.Repositories;
 
@@ -13,7 +14,7 @@ public sealed class SessionRepository : RepositoryBase, ISessionRepository
     {
         return SaveData(db =>
             {
-                if (session.Id != 0)
+                if (db.Entry(session).State == EntityState.Modified)
                     db.Sessions.Update(session);
                 else
                     db.Sessions.Add(session);

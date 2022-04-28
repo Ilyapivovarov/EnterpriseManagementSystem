@@ -1,5 +1,3 @@
-using IdentityService.Infrastructure.Mediators.Requests;
-
 namespace IdentityService.Controllers;
 
 [ApiController]

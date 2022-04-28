@@ -31,21 +31,20 @@ public sealed class SessionBlService : ISessionBlService
     public SessionDbEntity CreateOrUpdateSession(UserDbEntity user, SessionDbEntity? session)
     {
         var accessToken = GenerateAccessToken(user);
-
         if (session == null)
         {
             var newSession = new SessionDbEntity
             {
                 User = user,
-                AccessToken = accessToken
+                AccessToken = accessToken,
+                RefreshToken = Guid.NewGuid()
             };
 
             return newSession;
         }
-
-        session.User = user;
+        
         session.AccessToken = accessToken;
-
+        session.RefreshToken = Guid.NewGuid();
         return session;
     }
 

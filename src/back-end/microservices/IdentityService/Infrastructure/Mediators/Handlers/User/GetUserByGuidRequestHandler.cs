@@ -1,6 +1,3 @@
-using IdentityService.Infrastructure.Mapper;
-using IdentityService.Infrastructure.Mediators.Requests;
-
 namespace IdentityService.Infrastructure.Mediators.Handlers.User;
 
 public sealed class GetUserByGuidRequestHandler : IRequestHandler<UserControllerRequest<Guid>, IActionResult>
