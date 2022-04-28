@@ -1,3 +1,5 @@
+using IdentityService.Core.DbEntities;
+
 namespace IdentityService.Infrastructure.Implementations.BlServices;
 
 public sealed class UserBlService : IUserBlService

@@ -1,3 +1,5 @@
+using IdentityService.Core.DbEntities;
+
 namespace IdentityService.Infrastructure.Implementations.Repositories;
 
 public sealed class SessionRepository : RepositoryBase, ISessionRepository

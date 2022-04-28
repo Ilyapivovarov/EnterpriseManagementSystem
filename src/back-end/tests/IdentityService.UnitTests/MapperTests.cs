@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper.Internal;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.Application.Mapper;
-using IdentityService.Application.Models;
+using IdentityService.Core.DbEntities;
 using NUnit.Framework;
 
 namespace IdentityService.UnitTests;

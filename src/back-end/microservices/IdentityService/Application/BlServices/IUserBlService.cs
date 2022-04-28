@@ -1,3 +1,5 @@
+using IdentityService.Core.DbEntities;
+
 namespace IdentityService.Application.BlServices;
 
 public interface IUserBlService

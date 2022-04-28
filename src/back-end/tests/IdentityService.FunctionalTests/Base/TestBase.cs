@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts;
-using IdentityService.Application.Models;
+using IdentityService.Core.DbEntities;
 using IdentityService.Infrastructure.AppData;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;

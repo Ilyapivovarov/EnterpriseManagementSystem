@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace IdentityService.Application.Models.Base;
+namespace IdentityService.Core.DbEntities.Base;
 
 [Index(nameof(Guid), IsUnique = true)]
 public abstract class DbEntityBase

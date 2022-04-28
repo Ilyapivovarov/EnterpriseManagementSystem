@@ -31,4 +31,8 @@
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Core" />
+    </ItemGroup>
+
 </Project>

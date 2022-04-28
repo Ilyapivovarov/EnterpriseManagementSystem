@@ -4,8 +4,6 @@ global using IdentityService.Application.BlServices;
 global using IdentityService.Application.Mapper;
 global using IdentityService.Application.Mapper.Converters;
 global using IdentityService.Application.Mediators.Requests;
-global using IdentityService.Application.Models;
-global using IdentityService.Application.Models.Base;
 global using IdentityService.Application.Repositories;
 global using IdentityService.Application.Services;
 global using IdentityService.Infrastructure;

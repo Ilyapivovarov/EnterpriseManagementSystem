@@ -1,4 +1,4 @@
-using IdentityService.Application.Models;
+using IdentityService.Core.DbEntities;
 using IdentityService.Infrastructure.Implementations.BlServices;
 using Microsoft.Extensions.Logging;
 using Moq;

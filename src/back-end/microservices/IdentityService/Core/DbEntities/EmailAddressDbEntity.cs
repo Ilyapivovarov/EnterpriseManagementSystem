@@ -1,17 +1,19 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
+using IdentityService.Core.DbEntities.Base;
 using Microsoft.EntityFrameworkCore;
 
-#pragma warning disable CS8618
-
-namespace IdentityService.Application.Models;
+namespace IdentityService.Core.DbEntities;
 
 [Index(nameof(Email), IsUnique = true)]
 public class EmailAddressDbEntity : DbEntityBase
 {
-    [EmailAddress] public string Email { get; set; }
+    [EmailAddress] 
+    public string Email { get; set; }  = null!;
 
     public bool IsVerified { get; set; }
 
-    [ForeignKey("UserId")] public int UserId { get; set; }
+    [ForeignKey("UserId")] 
+    public int UserId { get; set; }
 }

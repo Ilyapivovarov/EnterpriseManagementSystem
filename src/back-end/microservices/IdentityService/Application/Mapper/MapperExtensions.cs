@@ -1,4 +1,5 @@
 using AutoMapper;
+using IdentityService.Core.DbEntities;
 
 namespace IdentityService.Application.Mapper;
 
