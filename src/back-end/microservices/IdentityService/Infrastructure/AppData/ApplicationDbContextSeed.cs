@@ -20,7 +20,7 @@ public sealed class ApplicationDbContextSeed
                         {
                             Name = "Admin"
                         },
-                        EmailAddress = new EmailAddressDbEntity
+                        Address = new EmailAddressDbEntity
                         {
                             Email = "admin@admin.com",
                             IsVerified = true

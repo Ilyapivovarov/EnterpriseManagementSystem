@@ -50,7 +50,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
             var session = _sessionBlService.CreateSession(user);
 
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
-            await _bus.Publish(new EmailForNewUser($"Welcome {user.EmailAddress}"), cancellationToken);
+            await _bus.Publish(new EmailForNewUser($"Welcome {user.Address}"), cancellationToken);
             
             return new OkObjectResult(session.ToDto());
         }

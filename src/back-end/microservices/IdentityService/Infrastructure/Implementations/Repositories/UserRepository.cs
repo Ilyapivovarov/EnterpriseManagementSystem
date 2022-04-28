@@ -24,7 +24,7 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
 
     public UserDbEntity? GetUserByEmailAndPassword(string email, string password)
     {
-        return LoadData(db => db.Users.FirstOrDefault(x => x.EmailAddress.Email == email && x.Password == password),
+        return LoadData(db => db.Users.FirstOrDefault(x => x.Address.Email == email && x.Password == password),
             $"Error while searching user with email {email} and password");
     }
 
@@ -35,13 +35,13 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
 
     public bool IsEmailExist(string email)
     {
-        return LoadData(db => db.Users.Any(x => x.EmailAddress.Email == email),
+        return LoadData(db => db.Users.Any(x => x.Address.Email == email),
             "Error while checking email");
     }
 
     public UserDbEntity? GetUserByEmail(string email)
     {
-        return LoadData(db => db.Users.FirstOrDefault(x => x.EmailAddress.Email == email),
+        return LoadData(db => db.Users.FirstOrDefault(x => x.Address.Email == email),
             $"Error while searching user with email {email}");
     }
 
@@ -80,7 +80,7 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
     public bool SaveUser(UserDbEntity user)
     {
         return SaveData(db => db.Users.Add(user),
-            $"Error while creating user with email {user.EmailAddress.Email}");
+            $"Error while creating user with email {user.Address.Email}");
     }
 
     public async Task<bool> SaveUserAsync(UserDbEntity user)

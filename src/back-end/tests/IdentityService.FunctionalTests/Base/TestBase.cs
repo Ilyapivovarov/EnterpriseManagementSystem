@@ -42,7 +42,7 @@ public class TestBase
         var client = Server.CreateClient();
         var signInContent =
             new StringContent(
-                JsonSerializer.Serialize(new SignIn(User.EmailAddress.Email, User.Password), JsonSerializerOptions),
+                JsonSerializer.Serialize(new SignIn(User.Address.Email, User.Password), JsonSerializerOptions),
                 Encoding.UTF8, MediaTypeNames.Application.Json);
         var response = await client.PostAsync("auth/sign-in", signInContent);
 
@@ -82,7 +82,7 @@ public class TestBase
         {
             context.Users.Add(new UserDbEntity
             {
-                EmailAddress = new EmailAddressDbEntity
+                Address = new EmailAddressDbEntity
                 {
                     Email = "admin@admin.com",
                     IsVerified = false

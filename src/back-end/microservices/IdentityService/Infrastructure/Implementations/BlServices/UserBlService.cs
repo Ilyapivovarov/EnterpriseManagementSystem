@@ -15,7 +15,7 @@ public sealed class UserBlService : IUserBlService
     {
         return new UserDbEntity
         {
-            EmailAddress = new EmailAddressDbEntity
+            Address = new EmailAddressDbEntity
             {
                 Email = email,
                 IsVerified = false
