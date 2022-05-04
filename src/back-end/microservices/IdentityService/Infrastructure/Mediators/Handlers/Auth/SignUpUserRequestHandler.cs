@@ -2,9 +2,9 @@ namespace IdentityService.Infrastructure.Mediators.Handlers.Auth;
 
 public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IActionResult>
 {
+    private readonly IBus _bus;
     private readonly ILogger<SignUpUserRequestHandler> _logger;
     private readonly ISecurityService _securityService;
-    private readonly IBus _bus;
     private readonly ISessionBlService _sessionBlService;
     private readonly ISessionRepository _sessionRepository;
     private readonly IUserBlService _userBlService;
@@ -46,10 +46,10 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
 
             var session = _sessionBlService.CreateSession(user);
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
-            
+
             var @event = new SignUpNewUserIntegrationEvent($"Welcome {user.Address}");
             await _bus.Publish(@event, cancellationToken);
-            
+
             return new OkObjectResult(session.ToDto());
         }
         catch (Exception e)

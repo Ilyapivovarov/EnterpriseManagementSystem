@@ -21,7 +21,7 @@ public sealed class UserBlService : IUserBlService
                 IsVerified = false
             },
             Password = password,
-            Role = new UserRoleDbEntity()
+            Role = new UserRoleDbEntity
             {
                 Name = "Test"
             }

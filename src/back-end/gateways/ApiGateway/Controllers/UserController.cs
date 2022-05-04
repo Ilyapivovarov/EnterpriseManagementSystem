@@ -12,30 +12,36 @@ public class UserController : ControllerBase
     }
 
     /// <summary>
-    /// TODO: Add comment
+    ///     TODO: Add comment
     /// </summary>
     /// <param name="page"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers(int page) =>
-        await _identityHttpClient.GetAllUsers(page);
-    
+    public async Task<IActionResult> GetAllUsers(int page)
+    {
+        return await _identityHttpClient.GetAllUsers(page);
+    }
+
     /// <summary>
-    /// TODO: Add comment
+    ///     TODO: Add comment
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>
     [HttpGet("{guid:guid}")]
-    public async Task<IActionResult> GetUserByGuid(Guid guid) 
-        => await _identityHttpClient.GetUserByGuid(guid);
-    
+    public async Task<IActionResult> GetUserByGuid(Guid guid)
+    {
+        return await _identityHttpClient.GetUserByGuid(guid);
+    }
+
     /// <summary>
-    /// TODO: Add comment
+    ///     TODO: Add comment
     /// </summary>
     /// <param name="userInfo"></param>
     /// <returns></returns>
     [HttpPost]
     [Route("update")]
-    public async Task<IActionResult> UpdateUserData([FromBody] UserInfo? userInfo) 
-        => await _identityHttpClient.UpdateUserData(userInfo);
+    public async Task<IActionResult> UpdateUserData([FromBody] UserInfo? userInfo)
+    {
+        return await _identityHttpClient.UpdateUserData(userInfo);
+    }
 }

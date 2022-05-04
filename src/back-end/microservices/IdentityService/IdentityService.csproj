@@ -11,15 +11,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="11.0.1" />
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-        <PackageReference Include="MassTransit" Version="8.0.1" />
-        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.1" />
-        <PackageReference Include="MediatR" Version="10.0.1" />
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
+        <PackageReference Include="AutoMapper" Version="11.0.1"/>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
+        <PackageReference Include="MassTransit" Version="8.0.1"/>
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.1"/>
+        <PackageReference Include="MediatR" Version="10.0.1"/>
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.4"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,12 +27,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
-        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
+        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj"/>
+        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Core" />
+        <Folder Include="Core"/>
     </ItemGroup>
 
 </Project>

@@ -7,7 +7,7 @@ public interface IIdentityHttpClient
     public Task<IActionResult> SignUpAsync(SignUp signUp);
 
     public Task<IActionResult> SignOutUser();
-    
+
     public Task<IActionResult> GetAllUsers(int page = 0);
 
     public Task<IActionResult> GetUserByGuid(Guid userGuid);

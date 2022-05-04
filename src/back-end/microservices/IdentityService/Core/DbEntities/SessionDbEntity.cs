@@ -9,10 +9,10 @@ namespace IdentityService.Core.DbEntities;
 public class SessionDbEntity : DbEntityBase
 {
     [MaxLength(700)]
-    public string AccessToken { get; set; }  = null!;
+    public string AccessToken { get; set; } = null!;
 
     public Guid RefreshToken { get; set; } = Guid.NewGuid();
 
-    [ForeignKey("UserId")] 
-    public virtual UserDbEntity User { get; set; }  = null!;
+    [ForeignKey("UserId")]
+    public virtual UserDbEntity User { get; set; } = null!;
 }

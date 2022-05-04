@@ -11,12 +11,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
-        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
+        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj"/>
+        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -1,8 +1,4 @@
 using System;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper.Internal;
-using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.Core.DbEntities;
 using IdentityService.Infrastructure.Mapper;
 using NUnit.Framework;
@@ -35,11 +31,11 @@ public sealed class MapperTests
             }
         };
         var dto = user.ToDto();
-        Assert.IsTrue(dto.Guid == user.Guid 
-        && dto.Role == user.Role.Name 
-        && dto.Email == user.Address.Email
-        && dto.FirstName == user.FirstName
-        && dto.LastName == user.LastName);
+        Assert.IsTrue(dto.Guid == user.Guid
+                      && dto.Role == user.Role.Name
+                      && dto.Email == user.Address.Email
+                      && dto.FirstName == user.FirstName
+                      && dto.LastName == user.LastName);
     }
 
     [Test]
@@ -54,9 +50,7 @@ public sealed class MapperTests
 
         var session = sessionDbEntity.ToDto();
         Assert.IsTrue(session.AccessToken == sessionDbEntity.AccessToken
-        && session.RefreshToken == sessionDbEntity.RefreshToken
-        && session.UserGuid == sessionDbEntity.User.Guid);
+                      && session.RefreshToken == sessionDbEntity.RefreshToken
+                      && session.UserGuid == sessionDbEntity.User.Guid);
     }
-
-    
 }

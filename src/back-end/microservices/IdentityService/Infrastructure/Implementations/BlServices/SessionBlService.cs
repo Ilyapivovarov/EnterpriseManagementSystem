@@ -42,7 +42,7 @@ public sealed class SessionBlService : ISessionBlService
 
             return newSession;
         }
-        
+
         session.AccessToken = accessToken;
         session.RefreshToken = Guid.NewGuid();
         return session;

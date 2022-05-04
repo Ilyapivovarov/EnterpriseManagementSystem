@@ -11,6 +11,6 @@ public sealed class AuthRequest<T> : IRequest<IActionResult>
 
     public static AuthRequest<T> Create(T? body)
     {
-        return new(body);
+        return new AuthRequest<T>(body);
     }
 }

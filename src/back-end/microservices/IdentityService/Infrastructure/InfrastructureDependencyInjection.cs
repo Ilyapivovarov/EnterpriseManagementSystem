@@ -37,13 +37,13 @@ public static class InfrastructureDependencyInjection
         services.AddTransient<ISessionBlService, SessionBlService>();
 
         #endregion
-        
+
         #region Register Jwt auth
 
         services.AddJwtAuthorization(configuration);
 
         #endregion
-        
+
         #region Register event bus
 
         services.AddMassTransit(x =>
@@ -55,7 +55,7 @@ public static class InfrastructureDependencyInjection
                     h.Username("guest");
                     h.Password("guest");
                 });
-                            
+
                 cfg.ConfigureEndpoints(context);
             });
         });

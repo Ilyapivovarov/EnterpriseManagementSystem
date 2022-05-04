@@ -11,6 +11,6 @@ public sealed class UserControllerRequest<T> : IRequest<IActionResult>
 
     public static UserControllerRequest<T> Create(T? body)
     {
-        return new(body);
+        return new UserControllerRequest<T>(body);
     }
 }

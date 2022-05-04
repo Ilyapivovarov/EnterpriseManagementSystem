@@ -16,17 +16,23 @@ public class AuthController : ControllerBase
     [HttpPost]
     [AllowAnonymous]
     [Route("sign-in")]
-    public async Task<IActionResult> SingInUser([FromBody] SignIn signInDto) 
-        => await _identityHttpClient.SignInAsync(signInDto);
+    public async Task<IActionResult> SingInUser([FromBody] SignIn signInDto)
+    {
+        return await _identityHttpClient.SignInAsync(signInDto);
+    }
 
     [HttpPost]
     [AllowAnonymous]
     [Route("sign-up")]
-    public async Task<IActionResult> SingInUser([FromBody] SignUp signUp) 
-        => await _identityHttpClient.SignUpAsync(signUp);
-    
+    public async Task<IActionResult> SingInUser([FromBody] SignUp signUp)
+    {
+        return await _identityHttpClient.SignUpAsync(signUp);
+    }
+
     [HttpDelete]
     [Route("sign-out")]
-    public async Task<IActionResult> SignOutUser() 
-        => await _identityHttpClient.SignOutUser();
+    public async Task<IActionResult> SignOutUser()
+    {
+        return await _identityHttpClient.SignOutUser();
+    }
 }

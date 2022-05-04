@@ -10,9 +10,9 @@ public class UserDbEntity : DbEntityBase
 
     public string? LastName { get; set; }
 
-    [ForeignKey("EmailAddressesId")] 
+    [ForeignKey("EmailAddressesId")]
     public virtual EmailAddressDbEntity Address { get; set; } = null!;
 
-    [ForeignKey("UserRoleId")] 
-    public virtual UserRoleDbEntity Role { get; set; }  = null!;
+    [ForeignKey("UserRoleId")]
+    public virtual UserRoleDbEntity Role { get; set; } = null!;
 }

@@ -8,7 +8,7 @@ public sealed class EmailForNewUserConsumer : IConsumer<SignUpNewUserIntegration
     {
         _logger = logger;
     }
-    
+
     public async Task Consume(ConsumeContext<SignUpNewUserIntegrationEvent> context)
     {
         _logger.LogInformation("{Body}", context.Message.Body);

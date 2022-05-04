@@ -9,11 +9,15 @@ namespace EmailService.Core.DbEntities;
 [Index(nameof(UserGuid), IsUnique = true)]
 public class AuthorDbEntity : DbEntityBase
 {
-    [Required] public string FirstName { get; set; }
+    [Required]
+    public string FirstName { get; set; }
 
-    [Required] public string LastName { get; set; }
+    [Required]
+    public string LastName { get; set; }
 
-    [ForeignKey("EmailAddressesId")] public virtual EmailAddressDbEntity EmailAddress { get; set; }
+    [ForeignKey("EmailAddressesId")]
+    public virtual EmailAddressDbEntity EmailAddress { get; set; }
 
-    [Required] public Guid UserGuid { get; set; }
+    [Required]
+    public Guid UserGuid { get; set; }
 }

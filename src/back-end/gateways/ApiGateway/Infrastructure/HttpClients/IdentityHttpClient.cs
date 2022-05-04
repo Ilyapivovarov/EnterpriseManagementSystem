@@ -58,7 +58,7 @@ public sealed class IdentityHttpClient : IIdentityHttpClient
 
         return new BadRequestObjectResult(sessionDraft);
     }
-    
+
     public async Task<IActionResult> GetAllUsers(int page = 0)
     {
         var response = await _httpClient.GetAsync(UrlConfig.IdentityApi.UserController.GetAllUser(page));
@@ -94,10 +94,7 @@ public sealed class IdentityHttpClient : IIdentityHttpClient
         var response = await _httpClient.PutAsync(UrlConfig.IdentityApi.UserController.UpdateUserData(), content);
 
         var responseDraft = await response.Content.ReadAsStringAsync();
-        if (response.IsSuccessStatusCode)
-        {
-            return new OkResult();
-        }
+        if (response.IsSuccessStatusCode) return new OkResult();
 
         return new BadRequestObjectResult(responseDraft);
     }
