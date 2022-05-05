@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 
-namespace EmailService.IntegrationTests.Base;
+namespace EmailService.FunctionalTests.Base;
 
 public class TestBase
 {

@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "src\back-en
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmailService", "EmailService", "{7F60AEA2-BE70-40B2-9D4D-818078392723}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService.IntegrationTests", "src\back-end\tests\EmailService.IntegrationTests\EmailService.IntegrationTests.csproj", "{33886405-462E-4B1B-95CA-E30F8DDDDEDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService.FunctionalTests", "src\back-end\tests\EmailService.FunctionalTests\EmailService.FunctionalTests.csproj", "{33886405-462E-4B1B-95CA-E30F8DDDDEDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

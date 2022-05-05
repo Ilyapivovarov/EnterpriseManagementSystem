@@ -1,14 +1,14 @@
 using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using EmailService.IntegrationTests.Base;
+using EmailService.FunctionalTests.Base;
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 using MassTransit;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
-namespace EmailService.IntegrationTests;
+namespace EmailService.FunctionalTests;
 
 public sealed class EmailServiceTests : TestBase
 {
