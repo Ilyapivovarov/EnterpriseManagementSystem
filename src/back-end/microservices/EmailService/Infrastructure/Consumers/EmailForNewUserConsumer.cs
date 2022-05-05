@@ -25,7 +25,7 @@ public sealed class EmailForNewUserConsumer : IConsumer<SignUpNewUserIntegration
         }
         catch (Exception e)
         {
-            _logger.LogError("Error wihle sending email", e);
+            _logger.LogError(e.Message);
         }
         
         
