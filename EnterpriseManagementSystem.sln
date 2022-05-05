@@ -35,6 +35,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "Identity
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "src\back-end\microservices\EmailService\EmailService.csproj", "{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmailService", "EmailService", "{7F60AEA2-BE70-40B2-9D4D-818078392723}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService.IntegrationTests", "src\back-end\tests\EmailService.IntegrationTests\EmailService.IntegrationTests.csproj", "{33886405-462E-4B1B-95CA-E30F8DDDDEDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,10 @@ Global
 		{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33886405-462E-4B1B-95CA-E30F8DDDDEDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33886405-462E-4B1B-95CA-E30F8DDDDEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33886405-462E-4B1B-95CA-E30F8DDDDEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33886405-462E-4B1B-95CA-E30F8DDDDEDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +104,8 @@ Global
 		{CCBF76EC-477F-4DCB-8C65-25A150AE4B35} = {83A96D21-A873-499F-8C9C-239954605D5C}
 		{30F5913C-5706-437C-A6DC-96200ABD7B5A} = {83A96D21-A873-499F-8C9C-239954605D5C}
 		{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB} = {F4177BC2-70F0-4973-AE6F-222969594A2D}
+		{7F60AEA2-BE70-40B2-9D4D-818078392723} = {85964933-9048-4BA2-933A-DD75FEFF0B53}
+		{33886405-462E-4B1B-95CA-E30F8DDDDEDD} = {7F60AEA2-BE70-40B2-9D4D-818078392723}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6CFA357-8DFC-4CC6-A57E-D1E92BBC71A6}
