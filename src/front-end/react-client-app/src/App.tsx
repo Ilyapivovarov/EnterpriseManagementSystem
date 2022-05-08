@@ -1,8 +1,8 @@
 import {FC} from "react";
 import {Route, Routes} from "react-router-dom";
-import SignInPage from "./pages/SignInPage/SignInPage";
-import HomePage from "./pages/HomePage/HomePage";
-import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import SignInPage from "./pages/SignInPage";
+import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
 import Layout from "./components/Layout/Layout";
 
 const App: FC = () => (
