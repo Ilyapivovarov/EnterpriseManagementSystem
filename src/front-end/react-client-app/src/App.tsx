@@ -3,10 +3,11 @@ import {Route, Routes} from "react-router-dom";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import HomePage from "./pages/HomePage/HomePage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import Layout from "./components/Layout/Layout";
 
 const App: FC = () => (
     <Routes>
-        <Route path={"/"}>
+        <Route path={"/"} element={<Layout/>}>
             <Route index element={<HomePage/>}/>
         </Route>
         <Route path={"/"}>
