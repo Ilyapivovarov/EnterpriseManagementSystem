@@ -1,7 +1,9 @@
 import {FC} from "react";
 import {Paper, Typography} from "@mui/material";
+import {useSignInMutation} from "../../services/authService";
 
 const HomePage: FC = () => {
+    useSignInMutation()
     return (
         <Paper
             sx={{
