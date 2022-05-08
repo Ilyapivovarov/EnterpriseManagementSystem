@@ -4,10 +4,11 @@ import SignInPage from "./pages/SignInPage";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import Layout from "./components/Layout/Layout";
+import RequireAuth from "./hoc/RequireAuth";
 
 const App: FC = () => (
     <Routes>
-        <Route path={"/"} element={<Layout/>}>
+        <Route path={"/"} element={<RequireAuth children={Layout}/>}>
             <Route index element={<HomePage/>}/>
         </Route>
         <Route path={"/"}>
