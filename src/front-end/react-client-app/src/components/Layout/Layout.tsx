@@ -25,6 +25,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import {Outlet} from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const drawerWidth: number = 240;
@@ -36,7 +37,7 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
         shouldForwardProp: (prop) => prop !== 'open',
     })
-    <AppBarProps> (({theme, open}) => ({
+    < AppBarProps > (({theme, open}) => ({
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
@@ -113,11 +114,16 @@ const DashboardContent: FC = () => {
                         noWrap
                         sx={{flexGrow: 1}}
                     >
-                        Dashboard
+                       
                     </Typography>
                     <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">
                             <NotificationsIcon/>
+                        </Badge>
+                    </IconButton>
+                    <IconButton color="inherit">
+                        <Badge color="secondary">
+                            <LogoutIcon/>
                         </Badge>
                     </IconButton>
                 </Toolbar>
@@ -180,16 +186,7 @@ const DashboardContent: FC = () => {
                 <Toolbar/>
                 <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
                     <Grid item xs={12} md={8} lg={9}>
-                        <Paper
-                            sx={{
-                                p: 2,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                minHeight: '85vh',
-                            }}
-                        >
-                            <Outlet/>
-                        </Paper>
+                        <Outlet/>
                     </Grid>
                 </Container>
             </Box>

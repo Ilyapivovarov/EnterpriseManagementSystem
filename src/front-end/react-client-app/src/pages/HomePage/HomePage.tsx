@@ -1,9 +1,20 @@
-import {FC, useState} from "react";
-import {Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {FC} from "react";
+import {Paper, Typography} from "@mui/material";
 
 const HomePage: FC = () => {
     return (
-        <h1>H1</h1>
+        <Paper
+            sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+            }}
+        >
+            <Typography>
+                Home Page
+            </Typography>
+        </Paper>
     )
 }
 

@@ -15,20 +15,12 @@
     "strictBindCallApply": true,
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
-    // Linter Checks
     "noImplicitReturns": true,
-    // https://eslint.org/docs/rules/consistent-return ?
     "noFallthroughCasesInSwitch": true,
-    // https://eslint.org/docs/rules/no-fallthrough
     "noUnusedLocals": false,
-    // https://eslint.org/docs/rules/no-unused-vars
     "noUnusedParameters": true,
-    // https://eslint.org/docs/rules/no-unused-vars#args
     "allowUnreachableCode": false,
-    // https://eslint.org/docs/rules/no-unreachable ?
     "allowUnusedLabels": true,
-    // https://eslint.org/docs/rules/no-unused-labels
-    // Base Strict Checks
     "noImplicitUseStrict": false,
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false,
