@@ -1,6 +1,7 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {Box, CircularProgress, Paper, Typography} from "@mui/material";
 import {useGetAccountByGuidQuery} from "../../services/accountService";
+import {useAppSelector} from "../../hooks";
 import {Session} from "../../types/authTypes";
 
 const HomePage: FC = () => {

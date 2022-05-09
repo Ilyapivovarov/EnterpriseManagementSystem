@@ -1,20 +1,29 @@
 import {FC, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../hooks";
+import {resetAuthState} from "../store/AuthReducer/AuthActionCreators";
+
 
 const RequireAuth: FC = (props) => {
         const navigate = useNavigate();
-        const session = localStorage.getItem("session");
+        const {isAuth, currentSession} = useAppSelector(x => x.authReducer)
 
+        const dispatch = useAppDispatch()
+        dispatch(resetAuthState())
+    
         useEffect(() => {
-                if (session == null)
-                    navigate("/sign-in");
-            }, [session]);
+            if (!isAuth)
+                navigate("/sign-in")
+        }, [isAuth, currentSession]);
         
-        return (
-            <>
-                {props.children}
-            </>
-        );
+        if (isAuth)
+            return (
+                <>
+                    {props.children}
+                </>
+            );
+
+        return <></>
     }
 ;
 

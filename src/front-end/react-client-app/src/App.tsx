@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import Layout from "./components/Layout/Layout";
 import RequireAuth from "./hoc/RequireAuth";
+import {useAppDispatch, useAppSelector} from "./hooks";
 
 const App: FC = () => (
     <Routes>
@@ -16,6 +17,6 @@ const App: FC = () => (
             <Route path={"sign-up"} element={<SignUpPage/>}/>
         </Route>
     </Routes>
-);
+)
 
 export default App;

@@ -1,4 +1,4 @@
-import {FC, FormEvent} from "react";
+import {FC, FormEvent, useEffect} from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
     Avatar,
@@ -13,13 +13,22 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import {useSignInMutation} from "../../services/authService";
+import {signIn} from "../../store/AuthReducer/AuthActionCreators";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 import {useNavigate} from "react-router-dom";
 
 
 const SignInPage: FC = () => {
-    const [siginIn] = useSignInMutation();
+    const dispatch = useAppDispatch()
+
     const navigate = useNavigate();
+    const {isAuth} = useAppSelector(x => x.authReducer)
+
+    useEffect(() => {
+        if (isAuth)
+            navigate("/")
+    }, [isAuth]);
+
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -29,13 +38,7 @@ const SignInPage: FC = () => {
         const password = formData.get("password") as string;
 
         if (email && password) {
-            siginIn({email, password})
-                .unwrap()
-                .then((payload) => {
-                    localStorage.setItem("session", JSON.stringify(payload));
-                    navigate("/")
-                })
-                .catch((error) => console.error("rejected", error));
+            dispatch(signIn({email, password}))
         }
     };
 
