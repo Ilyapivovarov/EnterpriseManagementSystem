@@ -34,7 +34,6 @@ export const authSlice = createSlice({
             state.currentSession = null
         },
         [signIn.fulfilled.type](state, action: PayloadAction<Session>) {
-            console.log("asfass")
             state.isAuth = true;
             state.currentSession = action.payload
             state.error = null;
