@@ -3,10 +3,12 @@ import {Session, SignIn} from '../types/authTypes';
 import {BaseQueryArg} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 import {Account} from "../types/accountTypes";
 
+const baseUrl = process.env.REACT_APP_API_KEY;
+
 export const accountApi = createApi({
     reducerPath: "accountApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://localhost:7104/user',
+        baseUrl: `${baseUrl}/user`,
         prepareHeaders: (headers) => {
             const session = JSON.parse(localStorage.getItem("session")!) as Session;
             if (session)
