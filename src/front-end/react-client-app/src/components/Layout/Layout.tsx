@@ -120,7 +120,7 @@ const DashboardContent: FC = () => {
                             <NotificationsIcon/>
                         </Badge>
                     </IconButton>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" onClick={() => localStorage.clear()}>
                         <Badge color="secondary">
                             <LogoutIcon/>
                         </Badge>

@@ -1,7 +1,12 @@
 import {FC} from "react";
-import {Paper, Typography} from "@mui/material";
+import {Box, CircularProgress, Paper, Typography} from "@mui/material";
+import {useGetAccountByGuidQuery} from "../../services/accountService";
+import {Session} from "../../types/authTypes";
 
 const HomePage: FC = () => {
+    const session = JSON.parse(localStorage.getItem("session")!) as Session;
+    const {data, isLoading, isSuccess} = useGetAccountByGuidQuery(session.userGuid);
+
     return (
         <Paper
             sx={{
@@ -11,9 +16,10 @@ const HomePage: FC = () => {
                 height: '100%',
             }}
         >
-            <Typography>
-                Home Page
-            </Typography>
+            {isLoading && <Box sx={{display: 'flex'}}>
+                <CircularProgress/>
+            </Box>}
+            {isSuccess && <Typography> Welcome {data.firstName}</Typography>}
         </Paper>
     )
 }
