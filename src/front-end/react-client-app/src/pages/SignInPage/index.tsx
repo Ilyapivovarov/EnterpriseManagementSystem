@@ -14,14 +14,16 @@ import {
     Typography,
 } from "@mui/material";
 import {useSignInMutation} from "../../services/authService";
+import {useNavigate} from "react-router-dom";
 
 
 const SignInPage: FC = () => {
     const [siginIn] = useSignInMutation();
+    const navigate = useNavigate();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        
         const formData = new FormData(event.currentTarget);
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
@@ -29,7 +31,10 @@ const SignInPage: FC = () => {
         if (email && password) {
             siginIn({email, password})
                 .unwrap()
-                .then((payload) => localStorage.setItem("session", JSON.stringify(payload)))
+                .then((payload) => {
+                    localStorage.setItem("session", JSON.stringify(payload));
+                    navigate("/")
+                })
                 .catch((error) => console.error("rejected", error));
         }
     };

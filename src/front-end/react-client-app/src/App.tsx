@@ -8,7 +8,7 @@ import RequireAuth from "./hoc/RequireAuth";
 
 const App: FC = () => (
     <Routes>
-        <Route path={"/"} element={<RequireAuth children={Layout}/>}>
+        <Route path={"/"} element={<RequireAuth children={<Layout/>}/>}>
             <Route index element={<HomePage/>}/>
         </Route>
         <Route path={"/"}>

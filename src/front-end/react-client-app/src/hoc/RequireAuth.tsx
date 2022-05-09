@@ -2,13 +2,13 @@ import {FC, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 
 const RequireAuth: FC = (props) => {
-
     const navigate = useNavigate();
-    const isAuth = false;
+    const session = localStorage.getItem("session");
+    
     useEffect(() => {
-        if (!isAuth)
+        if (!session)
             navigate("/sign-in");
-    }, [isAuth, navigate]);
+    }, []);
 
     return (
         <>
