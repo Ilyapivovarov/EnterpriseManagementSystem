@@ -4,8 +4,9 @@ import {Session, SignIn} from "../../types/authTypes";
 export const resetAuthState = createAsyncThunk(
     'authSlice/reset-auth-state',
     async (_, thunkAPI) => {
-        const session = localStorage.getItem("session") as Session | null;
+        const session = JSON.parse(localStorage.getItem("session")!) as Session | null;
         if (session){
+            
             return thunkAPI.fulfillWithValue(session)
         }
         else {
@@ -29,7 +30,7 @@ export const signIn = createAsyncThunk(
             if (response.body) {
                 const json = await response.json();
                 localStorage.setItem("session", JSON.stringify(json))
-                return thunkAPI.fulfillWithValue(json)
+                return thunkAPI.fulfillWithValue(json as Session)
             }
         } else {
             console.log(response)

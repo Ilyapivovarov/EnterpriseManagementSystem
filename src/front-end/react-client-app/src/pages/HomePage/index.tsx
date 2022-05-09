@@ -5,9 +5,8 @@ import {useAppSelector} from "../../hooks";
 import {Session} from "../../types/authTypes";
 
 const HomePage: FC = () => {
-    const session = JSON.parse(localStorage.getItem("session")!) as Session;
-    const {data, isLoading, isSuccess} = useGetAccountByGuidQuery(session.userGuid);
-
+    const {currentSession} = useAppSelector(x => x.authReducer);
+    const {data, isLoading, isSuccess} = useGetAccountByGuidQuery(currentSession!.userGuid);
     return (
         <Paper
             sx={{
