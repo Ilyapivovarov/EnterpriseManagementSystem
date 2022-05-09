@@ -25,6 +25,8 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import {Outlet} from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
+import {useAppDispatch} from "../../hooks";
+import {resetAuthState, signOut} from "../../store/AuthReducer/AuthActionCreators";
 
 
 const drawerWidth: number = 240;
@@ -80,11 +82,18 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 
 const DashboardContent: FC = () => {
 
+    const dispatch = useAppDispatch()
+   
+    
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
+    const logOutHandler = () => {
+        dispatch(signOut())
+    }
+    
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
@@ -120,7 +129,7 @@ const DashboardContent: FC = () => {
                             <NotificationsIcon/>
                         </Badge>
                     </IconButton>
-                    <IconButton color="inherit" onClick={() => localStorage.clear()}>
+                    <IconButton color="inherit" onClick={logOutHandler}>
                         <Badge color="secondary">
                             <LogoutIcon/>
                         </Badge>

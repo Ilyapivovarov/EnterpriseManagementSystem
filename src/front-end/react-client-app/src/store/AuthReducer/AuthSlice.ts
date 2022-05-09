@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AuthState} from "./AuthTypes";
-import {resetAuthState, signIn} from "./AuthActionCreators";
+import {resetAuthState, signIn, signOut} from "./AuthActionCreators";
 import {Session} from "../../types/authTypes";
 
 const initialState: AuthState = {
@@ -30,7 +30,7 @@ export const authSlice = createSlice({
         },
         [resetAuthState.rejected.type](state, action: PayloadAction<string>) {
             state.error = action.payload;
-            state.isAuth = true;
+            state.isAuth = false;
             state.currentSession = null
         },
         [signIn.fulfilled.type](state, action: PayloadAction<Session>) {
@@ -42,6 +42,11 @@ export const authSlice = createSlice({
             state.currentSession = null;
             state.isAuth = false;
             state.error = action.payload;
+        },
+        [signOut.fulfilled.type](state){
+            state.currentSession = null;
+            state.isAuth = false;
+            state.error = null;
         }
     }
 })

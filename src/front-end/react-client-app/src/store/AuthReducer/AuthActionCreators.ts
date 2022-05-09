@@ -38,48 +38,10 @@ export const signIn = createAsyncThunk(
     }
 )
 
-// export const signUp = createAsyncThunk(
-//     'authSlice/sign-up',
-//     async (authModel: SignUp, thunkAPI) => {
-//         const response = await Axios.post<JwtTokenResponse>("auth/sign-up", authModel)
-//         if (response.status == 200) {
-//             const account = jwtDecode<JwtTokenDecode>(response.data.access_token)
-//             if (account) {
-//                 localStorage.setItem(AccessTokenKey, response.data.access_token)
-//                 return account;
-//             }
-//         } else {
-//             return thunkAPI.rejectWithValue(response.data)
-//         }
-//     }
-// )
-//
-// export const validateToken = createAsyncThunk(
-//     'authSlice/validateToken',
-//     async (_, thunkAPI) => {
-//         try {
-//             const token = localStorage.getItem("session");
-//             if (token) {
-//                 const account = jwtDecode<JwtTokenDecode>(token);
-//                 if (account && IsTokenExpValid(account.exp)) {
-//                     return account;
-//                 }
-//             }
-//             return thunkAPI.rejectWithValue("Update auth");
-//         } catch {
-//             return thunkAPI.rejectWithValue("Unknown error while validate token");
-//         }
-//     });
-//
-// const IsTokenExpValid = (tokenExp: number): boolean => {
-//     const exp = new Date(0);
-//     exp.setUTCSeconds(tokenExp);
-//     let now = new Date();
-//     return exp > now
-// }
-//
-// export const signOut = createAsyncThunk(
-//     "authSlice/signOut",
-//     async (_, thunkAPI) => {
-//         localStorage.clear();
-//     })
+export const signOut = createAsyncThunk(
+    'authSlice/sign-out',
+    async (thunkAPI) => {
+        console.log("sign out")
+        localStorage.clear()
+    }
+)
