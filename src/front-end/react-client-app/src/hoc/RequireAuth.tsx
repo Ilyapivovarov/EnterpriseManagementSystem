@@ -8,7 +8,7 @@ const RequireAuth: FC = (props) => {
     useEffect(() => {
         if (!isAuth)
             navigate("/sign-in");
-    }, []);
+    }, [isAuth, navigate]);
 
     return (
         <>

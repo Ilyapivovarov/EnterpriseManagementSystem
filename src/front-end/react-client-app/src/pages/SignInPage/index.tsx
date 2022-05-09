@@ -1,4 +1,5 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {FC, FormEvent} from "react";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
     Avatar,
     Box,
@@ -10,19 +11,27 @@ import {
     Grid,
     Link,
     TextField,
-    Typography
-} from '@mui/material';
-import {FC, FormEvent} from 'react';
+    Typography,
+} from "@mui/material";
+import {useSignInMutation} from "../../services/authService";
+
 
 const SignInPage: FC = () => {
+    const [siginIn] = useSignInMutation();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        const formData = new FormData(event.currentTarget);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+
+        if (email && password) {
+            siginIn({email, password})
+                .unwrap()
+                .then((payload) => localStorage.setItem("session", JSON.stringify(payload)))
+                .catch((error) => console.error("rejected", error));
+        }
     };
 
     return (
@@ -31,12 +40,12 @@ const SignInPage: FC = () => {
             <Box
                 sx={{
                     marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                 }}
             >
-                <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -91,6 +100,6 @@ const SignInPage: FC = () => {
             </Box>
         </Container>
     );
-}
+};
 
 export default SignInPage;

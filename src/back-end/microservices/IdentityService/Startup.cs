@@ -29,6 +29,12 @@ public sealed class Startup
 
         app.UseRouting();
 
+        app.UseCors(x => x
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(origin => true) // allow any origin
+            .AllowCredentials()); // allow credentials
+        
         app.UseAuthentication();
         app.UseAuthorization();
 

@@ -61,5 +61,7 @@ public static class InfrastructureDependencyInjection
         });
 
         #endregion
+        
+        services.AddCors();
     }
 }

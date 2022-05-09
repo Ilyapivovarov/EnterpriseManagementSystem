@@ -1,10 +1,10 @@
-interface Session {
+export interface Session {
     accessToken: string,
     refreshToken: string,
     userGuid: string
 }
 
-interface SignIn {
+export interface SignIn {
     email: string,
     password: string
 }

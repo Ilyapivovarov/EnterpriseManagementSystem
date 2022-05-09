@@ -1,15 +1,16 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {Session, SignIn} from '../types/authTypes';
 
-const authApi = createApi({
+export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: '/',
+        baseUrl: 'https://localhost:7104/auth',
     }),
     endpoints: (build) => ({
-        signIn: build.mutation<string, Session>({
+        signIn: build.mutation<Session, SignIn>({
             query: (session) => ({
                 url: "sign-in",
-                method: "PUT",
+                method: "POST",
                 body: session
             }),
         }),
