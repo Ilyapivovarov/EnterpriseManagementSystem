@@ -21,5 +21,7 @@ public static class InfrastructureDependencyInjection
         serviceProvider.AddJwtAuthorization(configuration);
 
         #endregion
+        
+        serviceProvider.AddCors();
     }
 }
