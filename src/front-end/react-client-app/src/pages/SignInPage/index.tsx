@@ -23,7 +23,8 @@ const SignInPage: FC = () => {
 
     const navigate = useNavigate();
     const {isAuth} = useAppSelector(x => x.authReducer)
-
+    console.log(process.env.NODE_ENV)
+    console.log(process.env.REACT_APP_API_KEY)
     useEffect(() => {
         if (isAuth)
             navigate("/")

@@ -1,6 +1,8 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {Session, SignIn} from "../../types/authTypes";
 
+const baseUrl = process.env.REACT_APP_API_KEY;
+
 export const resetAuthState = createAsyncThunk(
     'authSlice/reset-auth-state',
     async (_, thunkAPI) => {
@@ -18,7 +20,7 @@ export const resetAuthState = createAsyncThunk(
 export const signIn = createAsyncThunk(
     'authSlice/sing-in',
     async (authModel: SignIn, thunkAPI) => {
-        const response = await fetch('https://localhost:7104/auth/sign-in', {
+        const response = await fetch(`${baseUrl}/auth/sign-in`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json;charset=UTF-8',

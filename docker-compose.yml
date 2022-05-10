@@ -4,8 +4,17 @@ networks:
   emsnetwork:
     ipam:
       config:
-        - subnet: 10.20.10.0/16
+        - subnet: 10.20.10.0/24
 services:
+  react-app:
+    build:
+      context: src/front-end/react-client-app
+      dockerfile: Dockerfile
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.4
+    ports:
+      - "3001:80"
   db:
     image: "mcr.microsoft.com/mssql/server"
     environment:
