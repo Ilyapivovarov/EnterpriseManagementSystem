@@ -13,13 +13,13 @@ namespace EmailService.FunctionalTests;
 public sealed class EmailServiceTests : TestBase
 {
     private TestServer? _testServer;
-    
+
     private TestServer TestServer => _testServer ??= GetTestServer();
 
     private SmtpClient? SmtpClient { get; set; }
 
     private IBus? Bus { get; set; }
-    
+
     [SetUp]
     public void Setup()
     {
@@ -41,8 +41,9 @@ public sealed class EmailServiceTests : TestBase
     {
         ArgumentNullException.ThrowIfNull(Bus);
         ArgumentNullException.ThrowIfNull(SmtpClient);
-        
-        var @event = new SignUpNewUserIntegrationEvent("ems.test.dev@gmail.com", "ems.test.dev@gmail.com", "Welcom to ems", $"Welcome FirstName LastName to EMS");
+
+        var @event = new SignUpNewUserIntegrationEvent("ems.test.dev@gmail.com", "ems.test.dev@gmail.com",
+            "Welcom to ems", "Welcome FirstName LastName to EMS");
         await Bus.Publish(@event);
     }
 }

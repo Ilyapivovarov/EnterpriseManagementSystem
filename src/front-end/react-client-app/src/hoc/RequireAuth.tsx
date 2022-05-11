@@ -6,9 +6,9 @@ import {resetAuthState} from "../store/AuthReducer/AuthActionCreators";
 const RequireAuth: FC = (props) => {
     const navigate = useNavigate();
     const {currentSession} = useAppSelector(x => x.authReducer)
-    
+
     const dispatch = useAppDispatch()
-    
+
     useEffect(() => {
         dispatch(resetAuthState())
         if (!currentSession)

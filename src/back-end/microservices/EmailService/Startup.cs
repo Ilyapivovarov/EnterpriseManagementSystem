@@ -16,7 +16,7 @@ public sealed class Startup
     {
         services.AddAppication(Configuration, Environment);
         services.AddInfrastucture(Configuration, Environment);
-        
+
         services.AddRouting(options =>
             options.LowercaseUrls = true);
 
@@ -25,7 +25,7 @@ public sealed class Startup
 
     public void Configure(IApplicationBuilder app)
     {
-        if (Environment.IsDevelopment()) 
+        if (Environment.IsDevelopment())
             app.UseDeveloperExceptionPage();
 
         app.UseRouting();

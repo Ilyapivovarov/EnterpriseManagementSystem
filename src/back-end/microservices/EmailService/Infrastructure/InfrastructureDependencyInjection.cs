@@ -8,15 +8,15 @@ public static class InfrastructureDependencyInjection
         #region SmtpClient
 
         services.AddScoped(_ => new SmtpClient
-        {  
-            Host = configuration.GetValue<string>("Smtp:Host"),  
-            Port = configuration.GetValue<int>("Smtp:Port"),  
-            Credentials = new NetworkCredential(  
-                configuration.GetValue<string>("Smtp:Username"),   
-                configuration.GetValue<string>("Smtp:Password")  
+        {
+            Host = configuration.GetValue<string>("Smtp:Host"),
+            Port = configuration.GetValue<int>("Smtp:Port"),
+            Credentials = new NetworkCredential(
+                configuration.GetValue<string>("Smtp:Username"),
+                configuration.GetValue<string>("Smtp:Password")
             ),
             EnableSsl = true
-        }); 
+        });
 
         #endregion
 

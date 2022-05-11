@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {AuthState} from "./AuthTypes";
 import {resetAuthState, signIn, signOut} from "./AuthActionCreators";
 
@@ -42,7 +42,7 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.currentSession = null;
                 state.error = action.payload;
-                
+
                 localStorage.clear();
             })
             .addCase(signOut.fulfilled, (state) => {

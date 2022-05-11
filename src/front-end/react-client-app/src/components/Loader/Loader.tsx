@@ -1,10 +1,10 @@
 import React from 'react';
-import {Box, LinearProgress} from "@mui/material";
+import {LinearProgress} from "@mui/material";
 
-const Loader : React.FC = () => {
+const Loader: React.FC = () => {
     return (
         <div>
-            <LinearProgress />
+            <LinearProgress/>
         </div>
     );
 };

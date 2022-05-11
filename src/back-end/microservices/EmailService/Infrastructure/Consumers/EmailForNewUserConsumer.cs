@@ -2,10 +2,10 @@ namespace EmailService.Infrastructure.Consumers;
 
 public sealed class EmailForNewUserConsumer : IConsumer<SignUpNewUserIntegrationEvent>
 {
-    private readonly ILogger<EmailForNewUserConsumer> _logger;
     private readonly IEmailService _emailService;
+    private readonly ILogger<EmailForNewUserConsumer> _logger;
 
-    public EmailForNewUserConsumer(ILogger<EmailForNewUserConsumer> logger, IEmailService emailService )
+    public EmailForNewUserConsumer(ILogger<EmailForNewUserConsumer> logger, IEmailService emailService)
     {
         _logger = logger;
         _emailService = emailService;
@@ -15,7 +15,8 @@ public sealed class EmailForNewUserConsumer : IConsumer<SignUpNewUserIntegration
     {
         try
         {
-            using (_logger.BeginScope("Start consume {SignUpNewUserIntegrationEvent}", nameof(SignUpNewUserIntegrationEvent)))
+            using (_logger.BeginScope("Start consume {SignUpNewUserIntegrationEvent}",
+                       nameof(SignUpNewUserIntegrationEvent)))
             {
                 var (from, to, subject, body) = context.Message;
                 var mail = new MailMessage(from, to, subject, body);
@@ -27,7 +28,5 @@ public sealed class EmailForNewUserConsumer : IConsumer<SignUpNewUserIntegration
         {
             _logger.LogError(e.Message);
         }
-        
-        
     }
 }

@@ -8,7 +8,7 @@ public sealed class EmailSerivce : IEmailService
     {
         _smtpClient = smtpClient;
     }
-    
+
     public async Task SendEmailAsync(MailMessage message)
     {
         await _smtpClient.SendMailAsync(message);

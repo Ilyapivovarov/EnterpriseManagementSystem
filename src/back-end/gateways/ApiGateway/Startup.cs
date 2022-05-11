@@ -30,7 +30,7 @@ public sealed class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        
+
         app.UseRouting();
         app.UseHttpsRedirection();
 
@@ -39,7 +39,7 @@ public sealed class Startup
             .AllowAnyHeader()
             .SetIsOriginAllowed(origin => true) // allow any origin
             .AllowCredentials()); // allow credentials
-        
+
         app.UseAuthentication();
         app.UseAuthorization();
 
