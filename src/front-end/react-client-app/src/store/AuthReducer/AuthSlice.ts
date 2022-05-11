@@ -1,53 +1,56 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AuthState} from "./AuthTypes";
 import {resetAuthState, signIn, signOut} from "./AuthActionCreators";
-import {Session} from "../../types/authTypes";
 
 const initialState: AuthState = {
     currentSession: null,
-    isAuth: false,
     error: null,
+    isLoading: false
 }
 
 export const authSlice = createSlice({
     name: "authSlice",
     initialState,
-    reducers: {
-        authSuccess(state, action: PayloadAction<Session>) {
-            state.isAuth = true;
-            state.currentSession = action.payload
-        },
-        authError(state, action: PayloadAction<string>) {
-            state.isAuth = false;
-            state.error = action.payload;
-        }
-    },
-    extraReducers: {
-        [resetAuthState.fulfilled.type](state, action: PayloadAction<Session>) {
-            state.error = null;
-            state.isAuth = true;
-            state.currentSession = action.payload
-        },
-        [resetAuthState.rejected.type](state, action: PayloadAction<string>) {
-            state.error = action.payload;
-            state.isAuth = false;
-            state.currentSession = null
-        },
-        [signIn.fulfilled.type](state, action: PayloadAction<Session>) {
-            state.isAuth = true;
-            state.currentSession = action.payload
-            state.error = null;
-        },
-        [signIn.rejected.type](state, action: PayloadAction<string>) {
-            state.currentSession = null;
-            state.isAuth = false;
-            state.error = action.payload;
-        },
-        [signOut.fulfilled.type](state){
-            state.currentSession = null;
-            state.isAuth = false;
-            state.error = null;
-        }
+    reducers: {},
+    extraReducers: builder => {
+        builder
+            .addCase(signIn.pending, (state) => {
+                state.error = null;
+                state.isLoading = true;
+            })
+            .addCase(signIn.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.currentSession = action.payload;
+
+                localStorage.setItem("session", JSON.stringify(state.currentSession))
+            })
+            .addCase(signIn.rejected, (state, action) => {
+                state.isLoading = false;
+                state.currentSession = null;
+                state.error = action.payload
+            })
+            .addCase(resetAuthState.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(resetAuthState.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.currentSession = action.payload;
+                state.error = null;
+            })
+            .addCase(resetAuthState.rejected, (state, action) => {
+                state.isLoading = false;
+                state.currentSession = null;
+                state.error = action.payload;
+                
+                localStorage.clear();
+            })
+            .addCase(signOut.fulfilled, (state) => {
+                state.isLoading = false;
+                state.error = null;
+                state.currentSession = null;
+            })
+
     }
 })
 

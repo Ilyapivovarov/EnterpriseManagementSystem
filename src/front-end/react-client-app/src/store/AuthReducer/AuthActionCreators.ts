@@ -3,23 +3,21 @@ import {Session, SignIn} from "../../types/authTypes";
 
 const baseUrl = process.env.REACT_APP_API_KEY;
 
-export const resetAuthState = createAsyncThunk(
+export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: string }>(
     'authSlice/reset-auth-state',
-    async (_, thunkAPI) => {
+    async (_, {rejectWithValue}) => {
         const session = JSON.parse(localStorage.getItem("session")!) as Session | null;
-        if (session){
-            
-            return thunkAPI.fulfillWithValue(session)
+        if (session) {
+            return session
         }
-        else {
-            return thunkAPI.rejectWithValue("error")
-        }
+
+        return rejectWithValue("error")
     }
 )
 
-export const signIn = createAsyncThunk(
+export const signIn = createAsyncThunk<Session, SignIn, { rejectValue: string }>(
     'authSlice/sing-in',
-    async (authModel: SignIn, thunkAPI) => {
+    async (authModel, {rejectWithValue}) => {
         const response = await fetch(`${baseUrl}/auth/sign-in`, {
             method: 'POST',
             headers: {
@@ -28,22 +26,18 @@ export const signIn = createAsyncThunk(
             body: JSON.stringify(authModel),
         })
 
-        if (response.status == 200) {
-            if (response.body) {
-                const json = await response.json();
-                localStorage.setItem("session", JSON.stringify(json))
-                return thunkAPI.fulfillWithValue(json as Session)
-            }
-        } else {
-            console.log(response)
-            return thunkAPI.rejectWithValue(response.body)
+        if (response.ok) {
+            return await response.json();
         }
+
+        console.log(response)
+        return rejectWithValue("response")
     }
 )
 
-export const signOut = createAsyncThunk(
+export const signOut = createAsyncThunk<void, void>(
     'authSlice/sign-out',
-    async (thunkAPI) => {
+    async () => {
         console.log("sign out")
         localStorage.clear()
     }

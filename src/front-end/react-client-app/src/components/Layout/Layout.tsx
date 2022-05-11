@@ -23,11 +23,11 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
-import {Outlet} from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
-import {useAppDispatch} from "../../hooks";
-import {resetAuthState, signOut} from "../../store/AuthReducer/AuthActionCreators";
-
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {signOut} from "../../store/AuthReducer/AuthActionCreators";
+import Loader from "../Loader/Loader";
 
 const drawerWidth: number = 240;
 
@@ -81,10 +81,10 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 );
 
 const DashboardContent: FC = () => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const {isLoading} = useAppSelector(x => x.authReducer);
 
-    const dispatch = useAppDispatch()
-   
-    
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -92,8 +92,9 @@ const DashboardContent: FC = () => {
 
     const logOutHandler = () => {
         dispatch(signOut())
+        navigate("/sign-in")
     }
-    
+
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
@@ -122,7 +123,7 @@ const DashboardContent: FC = () => {
                         noWrap
                         sx={{flexGrow: 1}}
                     >
-                       
+
                     </Typography>
                     <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">
@@ -183,21 +184,23 @@ const DashboardContent: FC = () => {
                     </ListItemButton>
                 </List>
             </Drawer>
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    height: '100vh',
-                    overflow: 'auto',
-                }}
-            >
-                <Toolbar/>
-                <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
-                    <Grid item xs={12} md={8} lg={9}>
-                        <Outlet/>
-                    </Grid>
-                </Container>
-            </Box>
+            {isLoading ? <Loader/> :
+                <Box
+                    component="main"
+                    sx={{
+                        flexGrow: 1,
+                        height: '100vh',
+                        overflow: 'auto',
+                    }}
+                >
+                    <Toolbar/>
+                    <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
+                        <Grid item xs={12} md={8} lg={9}>
+                            <Outlet/>
+                        </Grid>
+                    </Container>
+                </Box>
+            }
         </Box>
     );
 }

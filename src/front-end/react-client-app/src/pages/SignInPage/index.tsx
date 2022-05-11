@@ -22,13 +22,12 @@ const SignInPage: FC = () => {
     const dispatch = useAppDispatch()
 
     const navigate = useNavigate();
-    const {isAuth} = useAppSelector(x => x.authReducer)
-    console.log(process.env.NODE_ENV)
-    console.log(process.env.REACT_APP_API_KEY)
+    const {currentSession} = useAppSelector(x => x.authReducer)
+
     useEffect(() => {
-        if (isAuth)
+        if (currentSession)
             navigate("/")
-    }, [isAuth]);
+    }, [currentSession]);
 
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
