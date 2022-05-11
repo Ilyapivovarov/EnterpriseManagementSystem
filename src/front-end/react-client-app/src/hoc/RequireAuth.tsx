@@ -8,12 +8,15 @@ const RequireAuth: FC = (props) => {
     const {currentSession} = useAppSelector(x => x.authReducer)
 
     const dispatch = useAppDispatch()
+   
 
     useEffect(() => {
-        dispatch(resetAuthState())
-        if (!currentSession)
-            navigate("/sign-in")
-    }, [dispatch]);
+        dispatch(resetAuthState()).unwrap().catch(() => {
+            if (!currentSession)
+                navigate("/sign-in")
+        })
+    }, []);
+
 
     if (currentSession)
         return (

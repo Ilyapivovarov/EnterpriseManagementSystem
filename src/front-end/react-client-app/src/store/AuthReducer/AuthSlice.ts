@@ -39,16 +39,10 @@ export const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(resetAuthState.rejected, (state, action) => {
-                state.isLoading = false;
-                state.currentSession = null;
-                state.error = action.payload;
-
-                localStorage.clear();
+                return initialState;
             })
             .addCase(signOut.fulfilled, (state) => {
-                state.isLoading = false;
-                state.error = null;
-                state.currentSession = null;
+                return initialState;
             })
 
     }
