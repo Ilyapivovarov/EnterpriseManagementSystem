@@ -2,7 +2,6 @@ version: '3.9'
 
 networks:
   emsnetwork:
-    driver: host
     ipam:
       config:
         - subnet: 10.20.10.0/24
