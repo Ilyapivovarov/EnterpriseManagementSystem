@@ -6,15 +6,6 @@ networks:
       config:
         - subnet: 10.20.10.0/24
 services:
-  react-app:
-    build:
-      context: src/front-end/react-client-app
-      dockerfile: Dockerfile
-    networks:
-      emsnetwork:
-        ipv4_address: 10.20.10.4
-    ports:
-      - "3001:80"
   db:
     image: "mcr.microsoft.com/mssql/server"
     environment:
@@ -25,7 +16,34 @@ services:
         ipv4_address: 10.20.10.5
     ports:
       - "1500:1433"
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.6
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
+  mongo:
+    image: mongo
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.7
+    ports:
+      - "27017:27017"
+  
+  mongo-express:
+    image: mongo-express
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.8
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://10.20.10.7:27017/
+  
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway
     build:
@@ -37,7 +55,7 @@ services:
       - identityservice
     networks:
       emsnetwork:
-        ipv4_address: 10.20.10.6
+        ipv4_address: 10.20.10.100
 
   identityservice:
     image: ${DOCKER_REGISTRY-}identityservice
@@ -48,4 +66,14 @@ services:
       - db
     networks:
       emsnetwork:
-        ipv4_address: 10.20.10.7
+        ipv4_address: 10.20.10.101
+  
+  react-app:
+    build:
+      context: src/front-end/react-client-app
+      dockerfile: Dockerfile
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.200
+    ports:
+      - "3001:80"
