@@ -2,12 +2,14 @@ version: '3.9'
 
 networks:
   emsnetwork:
+    driver: host
     ipam:
       config:
         - subnet: 10.20.10.0/24
 services:
   db:
     image: "mcr.microsoft.com/mssql/server"
+    hostname: "db"
     environment:
       ACCEPT_EULA: Y
       SA_PASSWORD: yourStrong(!)Password
@@ -39,6 +41,8 @@ services:
     networks:
       emsnetwork:
         ipv4_address: 10.20.10.8
+    depends_on:
+      - mongo    
     ports:
       - "8081:8081"
     environment:
@@ -64,6 +68,7 @@ services:
       dockerfile: src/back-end/microservices/IdentityService/Dockerfile
     depends_on:
       - db
+      - rabbitmq
     networks:
       emsnetwork:
         ipv4_address: 10.20.10.101
