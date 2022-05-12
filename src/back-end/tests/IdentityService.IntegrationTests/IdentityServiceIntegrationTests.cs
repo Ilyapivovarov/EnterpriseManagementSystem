@@ -13,7 +13,7 @@ public sealed class IdentityServiceIntegrationTests : TestBase
     }
 
     [Test]
-    public void TestConnectionToDatabase()
+    public void TestDevConnectionToDb()
     {
         var testServer = GetTestServer();
         var context = testServer.Services.GetRequiredService<ApplicationDbContext>();

@@ -9,7 +9,7 @@ public static class InfrastructureDependencyInjection
     {
         #region Register context
 
-        var conString = configuration.GetConnectionString("DefaultConnection");
+        var conString = configuration.GetConnectionString("RelationalDb");
         services.AddDbContext<ApplicationDbContext>(builder =>
             builder
                 .UseLazyLoadingProxies()
