@@ -6,6 +6,6 @@ public sealed record SignUp(string Email, string Password, string ConfirmPasswor
 
 public sealed record Session(string AccessToken, Guid RefreshToken, Guid UserGuid);
 
-public sealed record Account(Guid Guid, string Email, string? FirstName, string? LastName, string Role);
+public sealed record Account(Guid Guid, string Email, string FirstName, string LastName, string Role);
 
 public sealed record UserInfo(Guid Guid, string? FirstName, string? LastName, string? Role);

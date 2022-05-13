@@ -3,6 +3,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using EmailService.FunctionalTests.Base;
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
+using EnterpriseManagementSystem.Contracts.WebContracts;
 using MassTransit;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,8 +43,9 @@ public sealed class EmailServiceTests : TestBase
         ArgumentNullException.ThrowIfNull(Bus);
         ArgumentNullException.ThrowIfNull(SmtpClient);
 
-        var @event = new SignUpNewUserIntegrationEvent("ems.test.dev@gmail.com", "ems.test.dev@gmail.com",
-            "Welcom to ems", "Welcome FirstName LastName to EMS");
+        var @event =
+            new SignUpUserIntegrationEvent(new Account(Guid.NewGuid(), "ems.test.dev@gmail.com", "Test", "Test",
+                "Admin"));
         await Bus.Publish(@event);
     }
 }

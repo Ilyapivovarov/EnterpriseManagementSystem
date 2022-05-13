@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.WebContracts;
+
 namespace EnterpriseManagementSystem.Contracts.IntegrationEvents;
 
-public record SignUpNewUserIntegrationEvent(string From, string To, string Subject, string Body);
+public sealed record SignUpUserIntegrationEvent(Account Account);
