@@ -16,9 +16,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4"/>
-        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0"/>
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
     </ItemGroup>
 
 </Project>
