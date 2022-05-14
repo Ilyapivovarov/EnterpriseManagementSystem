@@ -28,11 +28,11 @@ export const signIn = createAsyncThunk<Session, SignIn, { rejectValue: string }>
         })
 
         if (response.ok) {
+            console.log("ok")
             return await response.json();
         }
 
-        console.log(response)
-        return rejectWithValue("response")
+        return rejectWithValue(await response.text())
     }
 )
 
