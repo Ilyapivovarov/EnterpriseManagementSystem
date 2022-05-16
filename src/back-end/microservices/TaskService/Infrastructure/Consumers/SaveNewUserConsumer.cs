@@ -23,7 +23,8 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
                 {
                     EmailAddress = account.Email,
                     FirstName = account.FirstName,
-                    LastName = account.LastName
+                    LastName = account.LastName,
+                    IdentityGuid = account.Guid
                 };
 
                 await _userRepository.SaveUserDbEntityAsync(user);

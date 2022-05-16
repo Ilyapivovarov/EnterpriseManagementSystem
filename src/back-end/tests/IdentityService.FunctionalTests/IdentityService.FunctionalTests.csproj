@@ -22,12 +22,4 @@
         <ProjectReference Include="..\..\microservices\IdentityService\IdentityService.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Content Include="Base\appsettings.json">
-            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        </Content>
-    </ItemGroup>
-
 </Project>

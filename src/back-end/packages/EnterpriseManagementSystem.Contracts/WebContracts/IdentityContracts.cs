@@ -2,7 +2,7 @@ namespace EnterpriseManagementSystem.Contracts.WebContracts;
 
 public sealed record SignIn(string Email, string Password);
 
-public sealed record SignUp(string Email, string Password, string ConfirmPassword);
+public sealed record SignUp(string FristName, string LastName, string Email, string Password, string ConfirmPassword);
 
 public sealed record Session(string AccessToken, Guid RefreshToken, Guid UserGuid);
 

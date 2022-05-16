@@ -1,12 +1,9 @@
-using IdentityService;
-
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
     .Build();
 
-var scope = host.Services.CreateScope();
-var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-var logger = scope.ServiceProvider.GetRequiredService<ILogger<ApplicationDbContextSeed>>();
-await ApplicationDbContextSeed.SeedData(context, logger);
+
+var mediator = host.Services.GetRequiredService<IMediator>();
+await mediator.Send(AuthRequest<SignUp>.Create(new SignUp("Admin", "Admin", "admin@admin.com", "admin", "admin")));
 
 await host.RunAsync();

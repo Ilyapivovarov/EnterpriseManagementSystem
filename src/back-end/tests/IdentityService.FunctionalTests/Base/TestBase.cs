@@ -68,12 +68,13 @@ public class TestBase
     private static TestServer CreateTestServer()
     {
         var path = Assembly.GetExecutingAssembly().Location;
+
         var hostBuilder = new WebHostBuilder()
-            .UseContentRoot(Path.GetDirectoryName(path) ?? throw new ArgumentNullException(nameof(path)))
+            .UseContentRoot(Path.GetDirectoryName(path) ?? throw new ArgumentNullException(path))
             .ConfigureAppConfiguration(configuration =>
             {
-                configuration.AddJsonFile("appsettings.json", false)
-                    .AddEnvironmentVariables();
+                configuration.AddJsonFile("appsettings.Development.json", false)
+                    .AddEnvironmentVariables("Development");
             }).UseStartup<Startup>();
 
         var test = new TestServer(hostBuilder);

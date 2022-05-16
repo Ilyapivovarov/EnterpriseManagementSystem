@@ -11,16 +11,19 @@ public sealed class UserBlService : IUserBlService
         _logger = logger;
     }
 
-    public UserDbEntity CreateUser(string email, string password)
+    public UserDbEntity CreateUser(string firstName, string lastName, string email, string password)
     {
         return new UserDbEntity
         {
+            
             Address = new EmailAddressDbEntity
             {
                 Email = email,
                 IsVerified = false
             },
             Password = password,
+            FirstName = firstName,
+            LastName = lastName,
             Role = new UserRoleDbEntity
             {
                 Name = "Test"

@@ -31,7 +31,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
             if (signUpDto == null)
                 return new BadRequestObjectResult("Request body is empty");
 
-            var (email, password, confirmPassword) = signUpDto;
+            var (firFristName, lastName, email, password, confirmPassword) = signUpDto;
             if (!password.Equals(confirmPassword, StringComparison.Ordinal))
                 return new BadRequestObjectResult("Passwords is not same");
 
@@ -40,7 +40,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
                 return new BadRequestObjectResult("This email already exist");
 
             var encryptPassword = _securityService.EncryptPassword(password);
-            var user = _userBlService.CreateUser(email, encryptPassword);
+            var user = _userBlService.CreateUser(firFristName, lastName, email, encryptPassword);
             if (!await _userRepository.SaveUserAsync(user))
                 return new BadRequestObjectResult("Error while save user");
 

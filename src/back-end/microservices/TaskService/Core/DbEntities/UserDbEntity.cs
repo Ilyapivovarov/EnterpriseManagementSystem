@@ -7,4 +7,6 @@ public class UserDbEntity : DbEntityBase
     public string LastName { get; set; } = null!;
 
     public string EmailAddress { get; set; } = null!;
+
+    public Guid IdentityGuid { get; set; }
 }

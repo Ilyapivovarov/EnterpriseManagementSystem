@@ -1,6 +1,7 @@
 global using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
 global using EnterpriseManagementSystem.JwtAuthorization;
+global using IdentityService;
 global using IdentityService.Application;
 global using IdentityService.Application.BlServices;
 global using IdentityService.Application.Repositories;
@@ -13,6 +14,7 @@ global using IdentityService.Infrastructure.Implementations.Repositories;
 global using IdentityService.Infrastructure.Implementations.Repositories.Base;
 global using IdentityService.Infrastructure.Implementations.Services;
 global using IdentityService.Infrastructure.Mapper;
+global using IdentityService.Infrastructure.Mediators.Handlers.Auth;
 global using IdentityService.Infrastructure.Mediators.Requests;
 global using MassTransit;
 global using MediatR;

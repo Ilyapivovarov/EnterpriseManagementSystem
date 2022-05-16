@@ -17,8 +17,8 @@ public class TestBase
             .UseContentRoot(Path.GetDirectoryName(path) ?? throw new ArgumentNullException(path))
             .ConfigureAppConfiguration(configuration =>
             {
-                configuration.AddJsonFile("appsettings.json", false)
-                    .AddEnvironmentVariables();
+                configuration.AddJsonFile("appsettings.Development.json", false)
+                    .AddEnvironmentVariables("Development");
             }).UseStartup<Startup>();
 
         var testServer = new TestServer(hostBuilder);
