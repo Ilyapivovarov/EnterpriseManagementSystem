@@ -1,7 +1,5 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TaskService.Application.Services;
-using TaskService.Infrastructure.Requests;
 
 namespace TaskService.Infrastructure.Handlers;
 
@@ -27,10 +25,10 @@ public sealed class CreateNewTaskHandler : IRequestHandler<NewTaskRequest, IActi
         {
             var (name, description, author, executor, inspector, observers,
                 statusName) = request.NewTask;
-            
+
             var users = await _taskService.GetUsersInvolvedInTask(author, executor, inspector, observers);
             var status = await _statusRepository.GetByName(statusName);
-            
+
             var newTaskDbEntity = new TaskDbEntity
             {
                 Author = users.Author,
