@@ -1,9 +1,10 @@
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TaskService.Core.DbEntities.Builders;
+using TaskService.Infrastructure.Handlers.Base;
 
 namespace TaskService.Infrastructure.Handlers;
 
-public sealed class CreateNewTaskHandler : IRequestHandler<NewTaskRequest, IActionResult>
+public sealed class CreateNewTaskHandler : RequestHandlerBase, IRequestHandler<NewTaskRequest, IActionResult>
 {
     private readonly ILogger<CreateNewTaskHandler> _logger;
     private readonly ITaskRepository _taskRepository;
@@ -26,30 +27,18 @@ public sealed class CreateNewTaskHandler : IRequestHandler<NewTaskRequest, IActi
             var (name, description, author, executor, inspector, observers,
                 statusName) = request.NewTask;
 
-            var users = await _taskService.GetUsersInvolvedInTask(author, executor, inspector, observers);
-            var status = await _statusRepository.GetByName(statusName);
-
-            var newTaskDbEntity = new TaskDbEntity
-            {
-                Author = users.Author,
-                Executor = users.Executor,
-                Description = description,
-                Inspector = users.Inspector,
-                Name = name,
-                Observers = users.Observers,
-                Status = status
-            };
+            var usersInvolvedInTask = await _taskService.GetUsersInvolvedInTask(author, executor, inspector, observers);
+            var taskStatusDbEntity = await _statusRepository.GetByName(statusName);
+            var newTaskDbEntity =
+                TaskDbEntityBuilder.CreateTaskDbEntity(description, name, taskStatusDbEntity, usersInvolvedInTask);
 
             var saveResult = await _taskRepository.SaveTaskAsync(newTaskDbEntity);
-            if (saveResult)
-                return new BadRequestObjectResult("Error while save task");
-
-            return new OkResult();
+            return saveResult ? Ok() : Error("Error while save task");
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
-            return new BadRequestObjectResult(e.Message);
+            return Error(e.Message);
         }
     }
 }

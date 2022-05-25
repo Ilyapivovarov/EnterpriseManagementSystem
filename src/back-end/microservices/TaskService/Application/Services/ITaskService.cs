@@ -1,5 +1,3 @@
-using TaskService.Core.ReturnedValues;
-
 namespace TaskService.Application.Services;
 
 public interface ITaskService
