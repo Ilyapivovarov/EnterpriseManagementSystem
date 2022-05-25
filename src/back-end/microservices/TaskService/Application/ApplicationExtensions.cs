@@ -8,5 +8,6 @@ public static class ApplicationExtensions
         IConfiguration configuration, IHostEnvironment environment)
     {
         services.AddMediatR(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
     }
 }

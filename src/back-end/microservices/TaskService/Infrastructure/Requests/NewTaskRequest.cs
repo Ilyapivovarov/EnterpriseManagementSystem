@@ -6,6 +6,6 @@ public sealed class NewTaskRequest : IRequest<IActionResult>
     {
         NewTask = newTask;
     }
-    
+
     public NewTask NewTask { get; }
 }

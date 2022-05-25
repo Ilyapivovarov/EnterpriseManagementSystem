@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace TaskService.Controllers;
 
 [ApiController]
@@ -14,7 +12,17 @@ public sealed class TaskController : ControllerBase
     }
 
     /// <summary>
-    /// Create new Task
+    ///     Geting task by guid
+    /// </summary>
+    /// <param name="guid"></param>
+    /// <returns></returns>
+    public async Task<IActionResult> GetTaskByGuid(Guid guid)
+    {
+        return await _mediator.Send(new GetTaskByGuidRequest(guid));
+    }
+
+    /// <summary>
+    /// Create new task
     /// </summary>
     /// <param name="newTask">New task data</param>
     /// <returns></returns>
