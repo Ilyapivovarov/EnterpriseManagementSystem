@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace TaskService.Infrastructure.Requests;
 
 public sealed class NewTaskRequest : IRequest<IActionResult>

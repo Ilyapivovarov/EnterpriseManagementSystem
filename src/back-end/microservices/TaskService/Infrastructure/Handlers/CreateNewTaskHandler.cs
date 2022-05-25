@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
 using TaskService.Core.DbEntities.Builders;
 using TaskService.Infrastructure.Handlers.Base;
 
 namespace TaskService.Infrastructure.Handlers;
 
-public sealed class CreateNewTaskHandler : RequestHandlerBase, IRequestHandler<NewTaskRequest, IActionResult>
+public sealed class CreateNewTaskHandler : RequestHandlerBase<NewTaskRequest>
 {
     private readonly ILogger<CreateNewTaskHandler> _logger;
     private readonly ITaskRepository _taskRepository;
@@ -20,7 +19,7 @@ public sealed class CreateNewTaskHandler : RequestHandlerBase, IRequestHandler<N
         _statusRepository = statusRepository;
     }
 
-    public async Task<IActionResult> Handle(NewTaskRequest request, CancellationToken cancellationToken)
+    public override async Task<IActionResult> Handle(NewTaskRequest request, CancellationToken cancellationToken)
     {
         try
         {
