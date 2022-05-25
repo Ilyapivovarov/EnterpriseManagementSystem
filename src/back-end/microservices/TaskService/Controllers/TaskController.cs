@@ -12,7 +12,7 @@ public sealed class TaskController : ControllerBase
     }
 
     /// <summary>
-    ///     Geting task by guid
+    /// Geting task by guid
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>
