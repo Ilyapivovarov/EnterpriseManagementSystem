@@ -41,6 +41,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService.FunctionalTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService", "src\back-end\microservices\TaskService\TaskService.csproj", "{972043A5-77F0-4E80-A829-21155EEE39C0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskService", "TaskService", "{FEA0D059-C079-4FF8-B507-51E246754CB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService.FunctionalTests", "src\back-end\tests\TaskService.FunctionalTests\TaskService.FunctionalTests.csproj", "{8A72BD0C-01F2-4A18-B245-2C9B75935908}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +95,10 @@ Global
 		{972043A5-77F0-4E80-A829-21155EEE39C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{972043A5-77F0-4E80-A829-21155EEE39C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{972043A5-77F0-4E80-A829-21155EEE39C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A72BD0C-01F2-4A18-B245-2C9B75935908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A72BD0C-01F2-4A18-B245-2C9B75935908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A72BD0C-01F2-4A18-B245-2C9B75935908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A72BD0C-01F2-4A18-B245-2C9B75935908}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +121,8 @@ Global
 		{7F60AEA2-BE70-40B2-9D4D-818078392723} = {85964933-9048-4BA2-933A-DD75FEFF0B53}
 		{33886405-462E-4B1B-95CA-E30F8DDDDEDD} = {7F60AEA2-BE70-40B2-9D4D-818078392723}
 		{972043A5-77F0-4E80-A829-21155EEE39C0} = {F4177BC2-70F0-4973-AE6F-222969594A2D}
+		{FEA0D059-C079-4FF8-B507-51E246754CB1} = {85964933-9048-4BA2-933A-DD75FEFF0B53}
+		{8A72BD0C-01F2-4A18-B245-2C9B75935908} = {FEA0D059-C079-4FF8-B507-51E246754CB1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6CFA357-8DFC-4CC6-A57E-D1E92BBC71A6}

@@ -23,8 +23,7 @@ public sealed class CreateNewTaskHandler : RequestHandlerBase<NewTaskRequest>
     {
         try
         {
-            var (name, description, author, executor, inspector, observers,
-                statusName) = request.NewTask;
+            var (name, description, statusName, author, executor, inspector, observers) = request.NewTask;
 
             var usersInvolvedInTask = await _taskService.GetUsersInvolvedInTask(author, executor, inspector, observers);
             var taskStatusDbEntity = await _statusRepository.GetByName(statusName);

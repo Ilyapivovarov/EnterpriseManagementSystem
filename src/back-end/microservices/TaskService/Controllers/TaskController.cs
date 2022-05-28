@@ -16,6 +16,8 @@ public sealed class TaskController : ControllerBase
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>
+    [HttpGet]
+    [Route("{guid:guid}")]
     public async Task<IActionResult> GetTaskByGuid(Guid guid)
     {
         return await _mediator.Send(new GetTaskByGuidRequest(guid));
@@ -26,6 +28,7 @@ public sealed class TaskController : ControllerBase
     /// </summary>
     /// <param name="newTask">New task data</param>
     /// <returns></returns>
+    [HttpPost]
     public async Task<IActionResult> CreateNewTask(NewTask newTask)
         => await _mediator.Send(new NewTaskRequest(newTask));
 }
