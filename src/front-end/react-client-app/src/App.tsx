@@ -5,11 +5,13 @@ import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import Layout from "./components/Layout/Layout";
 import RequireAuth from "./hoc/RequireAuth";
+import TaskPage from "./pages/TaskPage/inde";
 
 const App: FC = () => (
     <Routes>
         <Route path={"/"} element={<RequireAuth children={<Layout/>}/>}>
             <Route index element={<HomePage/>}/>
+            <Route path={"task/"} element={<TaskPage/>}/>
         </Route>
         <Route path={"/"}>
             <Route path={"sign-in"} element={<SignInPage/>}/>

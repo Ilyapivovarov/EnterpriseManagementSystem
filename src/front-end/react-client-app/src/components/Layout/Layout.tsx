@@ -5,7 +5,6 @@ import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -15,19 +14,12 @@ import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
 import {Outlet, useNavigate} from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {signOut} from "../../store/AuthReducer/AuthActionCreators";
 import Loader from "../Loader/Loader";
+import NavMenu from "../NavMenu/NavMenu";
 
 const drawerWidth: number = 240;
 
@@ -151,38 +143,7 @@ const DashboardContent: FC = () => {
                     </IconButton>
                 </Toolbar>
                 <Divider/>
-                <List component="nav">
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <DashboardIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Dashboard"/>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <ShoppingCartIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Orders"/>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <PeopleIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Customers"/>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <BarChartIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Reports"/>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <LayersIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Integrations"/>
-                    </ListItemButton>
-                </List>
+                <NavMenu/>
             </Drawer>
             {isLoading ? <Loader/> :
                 <Box
