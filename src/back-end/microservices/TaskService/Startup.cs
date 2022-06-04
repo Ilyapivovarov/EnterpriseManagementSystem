@@ -28,13 +28,7 @@ public sealed class Startup
         if (Environment.IsDevelopment()) app.UseDeveloperExceptionPage();
 
         app.UseRouting();
-
-        app.UseCors(x => x
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowAnyOrigin()
-            .AllowCredentials());
-
+        
         app.UseAuthentication();
         app.UseAuthorization();
 

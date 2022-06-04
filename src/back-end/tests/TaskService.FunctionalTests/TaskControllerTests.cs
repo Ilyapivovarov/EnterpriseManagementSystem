@@ -12,10 +12,10 @@ using TaskService.FunctionalTests.Base;
 
 namespace TaskService.FunctionalTests;
 
-public sealed class Tests : TestBase
+public sealed class TaskControllerTests : TestBase
 {
     private HttpClient Client { get; set; } = null!;
-
+    
     [SetUp]
     public void Setup()
     {
@@ -25,15 +25,13 @@ public sealed class Tests : TestBase
     }
 
     [Test]
-    public async Task Test1()
+    public async Task CreateNewTask_Test()
     {
-        var client = Server.CreateClient();
-
         var data = new NewTask("Test name", "Test desc", "Test", Guid.NewGuid());
         var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
             MediaTypeNames.Application.Json);
-        var result = await client.PostAsync("task", content);
-
+        var result = await Client.PostAsync("task", content);
+        
         Assert.IsTrue(result.IsSuccessStatusCode);
     }
 }
