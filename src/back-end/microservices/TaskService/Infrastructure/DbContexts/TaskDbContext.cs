@@ -4,7 +4,9 @@ public sealed class TaskDbContext : DbContext, ITaskDbContext
 {
     public TaskDbContext(DbContextOptions<TaskDbContext> options)
         : base(options)
-    { }
+    {
+        Database.EnsureCreated();
+    }
 
     public DbSet<UserDbEntity> Users => Set<UserDbEntity>();
 

@@ -2,7 +2,8 @@ namespace TaskService.Core.DbEntities.Builders;
 
 public static class TaskDbEntityBuilder
 {
-    public static TaskDbEntity CreateTaskDbEntity(string description, string name, TaskStatusDbEntity taskStatusDbEntity, UsersInvolvedInTask usersInvolvedInTask)
+    public static TaskDbEntity CreateTaskDbEntity(string description, string name,
+        TaskStatusDbEntity? taskStatusDbEntity, UsersInvolvedInTask usersInvolvedInTask)
     {
         return new TaskDbEntity
         {

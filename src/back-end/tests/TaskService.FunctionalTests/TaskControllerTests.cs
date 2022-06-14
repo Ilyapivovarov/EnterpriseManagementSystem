@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Mime;
@@ -15,7 +15,7 @@ namespace TaskService.FunctionalTests;
 public sealed class TaskControllerTests : TestBase
 {
     private HttpClient Client { get; set; } = null!;
-    
+
     [SetUp]
     public void Setup()
     {
@@ -27,11 +27,15 @@ public sealed class TaskControllerTests : TestBase
     [Test]
     public async Task CreateNewTask_Test()
     {
-        var data = new NewTask("Test name", "Test desc", "Test", Guid.NewGuid());
+        var taskCountBefore = TaskDbContext.Tasks.Count();
+
+        var data = new NewTask("Test name", "Test desc", "Test", DefaultUser.Guid);
         var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
             MediaTypeNames.Application.Json);
         var result = await Client.PostAsync("task", content);
-        
-        Assert.IsTrue(result.IsSuccessStatusCode);
+
+        var taskCountAfter = TaskDbContext.Tasks.Count();
+
+        Assert.IsTrue(result.IsSuccessStatusCode && taskCountAfter > taskCountBefore);
     }
 }

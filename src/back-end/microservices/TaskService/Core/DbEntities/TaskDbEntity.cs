@@ -6,15 +6,15 @@ public class TaskDbEntity : DbEntityBase
 
     public string Description { get; set; } = null!;
 
-    public UserDbEntity? Executor { get; set; }
+    public virtual UserDbEntity? Executor { get; set; }
 
-    public List<UserDbEntity>? Observers { get; set; }
+    public virtual List<UserDbEntity>? Observers { get; set; }
 
-    public UserDbEntity? Inspector { get; set; }
+    public virtual UserDbEntity? Inspector { get; set; }
 
-    public UserDbEntity Author { get; set; } = null!;
-    
-    public TaskStatusDbEntity Status { get; set; } = null!;
+    public virtual UserDbEntity Author { get; set; } = null!;
 
-    public List<AttachmentDbEntity> Attachments { get; set; } = new();
+    public virtual TaskStatusDbEntity? Status { get; set; } = null!;
+
+    public virtual List<AttachmentDbEntity> Attachments { get; set; } = new();
 }

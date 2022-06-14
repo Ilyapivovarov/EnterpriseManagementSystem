@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
+using TaskService.Application.DbContexts;
 using TaskService.Application.Repositories;
 using TaskService.Core.DbEntities;
 
@@ -24,29 +25,32 @@ public abstract class TestBase
     {
         Server = CreateTestServer();
         JsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
-    }
-
-    protected TestServer Server { get; }
-
-    protected JsonSerializerOptions JsonSerializerOptions { get; }
-
-    protected string? AccessToken { get; set; }
-
-    [OneTimeSetUp]
-    public async Task OneTimeSetUp()
-    {
-        var userDbEntity = new UserDbEntity
+        DefaultUser = new UserDbEntity
         {
             EmailAddress = "admin@admin.com",
             FirstName = "Admin",
             LastName = "Admin",
             IdentityGuid = Guid.NewGuid()
         };
+    }
 
+    protected TestServer Server { get; }
+
+    protected ITaskDbContext TaskDbContext => Server.Services.GetRequiredService<ITaskDbContext>();
+
+    protected JsonSerializerOptions JsonSerializerOptions { get; }
+
+    protected UserDbEntity DefaultUser { get; }
+
+    protected string? AccessToken { get; set; }
+
+    [OneTimeSetUp]
+    public async Task OneTimeSetUp()
+    {
         await Server.Services.GetRequiredService<IUserRepository>()
-            .SaveUserDbEntityAsync(userDbEntity);
+            .SaveUserDbEntityAsync(DefaultUser);
 
-        AccessToken = GenerateAccessToken(userDbEntity);
+        AccessToken = GenerateAccessToken(DefaultUser);
     }
 
     private string GenerateAccessToken(UserDbEntity user)
@@ -86,4 +90,5 @@ public abstract class TestBase
 
         return new TestServer(hostBuilder);
     }
+    
 }

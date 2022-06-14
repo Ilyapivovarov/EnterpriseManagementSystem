@@ -1,4 +1,4 @@
-namespace TaskService.Application.Repositories.Base;
+namespace TaskService.Infrastructure.Repositories.Base;
 
 public abstract class RepositoryBase
 {
