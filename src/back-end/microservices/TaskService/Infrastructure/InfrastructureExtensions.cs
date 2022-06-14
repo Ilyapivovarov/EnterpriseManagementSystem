@@ -12,13 +12,11 @@ public static class InfrastructureExtensions
 
         services.AddDbContext<TaskDbContext>(builder =>
         {
-            builder
-                .UseLazyLoadingProxies();
+            builder = environment.IsEnvironment("Testing")
+                ? builder.UseInMemoryDatabase(configuration.GetConnectionString("SqlServer"))
+                : builder.UseSqlServer(configuration.GetConnectionString("SqlServer"));
 
-            if (environment.IsEnvironment("Testing"))
-                builder.UseInMemoryDatabase(configuration.GetConnectionString("SqlServer"));
-            else
-                builder.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+            builder.UseLazyLoadingProxies();
         });
 
 
