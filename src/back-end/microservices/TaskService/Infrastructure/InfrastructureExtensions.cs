@@ -10,9 +10,17 @@ public static class InfrastructureExtensions
     {
         #region Register TaskDbContext
 
-        services.AddDbContext<TaskDbContext>(builder => builder
-            .UseLazyLoadingProxies()
-            .UseSqlServer(configuration.GetConnectionString("SqlServer")));
+        services.AddDbContext<TaskDbContext>(builder =>
+        {
+            builder
+                .UseLazyLoadingProxies();
+
+            if (environment.IsEnvironment("Testing"))
+                builder.UseInMemoryDatabase(configuration.GetConnectionString("SqlServer"));
+            else
+                builder.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+        });
+
 
         services.AddScoped<ITaskDbContext, TaskDbContext>();
 

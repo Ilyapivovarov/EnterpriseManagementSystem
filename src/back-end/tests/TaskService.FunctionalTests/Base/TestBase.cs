@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Reflection;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -79,16 +78,12 @@ public abstract class TestBase
 
     private static TestServer CreateTestServer()
     {
-        var path = Assembly.GetExecutingAssembly().Location;
-
         var hostBuilder = new WebHostBuilder()
-            .ConfigureAppConfiguration(configuration =>
-            {
-                configuration.AddJsonFile("appsettings.Development.json", false)
-                    .AddEnvironmentVariables("Development");
-            }).UseStartup<Startup>();
+            .ConfigureAppConfiguration(
+                configuration => configuration.AddJsonFile("appsettings.Testing.json"))
+            .UseStartup<Startup>()
+            .UseEnvironment("Testing");
 
         return new TestServer(hostBuilder);
     }
-    
 }
