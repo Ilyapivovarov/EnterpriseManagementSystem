@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -13,8 +14,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
 using TaskService.Application.DbContexts;
-using TaskService.Application.Repositories;
 using TaskService.Core.DbEntities;
+using TaskService.Infrastructure.DbContexts;
 
 namespace TaskService.FunctionalTests.Base;
 
@@ -24,13 +25,6 @@ public abstract class TestBase
     {
         Server = CreateTestServer();
         JsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
-        DefaultUser = new UserDbEntity
-        {
-            EmailAddress = "admin@admin.com",
-            FirstName = "Admin",
-            LastName = "Admin",
-            IdentityGuid = Guid.NewGuid()
-        };
     }
 
     protected TestServer Server { get; }
@@ -39,16 +33,15 @@ public abstract class TestBase
 
     protected JsonSerializerOptions JsonSerializerOptions { get; }
 
-    protected UserDbEntity DefaultUser { get; }
+    protected UserDbEntity DefaultUser { get; private set; } = null!;
 
-    protected string? AccessToken { get; set; }
+    protected string? AccessToken { get; private set; }
 
     [OneTimeSetUp]
     public async Task OneTimeSetUp()
     {
-        await Server.Services.GetRequiredService<IUserRepository>()
-            .SaveUserDbEntityAsync(DefaultUser);
-
+        await TaskDbContextSeed.InitData(Server.Services);
+        DefaultUser = TaskDbContext.Users.First();
         AccessToken = GenerateAccessToken(DefaultUser);
     }
 

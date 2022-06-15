@@ -5,6 +5,7 @@ public readonly record struct NewTask(string Name, string Description, string St
     Guid? Inspector = null,
     Guid[]? Observers = null);
 
-public readonly record struct TaskInfo(string Name, string Description, Account author, Account? Executor,
-    Account? Inspector,
-    Account[]? Observers, string StatusName);
+public readonly record struct TaskInfo(Guid Guid, string Name, string Description, string StatusName, Account Author,
+    Account? Executor = null,
+    Account? Inspector = null,
+    Account[]? Observers = null);

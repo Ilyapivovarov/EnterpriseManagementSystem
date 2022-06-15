@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
@@ -37,5 +38,16 @@ public sealed class TaskControllerTests : TestBase
         var taskCountAfter = TaskDbContext.Tasks.Count();
 
         Assert.IsTrue(result.IsSuccessStatusCode && taskCountAfter > taskCountBefore);
+    }
+
+    [Test]
+    public async Task GetTaskByGuid_Test()
+    {
+        var task = TaskDbContext.Tasks.First();
+
+        var result = await Client.GetAsync($"task/{task.Guid}");
+        var content = await result.Content.ReadFromJsonAsync<TaskInfo>();
+
+        Assert.IsTrue(result.IsSuccessStatusCode && content.Guid == task.Guid);
     }
 }

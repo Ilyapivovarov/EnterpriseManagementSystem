@@ -21,9 +21,7 @@ public sealed class GetTaskByGuidHandler : RequestHandlerBase<GetTaskByGuidReque
 
             var task = await _taskRepository.GetTaskByGuidAsync(taskGuid);
 
-            return task == null
-                ? Error("Not found")
-                : Ok(task);
+            return task == null ? Error("Not found task with guid") : Ok(task);
         }
         catch (Exception e)
         {
