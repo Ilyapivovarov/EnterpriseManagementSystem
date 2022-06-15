@@ -1,4 +1,5 @@
 using EnterpriseManagementSystem.JwtAuthorization;
+using TaskService.Infrastructure.Consumers;
 using TaskService.Infrastructure.Repositories;
 
 namespace TaskService.Infrastructure;
@@ -21,6 +22,27 @@ public static class InfrastructureExtensions
 
 
         services.AddScoped<ITaskDbContext, TaskDbContext>();
+
+        #endregion
+
+        #region Register MassTransisist
+
+        services.AddMassTransit(configurator =>
+        {
+            configurator.AddConsumer<SaveNewUserConsumer>();
+            if (environment.IsEnvironment("Testing"))
+                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+            else
+                configurator.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("localhost", "/", h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                    cfg.ConfigureEndpoints(context);
+                });
+        });
 
         #endregion
 

@@ -29,11 +29,11 @@ public sealed class CreateNewTaskHandler : RequestHandlerBase<NewTaskRequest>
             var (name, description, statusName, author, executor, inspector, observers) = request.NewTask;
 
             var usersInvolvedInTask = await _taskService.GetUsersInvolvedInTask(author, executor, inspector, observers);
-            var taskStatusDbEntity = await _statusRepository.GetByName(statusName)
-                                     ?? await _statusRepository.GetDefaultTaskStatus();
-            
+            var taskStatusDbEntity = await _statusRepository.GetByName(statusName) ??
+                                     await _statusRepository.GetDefaultTaskStatus();
+
             var newTaskDbEntity =
-                TaskDbEntityBuilder.CreateTaskDbEntity(description, name, taskStatusDbEntity, usersInvolvedInTask);
+                TaskDbEntityBuilder.CreateNew(description, name, taskStatusDbEntity, usersInvolvedInTask);
 
             var saveResult = await _taskRepository.SaveTaskAsync(newTaskDbEntity);
 

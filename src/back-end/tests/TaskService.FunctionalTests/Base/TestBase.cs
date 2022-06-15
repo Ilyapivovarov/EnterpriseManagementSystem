@@ -45,6 +45,12 @@ public abstract class TestBase
         AccessToken = GenerateAccessToken(DefaultUser);
     }
 
+    [OneTimeTearDown]
+    public async Task OneTimeTearDown()
+    {
+        await Server.Services.GetRequiredService<TaskDbContext>().Database.EnsureDeletedAsync();
+    }
+
     private string GenerateAccessToken(UserDbEntity user)
     {
         var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();

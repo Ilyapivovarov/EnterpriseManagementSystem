@@ -12,7 +12,8 @@ public static class TaskDbContextSeed
                 EmailAddress = "admin@admin.com",
                 FirstName = "Admin",
                 LastName = "Admin",
-                IdentityGuid = Guid.NewGuid()
+                IdentityGuid = Guid.NewGuid(),
+                Role = "Admin"
             };
 
             await services.GetRequiredService<IUserRepository>()
@@ -22,8 +23,13 @@ public static class TaskDbContextSeed
             {
                 Name = "Registred"
             };
+            
             await services.GetRequiredService<ITaskStatusRepository>()
                 .SaveTaskStatusDbEntity(taskStatusDbEntity);
+
+            var mediator = services.GetRequiredService<IMediator>();
+            var request = new NewTaskRequest(new NewTask("Test name", "Test desc", "Test", defaultUser.Guid));
+            await mediator.Send(request);
         }
     }
 }

@@ -1,4 +1,5 @@
 using TaskService.Infrastructure.Handlers.Base;
+using TaskService.Infrastructure.Mapper;
 
 namespace TaskService.Infrastructure.Handlers;
 
@@ -21,7 +22,7 @@ public sealed class GetTaskByGuidHandler : RequestHandlerBase<GetTaskByGuidReque
 
             var task = await _taskRepository.GetTaskByGuidAsync(taskGuid);
 
-            return task == null ? Error("Not found task with guid") : Ok(task);
+            return task == null ? Error("Not found task with guid") : Ok(task.ToDto());
         }
         catch (Exception e)
         {
