@@ -4,13 +4,10 @@ public static class TaskDbContextSeed
 {
     public static async Task InitData(IServiceProvider services)
     {
-        var mediator = services.GetRequiredService<IMediator>();
         var taskDbContext = services.GetRequiredService<ITaskDbContext>();
-
-        var defaultUser = taskDbContext.Users.FirstOrDefault();
-        if (defaultUser == null)
+        if (!taskDbContext.Users.Any() && !taskDbContext.Tasks.Any())
         {
-            defaultUser = new UserDbEntity
+            var defaultUser = new UserDbEntity
             {
                 EmailAddress = "admin@admin.com",
                 FirstName = "Admin",
@@ -20,8 +17,10 @@ public static class TaskDbContextSeed
 
             await services.GetRequiredService<IUserRepository>()
                 .SaveUserDbEntityAsync(defaultUser);
-        }
 
-        await mediator.Send(new NewTaskRequest(new NewTask("Test name", "Test desc", "Test", defaultUser.Guid)));
+            var mediator = services.GetRequiredService<IMediator>();
+            var request = new NewTaskRequest(new NewTask("Test name", "Test desc", "Test", defaultUser.Guid));
+            await mediator.Send(request);
+        }
     }
 }
