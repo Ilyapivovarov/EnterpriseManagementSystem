@@ -11,7 +11,7 @@ public sealed class TaskService : ITaskService
 
     public async Task<UsersInvolvedInTask> GetUsersInvolvedInTask(Guid authorGuid, Guid? executorGuid = null,
         Guid? inspectorGuid = null,
-        Guid[]? observerGuids = null)
+        ICollection<Guid>? observerGuids = null)
     {
         var user = await _userRepository.GetUserByGuid(authorGuid);
 

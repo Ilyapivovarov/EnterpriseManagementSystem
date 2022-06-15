@@ -1,0 +1,5 @@
+using EnterpriseManagementSystem.Contracts.WebContracts;
+
+namespace EnterpriseManagementSystem.Contracts.IntegrationEvents;
+
+public record CreateNewTaskIntegrationEvent(TaskInfo taskInfo);

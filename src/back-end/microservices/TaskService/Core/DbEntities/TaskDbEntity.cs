@@ -14,7 +14,7 @@ public class TaskDbEntity : DbEntityBase
 
     public virtual UserDbEntity Author { get; set; } = null!;
 
-    public virtual TaskStatusDbEntity? Status { get; set; } = null!;
+    public virtual TaskStatusDbEntity Status { get; set; } = null!;
 
     public virtual List<AttachmentDbEntity> Attachments { get; set; } = new();
 }

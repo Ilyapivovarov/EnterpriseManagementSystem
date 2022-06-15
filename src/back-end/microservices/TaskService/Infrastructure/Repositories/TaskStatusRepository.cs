@@ -8,9 +8,24 @@ public sealed class TaskStatusRepository : RepositoryBase, ITaskStatusRepository
         : base(taskDbContext, logger)
     { }
 
+    public async Task<bool> SaveTaskStatusDbEntity(TaskStatusDbEntity taskStatusDbEntity)
+    {
+        return await WriteDataAsync(db => db.TaskStatuses.Add(taskStatusDbEntity));
+    }
+
     public async Task<TaskStatusDbEntity?> GetByGuid(Guid guid)
     {
         return await LoadDataAsync(db => db.TaskStatuses.FirstOrDefault(x => x.Guid == guid));
+    }
+
+    public async Task<TaskStatusDbEntity> GetDefaultTaskStatus()
+    {
+        var defaultTaskStatus = await LoadDataAsync(db => db.TaskStatuses.First());
+
+        if (defaultTaskStatus == null)
+            throw new Exception("Not found default status");
+
+        return defaultTaskStatus;
     }
 
     public async Task<TaskStatusDbEntity?> GetByName(string statusName)

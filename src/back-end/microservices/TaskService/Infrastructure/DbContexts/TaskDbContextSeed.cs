@@ -18,9 +18,12 @@ public static class TaskDbContextSeed
             await services.GetRequiredService<IUserRepository>()
                 .SaveUserDbEntityAsync(defaultUser);
 
-            var mediator = services.GetRequiredService<IMediator>();
-            var request = new NewTaskRequest(new NewTask("Test name", "Test desc", "Test", defaultUser.Guid));
-            await mediator.Send(request);
+            var taskStatusDbEntity = new TaskStatusDbEntity
+            {
+                Name = "Registred"
+            };
+            await services.GetRequiredService<ITaskStatusRepository>()
+                .SaveTaskStatusDbEntity(taskStatusDbEntity);
         }
     }
 }
