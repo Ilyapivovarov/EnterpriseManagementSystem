@@ -3,7 +3,8 @@ var host = Host.CreateDefaultBuilder(args)
     .Build();
 
 
-var mediator = host.Services.GetRequiredService<IMediator>();
-await mediator.Send(AuthRequest<SignUp>.Create(new SignUp("Admin", "Admin", "admin@admin.com", "admin", "admin")));
+var context = host.Services.GetRequiredService<ApplicationDbContext>();
+var logger = host.Services.GetRequiredService<ILogger<Program>>();
+await ApplicationDbContextSeed.SeedData(context, logger);
 
 await host.RunAsync();

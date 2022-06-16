@@ -1,6 +1,6 @@
 namespace IdentityService.Infrastructure.Mediators.Handlers.Auth;
 
-public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignUp>, IActionResult>
+public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IActionResult>
 {
     private readonly IBus _bus;
     private readonly ILogger<SignUpUserRequestHandler> _logger;
@@ -23,14 +23,12 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<AuthRequest<SignU
         _bus = bus;
     }
 
-    public async Task<IActionResult> Handle(AuthRequest<SignUp> authRequest, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(SignUpRequest authRequest, CancellationToken cancellationToken)
     {
         try
         {
-            var signUpDto = authRequest.Body;
-            if (signUpDto == null)
-                return new BadRequestObjectResult("Request body is empty");
-
+            var signUpDto = authRequest.SignUp;
+          
             var (firFristName, lastName, email, password, confirmPassword) = signUpDto;
             if (!password.Equals(confirmPassword, StringComparison.Ordinal))
                 return new BadRequestObjectResult("Passwords is not same");

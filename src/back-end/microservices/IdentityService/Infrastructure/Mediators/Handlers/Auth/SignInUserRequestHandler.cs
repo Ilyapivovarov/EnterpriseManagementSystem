@@ -1,6 +1,6 @@
 namespace IdentityService.Infrastructure.Mediators.Handlers.Auth;
 
-public sealed class SignInUserRequestHandler : IRequestHandler<AuthRequest<SignIn>, IActionResult>
+public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IActionResult>
 {
     private readonly ILogger<SignInUserRequestHandler> _logger;
     private readonly ISessionBlService _sessionBlService;
@@ -16,13 +16,11 @@ public sealed class SignInUserRequestHandler : IRequestHandler<AuthRequest<SignI
         _sessionBlService = sessionBlService;
     }
 
-    public async Task<IActionResult> Handle(AuthRequest<SignIn> authRequest, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(SignInRequest signInRequest, CancellationToken cancellationToken)
     {
         try
         {
-            var signInDto = authRequest.Body;
-            if (signInDto == null)
-                return new BadRequestObjectResult("Request body is empty");
+            var signInDto = signInRequest.SignIn;
 
             var user = await _userRepository.GetUserByEmailAndPasswordAsync(signInDto.Email, signInDto.Password);
             if (user == null)

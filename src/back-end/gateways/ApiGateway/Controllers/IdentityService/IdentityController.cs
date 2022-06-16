@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace ApiGateway.Controllers;
+namespace ApiGateway.Controllers.IdentityService;
 
 [ApiController]
 [Route("[controller]")]

@@ -1,6 +1,6 @@
 namespace IdentityService.Infrastructure.Mediators.Handlers.Auth;
 
-public sealed class SignOutRequestHandler : IRequestHandler<AuthRequest<Guid>, IActionResult>
+public sealed class SignOutRequestHandler : IRequestHandler<SignOutRequest, IActionResult>
 {
     private readonly ILogger<SignOutRequestHandler> _logger;
     private readonly ISessionRepository _sessionRepository;
@@ -11,11 +11,11 @@ public sealed class SignOutRequestHandler : IRequestHandler<AuthRequest<Guid>, I
         _sessionRepository = sessionRepository;
     }
 
-    public async Task<IActionResult> Handle(AuthRequest<Guid> authRequest, CancellationToken cancellationToken)
+    public async Task<IActionResult> Handle(SignOutRequest signOutRequest, CancellationToken cancellationToken)
     {
         try
         {
-            var userGuid = authRequest.Body;
+            var userGuid = signOutRequest.Guid;
             var session = await _sessionRepository.GetSessionByUserGuid(userGuid);
             if (session == null)
                 return new BadRequestResult();

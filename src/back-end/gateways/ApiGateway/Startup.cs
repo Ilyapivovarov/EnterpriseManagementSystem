@@ -18,6 +18,8 @@ public sealed class Startup
     {
         services.AddInfrastructure(Configuration, Environment);
 
+        services.AddRouting(options => options.LowercaseUrls = true);
+
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
@@ -37,12 +39,12 @@ public sealed class Startup
         app.UseCors(x => x
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .SetIsOriginAllowed(origin => true) // allow any origin
-            .AllowCredentials()); // allow credentials
+            .SetIsOriginAllowed(s => true)
+            .AllowCredentials());
 
         app.UseAuthentication();
         app.UseAuthorization();
-
+        
         app.UseEndpoints(endpoints => endpoints.MapControllers()
             .RequireAuthorization());
     }
