@@ -48,6 +48,20 @@ public sealed class TaskControllerTests : TestBase
         var result = await Client.GetAsync($"task/{task.Guid}");
         var content = await result.Content.ReadFromJsonAsync<TaskInfo>();
 
-        Assert.IsTrue(result.IsSuccessStatusCode && content.Guid == task.Guid);
+        Assert.IsTrue(result.IsSuccessStatusCode && content?.Guid == task.Guid);
+    }
+
+    [Test]
+    public async Task UpdateTask_Test()
+    {
+        var task = TaskDbContext.Tasks.First();
+
+        var data = new UpdateTask(task.Guid, "Update test name", "Update test desc", Executor: DefaultUser.Guid);
+        var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
+            MediaTypeNames.Application.Json);
+        var result = await Client.PutAsync("task", content);
+
+        Assert.IsTrue(result.IsSuccessStatusCode);
+        Assert.AreNotEqual(data, result);
     }
 }
