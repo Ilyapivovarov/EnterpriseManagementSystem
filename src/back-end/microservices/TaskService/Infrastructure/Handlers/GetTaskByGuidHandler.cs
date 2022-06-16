@@ -1,6 +1,3 @@
-using TaskService.Infrastructure.Handlers.Base;
-using TaskService.Infrastructure.Mapper;
-
 namespace TaskService.Infrastructure.Handlers;
 
 public sealed class GetTaskByGuidHandler : RequestHandlerBase<GetTaskByGuidRequest>

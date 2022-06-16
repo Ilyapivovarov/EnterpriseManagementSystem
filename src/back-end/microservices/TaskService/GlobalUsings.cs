@@ -16,4 +16,6 @@ global using TaskService.Core.DbEntities.Base;
 global using TaskService.Core.ReturnedValues;
 global using TaskService.Infrastructure;
 global using TaskService.Infrastructure.DbContexts;
+global using TaskService.Infrastructure.Handlers.Base;
 global using TaskService.Infrastructure.Requests;
+global using TaskService.Infrastructure.Mapper;

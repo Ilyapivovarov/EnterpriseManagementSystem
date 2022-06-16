@@ -31,4 +31,14 @@ public sealed class TaskController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateNewTask(NewTask newTask)
         => await _mediator.Send(new NewTaskRequest(newTask));
+
+    /// <summary>
+    ///     Update task
+    /// </summary>
+    /// <returns></returns>
+    [HttpPut]
+    public async Task<IActionResult> UpdateTask(UpdateTask taskInfo)
+    {
+        return await _mediator.Send(new UpdateTaskRequest(taskInfo));
+    }
 }

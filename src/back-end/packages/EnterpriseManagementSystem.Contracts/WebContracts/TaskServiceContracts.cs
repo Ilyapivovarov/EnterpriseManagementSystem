@@ -9,3 +9,8 @@ public sealed record TaskInfo(Guid Guid, string Name, string Description, string
     Account? Executor = null,
     Account? Inspector = null,
     ICollection<Account>? Observers = null);
+
+public sealed record UpdateTask(Guid Guid, string Name, string Description, string StatusName,
+    Account? Executor = null,
+    Account? Inspector = null,
+    ICollection<Account>? Observers = null);
