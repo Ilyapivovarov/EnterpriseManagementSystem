@@ -1,4 +1,4 @@
-namespace IdentityService.Infrastructure.Implementations.Services;
+namespace IdentityService.Infrastructure.Services;
 
 public sealed class SecurityService : ISecurityService
 {

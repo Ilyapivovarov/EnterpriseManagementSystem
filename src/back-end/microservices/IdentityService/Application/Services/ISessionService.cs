@@ -1,8 +1,6 @@
-using IdentityService.Core.DbEntities;
+namespace IdentityService.Application.Services;
 
-namespace IdentityService.Application.BlServices;
-
-public interface ISessionBlService
+public interface ISessionService
 {
     public SessionDbEntity CreateSession(UserDbEntity user);
 

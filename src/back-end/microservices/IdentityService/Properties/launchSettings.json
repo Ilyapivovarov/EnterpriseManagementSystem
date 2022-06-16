@@ -24,6 +24,13 @@
       "applicationUrl": "https://localhost:7104;http://localhost:5104",
       "dotnetRunMessages": true
     },
+    "Testing": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Testing"
+      }
+    },
     "Docker": {
       "commandName": "Docker",
       "launchUrl": "{Scheme}://localhost:{ServicePort}/swagger",

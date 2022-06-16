@@ -1,4 +1,6 @@
-namespace IdentityService.Infrastructure.Mediators.Handlers.User;
+using IdentityService.Infrastructure.Requests;
+
+namespace IdentityService.Infrastructure.Handlers.User;
 
 public sealed class GetUsersRequestHandler : IRequestHandler<UserControllerRequest<int>, IActionResult>
 {

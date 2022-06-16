@@ -1,12 +1,10 @@
-using IdentityService.Core.DbEntities;
+namespace IdentityService.Infrastructure.Services;
 
-namespace IdentityService.Infrastructure.Implementations.BlServices;
-
-public sealed class UserBlService : IUserBlService
+public sealed class UserService : IUserService
 {
-    private readonly ILogger<UserBlService> _logger;
+    private readonly ILogger<UserService> _logger;
 
-    public UserBlService(ILogger<UserBlService> logger)
+    public UserService(ILogger<UserService> logger)
     {
         _logger = logger;
     }

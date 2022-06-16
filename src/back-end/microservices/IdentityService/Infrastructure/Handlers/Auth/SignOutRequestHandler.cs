@@ -1,4 +1,6 @@
-namespace IdentityService.Infrastructure.Mediators.Handlers.Auth;
+using IdentityService.Infrastructure.Requests;
+
+namespace IdentityService.Infrastructure.Handlers.Auth;
 
 public sealed class SignOutRequestHandler : IRequestHandler<SignOutRequest, IActionResult>
 {

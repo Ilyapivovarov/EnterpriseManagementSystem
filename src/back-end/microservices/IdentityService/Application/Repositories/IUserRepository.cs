@@ -1,11 +1,7 @@
-using IdentityService.Core.DbEntities;
-
 namespace IdentityService.Application.Repositories;
 
 public interface IUserRepository
 {
-    #region Query
-
     /// <summary>
     ///     Getting user from database by Id
     /// </summary>
@@ -72,10 +68,6 @@ public interface IUserRepository
     /// <returns></returns>
     public Task<UserDbEntity[]?> GetUsersByPageAsync(int page = 0);
 
-    #endregion
-
-    #region Commands
-
     /// <summary>
     ///     Create new user with this email and password
     /// </summary>
@@ -101,6 +93,4 @@ public interface IUserRepository
     /// <param name="user"></param>
     /// <returns></returns>
     public Task<bool> UpadteUserAsync(UserDbEntity user);
-
-    #endregion
 }

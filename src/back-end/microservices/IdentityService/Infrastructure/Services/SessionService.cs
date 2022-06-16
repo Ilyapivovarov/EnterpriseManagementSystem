@@ -1,16 +1,15 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using IdentityService.Core.DbEntities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace IdentityService.Infrastructure.Implementations.BlServices;
+namespace IdentityService.Infrastructure.Services;
 
-public sealed class SessionBlService : ISessionBlService
+public sealed class SessionService : ISessionService
 {
     private readonly IOptions<AuthOption> _authOptions;
 
-    public SessionBlService(IOptions<AuthOption> authOptions)
+    public SessionService(IOptions<AuthOption> authOptions)
     {
         _authOptions = authOptions;
     }

@@ -1,14 +1,11 @@
-using IdentityService.Core.DbEntities;
-using Microsoft.EntityFrameworkCore;
-
 namespace IdentityService.Infrastructure.AppData;
 
-public sealed class ApplicationDbContext : DbContext
+public sealed class IdentityDbContext : DbContext, IIdentityDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
         : base(options)
     {
-        Database.Migrate();
+        Database.EnsureCreated();
     }
 
     public DbSet<UserDbEntity> Users => Set<UserDbEntity>();

@@ -1,5 +1,3 @@
-using IdentityService.Core.DbEntities;
-
 namespace IdentityService.Application.Repositories;
 
 public interface ISessionRepository

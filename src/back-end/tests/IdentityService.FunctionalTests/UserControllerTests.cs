@@ -1,11 +1,13 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.FunctionalTests.Base;
+using IdentityService.Infrastructure.Mapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NUnit.Framework;
 
@@ -24,19 +26,21 @@ public sealed class UserControllerTests : TestBase
     }
 
     [Test]
-    public async Task GetUserByGuidTest()
+    public async Task GetUserByGuid_Test()
     {
         Client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
-        var response = await Client.GetAsync($"user/{User.Guid.ToString()}");
+        var response = await Client.GetAsync($"User/{DefaultUser.Guid}");
+        var account = await response.Content.ReadFromJsonAsync<Account>();
 
-        Assert.IsTrue(response.IsSuccessStatusCode);
+        Assert.IsTrue(response.IsSuccessStatusCode
+                      && DefaultUser.ToDto() == account);
     }
 
     [Test]
-    public async Task ChangeUserInfoTest()
+    public async Task ChangeUserInfo_Test()
     {
-        var data = new UserInfo(User.Guid, "Test", "Test", "Reader");
+        var data = new UserInfo(DefaultUser.Guid, "Test", "Test", "Reader");
         var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
             MediaTypeNames.Application.Json);
 

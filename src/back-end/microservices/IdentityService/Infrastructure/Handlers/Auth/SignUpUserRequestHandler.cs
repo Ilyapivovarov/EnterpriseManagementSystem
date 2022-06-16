@@ -1,17 +1,19 @@
-namespace IdentityService.Infrastructure.Mediators.Handlers.Auth;
+using IdentityService.Infrastructure.Requests;
+
+namespace IdentityService.Infrastructure.Handlers.Auth;
 
 public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IActionResult>
 {
     private readonly IBus _bus;
     private readonly ILogger<SignUpUserRequestHandler> _logger;
     private readonly ISecurityService _securityService;
-    private readonly ISessionBlService _sessionBlService;
+    private readonly ISessionService _sessionBlService;
     private readonly ISessionRepository _sessionRepository;
-    private readonly IUserBlService _userBlService;
+    private readonly IUserService _userBlService;
     private readonly IUserRepository _userRepository;
 
-    public SignUpUserRequestHandler(ILogger<SignUpUserRequestHandler> logger, IUserBlService userBlService,
-        IUserRepository userRepository, ISessionBlService sessionBlService, ISessionRepository sessionRepository,
+    public SignUpUserRequestHandler(ILogger<SignUpUserRequestHandler> logger, IUserService userBlService,
+        IUserRepository userRepository, ISessionService sessionBlService, ISessionRepository sessionRepository,
         ISecurityService securityService, IBus bus)
     {
         _logger = logger;

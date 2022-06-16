@@ -1,15 +1,12 @@
-using IdentityService.Core.DbEntities;
+using IdentityService.Infrastructure.Repositories.Base;
 
-namespace IdentityService.Infrastructure.Implementations.Repositories;
+namespace IdentityService.Infrastructure.Repositories;
 
 public sealed class UserRepository : RepositoryBase, IUserRepository
 {
-    public UserRepository(ApplicationDbContext dbContext, ILogger<UserRepository> logger)
+    public UserRepository(IIdentityDbContext dbContext, ILogger<UserRepository> logger)
         : base(dbContext, logger)
-    {
-    }
-
-    #region Queries
+    { }
 
     public UserDbEntity? GetUserById(int id)
     {
@@ -73,10 +70,6 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
         });
     }
 
-    #endregion
-
-    #region Command
-
     public bool SaveUser(UserDbEntity user)
     {
         return SaveData(db => db.Users.Add(user),
@@ -90,13 +83,11 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
 
     public bool UpdateUser(UserDbEntity user)
     {
-        return SaveData(db => db.Update(user), "Error while update user data");
+        return SaveData(db => db.Users.Update(user), "Error while update user data");
     }
 
     public async Task<bool> UpadteUserAsync(UserDbEntity user)
     {
         return await Task.Run(() => UpdateUser(user));
     }
-
-    #endregion
 }

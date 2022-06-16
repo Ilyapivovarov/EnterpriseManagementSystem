@@ -1,20 +1,18 @@
-using IdentityService.Core.DbEntities;
-using Microsoft.EntityFrameworkCore;
+using IdentityService.Infrastructure.Repositories.Base;
 
-namespace IdentityService.Infrastructure.Implementations.Repositories;
+namespace IdentityService.Infrastructure.Repositories;
 
 public sealed class SessionRepository : RepositoryBase, ISessionRepository
 {
-    public SessionRepository(ApplicationDbContext dbContext, ILogger<SessionRepository> logger)
+    public SessionRepository(IIdentityDbContext dbContext, ILogger<SessionRepository> logger)
         : base(dbContext, logger)
-    {
-    }
+    { }
 
     public bool SaveOrUpdateSession(SessionDbEntity session)
     {
         return SaveData(db =>
             {
-                if (db.Entry(session).State == EntityState.Modified)
+                if (session.Id != 0)
                     db.Sessions.Update(session);
                 else
                     db.Sessions.Add(session);

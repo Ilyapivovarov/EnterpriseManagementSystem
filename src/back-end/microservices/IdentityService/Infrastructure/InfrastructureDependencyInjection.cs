@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+using IdentityService.Infrastructure.Repositories;
+using IdentityService.Infrastructure.Services;
 
 namespace IdentityService.Infrastructure;
 
@@ -9,11 +10,16 @@ public static class InfrastructureDependencyInjection
     {
         #region Register context
 
-        var conString = configuration.GetConnectionString("RelationalDb");
-        services.AddDbContext<ApplicationDbContext>(builder =>
-            builder
-                .UseLazyLoadingProxies()
-                .UseSqlServer(conString));
+        services.AddDbContext<IdentityDbContext>(builder =>
+        {
+            builder = environment.IsEnvironment("Testing")
+                ? builder.UseInMemoryDatabase(configuration.GetConnectionString("RelationalDb"))
+                : builder.UseSqlServer(configuration.GetConnectionString("RelationalDb"));
+
+            builder.UseLazyLoadingProxies();
+        });
+
+        services.AddScoped<IIdentityDbContext, IdentityDbContext>();
 
         #endregion
 
@@ -28,13 +34,8 @@ public static class InfrastructureDependencyInjection
         #region Register services
 
         services.AddTransient<ISecurityService, SecurityService>();
-
-        #endregion
-
-        #region Register bl services
-
-        services.AddTransient<IUserBlService, UserBlService>();
-        services.AddTransient<ISessionBlService, SessionBlService>();
+        services.AddTransient<IUserService, UserService>();
+        services.AddTransient<ISessionService, SessionService>();
 
         #endregion
 
@@ -46,22 +47,28 @@ public static class InfrastructureDependencyInjection
 
         #region Register event bus
 
-        services.AddMassTransit(x =>
+        services.AddMassTransit(configurator =>
         {
-            x.UsingRabbitMq((context, cfg) =>
-            {
-                cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
+            if (environment.IsEnvironment("Testing"))
+                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+            else
+                configurator.UsingRabbitMq((context, cfg) =>
                 {
-                    h.Username("guest");
-                    h.Password("guest");
+                    cfg.Host("localhost", "/", h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                    cfg.ConfigureEndpoints(context);
                 });
-
-                cfg.ConfigureEndpoints(context);
-            });
         });
 
         #endregion
 
+        #region Register Cors
+
         services.AddCors();
+
+        #endregion
     }
 }

@@ -1,13 +1,15 @@
-namespace IdentityService.Infrastructure.Mediators.Handlers.User;
+using IdentityService.Infrastructure.Requests;
+
+namespace IdentityService.Infrastructure.Handlers.User;
 
 public sealed class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerRequest<UserInfo>, IActionResult>
 {
     private readonly ILogger<UpdateUserInfoRequestHandler> _logger;
-    private readonly IUserBlService _userBlService;
+    private readonly IUserService _userBlService;
     private readonly IUserRepository _userRepository;
 
     public UpdateUserInfoRequestHandler(ILogger<UpdateUserInfoRequestHandler> logger, IUserRepository userRepository,
-        IUserBlService userBlService)
+        IUserService userBlService)
     {
         _logger = logger;
         _userRepository = userRepository;

@@ -1,104 +1,88 @@
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Mime;
-using System.Reflection;
-using System.Text;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
-using EnterpriseManagementSystem.Contracts.WebContracts;
+using EnterpriseManagementSystem.JwtAuthorization;
+using IdentityService.Application.DbContexts;
 using IdentityService.Core.DbEntities;
 using IdentityService.Infrastructure.AppData;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
 
 namespace IdentityService.FunctionalTests.Base;
 
 public class TestBase
 {
-    private UserDbEntity? _userDbEntity;
-
-    public TestBase()
+    protected TestBase()
     {
         Server = CreateTestServer();
         JsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
     }
 
-    protected UserDbEntity User => _userDbEntity ??= GetUserFromDb();
-
     protected TestServer Server { get; }
+
+    protected IIdentityDbContext TaskDbContext => Server.Services.GetRequiredService<IIdentityDbContext>();
 
     protected JsonSerializerOptions JsonSerializerOptions { get; }
 
-    protected string? AccessToken { get; set; }
+    protected UserDbEntity DefaultUser { get; private set; } = null!;
+
+    protected string? AccessToken { get; private set; }
 
     [OneTimeSetUp]
     public async Task OneTimeSetUp()
     {
-        var client = Server.CreateClient();
-        var signInContent =
-            new StringContent(
-                JsonSerializer.Serialize(new SignIn(User.Address.Email, User.Password), JsonSerializerOptions),
-                Encoding.UTF8, MediaTypeNames.Application.Json);
-        var response = await client.PostAsync("auth/sign-in", signInContent);
-
-        var sessionDraft = await response.Content.ReadAsStringAsync();
-        var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, JsonSerializerOptions);
-
-        AccessToken = sessionDto?.AccessToken;
+        await IdentityDbContextSeed.InitData(Server.Services);
+        DefaultUser = TaskDbContext.Users.First();
+        AccessToken = GenerateAccessToken(DefaultUser);
     }
 
     [OneTimeTearDown]
-    public void RemoveDatabase()
+    public async Task OneTimeTearDown()
     {
-        var context = Server.Services.GetRequiredService<ApplicationDbContext>();
-        context.Database.EnsureDeleted();
+        await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
     }
 
-    private UserDbEntity GetUserFromDb()
+    private string GenerateAccessToken(UserDbEntity user)
     {
-        var context = Server.Services.GetRequiredService<ApplicationDbContext>();
-        return context.Users.First();
+        var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
+        var authParams = authOption.Value;
+
+        var securityKey = authParams.GetSymmetricSecurityKey();
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Email, user.Address.Email),
+            new(ClaimTypes.UserData, user.Guid.ToString())
+        };
+
+        var token = new JwtSecurityToken(
+            authParams.Issuer,
+            authParams.Audience,
+            claims,
+            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
+            signingCredentials: credentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     private static TestServer CreateTestServer()
     {
-        var path = Assembly.GetExecutingAssembly().Location;
-
         var hostBuilder = new WebHostBuilder()
-            .UseContentRoot(Path.GetDirectoryName(path) ?? throw new ArgumentNullException(path))
-            .ConfigureAppConfiguration(configuration =>
-            {
-                configuration.AddJsonFile("appsettings.Development.json", false)
-                    .AddEnvironmentVariables("Development");
-            }).UseStartup<Startup>();
+            .ConfigureAppConfiguration(
+                configuration => configuration.AddJsonFile("appsettings.Testing.json"))
+            .UseStartup<Startup>()
+            .UseEnvironment("Testing");
 
-        var test = new TestServer(hostBuilder);
-        var context = test.Services.GetRequiredService<ApplicationDbContext>();
-        if (!context.Users.Any())
-        {
-            context.Users.Add(new UserDbEntity
-            {
-                Address = new EmailAddressDbEntity
-                {
-                    Email = "admin@admin.com",
-                    IsVerified = false
-                },
-                Password = "admin",
-                FirstName = "Admin",
-                LastName = "Admin",
-                Role = new UserRoleDbEntity
-                {
-                    Name = "Admin"
-                }
-            });
-            context.SaveChanges();
-        }
-
-        return test;
+        return new TestServer(hostBuilder);
     }
 }

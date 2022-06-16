@@ -1,17 +1,17 @@
-namespace IdentityService.Infrastructure.Implementations.Repositories.Base;
+namespace IdentityService.Infrastructure.Repositories.Base;
 
 public abstract class RepositoryBase
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly IIdentityDbContext _dbContext;
     private readonly ILogger<RepositoryBase> _logger;
 
-    protected RepositoryBase(ApplicationDbContext dbContext, ILogger<RepositoryBase> logger)
+    protected RepositoryBase(IIdentityDbContext dbContext, ILogger<RepositoryBase> logger)
     {
         _dbContext = dbContext;
         _logger = logger;
     }
 
-    protected T? LoadData<T>(Func<ApplicationDbContext, T?> loadFunc, string message)
+    protected T? LoadData<T>(Func<IIdentityDbContext, T?> loadFunc, string message)
     {
         try
         {
@@ -24,12 +24,12 @@ public abstract class RepositoryBase
         }
     }
 
-    protected bool SaveData(Action<ApplicationDbContext> writeFunc, string message)
+    protected bool SaveData(Action<IIdentityDbContext> writeFunc, string message)
     {
         try
         {
             writeFunc(_dbContext);
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
             return true;
         }
         catch (Exception e)
@@ -39,7 +39,7 @@ public abstract class RepositoryBase
         }
     }
 
-    protected async Task<bool> SaveDataAsync(Action<ApplicationDbContext> writeFunc, string message)
+    protected async Task<bool> SaveDataAsync(Action<IIdentityDbContext> writeFunc, string message)
     {
         try
         {

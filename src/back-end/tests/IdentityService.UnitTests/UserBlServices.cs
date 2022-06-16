@@ -1,5 +1,5 @@
 using IdentityService.Core.DbEntities;
-using IdentityService.Infrastructure.Implementations.BlServices;
+using IdentityService.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
@@ -10,21 +10,21 @@ public sealed class UserBlServiceTests
 {
     public UserBlServiceTests()
     {
-        Logger = Logger = Mock.Of<ILogger<UserBlService>>();
+        Logger = Logger = Mock.Of<ILogger<UserService>>();
     }
 
-    public ILogger<UserBlService> Logger { get; set; }
+    public ILogger<UserService> Logger { get; set; }
 
     [SetUp]
     public void SetUp()
     {
-        Logger = Mock.Of<ILogger<UserBlService>>();
+        Logger = Mock.Of<ILogger<UserService>>();
     }
 
     [Test]
     public void ChnageUserInfoTests()
     {
-        var userBlService = new UserBlService(Logger);
+        var userBlService = new UserService(Logger);
         var user = new UserDbEntity
         {
             Address = new EmailAddressDbEntity

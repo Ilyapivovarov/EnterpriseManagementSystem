@@ -1,8 +1,6 @@
-using IdentityService.Core.DbEntities;
+namespace IdentityService.Application.Services;
 
-namespace IdentityService.Application.BlServices;
-
-public interface IUserBlService
+public interface IUserService
 {
     /// <summary>
     ///     Create new User

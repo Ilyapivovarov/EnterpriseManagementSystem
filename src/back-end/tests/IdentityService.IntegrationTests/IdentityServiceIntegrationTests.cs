@@ -16,7 +16,7 @@ public sealed class IdentityServiceIntegrationTests : TestBase
     public void TestDevConnectionToDb()
     {
         var testServer = GetTestServer();
-        var context = testServer.Services.GetRequiredService<ApplicationDbContext>();
+        var context = testServer.Services.GetRequiredService<IdentityDbContext>();
 
         Assert.IsTrue(context.Database.CanConnect());
     }

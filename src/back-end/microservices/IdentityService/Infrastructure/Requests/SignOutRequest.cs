@@ -1,4 +1,4 @@
-namespace IdentityService.Infrastructure.Mediators.Requests;
+namespace IdentityService.Infrastructure.Requests;
 
 public sealed class SignOutRequest : IRequest<IActionResult>
 {
