@@ -1,3 +1,5 @@
+using TaskService.Core.DbEntities.Builders;
+
 namespace TaskService.Infrastructure.Handlers;
 
 public sealed class UpdateTaskHander : RequestHandlerBase<UpdateTaskRequest>
@@ -18,7 +20,18 @@ public sealed class UpdateTaskHander : RequestHandlerBase<UpdateTaskRequest>
     {
         try
         {
-            throw new NotImplementedException();
+            var updateTask = request.UpdateTask;
+
+            var taskDbEntity = await _taskRepository.GetTaskByGuidAsync(updateTask.Guid);
+            if (taskDbEntity == null)
+                return Error($"Not found task with guid {updateTask.Guid}");
+
+            var userInvolvedInTask = await _taskService.GetUsersInvolvedInTask(taskDbEntity.Author.Guid);
+            TaskDbEntityBuilder.Update(ref taskDbEntity, updateTask.Description, updateTask.Name,
+                taskDbEntity.Status, userInvolvedInTask);
+
+            var saveSuccess = await _taskRepository.UpdateTaskAsync(taskDbEntity);
+            return saveSuccess ? Ok() : Error("Error while save task");
         }
         catch (Exception e)
         {

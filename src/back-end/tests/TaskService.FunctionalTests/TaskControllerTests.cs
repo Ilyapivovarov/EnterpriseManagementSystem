@@ -10,6 +10,7 @@ using EnterpriseManagementSystem.Contracts.WebContracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NUnit.Framework;
 using TaskService.FunctionalTests.Base;
+using TaskService.Infrastructure.Mapper;
 
 namespace TaskService.FunctionalTests;
 
@@ -59,9 +60,12 @@ public sealed class TaskControllerTests : TestBase
         var data = new UpdateTask(task.Guid, "Update test name", "Update test desc", Executor: DefaultUser.Guid);
         var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
             MediaTypeNames.Application.Json);
-        var result = await Client.PutAsync("task", content);
+        var updateTaskResult = await Client.PutAsync("task", content);
 
-        Assert.IsTrue(result.IsSuccessStatusCode);
-        Assert.AreNotEqual(data, result);
+        var getTaskResult = await Client.GetAsync($"task/{task.Guid}");
+        var taskInfo = await getTaskResult.Content.ReadFromJsonAsync<TaskInfo>();
+
+        Assert.IsTrue(updateTaskResult.IsSuccessStatusCode);
+        Assert.AreNotSame(task.ToDto(), taskInfo);
     }
 }

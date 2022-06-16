@@ -16,4 +16,19 @@ public static class TaskDbEntityBuilder
             Status = taskStatusDbEntity
         };
     }
+
+    public static void Update(ref TaskDbEntity taskDbEntity, string? description, string? name,
+        TaskStatusDbEntity taskStatusDbEntity, UsersInvolvedInTask usersInvolvedInTask)
+    {
+        taskDbEntity.Author = usersInvolvedInTask.Author;
+        taskDbEntity.Executor = usersInvolvedInTask.Executor;
+        taskDbEntity.Description = description;
+        taskDbEntity.Inspector = usersInvolvedInTask.Inspector;
+
+        if (name != null)
+            taskDbEntity.Name = name;
+
+        taskDbEntity.Observers = usersInvolvedInTask.Observers;
+        taskDbEntity.Status = taskStatusDbEntity;
+    }
 }

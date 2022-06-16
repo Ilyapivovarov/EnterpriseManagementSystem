@@ -4,7 +4,7 @@ public class TaskDbEntity : DbEntityBase
 {
     public string Name { get; set; } = null!;
 
-    public string Description { get; set; } = null!;
+    public string? Description { get; set; }
 
     public virtual UserDbEntity? Executor { get; set; }
 
