@@ -16,6 +16,8 @@ public sealed class TaskDbContext : DbContext, ITaskDbContext
 
     public DbSet<AttachmentDbEntity> Attachments => Set<AttachmentDbEntity>();
 
-    public async Task<int> SaveChagesAsync(CancellationToken cancellationToken = default) 
-        => await SaveChangesAsync(cancellationToken);
+    public async Task<int> SaveChagesAsync(CancellationToken cancellationToken = default)
+    {
+        return await SaveChangesAsync(cancellationToken);
+    }
 }

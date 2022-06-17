@@ -41,7 +41,7 @@ services:
       emsnetwork:
         ipv4_address: 10.20.10.8
     depends_on:
-      - mongo    
+      - mongo
     ports:
       - "8081:8081"
     environment:

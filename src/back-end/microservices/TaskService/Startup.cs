@@ -28,7 +28,7 @@ public sealed class Startup
         if (Environment.IsDevelopment()) app.UseDeveloperExceptionPage();
 
         app.UseRouting();
-        
+
         app.UseAuthentication();
         app.UseAuthorization();
 

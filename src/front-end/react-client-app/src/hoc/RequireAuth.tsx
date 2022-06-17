@@ -8,7 +8,7 @@ const RequireAuth: FC = (props) => {
     const {currentSession} = useAppSelector(x => x.authReducer)
 
     const dispatch = useAppDispatch()
-   
+
 
     useEffect(() => {
         dispatch(resetAuthState()).unwrap().catch(() => {

@@ -6,7 +6,7 @@ namespace ApiGateway.Infrastructure.HttpClients;
 public sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
 {
     private readonly HttpClient _httpClient;
-   
+
     public IdentityHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
@@ -45,10 +45,7 @@ public sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
         var response = await _httpClient.DeleteAsync(UrlConfig.IdentityApi.AuthController.SignOut());
 
         var sessionDraft = await response.Content.ReadAsStringAsync();
-        if (response.IsSuccessStatusCode)
-        {
-            return new OkResult();
-        }
+        if (response.IsSuccessStatusCode) return new OkResult();
 
         return new BadRequestObjectResult(sessionDraft);
     }

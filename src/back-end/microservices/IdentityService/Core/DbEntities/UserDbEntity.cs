@@ -8,7 +8,7 @@ public class UserDbEntity : DbEntityBase
 
     public string FirstName { get; set; } = null!;
 
-    public string LastName { get; set; }  = null!;
+    public string LastName { get; set; } = null!;
 
     [ForeignKey("EmailAddressesId")]
     public virtual EmailAddressDbEntity Address { get; set; } = null!;

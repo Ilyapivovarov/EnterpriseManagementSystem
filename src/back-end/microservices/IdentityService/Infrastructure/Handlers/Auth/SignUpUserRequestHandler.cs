@@ -28,7 +28,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
         try
         {
             var signUpDto = authRequest.SignUp;
-          
+
             var (firFristName, lastName, email, password, confirmPassword) = signUpDto;
             if (!password.Equals(confirmPassword, StringComparison.Ordinal))
                 return new BadRequestObjectResult("Passwords is not same");

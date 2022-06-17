@@ -33,7 +33,7 @@ public sealed class Startup
             .AllowAnyMethod()
             .AllowAnyHeader()
             .SetIsOriginAllowed(_ => true)
-            .AllowCredentials()); 
+            .AllowCredentials());
 
         app.UseAuthentication();
         app.UseAuthorization();

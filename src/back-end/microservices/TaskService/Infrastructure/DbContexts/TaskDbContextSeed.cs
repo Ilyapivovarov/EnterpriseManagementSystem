@@ -23,7 +23,7 @@ public static class TaskDbContextSeed
             {
                 Name = "Registred"
             };
-            
+
             await services.GetRequiredService<ITaskStatusRepository>()
                 .SaveTaskStatusDbEntity(taskStatusDbEntity);
 

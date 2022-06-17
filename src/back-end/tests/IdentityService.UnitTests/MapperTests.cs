@@ -9,8 +9,7 @@ public sealed class MapperTests
 {
     [SetUp]
     public void Setup()
-    {
-    }
+    { }
 
     [Test]
     public void TestMappingUserToUserDto()

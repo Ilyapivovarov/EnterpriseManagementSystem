@@ -44,7 +44,7 @@ public sealed class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
-        
+
         app.UseEndpoints(endpoints => endpoints.MapControllers()
             .RequireAuthorization());
     }

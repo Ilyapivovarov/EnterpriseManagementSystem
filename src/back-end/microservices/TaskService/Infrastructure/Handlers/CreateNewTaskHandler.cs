@@ -1,16 +1,14 @@
 using TaskService.Core.DbEntities.Builders;
-using TaskService.Infrastructure.Handlers.Base;
-using TaskService.Infrastructure.Mapper;
 
 namespace TaskService.Infrastructure.Handlers;
 
 public sealed class CreateNewTaskHandler : RequestHandlerBase<NewTaskRequest>
 {
+    private readonly IBus _bus;
     private readonly ILogger<CreateNewTaskHandler> _logger;
+    private readonly ITaskStatusRepository _statusRepository;
     private readonly ITaskRepository _taskRepository;
     private readonly ITaskService _taskService;
-    private readonly ITaskStatusRepository _statusRepository;
-    private readonly IBus _bus;
 
     public CreateNewTaskHandler(ILogger<CreateNewTaskHandler> logger, ITaskRepository taskRepository,
         ITaskService taskService, ITaskStatusRepository statusRepository, IBus bus)

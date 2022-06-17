@@ -12,7 +12,7 @@ public sealed class TaskController : ControllerBase
     }
 
     /// <summary>
-    /// Geting task by guid
+    ///     Geting task by guid
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>
@@ -24,13 +24,15 @@ public sealed class TaskController : ControllerBase
     }
 
     /// <summary>
-    /// Create new task
+    ///     Create new task
     /// </summary>
     /// <param name="newTask">New task data</param>
     /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> CreateNewTask(NewTask newTask)
-        => await _mediator.Send(new NewTaskRequest(newTask));
+    {
+        return await _mediator.Send(new NewTaskRequest(newTask));
+    }
 
     /// <summary>
     ///     Update task

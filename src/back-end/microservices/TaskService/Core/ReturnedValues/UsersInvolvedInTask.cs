@@ -6,7 +6,7 @@ public sealed class UsersInvolvedInTask
     {
         Author = author;
     }
-    
+
     public UserDbEntity Author { get; set; }
 
     public UserDbEntity? Executor { get; set; }

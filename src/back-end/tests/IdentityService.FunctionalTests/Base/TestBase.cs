@@ -44,7 +44,7 @@ public class TestBase
         DefaultUser = TaskDbContext.Users.First();
         AccessToken = GenerateAccessToken(DefaultUser);
     }
-    
+
     private string GenerateAccessToken(UserDbEntity user)
     {
         var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
@@ -74,7 +74,7 @@ public class TestBase
     {
         await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
     }
-    
+
     private static TestServer CreateTestServer()
     {
         var hostBuilder = new WebHostBuilder()

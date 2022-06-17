@@ -23,7 +23,7 @@ public class UserController : ControllerBase
     }
 
     /// <summary>
-    ///     TODO: Add comment
+    ///     Getting user by guid
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>
@@ -34,7 +34,7 @@ public class UserController : ControllerBase
     }
 
     /// <summary>
-    ///     TODO: Add comment
+    ///     Update user info
     /// </summary>
     /// <param name="userInfo"></param>
     /// <returns></returns>

@@ -10,7 +10,7 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
         if (session) {
             return session
         }
-        
+
         localStorage.clear();
         return rejectWithValue("error")
     }

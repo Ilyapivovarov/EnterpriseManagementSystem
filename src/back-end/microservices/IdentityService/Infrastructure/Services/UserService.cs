@@ -13,7 +13,6 @@ public sealed class UserService : IUserService
     {
         return new UserDbEntity
         {
-            
             Address = new EmailAddressDbEntity
             {
                 Email = email,

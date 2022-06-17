@@ -5,7 +5,7 @@ public interface ITaskDbContext
     public DbSet<UserDbEntity> Users { get; }
 
     public DbSet<TaskDbEntity> Tasks { get; }
-    
+
     public DbSet<TaskStatusDbEntity> TaskStatuses { get; }
 
     public DbSet<AttachmentDbEntity> Attachments { get; }
