@@ -27,7 +27,7 @@ public abstract class TestBase
         JsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
     }
 
-    protected TestServer Server { get; }
+    protected TestServer Server { get; set; }
 
     protected ITaskDbContext TaskDbContext => Server.Services.GetRequiredService<ITaskDbContext>();
 
@@ -37,9 +37,9 @@ public abstract class TestBase
 
     protected string? AccessToken { get; private set; }
 
-    [OneTimeSetUp]
-    public async Task OneTimeSetUp()
+    protected async Task RefreshServer()
     {
+        Server = CreateTestServer();
         await TaskDbContextSeed.InitData(Server.Services);
         DefaultUser = TaskDbContext.Users.First();
         AccessToken = GenerateAccessToken(DefaultUser);
