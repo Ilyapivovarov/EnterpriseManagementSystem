@@ -1,3 +1,4 @@
+using ApiGateway.Infrastructure.HttpClients;
 using EnterpriseManagementSystem.JwtAuthorization;
 
 namespace ApiGateway.Infrastructure;
@@ -11,9 +12,11 @@ public static class InfrastructureDependencyInjection
         serviceProvider.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
         serviceProvider.AddHttpClient<IIdentityHttpClient, IdentityHttpClient>(client =>
-            {
-                client.BaseAddress = new Uri(configuration["IdentityServiceUrl"]);
-            })
+                client.BaseAddress = new Uri(configuration["IdentityServiceUrl"]))
+            .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
+        serviceProvider.AddHttpClient<ITaskServiceHttpClient, TaskServiceHttpClient>(client =>
+                client.BaseAddress = new Uri(configuration["TaskServiceUrl"]))
             .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
         #region Register Jwt auth

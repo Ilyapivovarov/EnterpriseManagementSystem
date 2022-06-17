@@ -40,7 +40,7 @@ public class UserController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [Route("update")]
-    public async Task<IActionResult> UpdateUserData([FromBody] UserInfo? userInfo)
+    public async Task<IActionResult> UpdateUserData([FromBody] UserInfo userInfo)
     {
         return await _identityHttpClient.UpdateUserData(userInfo);
     }

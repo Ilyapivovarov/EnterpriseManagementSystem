@@ -12,5 +12,5 @@ public interface IIdentityHttpClient
 
     public Task<IActionResult> GetUserByGuid(Guid userGuid);
 
-    public Task<IActionResult> UpdateUserData(UserInfo? userInfo);
+    public Task<IActionResult> UpdateUserData(UserInfo userInfo);
 }
