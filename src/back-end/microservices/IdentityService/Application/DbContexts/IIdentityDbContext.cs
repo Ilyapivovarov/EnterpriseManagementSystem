@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace IdentityService.Application.DbContexts;
 
 public interface IIdentityDbContext

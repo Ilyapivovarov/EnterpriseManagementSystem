@@ -1,5 +1,3 @@
-using IdentityService.Infrastructure.Requests;
-
 namespace IdentityService.Infrastructure.Handlers.Auth;
 
 public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IActionResult>

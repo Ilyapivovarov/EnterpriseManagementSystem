@@ -1,5 +1,3 @@
-using AutoMapper;
-
 namespace IdentityService.Infrastructure.Mapper.Converters;
 
 public sealed class UserDbEntityToAccountConverter : ITypeConverter<UserDbEntity, Account>

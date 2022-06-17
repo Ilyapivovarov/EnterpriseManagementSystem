@@ -1,5 +1,3 @@
-using IdentityService.Infrastructure.Requests;
-
 namespace IdentityService.Infrastructure.Handlers.User;
 
 public sealed class UpdateUserInfoRequestHandler : IRequestHandler<UserControllerRequest<UserInfo>, IActionResult>

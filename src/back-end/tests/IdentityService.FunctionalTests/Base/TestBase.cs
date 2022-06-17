@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using EnterpriseManagementSystem.JwtAuthorization;
 using IdentityService.Application.DbContexts;
 using IdentityService.Core.DbEntities;
-using IdentityService.Infrastructure.AppData;
+using IdentityService.Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;

@@ -1,4 +1,4 @@
-namespace IdentityService.Infrastructure.AppData;
+namespace IdentityService.Infrastructure.DbContexts;
 
 public sealed class IdentityDbContextSeed
 {

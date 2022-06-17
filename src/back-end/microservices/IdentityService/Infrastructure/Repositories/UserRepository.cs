@@ -1,5 +1,3 @@
-using IdentityService.Infrastructure.Repositories.Base;
-
 namespace IdentityService.Infrastructure.Repositories;
 
 public sealed class UserRepository : RepositoryBase, IUserRepository

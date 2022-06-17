@@ -1,3 +1,4 @@
+global using AutoMapper;
 global using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
 global using EnterpriseManagementSystem.JwtAuthorization;
@@ -9,9 +10,9 @@ global using IdentityService.Application.Services;
 global using IdentityService.Core.DbEntities;
 global using IdentityService.Core.DbEntities.Base;
 global using IdentityService.Infrastructure;
-global using IdentityService.Infrastructure.AppData;
 global using IdentityService.Infrastructure.Mapper;
+global using IdentityService.Infrastructure.Repositories.Base;
+global using IdentityService.Infrastructure.Requests;
 global using MassTransit;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
-global using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,6 @@
-namespace IdentityService.Infrastructure.AppData;
+using Microsoft.EntityFrameworkCore;
+
+namespace IdentityService.Infrastructure.DbContexts;
 
 public sealed class IdentityDbContext : DbContext, IIdentityDbContext
 {

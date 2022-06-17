@@ -1,4 +1,3 @@
-using AutoMapper;
 using IdentityService.Infrastructure.Mapper.Converters;
 
 namespace IdentityService.Infrastructure.Mapper;
