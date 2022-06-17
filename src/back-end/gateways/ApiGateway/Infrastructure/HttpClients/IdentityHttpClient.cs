@@ -19,10 +19,14 @@ public sealed class IdentityHttpClient : IIdentityHttpClient
         var content = new StringContent(JsonSerializer.Serialize(signIn), Encoding.UTF8,
             MediaTypeNames.Application.Json);
         var response = await _httpClient.PostAsync(UrlConfig.IdentityApi.AuthController.SignIn(), content);
+        var sessionDraft = await response.Content.ReadAsStringAsync();
+        if (response.IsSuccessStatusCode)
+        {
+            var sessionDto = JsonSerializer.Deserialize<Session>(sessionDraft, _jsonSerializerOptions);
+            return new OkObjectResult(sessionDto);
+        }
 
-        var result = await response.Content.ReadFromJsonAsync<IActionResult>();
-
-        return result;
+        return new BadRequestObjectResult(sessionDraft);
     }
 
     public async Task<IActionResult> SignUpAsync(SignUp signUp)
