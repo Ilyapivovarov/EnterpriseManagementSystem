@@ -27,7 +27,7 @@ public class TestBase
         JsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
     }
 
-    protected TestServer Server { get; }
+    protected TestServer Server { get; set; }
 
     protected IIdentityDbContext TaskDbContext => Server.Services.GetRequiredService<IIdentityDbContext>();
 
@@ -37,20 +37,14 @@ public class TestBase
 
     protected string? AccessToken { get; private set; }
 
-    [OneTimeSetUp]
-    public async Task OneTimeSetUp()
+    protected async Task RefreshServer()
     {
+        Server = CreateTestServer();
         await IdentityDbContextSeed.InitData(Server.Services);
         DefaultUser = TaskDbContext.Users.First();
         AccessToken = GenerateAccessToken(DefaultUser);
     }
-
-    [OneTimeTearDown]
-    public async Task OneTimeTearDown()
-    {
-        await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
-    }
-
+    
     private string GenerateAccessToken(UserDbEntity user)
     {
         var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
@@ -75,6 +69,12 @@ public class TestBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
+    [OneTimeTearDown]
+    public async Task OneTimeTearDown()
+    {
+        await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
+    }
+    
     private static TestServer CreateTestServer()
     {
         var hostBuilder = new WebHostBuilder()

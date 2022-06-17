@@ -18,8 +18,9 @@ public sealed class UserControllerTests : TestBase
     private HttpClient Client { get; set; } = null!;
 
     [SetUp]
-    public void SetUp()
+    public async Task SetUp()
     {
+        await RefreshServer();
         Client = Server.CreateClient();
         Client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
