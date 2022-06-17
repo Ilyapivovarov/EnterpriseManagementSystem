@@ -11,8 +11,6 @@
   "profiles": {
     "Development": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -21,15 +19,11 @@
     },
     "Release": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7064;http://localhost:5064",
       "dotnetRunMessages": true
     },
     "Docker": {
       "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "publishAllPorts": true,
       "useSSL": false
     }
