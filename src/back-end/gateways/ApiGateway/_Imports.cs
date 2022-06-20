@@ -4,6 +4,8 @@ global using System.Text.Json;
 global using ApiGateway;
 global using ApiGateway.Application;
 global using ApiGateway.Application.HttpClients;
+global using ApiGateway.Infrastructure.Extensions;
 global using ApiGateway.Infrastructure.Handlers;
+global using ApiGateway.Infrastructure.HttpClients;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
 global using Microsoft.AspNetCore.Mvc;

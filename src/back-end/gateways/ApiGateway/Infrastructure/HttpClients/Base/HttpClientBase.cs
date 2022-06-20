@@ -2,7 +2,7 @@ namespace ApiGateway.Infrastructure.HttpClients.Base;
 
 public abstract class HttpClientBase
 {
-    private readonly JsonSerializerOptions? _jsonSerializerOptions;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
 
     protected HttpClientBase()
     {

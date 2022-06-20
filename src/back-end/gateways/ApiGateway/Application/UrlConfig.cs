@@ -59,7 +59,30 @@ public static class UrlConfig
             /// <returns></returns>
             public static string UpdateUserData()
             {
-                return "update";
+                return "user";
+            }
+        }
+    }
+
+    public static class TaskApi
+    {
+        public static class TaskController
+        {
+            private const string BaseUrl = "task";
+
+            public static string CreateNewTask()
+            {
+                return BaseUrl;
+            }
+
+            public static string GetTaskByGuid(string guid)
+            {
+                return $"{BaseUrl}/{guid}";
+            }
+
+            public static string UpdateTask()
+            {
+                return "task";
             }
         }
     }

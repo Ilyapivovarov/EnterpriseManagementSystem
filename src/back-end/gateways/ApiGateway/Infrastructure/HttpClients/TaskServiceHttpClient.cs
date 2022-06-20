@@ -14,7 +14,7 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
 
     public async Task<IActionResult> GetTaskByGuid(string guid)
     {
-        var response = await _client.GetAsync($"task/{guid}");
+        var response = await _client.GetAsync(UrlConfig.TaskApi.TaskController.GetTaskByGuid(guid));
         var contentDraft = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
@@ -27,7 +27,8 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
 
     public async Task<IActionResult> CreateNewTask(NewTask newTask)
     {
-        var response = await _client.PostAsync("task", GetStringContent(newTask.ToJson()));
+        var response = await _client.PostAsync(UrlConfig.TaskApi.TaskController.CreateNewTask(),
+            GetStringContent(newTask.ToJson()));
         var content = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
@@ -40,7 +41,8 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
 
     public async Task<IActionResult> UpdateTask(TaskInfo taskInfo)
     {
-        var response = await _client.PostAsync("task", GetStringContent(taskInfo.ToJson()));
+        var response = await _client.PostAsync(UrlConfig.TaskApi.TaskController.UpdateTask(),
+            GetStringContent(taskInfo.ToJson()));
         var content = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode) return new OkResult();
 

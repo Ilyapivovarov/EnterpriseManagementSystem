@@ -1,30 +1,29 @@
-using ApiGateway.Infrastructure.HttpClients;
 using EnterpriseManagementSystem.JwtAuthorization;
 
 namespace ApiGateway.Infrastructure;
 
 public static class InfrastructureDependencyInjection
 {
-    public static void AddInfrastructure(this IServiceCollection serviceProvider, IConfiguration configuration,
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment)
     {
-        serviceProvider.AddHttpContextAccessor();
-        serviceProvider.AddTransient<HttpClientAuthorizationDelegatingHandler>();
+        services.AddHttpContextAccessor();
+        services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
-        serviceProvider.AddHttpClient<IIdentityHttpClient, IdentityHttpClient>(client =>
-                client.BaseAddress = new Uri(configuration["IdentityServiceUrl"]))
+        services.AddHttpClient<IIdentityHttpClient, IdentityHttpClient>(client =>
+                client.BaseAddress = new Uri(configuration.GetServiceUrl("IdentityServiceUrl")))
             .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
-        serviceProvider.AddHttpClient<ITaskServiceHttpClient, TaskServiceHttpClient>(client =>
-                client.BaseAddress = new Uri(configuration["TaskServiceUrl"]))
+        services.AddHttpClient<ITaskServiceHttpClient, TaskServiceHttpClient>(client =>
+                client.BaseAddress = new Uri(configuration.GetServiceUrl("TaskServiceUrl")))
             .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
         #region Register Jwt auth
 
-        serviceProvider.AddJwtAuthorization(configuration);
+        services.AddJwtAuthorization(configuration);
 
         #endregion
 
-        serviceProvider.AddCors();
+        services.AddCors();
     }
 }
