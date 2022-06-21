@@ -2,7 +2,7 @@ using EnterpriseManagementSystem.Contracts.WebContracts.Base;
 
 namespace EnterpriseManagementSystem.Contracts.WebContracts;
 
-public sealed record NewTask(string Name, string Description, string StatusName, Guid author,
+public sealed record NewTask(string Name, string Description, string StatusName, Guid Author,
     Guid? Executor = null,
     Guid? Inspector = null,
     ICollection<Guid>? Observers = null) : ContractBase;

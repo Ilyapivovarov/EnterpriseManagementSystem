@@ -15,6 +15,8 @@ public sealed class TaskService : ITaskService
     {
         var user = await _userRepository.GetUserByGuid(authorGuid);
 
+        // TODO: Доделать  
+        
         if (user == null)
             throw new Exception("Not found user with guid");
 
