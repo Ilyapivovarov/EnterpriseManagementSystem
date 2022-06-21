@@ -37,10 +37,9 @@ public abstract class TestBase
 
     protected string? AccessToken { get; private set; }
 
-    protected async Task RefreshServer()
+    protected void RefreshServer()
     {
         Server = CreateTestServer();
-        await TaskDbContextSeed.InitData(Server.Services);
         DefaultUser = TaskDbContext.Users.First();
         AccessToken = GenerateAccessToken(DefaultUser);
     }

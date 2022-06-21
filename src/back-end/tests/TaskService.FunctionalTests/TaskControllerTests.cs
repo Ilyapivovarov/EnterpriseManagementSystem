@@ -19,9 +19,9 @@ public sealed class TaskControllerTests : TestBase
     private HttpClient Client { get; set; } = null!;
 
     [SetUp]
-    public async Task Setup()
+    public void Setup()
     {
-        await RefreshServer();
+        RefreshServer();
         Client = Server.CreateClient();
         Client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);

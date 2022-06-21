@@ -11,4 +11,6 @@ public interface ITaskDbContext
     public DbSet<AttachmentDbEntity> Attachments { get; }
 
     public Task<int> SaveChagesAsync(CancellationToken cancellationToken = default);
+
+    public int SaveChanges();
 }

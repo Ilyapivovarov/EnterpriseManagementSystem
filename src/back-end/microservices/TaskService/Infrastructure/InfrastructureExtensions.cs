@@ -1,5 +1,6 @@
 using EnterpriseManagementSystem.JwtAuthorization;
 using TaskService.Infrastructure.Consumers;
+using TaskService.Infrastructure.HostedServices;
 using TaskService.Infrastructure.Repositories;
 
 namespace TaskService.Infrastructure;
@@ -65,5 +66,7 @@ public static class InfrastructureExtensions
         services.AddTransient<ITaskService, Services.TaskService>();
 
         #endregion
+
+        services.AddHostedService<DefaultDataSeedServices>();
     }
 }
