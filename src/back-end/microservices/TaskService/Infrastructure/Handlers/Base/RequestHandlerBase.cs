@@ -24,4 +24,9 @@ public abstract class RequestHandlerBase<T> : IRequestHandler<T, IActionResult>
     {
         return new BadRequestObjectResult(obj);
     }
+
+    protected IActionResult NotFound(object obj)
+    {
+        return new NotFoundObjectResult(obj);
+    }
 }

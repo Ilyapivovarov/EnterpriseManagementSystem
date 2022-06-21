@@ -27,6 +27,8 @@ public sealed class TaskControllerTests : TestBase
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
     }
 
+    
+    
     [Test]
     public async Task CreateNewTask_Test()
     {
