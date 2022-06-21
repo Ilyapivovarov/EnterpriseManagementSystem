@@ -18,14 +18,14 @@ public sealed class DefaultDataSeedServices : IHostedService
         return Task.CompletedTask;
     }
 
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        return Task.CompletedTask;
+    }
+    
     private void OnStarted()
     {
         using var services = _scopeFactory.CreateScope();
         TaskDbContextSeed.InitData(services.ServiceProvider);
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
     }
 }

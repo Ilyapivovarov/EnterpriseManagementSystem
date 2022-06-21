@@ -18,9 +18,9 @@ public sealed class UserControllerTests : TestBase
     private HttpClient Client { get; set; } = null!;
 
     [SetUp]
-    public async Task SetUp()
+    public void SetUp()
     {
-        await RefreshServer();
+        RefreshServer();
         Client = Server.CreateClient();
         Client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
@@ -31,7 +31,7 @@ public sealed class UserControllerTests : TestBase
     {
         Client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
-        var response = await Client.GetAsync($"User/{DefaultUser.Guid}");
+        var response = await Client.GetAsync($"user/{DefaultUser.Guid}");
         var account = await response.Content.ReadFromJsonAsync<Account>();
 
         Assert.IsTrue(response.IsSuccessStatusCode

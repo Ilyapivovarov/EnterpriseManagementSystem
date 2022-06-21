@@ -2,7 +2,7 @@ namespace IdentityService.Infrastructure.DbContexts;
 
 public sealed class IdentityDbContextSeed
 {
-    public static async Task InitData(IServiceProvider services)
+    public static void InitData(IServiceProvider services)
     {
         var logger = services.GetRequiredService<ILogger<IdentityDbContextSeed>>();
         try
@@ -26,7 +26,7 @@ public sealed class IdentityDbContextSeed
                     }
                 });
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
         catch (Exception ex)

@@ -13,4 +13,6 @@ public interface IIdentityDbContext
     public DbSet<UserRoleDbEntity> UserRoles { get; }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
+    public int SaveChanges();
 }

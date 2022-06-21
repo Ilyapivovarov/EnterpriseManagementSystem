@@ -1,4 +1,5 @@
 using IdentityService.Infrastructure.DbContexts;
+using IdentityService.Infrastructure.HostedServices;
 using IdentityService.Infrastructure.Repositories;
 using IdentityService.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -72,5 +73,7 @@ public static class InfrastructureDependencyInjection
         services.AddCors();
 
         #endregion
+
+        services.AddHostedService<DefaultDataSeedHostedServices>();
     }
 }
