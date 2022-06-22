@@ -16,9 +16,11 @@ public sealed class RecordsCollection<T> : List<T>
 
     public override bool Equals(object? obj)
     {
-        if (obj == null) return false;
+        if (obj == null)
+            return false;
 
-        if (ReferenceEquals(this, obj)) return true;
+        if (ReferenceEquals(this, obj))
+            return true;
 
         return obj is RecordsCollection<T> collection &&
                collection.SequenceEqual(this);
@@ -27,7 +29,8 @@ public sealed class RecordsCollection<T> : List<T>
     public override int GetHashCode()
     {
         var hashCode = new HashCode();
-        foreach (var item in this) hashCode.Add(item);
+        foreach (var item in this)
+            hashCode.Add(item);
 
         return hashCode.ToHashCode();
     }

@@ -44,8 +44,6 @@ public static class MapperExtensions
                 .ConvertUsing<UserDbEntityToAccountConverter>());
 
         var mapper = new AutoMapper.Mapper(cfg);
-        var result = mapper.Map<ICollection<UserDbEntity>, Account[]>(userDbEntities);
-
-        return new RecordsCollection<Account>(result);
+        return mapper.Map<ICollection<UserDbEntity>, RecordsCollection<Account>>(userDbEntities);
     }
 }
