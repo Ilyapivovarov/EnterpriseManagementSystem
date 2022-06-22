@@ -5,6 +5,7 @@ public sealed class UsersInvolvedInTask
     public UsersInvolvedInTask(UserDbEntity author)
     {
         Author = author;
+        Observers = new List<UserDbEntity>();
     }
 
     public UserDbEntity Author { get; set; }
@@ -13,5 +14,5 @@ public sealed class UsersInvolvedInTask
 
     public UserDbEntity? Inspector { get; set; }
 
-    public List<UserDbEntity>? Observers { get; set; }
+    public List<UserDbEntity> Observers { get; set; }
 }

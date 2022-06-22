@@ -28,7 +28,11 @@ public static class TaskDbEntityBuilder
         if (name != null)
             taskDbEntity.Name = name;
 
-        taskDbEntity.Observers = usersInvolvedInTask.Observers;
+        var newObservers = taskDbEntity.Observers.UnionBy(usersInvolvedInTask.Observers,
+            entity => entity.Guid);
+        taskDbEntity.Observers.Clear();
+        taskDbEntity.Observers.AddRange(newObservers);
+        
         taskDbEntity.Status = taskStatusDbEntity;
     }
 }
