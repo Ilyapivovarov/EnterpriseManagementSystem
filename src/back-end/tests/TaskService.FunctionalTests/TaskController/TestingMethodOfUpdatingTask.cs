@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using EnterpriseManagementSystem.Contracts.WebContracts.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using TaskService.FunctionalTests.Base;
-using TaskService.Infrastructure.Mapper;
 
 namespace TaskService.FunctionalTests.TaskController;
 
@@ -36,13 +34,13 @@ public sealed class TestingMethodOfUpdatingTask : TestBase
         var data = new UpdateTask(task.Guid, "Update test name", "Update test desc", Executor: DefaultUser.Guid);
         var content = new StringContent(data.ToJson(), Encoding.UTF8,
             MediaTypeNames.Application.Json);
-        var updateTaskResult = await Client.PutAsync("task", content);
 
-        var taskAfterUpdate = await TaskDbContext.Tasks.FirstAsync();
+        await Client.PutAsync("task", content);
+
         var getTaskResult = await Client.GetAsync($"task/{task.Guid}");
         var taskInfo = await getTaskResult.Content.ReadFromJsonAsync<TaskInfo>();
 
-        Assert.IsTrue(updateTaskResult.IsSuccessStatusCode);
-        Assert.AreEqual(taskAfterUpdate.ToDto().ToJson(), taskInfo?.ToJson());
+
+        Assert.AreEqual(data.Description, taskInfo?.Description);
     }
 }

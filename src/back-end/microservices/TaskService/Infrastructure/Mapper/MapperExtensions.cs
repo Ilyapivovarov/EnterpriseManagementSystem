@@ -16,7 +16,7 @@ public static class MapperExtensions
         return mapper.Map<TaskDbEntity, TaskInfo>(taskDbEntity);
     }
 
-    public static TaskInfo[] ToDto(this ICollection<TaskDbEntity> taskDbEntity)
+    public static RecordsCollection<TaskInfo> ToDto(this ICollection<TaskDbEntity> taskDbEntity)
     {
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<TaskDbEntity, TaskInfo>()
@@ -24,8 +24,7 @@ public static class MapperExtensions
 
         var mapper = new AutoMapper.Mapper(cfg);
 
-        return mapper.Map<ICollection<TaskDbEntity>, ICollection<TaskInfo>>(taskDbEntity)
-            .ToArray();
+        return mapper.Map<ICollection<TaskDbEntity>, RecordsCollection<TaskInfo>>(taskDbEntity);
     }
 
     public static Account ToDto(this UserDbEntity userDbEntity)
@@ -38,13 +37,15 @@ public static class MapperExtensions
         return mapper.Map<UserDbEntity, Account>(userDbEntity);
     }
 
-    public static ICollection<Account> ToDto(this ICollection<UserDbEntity> userDbEntity)
+    public static RecordsCollection<Account> ToDto(this ICollection<UserDbEntity> userDbEntities)
     {
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<UserDbEntity, Account>()
                 .ConvertUsing<UserDbEntityToAccountConverter>());
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<ICollection<UserDbEntity>, ICollection<Account>>(userDbEntity);
+        var result = mapper.Map<ICollection<UserDbEntity>, Account[]>(userDbEntities);
+
+        return new RecordsCollection<Account>(result);
     }
 }

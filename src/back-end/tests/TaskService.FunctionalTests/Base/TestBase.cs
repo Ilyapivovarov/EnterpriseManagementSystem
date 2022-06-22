@@ -21,6 +21,8 @@ namespace TaskService.FunctionalTests.Base;
 
 public abstract class TestBase
 {
+    private ITaskDbContext? _taskContext;
+
     protected TestBase()
     {
         Server = CreateTestServer();
@@ -29,7 +31,8 @@ public abstract class TestBase
 
     protected TestServer Server { get; set; }
 
-    protected ITaskDbContext TaskDbContext => Server.Services.GetRequiredService<ITaskDbContext>();
+    protected ITaskDbContext TaskDbContext
+        => _taskContext ??= Server.Services.GetRequiredService<ITaskDbContext>();
 
     protected JsonSerializerOptions JsonSerializerOptions { get; }
 
