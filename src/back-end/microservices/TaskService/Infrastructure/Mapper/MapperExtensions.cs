@@ -1,4 +1,5 @@
 using AutoMapper;
+using EnterpriseManagementSystem.Contracts.Common;
 using TaskService.Infrastructure.Mapper.Converters;
 
 namespace TaskService.Infrastructure.Mapper;

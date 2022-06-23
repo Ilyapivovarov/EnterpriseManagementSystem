@@ -1,4 +1,5 @@
 using System;
+using EnterpriseManagementSystem.Contracts.Common;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using NUnit.Framework;
 

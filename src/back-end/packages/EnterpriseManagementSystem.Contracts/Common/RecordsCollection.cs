@@ -1,4 +1,4 @@
-namespace EnterpriseManagementSystem.Contracts.WebContracts;
+namespace EnterpriseManagementSystem.Contracts.Common;
 
 public sealed class RecordsCollection<T> : List<T>
 {
