@@ -82,7 +82,7 @@ public static class UrlConfig
 
             public static string UpdateTask()
             {
-                return "task";
+                return BaseUrl;
             }
         }
     }
