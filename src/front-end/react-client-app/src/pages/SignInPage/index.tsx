@@ -27,8 +27,7 @@ const SignInPage: FC = () => {
     useEffect(() => {
         if (currentSession)
             navigate("/")
-    }, [currentSession]);
-
+    }, [currentSession, navigate]);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
