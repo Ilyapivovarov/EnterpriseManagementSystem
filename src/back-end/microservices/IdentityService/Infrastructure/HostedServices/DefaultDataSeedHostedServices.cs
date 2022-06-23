@@ -25,9 +25,9 @@ public sealed class DefaultDataSeedHostedServices : IHostedService
         return Task.CompletedTask;
     }
 
-    private void InitDefaultData()
+    private async void InitDefaultData()
     {
         using var services = _serviceScopeFactory.CreateScope();
-        IdentityDbContextSeed.InitData(services.ServiceProvider);
+        await IdentityDbContextSeed.InitDataAsync(services.ServiceProvider);
     }
 }
