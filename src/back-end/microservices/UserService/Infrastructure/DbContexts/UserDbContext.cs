@@ -1,4 +1,3 @@
-using UserService.Application.DbContexts;
 using UserService.Core.DbEntities;
 
 namespace UserService.Infrastructure.DbContexts;

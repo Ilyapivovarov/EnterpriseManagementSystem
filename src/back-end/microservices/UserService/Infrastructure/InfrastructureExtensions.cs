@@ -1,7 +1,3 @@
-using MassTransit;
-using UserService.Application.DbContexts;
-using UserService.Infrastructure.DbContexts;
-
 namespace UserService.Infrastructure;
 
 public static class InfrastructureExtensions
@@ -44,7 +40,11 @@ public static class InfrastructureExtensions
         });
 
         #endregion
-        
-        
+
+        #region Register HostedServices
+
+        services.AddHostedService<SeedDefaultDataHostedService>();
+
+        #endregion
     }
 }
