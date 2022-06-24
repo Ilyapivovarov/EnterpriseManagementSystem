@@ -8,14 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using UserService.FunctionalTests.Base;
 
-namespace UserService.FunctionalTests.UserController;
+namespace UserService.FunctionalTests.Consumers;
 
-public sealed class SaveNewUserTest : TestBase
+public sealed class SaveNewUserConsumerScenarioTest : TestBase
 {
     private IBus Bus { get; set; } = null!;
 
     [SetUp]
-    public async Task Setup()
+    public void Setup()
     {
         RefreshServer();
         Bus = Server.Services.GetRequiredService<IBus>();
