@@ -1,3 +1,6 @@
+using EnterpriseManagementSystem.JwtAuthorization;
+using UserService.Infrastructure.Consumers;
+
 namespace UserService.Infrastructure;
 
 public static class InfrastructureExtensions
@@ -25,6 +28,7 @@ public static class InfrastructureExtensions
 
         services.AddMassTransit(configurator =>
         {
+            configurator.AddConsumer<SaveNewUserConsumer>();
             if (environment.IsEnvironment("Testing"))
                 configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
             else
@@ -44,6 +48,12 @@ public static class InfrastructureExtensions
         #region Register HostedServices
 
         services.AddHostedService<SeedDefaultDataHostedService>();
+
+        #endregion
+
+        #region Register JWT
+
+        services.AddJwtAuthorization(configuration);
 
         #endregion
     }

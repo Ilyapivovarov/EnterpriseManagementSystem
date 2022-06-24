@@ -28,6 +28,6 @@ public sealed class SaveNewUserTest : TestBase
 
         await Bus.Publish(@event);
 
-        Assert.AreEqual(account.Guid, DefaultUser.Guid);
+        Assert.AreEqual(account.Guid, DefaultUser.IdentityGuid);
     }
 }
