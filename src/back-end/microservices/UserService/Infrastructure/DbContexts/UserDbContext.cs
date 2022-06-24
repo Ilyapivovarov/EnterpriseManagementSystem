@@ -5,7 +5,8 @@ namespace UserService.Infrastructure.DbContexts;
 
 public sealed class UserDbContext : DbContext, IUserDbContext
 {
-    public UserDbContext()
+    public UserDbContext(DbContextOptions<UserDbContext> options)
+        : base(options)
     {
         Database.EnsureCreated();
     }
