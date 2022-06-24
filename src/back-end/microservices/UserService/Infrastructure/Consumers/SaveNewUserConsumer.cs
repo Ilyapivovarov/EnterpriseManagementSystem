@@ -31,7 +31,7 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
                 LastName = account.LastName
             };
 
-            await _userRepository.SaveAsync(newUser);
+            var result = await _userRepository.SaveAsync(newUser);
         }
         catch (Exception e)
         {

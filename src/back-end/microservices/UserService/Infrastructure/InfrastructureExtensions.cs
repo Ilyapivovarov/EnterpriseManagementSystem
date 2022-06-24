@@ -1,5 +1,7 @@
 using EnterpriseManagementSystem.JwtAuthorization;
+using UserService.Application.Repository;
 using UserService.Infrastructure.Consumers;
+using UserService.Infrastructure.Repository;
 
 namespace UserService.Infrastructure;
 
@@ -54,6 +56,12 @@ public static class InfrastructureExtensions
         #region Register JWT
 
         services.AddJwtAuthorization(configuration);
+
+        #endregion
+
+        #region Register repositories
+
+        services.AddTransient<IUserRepository, UserRepository>();
 
         #endregion
     }
