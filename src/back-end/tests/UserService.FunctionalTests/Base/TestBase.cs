@@ -20,12 +20,7 @@ public abstract class TestBase
 {
     private IUserDbContext? _taskContext;
 
-    protected TestBase()
-    {
-        Server = CreateTestServer();
-    }
-
-    protected TestServer Server { get; set; }
+    protected TestServer Server { get; set; } = null!;
 
     protected IUserDbContext TaskDbContext
         => _taskContext ??= Server.Services.GetRequiredService<IUserDbContext>();
