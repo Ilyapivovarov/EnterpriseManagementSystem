@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 using EnterpriseManagementSystem.Contracts.WebContracts;
@@ -28,6 +29,9 @@ public sealed class SaveNewUserTest : TestBase
 
         await Bus.Publish(@event);
 
-        Assert.AreEqual(account.Guid, DefaultUser.IdentityGuid);
+        await Task.Delay(1000);
+
+        Assert.AreEqual(account.Guid, TaskDbContext.Users.Last().IdentityGuid);
+
     }
 }
