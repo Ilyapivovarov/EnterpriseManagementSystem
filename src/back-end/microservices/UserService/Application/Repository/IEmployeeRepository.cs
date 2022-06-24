@@ -6,19 +6,19 @@ public interface IEmployeeRepository
 {
     #region Read methods
 
-    public Task<EployeeDbEntity?> GetByIdAsync(int id);
+    public Task<EmployeeDbEntity?> GetByIdAsync(int id);
 
-    public Task<EployeeDbEntity?> GetByGuidAsync(Guid guid);
+    public Task<EmployeeDbEntity?> GetByGuidAsync(Guid guid);
 
     #endregion
 
     #region Write methods
 
-    public Task<bool> Save(EployeeDbEntity eployeeDbEntity);
+    public Task<bool> Save(EmployeeDbEntity eployeeDbEntity);
 
-    public Task<bool> Update(EployeeDbEntity eployeeDbEntity);
+    public Task<bool> Update(EmployeeDbEntity eployeeDbEntity);
 
-    public Task<bool> Delete(EployeeDbEntity eployeeDbEntity);
+    public Task<bool> Delete(EmployeeDbEntity eployeeDbEntity);
 
     #endregion
 }

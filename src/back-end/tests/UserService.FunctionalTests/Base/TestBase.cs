@@ -71,7 +71,7 @@ public abstract class TestBase
     {
         var hostBuilder = new WebHostBuilder()
             .ConfigureAppConfiguration(
-                configuration => configuration.AddJsonFile("appsettings.Testing.json"))
+                configuration => configuration.AddJsonFile("appsettings.Testing.json", false, true))
             .UseStartup<Startup>()
             .UseEnvironment("Testing");
 

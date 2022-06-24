@@ -9,22 +9,26 @@
     }
   },
   "profiles": {
-    "UserService": {
+    "Development": {
+      "commandName": "Project",
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:7106;http://localhost:5106",
+      "dotnetRunMessages": true
+    },
+    "Release": {
+      "commandName": "Project",
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7106;http://localhost:5106",
+      "dotnetRunMessages": true
+    },
+    "Testing": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7294;http://localhost:5294",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Testing"
       }
     }
   }
