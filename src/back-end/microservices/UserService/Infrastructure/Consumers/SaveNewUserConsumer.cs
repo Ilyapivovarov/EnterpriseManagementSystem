@@ -6,27 +6,36 @@ namespace UserService.Infrastructure.Consumers;
 
 public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
 {
+    private readonly ILogger<SaveNewUserConsumer> _logger;
     private readonly IUserRepository _userRepository;
 
-    public SaveNewUserConsumer(IUserRepository userRepository)
+    public SaveNewUserConsumer(ILogger<SaveNewUserConsumer> logger, IUserRepository userRepository)
     {
+        _logger = logger;
         _userRepository = userRepository;
 
     }
 
     public async Task Consume(ConsumeContext<SignUpUserIntegrationEvent> context)
     {
-        var account = context.Message.Account;
-
-        var newUser = new UserDbEntity
+        try
         {
-            DateBrith = DateTime.Today,
-            EmailAddress = account.Email,
-            FirstName = account.FirstName,
-            IdentityGuid = account.Guid,
-            LastName = account.LastName
-        };
+            var account = context.Message.Account;
 
-        await _userRepository.Save(newUser);
+            var newUser = new UserDbEntity
+            {
+                DateBrith = DateTime.Today,
+                EmailAddress = account.Email,
+                FirstName = account.FirstName,
+                IdentityGuid = account.Guid,
+                LastName = account.LastName
+            };
+
+            await _userRepository.Save(newUser);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+        }
     }
 }
