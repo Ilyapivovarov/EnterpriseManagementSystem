@@ -6,21 +6,21 @@ public interface IUserRepository
 {
     #region Read methods
 
-    public Task<UserDbEntity?> GetById(int id);
+    public Task<UserDbEntity?> GetByIdAsync(int id);
 
-    public Task<UserDbEntity?> GetByGuid(Guid guid);
+    public Task<UserDbEntity?> GetByGuidAsync(Guid guid);
 
-    public Task<UserDbEntity?> GetByEmailAddress(string emailAddress);
+    public Task<UserDbEntity?> GetByEmailAddressAsync(string emailAddress);
 
     #endregion
 
     #region Write methods
 
-    public Task<bool> Save(UserDbEntity userDbEntity);
+    public Task<bool> SaveAsync(UserDbEntity userDbEntity);
 
-    public Task<bool> Update(UserDbEntity userDbEntity);
+    public Task<bool> UpdateAsync(UserDbEntity userDbEntity);
 
-    public Task<bool> Remove(UserDbEntity userDbEntity);
+    public Task<bool> RemoveAsync(UserDbEntity userDbEntity);
 
     #endregion
 }
