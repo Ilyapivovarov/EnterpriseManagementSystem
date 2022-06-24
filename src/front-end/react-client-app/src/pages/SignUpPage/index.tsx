@@ -11,17 +11,30 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import {useNavigate} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {signUp} from '../../store/AuthReducer/AuthActionCreators';
 
 
 const SignUpPage: FC = () => {
 
+    const dispatch = useAppDispatch()
+
+    const navigate = useNavigate();
+    const {currentSession} = useAppSelector(x => x.authReducer)
+
+
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        dispatch(signUp({
+            email: data.get('email') as string,
+            password: data.get('password') as string,
+            confirmPassword: data.get('confirmPassword') as string,
+            firstName: data.get('password') as string,
+            lastName: data.get('password') as string,
+        }))
     };
 
     return (
