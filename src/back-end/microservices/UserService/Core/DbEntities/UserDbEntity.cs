@@ -8,5 +8,7 @@ public class UserDbEntity : DbEntityBase
 
     public string LastName { get; set; } = null!;
 
+    public string EmailAddress { get; set; } = null!;
+
     public DateTime DateBrith { get; set; }
 }
