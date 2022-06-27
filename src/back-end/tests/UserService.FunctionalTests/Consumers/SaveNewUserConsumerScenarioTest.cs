@@ -13,22 +13,20 @@ namespace UserService.FunctionalTests.Consumers;
 
 public sealed class SaveNewUserConsumerScenarioTest : TestBase
 {
-    private IBus Bus { get; set; } = null!;
-
     [SetUp]
     public void Setup()
     {
         RefreshServer();
-        Bus = Server.Services.GetRequiredService<IBus>();
     }
 
     [Test]
     public async Task SuccessScenarion()
     {
+        var bus = Server.Services.GetRequiredService<IBus>();
         var account = new Account(Guid.NewGuid(), "test@test.com", "Test", "Test", "Test");
+        
         var @event = new SignUpUserIntegrationEvent(account);
-
-        await Bus.Publish(@event);
+        await bus.Publish(@event);
 
         await Task.Delay(1000);
 
