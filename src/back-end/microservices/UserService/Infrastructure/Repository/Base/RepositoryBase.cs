@@ -35,11 +35,12 @@ public abstract class RepositoryBase
         {
             writeAction(_userDbContext);
             await _userDbContext.SaveChangesAsync(cancellationToken);
-
+            
             return true;
         }
         catch (Exception e)
         {
+            _logger.LogError(e.Message);
             return false;
         }
     }

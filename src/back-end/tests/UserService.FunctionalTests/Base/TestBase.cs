@@ -5,9 +5,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using EnterpriseManagementSystem.JwtAuthorization;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -64,9 +64,7 @@ public abstract class TestBase
 
     private static TestServer CreateTestServer()
     {
-        var hostBuilder = new WebHostBuilder()
-            .ConfigureAppConfiguration(
-                configuration => configuration.AddJsonFile("appsettings.Testing.json", false, true))
+        var hostBuilder = WebHost.CreateDefaultBuilder()
             .UseStartup<Startup>()
             .UseEnvironment("Testing");
 
