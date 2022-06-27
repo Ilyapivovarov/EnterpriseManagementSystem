@@ -17,7 +17,8 @@ public class UserDbContextSeed
                     EmailAddress = "admin@admin.com",
                     DateBrith = DateTime.Today,
                     FirstName = "Admin",
-                    LastName = "Admin"
+                    LastName = "Admin",
+                    Role = "Admin"
                 });
 
                 await userDbContext.SaveChangesAsync();

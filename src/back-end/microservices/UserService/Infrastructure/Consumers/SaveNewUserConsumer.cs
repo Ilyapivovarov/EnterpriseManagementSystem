@@ -28,10 +28,11 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
                 EmailAddress = account.Email,
                 FirstName = account.FirstName,
                 IdentityGuid = account.Guid,
-                LastName = account.LastName
+                LastName = account.LastName,
+                Role = account.Role
             };
 
-            var result = await _userRepository.SaveAsync(newUser);
+            await _userRepository.SaveAsync(newUser);
         }
         catch (Exception e)
         {

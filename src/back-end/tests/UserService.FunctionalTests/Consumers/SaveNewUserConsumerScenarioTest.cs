@@ -7,6 +7,7 @@ using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using UserService.FunctionalTests.Base;
+using UserService.Infrastructure.Mapper;
 
 namespace UserService.FunctionalTests.Consumers;
 
@@ -31,7 +32,7 @@ public sealed class SaveNewUserConsumerScenarioTest : TestBase
 
         await Task.Delay(1000);
 
-        Assert.AreEqual(account.Guid, TaskDbContext.Users.Last().IdentityGuid);
+        Assert.AreEqual(account, TaskDbContext.Users.Last().ToDto());
 
     }
 }
