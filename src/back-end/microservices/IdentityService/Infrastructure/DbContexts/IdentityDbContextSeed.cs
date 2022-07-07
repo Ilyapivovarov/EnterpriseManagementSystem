@@ -19,9 +19,9 @@ public sealed class IdentityDbContextSeed
                     {
                         Name = "Admin"
                     },
-                    Address = new EmailAddressDbEntity
+                    EmailAddress = new EmailAddressDbEntity
                     {
-                        Email = "admin@admin.com",
+                        Address = "admin@admin.com",
                         IsVerified = true
                     }
                 });
@@ -53,9 +53,9 @@ public sealed class IdentityDbContextSeed
                     {
                         Name = "Admin"
                     },
-                    Address = new EmailAddressDbEntity
+                    EmailAddress = new EmailAddressDbEntity
                     {
-                        Email = "admin@admin.com",
+                        Address = "admin@admin.com",
                         IsVerified = true
                     }
                 };

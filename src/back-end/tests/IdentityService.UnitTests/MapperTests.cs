@@ -16,9 +16,9 @@ public sealed class MapperTests
     {
         var user = new UserDbEntity
         {
-            Address = new EmailAddressDbEntity
+            EmailAddress = new EmailAddressDbEntity
             {
-                Email = "test@email.com",
+                Address = "test@email.com",
                 IsVerified = false
             },
             FirstName = "Test",
@@ -32,7 +32,7 @@ public sealed class MapperTests
         var dto = user.ToDto();
         Assert.IsTrue(dto.Guid == user.Guid
                       && dto.Role == user.Role.Name
-                      && dto.Email == user.Address.Email
+                      && dto.Email == user.EmailAddress.Address
                       && dto.FirstName == user.FirstName
                       && dto.LastName == user.LastName);
     }

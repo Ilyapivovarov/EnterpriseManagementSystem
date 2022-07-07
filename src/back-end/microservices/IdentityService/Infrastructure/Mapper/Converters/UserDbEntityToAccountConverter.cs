@@ -4,6 +4,7 @@ public sealed class UserDbEntityToAccountConverter : ITypeConverter<UserDbEntity
 {
     public Account Convert(UserDbEntity source, Account destination, ResolutionContext context)
     {
-        return new Account(source.Guid, source.Address.Email, source.FirstName, source.LastName, source.Role.Name);
+        return new Account(source.Guid, source.EmailAddress.Address, source.FirstName, source.LastName,
+            source.Role.Name);
     }
 }

@@ -24,7 +24,7 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
 
             var user = await _userRepository.GetUserByEmailAndPasswordAsync(signInDto.Email, signInDto.Password);
             if (user == null)
-                return new BadRequestObjectResult($"Not found user with email {signInDto.Email}");
+                return new NotFoundObjectResult("Incrrect email or password");
 
             var session = await _sessionRepository.GetSessionByUserIdAsync(user.Id);
             var updatedSession = _sessionBlService.CreateOrUpdateSession(user, session);

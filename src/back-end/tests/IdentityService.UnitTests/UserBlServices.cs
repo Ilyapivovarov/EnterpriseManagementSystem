@@ -27,9 +27,9 @@ public sealed class UserBlServiceTests
         var userBlService = new UserService(Logger);
         var user = new UserDbEntity
         {
-            Address = new EmailAddressDbEntity
+            EmailAddress = new EmailAddressDbEntity
             {
-                Email = "admin@admin.com",
+                Address = "admin@admin.com",
                 IsVerified = true
             },
             Password = "admin",

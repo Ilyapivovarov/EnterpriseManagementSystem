@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -9,6 +11,7 @@ using EnterpriseManagementSystem.JwtAuthorization;
 using IdentityService.Application.DbContexts;
 using IdentityService.Core.DbEntities;
 using IdentityService.Infrastructure.DbContexts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
@@ -25,11 +28,16 @@ public class TestBase
     {
         Server = CreateTestServer();
         JsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
+        Client = Server.CreateClient();
+        Client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
     }
 
     protected TestServer Server { get; set; }
 
-    protected IIdentityDbContext TaskDbContext => Server.Services.GetRequiredService<IIdentityDbContext>();
+    protected IIdentityDbContext IdentityDbContext => Server.Services.GetRequiredService<IIdentityDbContext>();
+
+    protected HttpClient Client { get; set; } = null!;
 
     protected JsonSerializerOptions JsonSerializerOptions { get; }
 
@@ -40,7 +48,7 @@ public class TestBase
     protected void RefreshServer()
     {
         Server = CreateTestServer();
-        DefaultUser = TaskDbContext.Users.First();
+        DefaultUser = IdentityDbContext.Users.First();
         AccessToken = GenerateAccessToken(DefaultUser);
     }
 
@@ -54,7 +62,7 @@ public class TestBase
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Email, user.Address.Email),
+            new(ClaimTypes.Email, user.EmailAddress.Address),
             new(ClaimTypes.UserData, user.Guid.ToString())
         };
 

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Core.DbEntities;
 
-[Index(nameof(Email), IsUnique = true)]
+[Index(nameof(Address), IsUnique = true)]
 public class EmailAddressDbEntity : DbEntityBase
 {
     [EmailAddress]
-    public string Email { get; set; } = null!;
+    public string Address { get; set; } = null!;
 
     public bool IsVerified { get; set; }
 

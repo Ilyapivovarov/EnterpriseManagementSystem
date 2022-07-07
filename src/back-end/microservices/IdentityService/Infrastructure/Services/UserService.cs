@@ -13,9 +13,9 @@ public sealed class UserService : IUserService
     {
         return new UserDbEntity
         {
-            Address = new EmailAddressDbEntity
+            EmailAddress = new EmailAddressDbEntity
             {
-                Email = email,
+                Address = email,
                 IsVerified = false
             },
             Password = password,
