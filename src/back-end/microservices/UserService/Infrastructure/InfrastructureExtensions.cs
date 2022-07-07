@@ -10,7 +10,7 @@ public static class InfrastructureExtensions
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IHostEnvironment environment)
     {
-        #region Register TaskDbContext
+        #region Register UserDbContext
 
         services.AddDbContext<UserDbContext>(builder =>
         {

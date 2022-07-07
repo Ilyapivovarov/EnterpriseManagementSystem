@@ -16,4 +16,14 @@ public static class MapperExtensions
         var mapper = new AutoMapper.Mapper(cfg);
         return mapper.Map<UserDbEntity, Account>(userDbEntity);
     }
+
+    public static ICollection<Account> ToDto(this ICollection<UserDbEntity> userDbEntity)
+    {
+        var cfg = new MapperConfiguration(cfg =>
+            cfg.CreateMap<UserDbEntity, Account>()
+                .ConvertUsing<UserDbEntityToAccountConverter>());
+
+        var mapper = new AutoMapper.Mapper(cfg);
+        return mapper.Map<ICollection<UserDbEntity>, ICollection<Account>>(userDbEntity);
+    }
 }

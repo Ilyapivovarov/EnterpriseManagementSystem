@@ -8,5 +8,6 @@ public static class ApplicationExtensions
         IHostEnvironment environment)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddMediatR(Assembly.GetExecutingAssembly());
     }
 }

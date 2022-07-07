@@ -12,6 +12,8 @@ public interface IUserRepository
 
     public Task<UserDbEntity?> GetByEmailAddressAsync(string emailAddress);
 
+    public Task<ICollection<UserDbEntity>> GetUsersByRange(int rangeStart, int rangeEnd);
+
     #endregion
 
     #region Write methods

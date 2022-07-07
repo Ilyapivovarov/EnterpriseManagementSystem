@@ -30,7 +30,7 @@ public sealed class SaveNewUserConsumerScenarioTest : TestBase
 
         await Task.Delay(1000);
 
-        Assert.AreEqual(account, TaskDbContext.Users.Last().ToDto());
+        Assert.AreEqual(account, UserDbContext.Users.Last().ToDto());
 
     }
 }

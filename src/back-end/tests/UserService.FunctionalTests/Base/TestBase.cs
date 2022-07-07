@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using EnterpriseManagementSystem.JwtAuthorization;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,10 +24,10 @@ public abstract class TestBase
 
     protected TestServer Server { get; set; } = null!;
 
-    protected IUserDbContext TaskDbContext
+    protected IUserDbContext UserDbContext
         => _taskContext ??= Server.Services.GetRequiredService<IUserDbContext>();
 
-    protected UserDbEntity DefaultUser => TaskDbContext.Users.First();
+    protected UserDbEntity DefaultUser => UserDbContext.Users.First();
 
     protected string? AccessToken { get; private set; }
 
@@ -36,6 +38,8 @@ public abstract class TestBase
         Server = CreateTestServer();
         AccessToken = GenerateAccessToken(DefaultUser);
         HttpClient = Server.CreateClient();
+        HttpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
     }
 
     private string GenerateAccessToken(UserDbEntity user)
