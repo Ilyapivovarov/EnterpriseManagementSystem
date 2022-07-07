@@ -21,6 +21,7 @@ public sealed class AuthController : ControllerBase
     /// <param name="signIn">Authentication data</param>
     /// <returns></returns>
     [HttpPost]
+    [AllowAnonymous]
     [Route("sign-in")]
     public async Task<IActionResult> SignInUser([FromBody] SignIn signIn)
     {
@@ -33,6 +34,7 @@ public sealed class AuthController : ControllerBase
     /// <param name="signUp">Register data</param>
     /// <returns></returns>
     [HttpPost]
+    [AllowAnonymous]
     [Route("sign-up")]
     public async Task<IActionResult> SignUpUser([FromBody] SignUp signUp)
     {
@@ -43,7 +45,6 @@ public sealed class AuthController : ControllerBase
     ///     Logout user
     /// </summary>
     /// <returns></returns>
-    [Authorize]
     [HttpDelete]
     [Route("sign-out")]
     public async Task<IActionResult> SignOutUser()

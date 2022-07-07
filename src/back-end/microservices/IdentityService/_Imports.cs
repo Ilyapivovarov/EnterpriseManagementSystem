@@ -1,4 +1,5 @@
 global using AutoMapper;
+global using EnterpriseManagementSystem.Contracts;
 global using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
 global using EnterpriseManagementSystem.JwtAuthorization;
