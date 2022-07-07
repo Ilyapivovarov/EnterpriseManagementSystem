@@ -9,7 +9,7 @@ using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.FunctionalTests.Base;
 using NUnit.Framework;
 
-namespace IdentityService.FunctionalTests.Controllers;
+namespace IdentityService.FunctionalTests.AuthController;
 
 public sealed class SignInTest : TestBase
 {
