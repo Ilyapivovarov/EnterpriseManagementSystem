@@ -1,4 +1,4 @@
-namespace IdentityService.Infrastructure.Handlers.Auth;
+namespace IdentityService.Infrastructure.Handlers;
 
 public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IActionResult>
 {
