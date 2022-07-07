@@ -17,7 +17,6 @@ public sealed class SignUpTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        var userCountBefore = IdentityDbContext.Users.Count();
         var data = new SignUp("Test", "Test", "test@email.com", "test1234", "test1234");
         var content = GetStringContetn(data);
 
