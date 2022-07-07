@@ -12,11 +12,15 @@ public sealed class SecurityController : ControllerBase
 
     }
 
+    [HttpPut]
+    [Route("password")]
     public async Task<IActionResult> UpdatePassword(UpdatePasswordInfo newPasswordInfo)
     {
         return await _mediator.Send(new UpdatePasswordRequest(newPasswordInfo));
     }
 
+    [HttpPut]
+    [Route("email")]
     public async Task<IActionResult> UpdateEmail(UpdateEmailInfo updateEmailInfo)
     {
         return await _mediator.Send(new UpdateEmailRequest(updateEmailInfo));
