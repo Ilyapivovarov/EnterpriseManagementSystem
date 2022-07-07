@@ -24,7 +24,7 @@ public sealed class UserBlServiceTests
     [Test]
     public void ChnageUserInfoTests()
     {
-        var userBlService = new UserService(Logger);
+        var userBlService = new UserService(Logger, new SecurityService());
         var user = new UserDbEntity
         {
             Email = new EmailDbEntity
