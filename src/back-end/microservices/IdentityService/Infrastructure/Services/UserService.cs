@@ -1,12 +1,16 @@
+using IdentityService.Core.ReturnedValue;
+
 namespace IdentityService.Infrastructure.Services;
 
 public sealed class UserService : IUserService
 {
     private readonly ILogger<UserService> _logger;
+    private readonly ISecurityService _securityService;
 
-    public UserService(ILogger<UserService> logger)
+    public UserService(ILogger<UserService> logger, ISecurityService securityService)
     {
         _logger = logger;
+        _securityService = securityService;
     }
 
     public UserDbEntity CreateUser(string firstName, string lastName, string email, string password)
@@ -47,6 +51,21 @@ public sealed class UserService : IUserService
         {
             _logger.LogError(e, "Error while update user info");
             return false;
+        }
+    }
+
+    public ServiceActionResult<UserDbEntity> ChangeUserPassword(UserDbEntity userDbEntity, string newPassword)
+    {
+        try
+        {
+            userDbEntity.Password = _securityService.EncryptPassword(newPassword);
+
+            return new ServiceActionResult<UserDbEntity>(userDbEntity);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return new ServiceActionResult<UserDbEntity>(e.Message);
         }
     }
 }

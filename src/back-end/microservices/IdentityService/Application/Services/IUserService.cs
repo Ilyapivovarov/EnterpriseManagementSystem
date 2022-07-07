@@ -1,3 +1,5 @@
+using IdentityService.Core.ReturnedValue;
+
 namespace IdentityService.Application.Services;
 
 public interface IUserService
@@ -21,4 +23,12 @@ public interface IUserService
     /// <param name="role"></param>
     /// <returns></returns>
     public bool ChangeUserInfo(UserDbEntity user, string? firstName, string? lastName, string? role);
+
+    /// <summary>
+    ///     Change password for user
+    /// </summary>
+    /// <param name="userDbEntity"></param>
+    /// <param name="newPassword"></param>
+    /// <returns></returns>
+    public ServiceActionResult<UserDbEntity> ChangeUserPassword(UserDbEntity userDbEntity, string newPassword);
 }
