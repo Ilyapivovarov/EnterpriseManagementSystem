@@ -8,7 +8,7 @@ public interface IIdentityDbContext
 
     public DbSet<SessionDbEntity> Sessions { get; }
 
-    public DbSet<EmailAddressDbEntity> EmailAddresses { get; }
+    public DbSet<EmailDbEntity> EmailAddresses { get; }
 
     public DbSet<UserRoleDbEntity> UserRoles { get; }
 

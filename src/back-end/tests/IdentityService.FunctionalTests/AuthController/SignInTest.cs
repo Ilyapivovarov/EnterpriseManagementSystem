@@ -23,7 +23,7 @@ public sealed class SignInTest : TestBase
     public async Task SuccessScenario()
     {
         var sessionCountBefore = IdentityDbContext.Sessions.Count();
-        var data = new SignIn(DefaultUser.EmailAddress.Address, DefaultUser.Password);
+        var data = new SignIn(DefaultUser.Email.Address, DefaultUser.Password);
 
         var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
             MediaTypeNames.Application.Json);
@@ -38,7 +38,7 @@ public sealed class SignInTest : TestBase
     public async Task IncrrectEmailOrPasswordScenario()
     {
         var sessionCountBefore = IdentityDbContext.Sessions.Count();
-        var data = new SignIn(DefaultUser.EmailAddress.Address, DefaultUser.Password + "1");
+        var data = new SignIn(DefaultUser.Email.Address, DefaultUser.Password + "1");
 
         var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
             MediaTypeNames.Application.Json);

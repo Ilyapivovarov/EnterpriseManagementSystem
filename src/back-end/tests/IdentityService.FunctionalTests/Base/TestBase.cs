@@ -4,7 +4,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Security.Claims;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.JwtAuthorization;
@@ -33,6 +35,12 @@ public class TestBase
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
     }
 
+    [OneTimeTearDown]
+    public async Task OneTimeTearDown()
+    {
+        await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
+    }
+
     protected TestServer Server { get; set; }
 
     protected IIdentityDbContext IdentityDbContext => Server.Services.GetRequiredService<IIdentityDbContext>();
@@ -52,6 +60,12 @@ public class TestBase
         AccessToken = GenerateAccessToken(DefaultUser);
     }
 
+    protected StringContent GetStringContetn(object obj)
+    {
+        return new(
+            JsonSerializer.Serialize(obj, JsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
+    }
+
     private string GenerateAccessToken(UserDbEntity user)
     {
         var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
@@ -62,7 +76,7 @@ public class TestBase
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Email, user.EmailAddress.Address),
+            new(ClaimTypes.Email, user.Email.Address),
             new(ClaimTypes.UserData, user.Guid.ToString())
         };
 
@@ -75,13 +89,7 @@ public class TestBase
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-
-    [OneTimeTearDown]
-    public async Task OneTimeTearDown()
-    {
-        await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
-    }
-
+    
     private static TestServer CreateTestServer()
     {
         var hostBuilder = new WebHostBuilder()

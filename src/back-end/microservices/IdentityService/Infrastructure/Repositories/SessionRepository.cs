@@ -15,7 +15,7 @@ public sealed class SessionRepository : RepositoryBase, ISessionRepository
                 else
                     db.Sessions.Add(session);
             },
-            $"Error while save session for user with email {session.User.EmailAddress.Address}");
+            $"Error while save session for user with email {session.User.Email.Address}");
     }
 
     public async Task<bool> SaveOrUpdateSessionAsync(SessionDbEntity session)

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace IdentityService.Core.DbEntities;
 
 [Index(nameof(Address), IsUnique = true)]
-public class EmailAddressDbEntity : DbEntityBase
+public class EmailDbEntity : DbEntityBase
 {
     [EmailAddress]
     public string Address { get; set; } = null!;
