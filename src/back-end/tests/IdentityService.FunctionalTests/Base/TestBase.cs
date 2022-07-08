@@ -24,39 +24,42 @@ using NUnit.Framework;
 
 namespace IdentityService.FunctionalTests.Base;
 
-public class TestBase
+public abstract class TestBase
 {
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
+
+    protected TestBase()
+    {
+        _jsonSerializerOptions = new JsonSerializerOptions
+            {PropertyNameCaseInsensitive = true};
+    }
+
+    protected IIdentityDbContext IdentityDbContext => Server.Services.GetRequiredService<IIdentityDbContext>();
+
+    protected HttpClient Client { get; private set; } = null!;
+
+    protected UserDbEntity DefaultUser => IdentityDbContext.Users.First();
+
+    protected TestServer Server { get; private set; } = null!;
+    
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
     {
         await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
     }
 
-    protected TestServer Server { get; set; }
-
-    protected IIdentityDbContext IdentityDbContext => Server.Services.GetRequiredService<IIdentityDbContext>();
-
-    protected HttpClient Client { get; set; } = null!;
-
-    protected JsonSerializerOptions JsonSerializerOptions { get; } = new()
-        {PropertyNameCaseInsensitive = true};
-
-    protected UserDbEntity DefaultUser { get; private set; } = null!;
-    
     protected void RefreshServer()
     {
         Server = CreateTestServer();
         Client = Server.CreateClient();
-        DefaultUser = IdentityDbContext.Users.First();
         Client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, GenerateAccessToken(DefaultUser));
-        
     }
 
     protected StringContent GetStringContetn(object obj)
     {
-        return new(
-            JsonSerializer.Serialize(obj, JsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
+        return new StringContent(
+            JsonSerializer.Serialize(obj, _jsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
     }
 
     private string GenerateAccessToken(UserDbEntity user)
@@ -82,7 +85,7 @@ public class TestBase
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-    
+
     private static TestServer CreateTestServer()
     {
         var hostBuilder = new WebHostBuilder()

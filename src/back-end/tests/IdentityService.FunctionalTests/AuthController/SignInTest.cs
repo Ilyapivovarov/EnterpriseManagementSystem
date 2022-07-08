@@ -1,9 +1,5 @@
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Mime;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.FunctionalTests.Base;
@@ -25,9 +21,7 @@ public sealed class SignInTest : TestBase
         var sessionCountBefore = IdentityDbContext.Sessions.Count();
         var data = new SignIn(DefaultUser.Email.Address, DefaultUser.Password);
 
-        var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
-            MediaTypeNames.Application.Json);
-        var result = await Client.PostAsync("auth/sign-in", content);
+        var result = await Client.PostAsync("auth/sign-in", GetStringContetn(data));
 
         Assert.IsTrue(result.IsSuccessStatusCode);
         Assert.IsTrue(sessionCountBefore < IdentityDbContext.Sessions.Count());
@@ -40,9 +34,7 @@ public sealed class SignInTest : TestBase
         var sessionCountBefore = IdentityDbContext.Sessions.Count();
         var data = new SignIn(DefaultUser.Email.Address, DefaultUser.Password + "1");
 
-        var content = new StringContent(JsonSerializer.Serialize(data, JsonSerializerOptions), Encoding.UTF8,
-            MediaTypeNames.Application.Json);
-        var result = await Client.PostAsync("auth/sign-in", content);
+        var result = await Client.PostAsync("auth/sign-in", GetStringContetn(data));
 
         Assert.IsTrue(result.StatusCode == HttpStatusCode.NotFound);
         Assert.IsTrue(sessionCountBefore == IdentityDbContext.Sessions.Count());

@@ -1,3 +1,4 @@
+using IdentityService.Application.Services;
 using IdentityService.Core.DbEntities;
 using IdentityService.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
@@ -6,14 +7,19 @@ using NUnit.Framework;
 
 namespace IdentityService.UnitTests;
 
-public sealed class UserBlServiceTests
+public sealed class UserServiceTests
 {
-    public UserBlServiceTests()
+    public UserServiceTests()
     {
-        Logger = Logger = Mock.Of<ILogger<UserService>>();
+        Logger = Mock.Of<ILogger<UserService>>();
+        SecurityService = new Mock<ISecurityService>();
+        SecurityService.Setup(x => x.EncryptPassword(It.IsAny<string>()))
+            .Returns<string>(password => password);
     }
 
-    public ILogger<UserService> Logger { get; set; }
+    private ILogger<UserService> Logger { get; set; }
+
+    private Mock<ISecurityService> SecurityService { get; }
 
     [SetUp]
     public void SetUp()
@@ -24,7 +30,7 @@ public sealed class UserBlServiceTests
     [Test]
     public void ChnageUserInfoTests()
     {
-        var userBlService = new UserService(Logger, new SecurityService());
+        var userBlService = new UserService(Logger, SecurityService.Object);
         var user = new UserDbEntity
         {
             Email = new EmailDbEntity
