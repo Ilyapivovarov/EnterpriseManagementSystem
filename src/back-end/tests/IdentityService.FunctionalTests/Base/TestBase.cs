@@ -26,15 +26,6 @@ namespace IdentityService.FunctionalTests.Base;
 
 public class TestBase
 {
-    protected TestBase()
-    {
-        Server = CreateTestServer();
-        JsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
-        Client = Server.CreateClient();
-        Client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
-    }
-
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
     {
@@ -47,17 +38,19 @@ public class TestBase
 
     protected HttpClient Client { get; set; } = null!;
 
-    protected JsonSerializerOptions JsonSerializerOptions { get; }
+    protected JsonSerializerOptions JsonSerializerOptions { get; } = new()
+        {PropertyNameCaseInsensitive = true};
 
     protected UserDbEntity DefaultUser { get; private set; } = null!;
-
-    protected string? AccessToken { get; private set; }
-
+    
     protected void RefreshServer()
     {
         Server = CreateTestServer();
+        Client = Server.CreateClient();
         DefaultUser = IdentityDbContext.Users.First();
-        AccessToken = GenerateAccessToken(DefaultUser);
+        Client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, GenerateAccessToken(DefaultUser));
+        
     }
 
     protected StringContent GetStringContetn(object obj)
