@@ -9,7 +9,6 @@ public sealed class SecurityController : ControllerBase
     public SecurityController(IMediator mediator)
     {
         _mediator = mediator;
-
     }
 
     [HttpPut]

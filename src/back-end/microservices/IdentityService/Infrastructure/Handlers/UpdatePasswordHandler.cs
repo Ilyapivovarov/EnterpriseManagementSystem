@@ -41,7 +41,7 @@ public sealed class UpdatePasswordHandler : IRequestHandler<UpdatePasswordReques
                 return new BadRequestObjectResult("Error while save new password");
 
             var @event = new SendSystemNotificationEvent(updatePasswordInfo.Email, "Password has been changed");
-            // await _bus.Publish(@event, cancellationToken);
+            await _bus.Publish(@event, cancellationToken);
 
             return new OkResult();
         }
