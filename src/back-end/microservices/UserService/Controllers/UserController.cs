@@ -24,4 +24,10 @@ public sealed class UserController : ControllerBase
     {
         return await _mediator.Send(new GetUserGuidRequest(guid));
     }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateUserInfo(UserInfo userInfo)
+    {
+        return await _mediator.Send(new UpdateUserInfoRequest(userInfo));
+    }
 }

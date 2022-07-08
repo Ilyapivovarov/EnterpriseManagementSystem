@@ -1,5 +1,4 @@
 using AutoMapper;
-using EnterpriseManagementSystem.Contracts.WebContracts;
 using UserService.Core.DbEntities;
 using UserService.Infrastructure.Mapper.Converters;
 
