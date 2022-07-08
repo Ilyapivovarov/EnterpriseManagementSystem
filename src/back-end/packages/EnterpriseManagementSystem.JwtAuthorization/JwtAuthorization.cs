@@ -9,7 +9,7 @@ public static class JwtAuthorization
 {
     public static void AddJwtAuthorization(this IServiceCollection serviceProvider, IConfiguration configuration)
     {
-        var section = configuration.GetSection("Auth");
+        var section = configuration.GetSection("JwtBearer");
         serviceProvider.Configure<AuthOption>(section);
         var authOpt = section.Get<AuthOption>();
         serviceProvider.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -18,12 +18,11 @@ public static class JwtAuthorization
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = false,
+                    ValidateIssuer = true,
                     ValidIssuer = authOpt.Issuer,
-
+                    
                     ValidateAudience = false,
-                    ValidAudience = authOpt.Audience,
-
+                    
                     ValidateLifetime = true,
 
                     IssuerSigningKey = authOpt.GetSymmetricSecurityKey(),
