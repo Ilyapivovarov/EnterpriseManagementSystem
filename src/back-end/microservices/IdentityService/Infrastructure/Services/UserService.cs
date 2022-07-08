@@ -13,7 +13,7 @@ public sealed class UserService : IUserService
         _securityService = securityService;
     }
 
-    public UserDbEntity CreateUser(string firstName, string lastName, string email, string password)
+    public UserDbEntity Create(string firstName, string lastName, string email, string password)
     {
         return new UserDbEntity
         {
@@ -54,11 +54,27 @@ public sealed class UserService : IUserService
         }
     }
 
-    public ServiceActionResult<UserDbEntity> ChangeUserPassword(UserDbEntity userDbEntity, string newPassword)
+    public ServiceActionResult<UserDbEntity> ChangePassword(UserDbEntity userDbEntity, string newPassword)
     {
         try
         {
             userDbEntity.Password = _securityService.EncryptPassword(newPassword);
+
+            return new ServiceActionResult<UserDbEntity>(userDbEntity);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return new ServiceActionResult<UserDbEntity>(e.Message);
+        }
+    }
+
+    public ServiceActionResult<UserDbEntity> ChangeEmail(UserDbEntity userDbEntity, string newEmail)
+    {
+        try
+        {
+            userDbEntity.Email.Address = newEmail;
+            userDbEntity.Email.IsVerified = false;
 
             return new ServiceActionResult<UserDbEntity>(userDbEntity);
         }

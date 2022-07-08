@@ -18,5 +18,5 @@ public readonly struct ServiceActionResult<T>
 
     public string? Error { get; }
 
-    public bool HasValue => Value is not null;
+    public bool HasError => Error != null;
 }

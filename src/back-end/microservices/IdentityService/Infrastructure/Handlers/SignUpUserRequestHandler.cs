@@ -38,7 +38,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
                 return new BadRequestObjectResult("This email already exist");
 
             var encryptPassword = _securityService.EncryptPassword(password);
-            var user = _userBlService.CreateUser(firFristName, lastName, email, encryptPassword);
+            var user = _userBlService.Create(firFristName, lastName, email, encryptPassword);
             if (!await _userRepository.SaveUserAsync(user))
                 return new BadRequestObjectResult("Error while save user");
 

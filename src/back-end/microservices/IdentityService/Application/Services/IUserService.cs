@@ -12,7 +12,7 @@ public interface IUserService
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public UserDbEntity CreateUser(string firstName, string lastName, string email, string password);
+    public UserDbEntity Create(string firstName, string lastName, string email, string password);
 
     /// <summary>
     ///     Change role for user
@@ -30,5 +30,13 @@ public interface IUserService
     /// <param name="userDbEntity"></param>
     /// <param name="newPassword"></param>
     /// <returns></returns>
-    public ServiceActionResult<UserDbEntity> ChangeUserPassword(UserDbEntity userDbEntity, string newPassword);
+    public ServiceActionResult<UserDbEntity> ChangePassword(UserDbEntity userDbEntity, string newPassword);
+
+    /// <summary>
+    ///     Change user email
+    /// </summary>
+    /// <param name="userDbEntity"></param>
+    /// <param name="newEmail"></param>
+    /// <returns></returns>
+    public ServiceActionResult<UserDbEntity> ChangeEmail(UserDbEntity userDbEntity, string newEmail);
 }
