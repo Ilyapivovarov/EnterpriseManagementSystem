@@ -31,7 +31,7 @@ public sealed class UpdatePasswordTest : TestBase
     [Test]
     public async Task NotFoundScenario()
     {
-        var data = new UpdatePasswordInfo(DefaultUser.Email.Address, "admin123", "admin123");
+        var data = new UpdatePasswordInfo("notfound@gmail.com", "admin123", "admin123");
         var updatePasswordResult = await Client.PutAsync("security/password", GetStringContetn(data));
 
         Assert.IsTrue(updatePasswordResult.StatusCode == HttpStatusCode.NotFound);

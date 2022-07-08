@@ -33,8 +33,6 @@ public sealed class UserBlServiceTests
                 IsVerified = true
             },
             Password = "admin",
-            FirstName = "Admin",
-            LastName = "Admin",
             Role = new UserRoleDbEntity
             {
                 Name = "Admin"
@@ -43,6 +41,6 @@ public sealed class UserBlServiceTests
 
         userBlService.ChangeUserInfo(user, "Test", "Test", "Reader");
 
-        Assert.IsTrue(user.FirstName == "Test" && user.LastName == "Test" && user.Role.Name == "Admin");
+        Assert.IsTrue(user.Role.Name == "Admin");
     }
 }

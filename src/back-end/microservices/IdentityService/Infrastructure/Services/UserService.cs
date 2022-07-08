@@ -23,8 +23,6 @@ public sealed class UserService : IUserService
                 IsVerified = false
             },
             Password = password,
-            FirstName = firstName,
-            LastName = lastName,
             Role = new UserRoleDbEntity
             {
                 Name = "Test"
@@ -36,11 +34,11 @@ public sealed class UserService : IUserService
     {
         try
         {
-            if (!string.IsNullOrWhiteSpace(firstName))
-                user.FirstName = firstName;
-
-            if (!string.IsNullOrWhiteSpace(lastName))
-                user.LastName = lastName;
+            // if (!string.IsNullOrWhiteSpace(firstName))
+            //     user.FirstName = firstName;
+            //
+            // if (!string.IsNullOrWhiteSpace(lastName))
+            //     user.LastName = lastName;
 
             // if (role != null)
             //     user.Role = Enum.Parse<UserRole>(role);

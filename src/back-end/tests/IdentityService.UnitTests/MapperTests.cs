@@ -10,33 +10,7 @@ public sealed class MapperTests
     [SetUp]
     public void Setup()
     { }
-
-    [Test]
-    public void TestMappingUserToUserDto()
-    {
-        var user = new UserDbEntity
-        {
-            Email = new EmailDbEntity
-            {
-                Address = "test@email.com",
-                IsVerified = false
-            },
-            FirstName = "Test",
-            LastName = "Test",
-            Password = "Password",
-            Role = new UserRoleDbEntity
-            {
-                Name = "Admin"
-            }
-        };
-        var dto = user.ToDto();
-        Assert.IsTrue(dto.Guid == user.Guid
-                      && dto.Role == user.Role.Name
-                      && dto.Email == user.Email.Address
-                      && dto.FirstName == user.FirstName
-                      && dto.LastName == user.LastName);
-    }
-
+    
     [Test]
     public void MappingSessionDbEntityToSessionTest()
     {

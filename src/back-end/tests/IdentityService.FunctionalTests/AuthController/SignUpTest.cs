@@ -25,8 +25,7 @@ public sealed class SignUpTest : TestBase
         var newUser = IdentityDbContext.Users.Last();
 
         Assert.IsTrue(result.IsSuccessStatusCode);
-        Assert.IsTrue(newUser.Email.Address == data.Email && newUser.FirstName == data.FirstName
-                                                          && newUser.LastName == data.LastName);
+        Assert.IsTrue(newUser.Email.Address == data.Email);
     }
 
     [Test]
