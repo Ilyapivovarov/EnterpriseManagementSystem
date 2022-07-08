@@ -13,7 +13,7 @@ public sealed class UserService : IUserService
         _securityService = securityService;
     }
 
-    public UserDbEntity Create(string firstName, string lastName, string email, string password)
+    public UserDbEntity Create(string email, string password)
     {
         return new UserDbEntity
         {
@@ -29,29 +29,7 @@ public sealed class UserService : IUserService
             }
         };
     }
-
-    public bool ChangeUserInfo(UserDbEntity user, string? firstName, string? lastName, string? role)
-    {
-        try
-        {
-            // if (!string.IsNullOrWhiteSpace(firstName))
-            //     user.FirstName = firstName;
-            //
-            // if (!string.IsNullOrWhiteSpace(lastName))
-            //     user.LastName = lastName;
-
-            // if (role != null)
-            //     user.Role = Enum.Parse<UserRole>(role);
-
-            return true;
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, "Error while update user info");
-            return false;
-        }
-    }
-
+    
     public ServiceActionResult<UserDbEntity> ChangePassword(UserDbEntity userDbEntity, string newPassword)
     {
         try
