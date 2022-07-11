@@ -24,7 +24,6 @@ namespace UserService.FunctionalTests.Base;
 public abstract class TestBase
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private IUserDbContext? _taskContext;
 
     protected TestBase()
     {
@@ -34,8 +33,7 @@ public abstract class TestBase
     
     protected TestServer Server { get; set; } = null!;
 
-    protected IUserDbContext UserDbContext
-        => _taskContext ??= Server.Services.GetRequiredService<IUserDbContext>();
+    protected IUserDbContext UserDbContext => Server.Services.GetRequiredService<IUserDbContext>();
 
     protected UserDbEntity DefaultUser => UserDbContext.Users.First();
 
@@ -82,8 +80,6 @@ public abstract class TestBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
     
-    
-
     private static TestServer CreateTestServer()
     {
         var hostBuilder = WebHost.CreateDefaultBuilder()

@@ -16,6 +16,7 @@ public class UserDbContextSeed
                 {
                     EmailAddress = "admin@admin.com",
                     DateBrith = DateTime.Today,
+                    IdentityGuid = Guid.NewGuid(),
                     FirstName = "Admin",
                     LastName = "Admin",
                     Role = "Admin"

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using NUnit.Framework;
@@ -23,6 +24,6 @@ public sealed class UpdateUserInfoTests : TestBase
         var result = await HttpClient.PutAsync("user", GetStringContent(data));
 
         Assert.IsTrue(result.IsSuccessStatusCode);
-        Assert.AreNotEqual(userBeforeUpdating.ToDto(), DefaultUser.ToDto());
+        Assert.AreNotEqual(userBeforeUpdating.ToDto(), UserDbContext.Users.First().ToDto());
     }
 }
