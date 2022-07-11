@@ -1,5 +1,4 @@
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
-using UserService.Application.Repository;
 using UserService.Core.DbEntities;
 
 namespace UserService.Infrastructure.Consumers;

@@ -1,5 +1,4 @@
 using EnterpriseManagementSystem.JwtAuthorization;
-using UserService.Application.Repository;
 using UserService.Infrastructure.Consumers;
 using UserService.Infrastructure.Repository;
 

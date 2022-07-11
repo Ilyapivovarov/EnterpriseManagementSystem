@@ -1,5 +1,3 @@
-using UserService.Application.Repository;
-using UserService.Infrastructure.Handlers.Base;
 using UserService.Infrastructure.Mapper;
 
 namespace UserService.Infrastructure.Handlers;

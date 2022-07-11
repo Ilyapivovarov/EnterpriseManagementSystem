@@ -12,7 +12,7 @@ public class UserDbEntity : DbEntityBase
 
     public string Role { get; set; } = null!;
 
-    public DateTime DateBrith { get; set; }
+    public DateTime? DateBrith { get; set; }
 
     public Guid IdentityGuid { get; set; }
 }

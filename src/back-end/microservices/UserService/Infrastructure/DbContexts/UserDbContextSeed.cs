@@ -18,7 +18,6 @@ public class UserDbContextSeed
                     DateBrith = DateTime.Today,
                     FirstName = "Admin",
                     LastName = "Admin",
-                    Role = "Admin"
                 });
 
                 await userDbContext.SaveChangesAsync();
