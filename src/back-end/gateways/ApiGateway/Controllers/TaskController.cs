@@ -1,4 +1,4 @@
-namespace ApiGateway.Controllers.TaskService;
+namespace ApiGateway.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -20,7 +20,7 @@ public sealed class TaskController
     [Route("{guid:guid}")]
     public async Task<IActionResult> GetTaskByGuid(string guid)
     {
-        return await _taskServiceHttpClient.GetTaskByGuid(guid);
+        return await _taskServiceHttpClient.GetTaskByGuidAsync(guid);
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public sealed class TaskController
     [HttpPost]
     public async Task<IActionResult> CreateTask(NewTask newTask)
     {
-        return await _taskServiceHttpClient.CreateNewTask(newTask);
+        return await _taskServiceHttpClient.CreateNewTaskAsync(newTask);
     }
 
     /// <summary>
@@ -42,6 +42,6 @@ public sealed class TaskController
     [HttpPut]
     public async Task<IActionResult> UpdateTask(TaskInfo taskInfo)
     {
-        return await _taskServiceHttpClient.UpdateTask(taskInfo);
+        return await _taskServiceHttpClient.UpdateTaskAsync(taskInfo);
     }
 }

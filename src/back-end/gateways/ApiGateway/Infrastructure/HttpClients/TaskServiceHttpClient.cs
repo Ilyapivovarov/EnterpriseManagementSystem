@@ -12,40 +12,23 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
         _client = client;
     }
 
-    public async Task<IActionResult> GetTaskByGuid(string guid)
+    public async Task<IActionResult> GetTaskByGuidAsync(string guid)
     {
-        var response = await _client.GetAsync(UrlConfig.TaskApi.TaskController.GetTaskByGuid(guid));
-        var contentDraft = await response.Content.ReadAsStringAsync();
-        if (response.IsSuccessStatusCode)
-        {
-            var taskInfo = Deserialize<TaskInfo>(contentDraft);
-            return new OkObjectResult(taskInfo);
-        }
-
-        return new BadRequestObjectResult(response);
+        var response = await _client.GetAsync(ServiceUrls.TaskApi.TaskController.GetTaskByGuid(guid));
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
-    public async Task<IActionResult> CreateNewTask(NewTask newTask)
+    public async Task<IActionResult> CreateNewTaskAsync(NewTask newTask)
     {
-        var response = await _client.PostAsync(UrlConfig.TaskApi.TaskController.CreateNewTask(),
+        var response = await _client.PostAsync(ServiceUrls.TaskApi.TaskController.CreateNewTask(),
             GetStringContent(newTask.ToJson()));
-        var content = await response.Content.ReadAsStringAsync();
-        if (response.IsSuccessStatusCode)
-        {
-            var taskInfo = Deserialize<TaskInfo>(content);
-            return new OkObjectResult(taskInfo);
-        }
-
-        return new BadRequestObjectResult(content);
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
-    public async Task<IActionResult> UpdateTask(TaskInfo taskInfo)
+    public async Task<IActionResult> UpdateTaskAsync(TaskInfo taskInfo)
     {
-        var response = await _client.PostAsync(UrlConfig.TaskApi.TaskController.UpdateTask(),
+        var response = await _client.PostAsync(ServiceUrls.TaskApi.TaskController.UpdateTask(),
             GetStringContent(taskInfo.ToJson()));
-        var content = await response.Content.ReadAsStringAsync();
-        if (response.IsSuccessStatusCode) return new OkResult();
-
-        return new BadRequestObjectResult(content);
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 }

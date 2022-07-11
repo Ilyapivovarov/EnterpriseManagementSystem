@@ -1,25 +1,21 @@
+using System.Net;
+
 namespace ApiGateway.Infrastructure.HttpClients.Base;
 
 public abstract class HttpClientBase
 {
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
-
-    protected HttpClientBase()
+    protected static StringContent GetStringContent(string content)
     {
-        _jsonSerializerOptions = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
+        return new(content, Encoding.UTF8, MediaTypeNames.Application.Json);
     }
 
-    protected StringContent GetStringContent(string content)
+    protected static IActionResult GetActionResult(object obj, HttpStatusCode statusCode)
     {
-        return new StringContent(content, Encoding.UTF8,
-            MediaTypeNames.Application.Json);
+        return new StatusCodeResult((int) statusCode);
     }
 
-    protected T? Deserialize<T>(string json)
+    protected static IActionResult GetObjectActionResult(object obj, HttpStatusCode statusCode)
     {
-        return JsonSerializer.Deserialize<T>(json, _jsonSerializerOptions);
+        return new OkObjectResult(obj) {StatusCode = (int) statusCode};
     }
 }

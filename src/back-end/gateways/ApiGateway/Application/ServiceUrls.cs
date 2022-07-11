@@ -1,6 +1,6 @@
 namespace ApiGateway.Application;
 
-public static class UrlConfig
+public static class ServiceUrls
 {
     public static class IdentityApi
     {
@@ -84,6 +84,26 @@ public static class UrlConfig
             {
                 return BaseUrl;
             }
+        }
+    }
+
+    public static class UserServiceApi
+    {
+        private const string BaseUrl = "user";
+
+        public static string GetUserByPage(string pageNumber)
+        {
+            return $"{BaseUrl}/{pageNumber}";
+        }
+
+        public static string GetByIdentityGuid(string guid)
+        {
+            return $"{BaseUrl}/{guid}";
+        }
+
+        public static string UpdateUserInfo()
+        {
+            return $"{BaseUrl}";
         }
     }
 }

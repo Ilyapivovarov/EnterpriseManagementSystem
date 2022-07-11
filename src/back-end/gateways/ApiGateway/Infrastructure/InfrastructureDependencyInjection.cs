@@ -7,9 +7,11 @@ public static class InfrastructureDependencyInjection
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment)
     {
+        #region Register HttpClients
+
         services.AddHttpContextAccessor();
         services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
-
+        
         services.AddHttpClient<IIdentityHttpClient, IdentityHttpClient>(client =>
                 client.BaseAddress = new Uri(configuration.GetServiceUrl("IdentityServiceUrl")))
             .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
@@ -17,6 +19,8 @@ public static class InfrastructureDependencyInjection
         services.AddHttpClient<ITaskServiceHttpClient, TaskServiceHttpClient>(client =>
                 client.BaseAddress = new Uri(configuration.GetServiceUrl("TaskServiceUrl")))
             .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
+        #endregion
 
         #region Register Jwt auth
 
