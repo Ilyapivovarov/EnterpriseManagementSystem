@@ -2,7 +2,7 @@ using UserService.Core.DbEntities;
 
 namespace UserService.Application.Services;
 
-public interface IUserServices
+public interface IUserService
 {
     public void UpdateUserInfo(UserDbEntity userDbEntity, string? firstName, string? lastName);
 }

@@ -63,5 +63,11 @@ public static class InfrastructureExtensions
         services.AddTransient<IUserRepository, UserRepository>();
 
         #endregion
+
+        #region Registrer services
+
+        services.AddTransient<IUserService, Services.UserService>();
+
+        #endregion
     }
 }

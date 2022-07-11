@@ -4,10 +4,10 @@ public sealed class UpdateUserInfoRequestHandler : HandlerBase<UpdateUserInfoReq
 {
     private readonly ILogger<UpdateUserInfoRequestHandler> _logger;
     private readonly IUserRepository _userRepository;
-    private readonly IUserServices _userServices;
+    private readonly IUserService _userServices;
 
     public UpdateUserInfoRequestHandler(ILogger<UpdateUserInfoRequestHandler> logger, IUserRepository userRepository,
-        IUserServices userServices)
+        IUserService userServices)
     {
         _logger = logger;
         _userRepository = userRepository;
