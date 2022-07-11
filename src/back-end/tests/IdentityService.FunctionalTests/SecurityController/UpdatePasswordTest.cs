@@ -18,10 +18,10 @@ public sealed class UpdatePasswordTest : TestBase
     public async Task SuccessScenario()
     {
         var data = new UpdatePasswordInfo(DefaultUser.Email.Address, "admin123", "admin123");
-        var updatePasswordResult = await Client.PutAsync("security/password", GetStringContetn(data));
+        var updatePasswordResult = await Client.PutAsync("security/password", GetStringContent(data));
 
         var signInResult =
-            await Client.PostAsync("auth/sign-in", GetStringContetn(new SignIn(data.Email, data.NewPassword)));
+            await Client.PostAsync("auth/sign-in", GetStringContent(new SignIn(data.Email, data.NewPassword)));
 
         Assert.IsTrue(signInResult.IsSuccessStatusCode);
         Assert.IsTrue(updatePasswordResult.IsSuccessStatusCode);
@@ -32,7 +32,7 @@ public sealed class UpdatePasswordTest : TestBase
     public async Task NotFoundScenario()
     {
         var data = new UpdatePasswordInfo("notfound@gmail.com", "admin123", "admin123");
-        var updatePasswordResult = await Client.PutAsync("security/password", GetStringContetn(data));
+        var updatePasswordResult = await Client.PutAsync("security/password", GetStringContent(data));
 
         Assert.IsTrue(updatePasswordResult.StatusCode == HttpStatusCode.NotFound);
         Assert.Pass(await updatePasswordResult.Content.ReadAsStringAsync());
@@ -42,7 +42,7 @@ public sealed class UpdatePasswordTest : TestBase
     public async Task PasswordIsNotSameScenario()
     {
         var data = new UpdatePasswordInfo(DefaultUser.Email.Address, "admin1234", "admin123");
-        var updatePasswordResult = await Client.PutAsync("security/password", GetStringContetn(data));
+        var updatePasswordResult = await Client.PutAsync("security/password", GetStringContent(data));
 
         Assert.IsTrue(updatePasswordResult.StatusCode == HttpStatusCode.BadRequest);
         Assert.Pass(await updatePasswordResult.Content.ReadAsStringAsync());

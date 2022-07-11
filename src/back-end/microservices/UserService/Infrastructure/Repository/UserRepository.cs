@@ -16,7 +16,7 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
 
     public async Task<UserDbEntity?> GetByGuidAsync(Guid guid)
     {
-        return await LoadDataAsync(db => db.Users.FirstOrDefault(x => x.Guid == guid));
+        return await LoadDataAsync(db => db.Users.FirstOrDefault(x => x.IdentityGuid == guid));
     }
 
     public async Task<UserDbEntity?> GetByEmailAddressAsync(string emailAddress)

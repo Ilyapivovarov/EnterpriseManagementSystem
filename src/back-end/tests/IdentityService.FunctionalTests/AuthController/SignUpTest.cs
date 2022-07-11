@@ -18,7 +18,7 @@ public sealed class SignUpTest : TestBase
     public async Task SuccessScenario()
     {
         var data = new SignUp("Test", "Test", "test@email.com", "test1234", "test1234");
-        var content = GetStringContetn(data);
+        var content = GetStringContent(data);
 
         var result = await Client.PostAsync("auth/sign-up", content);
 
@@ -33,7 +33,7 @@ public sealed class SignUpTest : TestBase
     {
         var userCountBefore = IdentityDbContext.Users.Count();
         var data = new SignUp("Test", "Test", DefaultUser.Email.Address, "test1234", "test1234");
-        var content = GetStringContetn(data);
+        var content = GetStringContent(data);
 
         var result = await Client.PostAsync("auth/sign-up", content);
 
@@ -47,7 +47,7 @@ public sealed class SignUpTest : TestBase
     {
         var userCountBefore = IdentityDbContext.Users.Count();
         var data = new SignUp("Test", "Test", DefaultUser.Email.Address, "test1234", "test11234");
-        var content = GetStringContetn(data);
+        var content = GetStringContent(data);
 
         var result = await Client.PostAsync("auth/sign-up", content);
 

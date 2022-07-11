@@ -26,7 +26,7 @@ public sealed class UpdateUserInfoRequestHandler : HandlerBase<UpdateUserInfoReq
 
             _userServices.UpdateUserInfo(userDbEntity, userInfo.FirstName, userInfo.LastName);
 
-            var saveResult = !await _userRepository.UpdateAsync(userDbEntity);
+            var saveResult = await _userRepository.UpdateAsync(userDbEntity);
             return saveResult ? Ok() : Error("Error while saving user");
         }
         catch (Exception e)

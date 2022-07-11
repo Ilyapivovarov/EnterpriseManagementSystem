@@ -21,7 +21,7 @@ public sealed class SignInTest : TestBase
         var sessionCountBefore = IdentityDbContext.Sessions.Count();
         var data = new SignIn(DefaultUser.Email.Address, DefaultUser.Password);
 
-        var result = await Client.PostAsync("auth/sign-in", GetStringContetn(data));
+        var result = await Client.PostAsync("auth/sign-in", GetStringContent(data));
 
         Assert.IsTrue(result.IsSuccessStatusCode);
         Assert.IsTrue(sessionCountBefore < IdentityDbContext.Sessions.Count());
@@ -34,7 +34,7 @@ public sealed class SignInTest : TestBase
         var sessionCountBefore = IdentityDbContext.Sessions.Count();
         var data = new SignIn(DefaultUser.Email.Address, DefaultUser.Password + "1");
 
-        var result = await Client.PostAsync("auth/sign-in", GetStringContetn(data));
+        var result = await Client.PostAsync("auth/sign-in", GetStringContent(data));
 
         Assert.IsTrue(result.StatusCode == HttpStatusCode.NotFound);
         Assert.IsTrue(sessionCountBefore == IdentityDbContext.Sessions.Count());

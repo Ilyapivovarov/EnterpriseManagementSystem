@@ -56,7 +56,7 @@ public abstract class TestBase
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, GenerateAccessToken(DefaultUser));
     }
 
-    protected StringContent GetStringContetn(object obj)
+    protected StringContent GetStringContent(object obj)
     {
         return new StringContent(
             JsonSerializer.Serialize(obj, _jsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);

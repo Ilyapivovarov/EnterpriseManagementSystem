@@ -4,7 +4,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
 using EnterpriseManagementSystem.JwtAuthorization;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,8 +23,15 @@ namespace UserService.FunctionalTests.Base;
 
 public abstract class TestBase
 {
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private IUserDbContext? _taskContext;
 
+    protected TestBase()
+    {
+        _jsonSerializerOptions = new JsonSerializerOptions
+            {PropertyNameCaseInsensitive = true};
+    }
+    
     protected TestServer Server { get; set; } = null!;
 
     protected IUserDbContext UserDbContext
@@ -36,10 +46,16 @@ public abstract class TestBase
     protected void RefreshServer()
     {
         Server = CreateTestServer();
-        AccessToken = GenerateAccessToken(DefaultUser);
         HttpClient = Server.CreateClient();
+        AccessToken = GenerateAccessToken(DefaultUser);
         HttpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
+    }
+
+    protected StringContent GetStringContent(object obj)
+    {
+        return new StringContent(
+            JsonSerializer.Serialize(obj, _jsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
     }
 
     private string GenerateAccessToken(UserDbEntity user)
@@ -65,6 +81,8 @@ public abstract class TestBase
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+    
+    
 
     private static TestServer CreateTestServer()
     {
