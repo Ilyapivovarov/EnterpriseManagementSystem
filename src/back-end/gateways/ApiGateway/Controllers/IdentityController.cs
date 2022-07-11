@@ -6,11 +6,11 @@ namespace ApiGateway.Controllers;
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
-    private readonly IIdentityHttpClient _identityHttpClient;
+    private readonly IIdentityServiceHttpClient _identityServiceHttpClient;
 
-    public AuthController(IIdentityHttpClient identityHttpClient)
+    public AuthController(IIdentityServiceHttpClient identityServiceHttpClient)
     {
-        _identityHttpClient = identityHttpClient;
+        _identityServiceHttpClient = identityServiceHttpClient;
     }
 
     [HttpPost]
@@ -18,7 +18,7 @@ public class AuthController : ControllerBase
     [Route("sign-in")]
     public async Task<IActionResult> SingInUser([FromBody] SignIn signInDto)
     {
-        return await _identityHttpClient.SignInAsync(signInDto);
+        return await _identityServiceHttpClient.SignInAsync(signInDto);
     }
 
     [HttpPost]
@@ -26,13 +26,13 @@ public class AuthController : ControllerBase
     [Route("sign-up")]
     public async Task<IActionResult> SingInUser([FromBody] SignUp signUp)
     {
-        return await _identityHttpClient.SignUpAsync(signUp);
+        return await _identityServiceHttpClient.SignUpAsync(signUp);
     }
 
     [HttpDelete]
     [Route("sign-out")]
     public async Task<IActionResult> SignOutUser()
     {
-        return await _identityHttpClient.SignOutUser();
+        return await _identityServiceHttpClient.SignOutUser();
     }
 }

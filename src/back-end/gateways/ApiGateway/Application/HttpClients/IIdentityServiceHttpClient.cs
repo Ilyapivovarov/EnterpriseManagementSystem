@@ -1,6 +1,6 @@
 namespace ApiGateway.Application.HttpClients;
 
-public interface IIdentityHttpClient
+public interface IIdentityServiceHttpClient
 {
     public Task<IActionResult> SignInAsync(SignIn signIn);
 

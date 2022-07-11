@@ -3,11 +3,11 @@ using EnterpriseManagementSystem.Contracts.WebContracts.Extensions;
 
 namespace ApiGateway.Infrastructure.HttpClients;
 
-public sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
+public sealed class IdentityServiceHttpClient : HttpClientBase, IIdentityServiceHttpClient
 {
     private readonly HttpClient _httpClient;
 
-    public IdentityHttpClient(HttpClient httpClient)
+    public IdentityServiceHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }

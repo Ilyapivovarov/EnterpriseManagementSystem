@@ -11,13 +11,17 @@ public static class InfrastructureDependencyInjection
 
         services.AddHttpContextAccessor();
         services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
-        
-        services.AddHttpClient<IIdentityHttpClient, IdentityHttpClient>(client =>
+
+        services.AddHttpClient<IIdentityServiceHttpClient, IdentityServiceHttpClient>(client =>
                 client.BaseAddress = new Uri(configuration.GetServiceUrl("IdentityServiceUrl")))
             .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
         services.AddHttpClient<ITaskServiceHttpClient, TaskServiceHttpClient>(client =>
                 client.BaseAddress = new Uri(configuration.GetServiceUrl("TaskServiceUrl")))
+            .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
+        services.AddHttpClient<IUserServiceHttpClient, UserServiceHttpClient>(client =>
+                client.BaseAddress = new Uri(configuration.GetServiceUrl("UserServiceUrl")))
             .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
         #endregion
