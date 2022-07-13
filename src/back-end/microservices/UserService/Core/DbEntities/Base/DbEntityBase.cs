@@ -16,5 +16,5 @@ public abstract class DbEntityBase
 
     public DateTime Updated { get; set; }
 
-    public bool Deleted { get; set; } = false;
+    public bool IsDeleted { get; set; } = false;
 }
