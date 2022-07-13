@@ -6,11 +6,14 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
 {
     private readonly ILogger<SaveNewUserConsumer> _logger;
     private readonly IUserRepository _userRepository;
+    private readonly IEmployeeRepository _employeeRepository;
 
-    public SaveNewUserConsumer(ILogger<SaveNewUserConsumer> logger, IUserRepository userRepository)
+    public SaveNewUserConsumer(ILogger<SaveNewUserConsumer> logger, IUserRepository userRepository,
+        IEmployeeRepository employeeRepository)
     {
         _logger = logger;
         _userRepository = userRepository;
+        _employeeRepository = employeeRepository;
 
     }
 
@@ -18,18 +21,20 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
     {
         try
         {
-            var account = context.Message.Account;
+            var userDataResponse = context.Message.UserDataResponse;
 
-            var newUser = new UserDbEntity
+            await _employeeRepository.SaveAsync(new EmployeeDbEntity
             {
-                DateBrith = DateTime.Today,
-                EmailAddress = account.Email,
-                FirstName = account.FirstName,
-                IdentityGuid = account.Guid,
-                LastName = account.LastName
-            };
+                User = new UserDbEntity
+                {
+                    DateBrith = userDataResponse.DataBrith,
+                    EmailAddress = userDataResponse.EmailAddress,
+                    FirstName = userDataResponse.FirstName,
+                    IdentityGuid = userDataResponse.IdentityGuid,
+                    LastName = userDataResponse.LastName
+                }
 
-            await _userRepository.SaveAsync(newUser);
+            });
         }
         catch (Exception e)
         {

@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.WebContracts.Response;
+
 namespace IdentityService.Infrastructure.DbContexts;
 
 public sealed class IdentityDbContextSeed
@@ -29,8 +31,8 @@ public sealed class IdentityDbContextSeed
 
                 await context.SaveChangesAsync();
 
-                var @event = new SignUpUserIntegrationEvent(new Account(defaultUser.Guid, defaultUser.Email.Address,
-                    "Admin", "Admin"));
+                var @event = new SignUpUserIntegrationEvent(new UserDataResponse(defaultUser.Guid, "Admin", "Admin",
+                    defaultUser.Email.Address, DateTime.Now));
                 await bus.Publish(@event);
             }
         }

@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
-using EnterpriseManagementSystem.Contracts.WebContracts;
+using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -23,14 +23,14 @@ public sealed class SaveNewUserConsumerScenarioTest : TestBase
     public async Task SuccessScenarion()
     {
         var bus = Server.Services.GetRequiredService<IBus>();
-        var account = new Account(Guid.NewGuid(), "test@test.com", "Test", "Test");
-        
-        var @event = new SignUpUserIntegrationEvent(account);
+        var userData = new UserDataResponse(Guid.NewGuid(), "Test", "Test", "Test@address.com", DateTime.Today);
+
+        var @event = new SignUpUserIntegrationEvent(userData);
         await bus.Publish(@event);
 
-        await Task.Delay(1000);
+        await Task.Delay(2000);
 
-        Assert.AreEqual(account, UserDbContext.Users.Last().ToDto());
+        Assert.AreEqual(userData, UserDbContext.Users.Last().ToDto());
 
     }
 }

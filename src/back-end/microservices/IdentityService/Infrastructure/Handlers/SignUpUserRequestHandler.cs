@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.WebContracts.Response;
+
 namespace IdentityService.Infrastructure.Handlers;
 
 public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IActionResult>
@@ -45,8 +47,8 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
             var session = _sessionBlService.CreateSession(user);
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
 
-            var @event = new SignUpUserIntegrationEvent(new Account(user.Guid, user.Email.Address, signUpDto.FirstName,
-                signUpDto.LastName));
+            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(user.Guid, signUpDto.FirstName,
+                signUpDto.LastName, signUpDto.Email, null));
             await _bus.Publish(@event, cancellationToken);
 
             return new OkObjectResult(session.ToDto());

@@ -18,13 +18,13 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
             using (_logger.BeginScope("Start consume {SignUpNewUserIntegrationEvent}",
                        nameof(SignUpUserIntegrationEvent)))
             {
-                var account = context.Message.Account;
+                var account = context.Message.UserDataResponse;
                 var user = new UserDbEntity
                 {
-                    EmailAddress = account.Email,
+                    EmailAddress = account.EmailAddress,
                     FirstName = account.FirstName,
                     LastName = account.LastName,
-                    IdentityGuid = account.Guid,
+                    IdentityGuid = account.IdentityGuid
                 };
 
                 await _userRepository.SaveUserDbEntityAsync(user);

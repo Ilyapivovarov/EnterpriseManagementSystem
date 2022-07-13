@@ -26,7 +26,7 @@ public sealed class EmployeeRepository : RepositoryBase, IEmployeeRepository
 
     public async Task<bool> SaveAsync(EmployeeDbEntity employeeDbEntity)
     {
-        throw new NotImplementedException();
+        return await WriteDataAsync(db => db.Eployees.Add(employeeDbEntity));
     }
 
     public async Task<bool> UpdateAsync(EmployeeDbEntity employeeDbEntity)

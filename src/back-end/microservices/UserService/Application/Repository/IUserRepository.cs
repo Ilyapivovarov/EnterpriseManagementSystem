@@ -10,7 +10,7 @@ public interface IUserRepository
 
     public Task<UserDbEntity?> GetByEmailAddressAsync(string emailAddress);
 
-    public Task<ICollection<UserDbEntity>> GetUsersByRange(int rangeStart, int rangeEnd);
+    public Task<ICollection<UserDbEntity>?> GetUsersByRange(int rangeStart, int rangeEnd);
 
     #endregion
 

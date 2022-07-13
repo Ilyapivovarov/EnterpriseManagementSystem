@@ -23,7 +23,7 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
         return await LoadDataAsync(db => db.Users.FirstOrDefault(x => x.EmailAddress == emailAddress));
     }
 
-    public async Task<ICollection<UserDbEntity>> GetUsersByRange(int rangeStart, int rangeEnd)
+    public async Task<ICollection<UserDbEntity>?> GetUsersByRange(int rangeStart, int rangeEnd)
     {
         return await LoadDataAsync(db => db.Users.OrderBy(x => x.EmailAddress)
             .Skip(rangeStart)

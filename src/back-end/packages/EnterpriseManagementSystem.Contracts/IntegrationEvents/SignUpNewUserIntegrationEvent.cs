@@ -1,5 +1,5 @@
-using EnterpriseManagementSystem.Contracts.WebContracts;
+using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 
 namespace EnterpriseManagementSystem.Contracts.IntegrationEvents;
 
-public sealed record SignUpUserIntegrationEvent(Account Account);
+public sealed record SignUpUserIntegrationEvent(UserDataResponse UserDataResponse);

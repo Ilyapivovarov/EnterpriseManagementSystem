@@ -18,9 +18,9 @@ public sealed class EmailForNewUserConsumer : IConsumer<SignUpUserIntegrationEve
             using (_logger.BeginScope("Start consume {SignUpNewUserIntegrationEvent}",
                        nameof(SignUpUserIntegrationEvent)))
             {
-                var account = context.Message.Account;
-                var mail = new MailMessage("ems.test.dev@gmail.com", account.Email, "Welcome",
-                    $"Welcome {account.FirstName} {account.LastName}");
+                var userData = context.Message.UserDataResponse;
+                var mail = new MailMessage("ems.test.dev@gmail.com", userData.EmailAddress, "Welcome",
+                    $"Welcome {userData.FirstName} {userData.LastName}");
 
                 await _emailService.SendEmailAsync(mail);
             }

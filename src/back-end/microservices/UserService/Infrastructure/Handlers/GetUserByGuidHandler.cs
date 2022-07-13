@@ -5,12 +5,12 @@ namespace UserService.Infrastructure.Handlers;
 public sealed class GetUserByGuidHandler : HandlerBase<GetUserGuidRequest>
 {
     private readonly ILogger<GetUserByGuidHandler> _logger;
-    private readonly IUserRepository _userRepository;
+    private readonly IEmployeeRepository _employeeRepository;
 
-    public GetUserByGuidHandler(ILogger<GetUserByGuidHandler> logger, IUserRepository userRepository)
+    public GetUserByGuidHandler(ILogger<GetUserByGuidHandler> logger, IEmployeeRepository employeeRepository)
     {
         _logger = logger;
-        _userRepository = userRepository;
+        _employeeRepository = employeeRepository;
     }
 
     public override async Task<IActionResult> Handle(GetUserGuidRequest request, CancellationToken cancellationToken)
@@ -19,9 +19,9 @@ public sealed class GetUserByGuidHandler : HandlerBase<GetUserGuidRequest>
         {
             var guid = request.Guid;
 
-            var userDbEntity = await _userRepository.GetByGuidAsync(guid);
+            var employeeDbEntity = await _employeeRepository.GetByGuidAsync(guid);
 
-            return userDbEntity == null ? NotFoud("Not found user with guid") : Ok(userDbEntity.ToDto());
+            return employeeDbEntity == null ? NotFoud("Not found employee with guid") : Ok(employeeDbEntity.ToDto());
         }
         catch (Exception e)
         {
