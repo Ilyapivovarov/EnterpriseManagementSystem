@@ -25,7 +25,9 @@ public sealed class UpdateEmployeeInfoTests : TestBase
                 DateTime.Today));
         var result = await HttpClient.PutAsync("employee", GetStringContent(data));
 
+        await Task.Delay(1000);
+        
         Assert.IsTrue(result.IsSuccessStatusCode);
-        Assert.AreNotEqual(employeeBeforeUpdating.ToDto(), DefaultEmployee.ToDto());
+        Assert.AreNotEqual(employeeBeforeUpdating.ToDto(), DefaultEmployee);
     }
 }
