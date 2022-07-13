@@ -25,7 +25,6 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
                     FirstName = account.FirstName,
                     LastName = account.LastName,
                     IdentityGuid = account.Guid,
-                    Role = account.Role
                 };
 
                 await _userRepository.SaveUserDbEntityAsync(user);

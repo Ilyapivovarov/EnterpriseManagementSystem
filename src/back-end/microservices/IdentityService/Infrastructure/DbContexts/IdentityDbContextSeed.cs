@@ -30,7 +30,7 @@ public sealed class IdentityDbContextSeed
                 await context.SaveChangesAsync();
 
                 var @event = new SignUpUserIntegrationEvent(new Account(defaultUser.Guid, defaultUser.Email.Address,
-                    "Admin", "Admin", defaultUser.Role.Name));
+                    "Admin", "Admin"));
                 await bus.Publish(@event);
             }
         }

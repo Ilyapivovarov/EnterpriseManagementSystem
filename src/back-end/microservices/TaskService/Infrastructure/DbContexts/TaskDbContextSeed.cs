@@ -14,7 +14,6 @@ public static class TaskDbContextSeed
                     EmailAddress = "admin@admin.com",
                     FirstName = "Admin",
                     LastName = "Admin",
-                    Role = "Admin"
                 },
                 Description = "Test desc",
                 Name = "Test",

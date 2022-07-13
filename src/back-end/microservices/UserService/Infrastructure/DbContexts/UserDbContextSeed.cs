@@ -18,8 +18,7 @@ public class UserDbContextSeed
                     DateBrith = DateTime.Today,
                     IdentityGuid = Guid.NewGuid(),
                     FirstName = "Admin",
-                    LastName = "Admin",
-                    Role = "Admin"
+                    LastName = "Admin"
                 });
 
                 await userDbContext.SaveChangesAsync();

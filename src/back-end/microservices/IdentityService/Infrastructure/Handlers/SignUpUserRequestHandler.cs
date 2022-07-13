@@ -46,7 +46,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
 
             var @event = new SignUpUserIntegrationEvent(new Account(user.Guid, user.Email.Address, signUpDto.FirstName,
-                signUpDto.LastName, user.Role.Name));
+                signUpDto.LastName));
             await _bus.Publish(@event, cancellationToken);
 
             return new OkObjectResult(session.ToDto());

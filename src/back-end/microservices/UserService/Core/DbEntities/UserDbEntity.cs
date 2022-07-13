@@ -10,8 +10,6 @@ public class UserDbEntity : DbEntityBase
 
     public string EmailAddress { get; set; } = null!;
 
-    public string Role { get; set; } = null!;
-
     public DateTime? DateBrith { get; set; }
 
     public Guid IdentityGuid { get; set; }

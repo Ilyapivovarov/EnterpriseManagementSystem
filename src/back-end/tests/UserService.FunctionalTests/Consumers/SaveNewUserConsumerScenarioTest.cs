@@ -23,7 +23,7 @@ public sealed class SaveNewUserConsumerScenarioTest : TestBase
     public async Task SuccessScenarion()
     {
         var bus = Server.Services.GetRequiredService<IBus>();
-        var account = new Account(Guid.NewGuid(), "test@test.com", "Test", "Test", "Test");
+        var account = new Account(Guid.NewGuid(), "test@test.com", "Test", "Test");
         
         var @event = new SignUpUserIntegrationEvent(account);
         await bus.Publish(@event);

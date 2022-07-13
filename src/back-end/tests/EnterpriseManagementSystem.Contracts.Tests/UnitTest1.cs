@@ -19,12 +19,12 @@ public sealed class Tests
         var executorGuid = Guid.NewGuid();
 
         var data = new TaskInfo(taskGuid, "Update test name", "Update test desc", "Registred",
-            new Account(executorGuid, "admin", "admin", "admin", "Admin"),
-            Observers: new RecordsCollection<Account>(new Account(executorGuid, "admin", "admin", "admin", "Admin")));
+            new Account(executorGuid, "admin", "admin", "admin"),
+            Observers: new RecordsCollection<Account>(new Account(executorGuid, "admin", "admin", "admin")));
 
         var data2 = new TaskInfo(taskGuid, "Update test name", "Update test desc", "Registred",
-            new Account(executorGuid, "admin", "admin", "admin", "Admin"),
-            Observers: new RecordsCollection<Account>(new Account(executorGuid, "admin", "admin", "admin", "Admin")));
+            new Account(executorGuid, "admin", "admin", "admin"),
+            Observers: new RecordsCollection<Account>(new Account(executorGuid, "admin", "admin", "admin")));
 
 
         Assert.AreEqual(data, data2);
@@ -37,8 +37,8 @@ public sealed class Tests
         var executorGuid = Guid.NewGuid();
 
         var data = new TaskInfo(taskGuid, "Update test name", "Update test desc", "Registred",
-            new Account(executorGuid, "admin", "admin", "admin", "Admin"),
-            Observers: new RecordsCollection<Account>(new Account(executorGuid, "admin", "admin", "admin", "Admin")));
+            new Account(executorGuid, "admin", "admin", "admin"),
+            Observers: new RecordsCollection<Account>(new Account(executorGuid, "admin", "admin", "admin")));
 
 
         Assert.Pass(data.ToJson());

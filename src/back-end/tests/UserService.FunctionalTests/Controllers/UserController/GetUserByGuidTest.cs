@@ -20,7 +20,7 @@ public sealed class GetUserByGuidTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        var result = await HttpClient.GetAsync($"user/{DefaultUser.Guid}");
+        var result = await HttpClient.GetAsync($"user/{DefaultUser.IdentityGuid}");
 
         var content = await result.Content.ReadFromJsonAsync<Account>();
 
