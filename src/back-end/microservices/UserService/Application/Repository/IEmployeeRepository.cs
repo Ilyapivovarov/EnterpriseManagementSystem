@@ -14,11 +14,11 @@ public interface IEmployeeRepository
 
     #region Write methods
 
-    public Task<bool> Save(EmployeeDbEntity eployeeDbEntity);
+    public Task<bool> SaveAsync(EmployeeDbEntity eployeeDbEntity);
 
-    public Task<bool> Update(EmployeeDbEntity eployeeDbEntity);
+    public Task<bool> UpdateAsync(EmployeeDbEntity eployeeDbEntity);
 
-    public Task<bool> Delete(EmployeeDbEntity eployeeDbEntity);
+    public Task<bool> DeleteAsync(EmployeeDbEntity eployeeDbEntity);
 
     #endregion
 }

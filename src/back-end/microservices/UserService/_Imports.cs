@@ -14,3 +14,4 @@ global using UserService.Infrastructure.DbContexts;
 global using UserService.Infrastructure.Handlers.Base;
 global using UserService.Infrastructure.HostedServices;
 global using UserService.Infrastructure.Request;
+global using EnterpriseManagementSystem.Contracts.WebContracts.Request;
