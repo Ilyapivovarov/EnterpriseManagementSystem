@@ -20,7 +20,9 @@ public sealed class EmployeeRepository : RepositoryBase, IEmployeeRepository
 
     public async Task<EmployeeDbEntity[]?> GetEmployeesByRange(Range range)
     {
-        return await LoadDataAsync(db => db.Eployees.Skip(range.Start.Value).Take(range.End.Value)
+        return await LoadDataAsync(db => db.Eployees.OrderBy(x => x.User.EmailAddress)
+            .Skip(range.Start.Value)
+            .Take(range.End.Value)
             .ToArray());
     }
 
