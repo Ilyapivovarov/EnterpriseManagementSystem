@@ -18,6 +18,12 @@ public sealed class EmployeeRepository : RepositoryBase, IEmployeeRepository
         return await LoadDataAsync(db => db.Eployees.FirstOrDefault(x => x.Guid == guid));
     }
 
+    public async Task<EmployeeDbEntity[]?> GetEmployeesByRange(Range range)
+    {
+        return await LoadDataAsync(db => db.Eployees.Skip(range.Start.Value).Take(range.End.Value)
+            .ToArray());
+    }
+
     public async Task<bool> SaveAsync(EmployeeDbEntity employeeDbEntity)
     {
         throw new NotImplementedException();

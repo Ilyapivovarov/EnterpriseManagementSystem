@@ -14,7 +14,7 @@ public sealed class EmployeeController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetEmployeesByPage(int pageNumber)
     {
-        return await _mediator.Send(new GetUsersByPageRequest(pageNumber));
+        return await _mediator.Send(new GetEmployeesByPageRequest(pageNumber));
     }
 
 

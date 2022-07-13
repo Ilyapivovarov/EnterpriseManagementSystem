@@ -1,8 +1,8 @@
 namespace UserService.Infrastructure.Request;
 
-public sealed class GetUsersByPageRequest : IRequest<IActionResult>
+public sealed class GetEmployeesByPageRequest : IRequest<IActionResult>
 {
-    public GetUsersByPageRequest(int pageNumber)
+    public GetEmployeesByPageRequest(int pageNumber)
     {
         PageNumber = pageNumber;
     }

@@ -3,7 +3,7 @@ namespace UserService.Infrastructure.Handlers.Base;
 public abstract class HandlerBase<TRequest> : IRequestHandler<TRequest, IActionResult>
     where TRequest : IRequest<IActionResult>
 {
-    protected IActionResult Ok(object obj)
+    protected IActionResult Ok(object? obj)
     {
         return new OkObjectResult(obj);
     }

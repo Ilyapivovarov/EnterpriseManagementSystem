@@ -15,7 +15,6 @@ public abstract class RepositoryBase
 
     protected async Task<T?> LoadDataAsync<T>(Func<IUserDbContext, T?> loadFunc,
         CancellationToken cancellationToken = default)
-        where T : DbEntityBase
     {
         try
         {
@@ -27,21 +26,7 @@ public abstract class RepositoryBase
             return default;
         }
     }
-
-    protected async Task<ICollection<T>> LoadDataAsync<T>(Func<IUserDbContext, ICollection<T>> loadFunc)
-        where T : DbEntityBase
-    {
-        try
-        {
-            return await Task.Run(() => loadFunc(_userDbContext));
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e.Message);
-            return ArraySegment<T>.Empty;
-        }
-    }
-
+    
     protected async Task<bool> WriteDataAsync(Action<IUserDbContext> writeAction)
     {
         try

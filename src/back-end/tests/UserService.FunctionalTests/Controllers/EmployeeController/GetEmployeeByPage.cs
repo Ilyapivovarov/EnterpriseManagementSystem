@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using EnterpriseManagementSystem.Contracts.WebContracts;
+using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 using NUnit.Framework;
 using UserService.FunctionalTests.Base;
 using UserService.Infrastructure.Mapper;
@@ -22,7 +22,7 @@ public sealed class GetEmployeeByPage : TestBase
     {
         var requestReuslt = await HttpClient.GetAsync("employee?pageNumber=1");
 
-        var content = await requestReuslt.Content.ReadFromJsonAsync<ICollection<Account>>();
+        var content = await requestReuslt.Content.ReadFromJsonAsync<ICollection<EmployeeDataResponse>>();
 
         Assert.AreEqual(content?.First(), DefaultEmployee.ToDto());
     }
@@ -30,9 +30,9 @@ public sealed class GetEmployeeByPage : TestBase
     [Test]
     public async Task GetSecondPage()
     {
-        var requestReuslt = await HttpClient.GetAsync("user?pageNumber=2");
+        var requestReuslt = await HttpClient.GetAsync("employee?pageNumber=2");
 
-        var content = await requestReuslt.Content.ReadFromJsonAsync<ICollection<Account>>();
+        var content = await requestReuslt.Content.ReadFromJsonAsync<ICollection<EmployeeDataResponse>?>();
 
         Assert.IsTrue(content?.Count == 0);
     }
