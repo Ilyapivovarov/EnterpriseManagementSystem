@@ -7,9 +7,9 @@ using NUnit.Framework;
 using UserService.FunctionalTests.Base;
 using UserService.Infrastructure.Mapper;
 
-namespace UserService.FunctionalTests.Controllers.UserController;
+namespace UserService.FunctionalTests.Controllers.EmployeeController;
 
-public sealed class GetUserByGuidTest : TestBase
+public sealed class GetEmployeeByGuidTest : TestBase
 {
     [SetUp]
     public void Setup()
@@ -20,11 +20,11 @@ public sealed class GetUserByGuidTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        var result = await HttpClient.GetAsync($"user/{DefaultUser.IdentityGuid}");
+        var result = await HttpClient.GetAsync($"employee/{DefaultEmployee.Guid}");
 
         var content = await result.Content.ReadFromJsonAsync<Account>();
 
-        Assert.AreEqual(content, DefaultUser.ToDto());
+        Assert.AreEqual(content, DefaultEmployee.User.ToDto());
     }
 
     [Test]

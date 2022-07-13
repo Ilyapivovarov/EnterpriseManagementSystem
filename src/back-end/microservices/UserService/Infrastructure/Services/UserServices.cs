@@ -1,5 +1,3 @@
-using UserService.Core.DbEntities;
-
 namespace UserService.Infrastructure.Services;
 
 public sealed class UserService : IUserService

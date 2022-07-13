@@ -28,13 +28,12 @@ public abstract class RepositoryBase
         }
     }
 
-    protected async Task<ICollection<T>> LoadDataAsync<T>(Func<IUserDbContext, ICollection<T>> loadFunc,
-        CancellationToken cancellationToken = default)
+    protected async Task<ICollection<T>> LoadDataAsync<T>(Func<IUserDbContext, ICollection<T>> loadFunc)
         where T : DbEntityBase
     {
         try
         {
-            return await Task.Run(() => loadFunc(_userDbContext), cancellationToken);
+            return await Task.Run(() => loadFunc(_userDbContext));
         }
         catch (Exception e)
         {
@@ -43,13 +42,12 @@ public abstract class RepositoryBase
         }
     }
 
-    protected async Task<bool> WriteDataAsync(Action<IUserDbContext> writeAction,
-        CancellationToken cancellationToken = default)
+    protected async Task<bool> WriteDataAsync(Action<IUserDbContext> writeAction)
     {
         try
         {
             writeAction(_userDbContext);
-            await _userDbContext.SaveChangesAsync(cancellationToken);
+            await _userDbContext.SaveChangesAsync();
             
             return true;
         }

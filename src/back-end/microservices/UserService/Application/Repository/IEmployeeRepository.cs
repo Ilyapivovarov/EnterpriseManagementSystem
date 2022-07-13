@@ -1,5 +1,3 @@
-using UserService.Core.DbEntities;
-
 namespace UserService.Application.Repository;
 
 public interface IEmployeeRepository
@@ -14,11 +12,11 @@ public interface IEmployeeRepository
 
     #region Write methods
 
-    public Task<bool> SaveAsync(EmployeeDbEntity eployeeDbEntity);
+    public Task<bool> SaveAsync(EmployeeDbEntity employeeDbEntity);
 
-    public Task<bool> UpdateAsync(EmployeeDbEntity eployeeDbEntity);
+    public Task<bool> UpdateAsync(EmployeeDbEntity employeeDbEntity);
 
-    public Task<bool> DeleteAsync(EmployeeDbEntity eployeeDbEntity);
+    public Task<bool> DeleteAsync(EmployeeDbEntity employeeDbEntity);
 
     #endregion
 }

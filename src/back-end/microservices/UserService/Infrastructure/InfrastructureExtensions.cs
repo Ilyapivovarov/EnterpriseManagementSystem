@@ -1,7 +1,3 @@
-using EnterpriseManagementSystem.JwtAuthorization;
-using UserService.Infrastructure.Consumers;
-using UserService.Infrastructure.Repository;
-
 namespace UserService.Infrastructure;
 
 public static class InfrastructureExtensions
@@ -61,6 +57,7 @@ public static class InfrastructureExtensions
         #region Register repositories
 
         services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 
         #endregion
 

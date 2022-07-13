@@ -1,4 +1,3 @@
-using UserService.Core.DbEntities;
 using UserService.Infrastructure.Repository.Base;
 
 namespace UserService.Infrastructure.Repository;

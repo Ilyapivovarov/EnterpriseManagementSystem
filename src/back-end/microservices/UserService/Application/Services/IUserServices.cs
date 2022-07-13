@@ -1,5 +1,3 @@
-using UserService.Core.DbEntities;
-
 namespace UserService.Application.Services;
 
 public interface IUserService

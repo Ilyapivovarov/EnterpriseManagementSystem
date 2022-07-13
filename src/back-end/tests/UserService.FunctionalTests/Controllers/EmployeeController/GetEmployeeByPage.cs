@@ -7,9 +7,9 @@ using NUnit.Framework;
 using UserService.FunctionalTests.Base;
 using UserService.Infrastructure.Mapper;
 
-namespace UserService.FunctionalTests.Controllers.UserController;
+namespace UserService.FunctionalTests.Controllers.EmployeeController;
 
-public sealed class GetUsersByPage : TestBase
+public sealed class GetEmployeeByPage : TestBase
 {
     [SetUp]
     public void Setup()
@@ -20,11 +20,11 @@ public sealed class GetUsersByPage : TestBase
     [Test]
     public async Task GetFirstPage()
     {
-        var requestReuslt = await HttpClient.GetAsync("user?pageNumber=1");
+        var requestReuslt = await HttpClient.GetAsync("employee?pageNumber=1");
 
         var content = await requestReuslt.Content.ReadFromJsonAsync<ICollection<Account>>();
 
-        Assert.AreEqual(content?.First(), DefaultUser.ToDto());
+        Assert.AreEqual(content?.First(), DefaultEmployee.ToDto());
     }
 
     [Test]

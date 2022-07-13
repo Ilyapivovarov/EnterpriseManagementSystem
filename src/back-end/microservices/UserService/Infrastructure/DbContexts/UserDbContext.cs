@@ -1,5 +1,3 @@
-using UserService.Core.DbEntities;
-
 namespace UserService.Infrastructure.DbContexts;
 
 public sealed class UserDbContext : DbContext, IUserDbContext

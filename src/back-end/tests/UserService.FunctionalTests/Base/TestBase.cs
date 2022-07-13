@@ -35,7 +35,7 @@ public abstract class TestBase
 
     protected IUserDbContext UserDbContext => Server.Services.GetRequiredService<IUserDbContext>();
 
-    protected UserDbEntity DefaultUser => UserDbContext.Users.First();
+    protected EmployeeDbEntity DefaultEmployee => UserDbContext.Eployees.First();
 
     protected string? AccessToken { get; private set; }
 
@@ -45,7 +45,7 @@ public abstract class TestBase
     {
         Server = CreateTestServer();
         HttpClient = Server.CreateClient();
-        AccessToken = GenerateAccessToken(DefaultUser);
+        AccessToken = GenerateAccessToken(DefaultEmployee.User);
         HttpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
     }

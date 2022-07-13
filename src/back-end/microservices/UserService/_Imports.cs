@@ -1,5 +1,6 @@
 // Global using directives
 
+global using AutoMapper;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
 global using MassTransit;
 global using MediatR;
@@ -15,3 +16,8 @@ global using UserService.Infrastructure.Handlers.Base;
 global using UserService.Infrastructure.HostedServices;
 global using UserService.Infrastructure.Request;
 global using EnterpriseManagementSystem.Contracts.WebContracts.Request;
+global using EnterpriseManagementSystem.Contracts.WebContracts.Response;
+global using EnterpriseManagementSystem.JwtAuthorization;
+global using UserService.Core.DbEntities;
+global using UserService.Infrastructure.Consumers;
+global using UserService.Infrastructure.Repository;

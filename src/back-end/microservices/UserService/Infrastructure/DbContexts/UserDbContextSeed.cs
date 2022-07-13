@@ -1,5 +1,3 @@
-using UserService.Core.DbEntities;
-
 namespace UserService.Infrastructure.DbContexts;
 
 public class UserDbContextSeed
@@ -10,15 +8,17 @@ public class UserDbContextSeed
         try
         {
             var userDbContext = services.GetRequiredService<IUserDbContext>();
-            if (!userDbContext.Users.Any())
+            if (!userDbContext.Eployees.Any())
             {
-                userDbContext.Users.Add(new UserDbEntity
+                userDbContext.Eployees.Add(new EmployeeDbEntity
                 {
-                    EmailAddress = "admin@admin.com",
-                    DateBrith = DateTime.Today,
-                    IdentityGuid = Guid.NewGuid(),
-                    FirstName = "Admin",
-                    LastName = "Admin"
+                    User = new UserDbEntity
+                    {
+                        EmailAddress = "admin@admin.com",
+                        IdentityGuid = Guid.NewGuid(),
+                        FirstName = "Admin",
+                        LastName = "Admin"
+                    }
                 });
 
                 await userDbContext.SaveChangesAsync();

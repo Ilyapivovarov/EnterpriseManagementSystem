@@ -1,5 +1,3 @@
-using UserService.Core.DbEntities;
-
 namespace UserService.Application.Repository;
 
 public interface IPositionRepository
