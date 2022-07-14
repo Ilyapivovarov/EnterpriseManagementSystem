@@ -2,8 +2,23 @@ namespace IdentityService.Infrastructure.Services;
 
 public sealed class SecurityService : ISecurityService
 {
-    public string EncryptPassword(string password)
+    private readonly ILogger<SecurityService> _logger;
+
+    public SecurityService(ILogger<SecurityService> logger)
     {
-        return password;
+        _logger = logger;
+    }
+
+    public string EncryptPasswordOrException(string password)
+    {
+        try
+        {
+            return password;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            throw;
+        }
     }
 }

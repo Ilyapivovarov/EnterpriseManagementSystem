@@ -34,8 +34,7 @@ public sealed class UserService : IUserService
     {
         try
         {
-            userDbEntity.Password = _securityService.EncryptPassword(newPassword);
-
+            userDbEntity.Password = _securityService.EncryptPasswordOrException(newPassword);
             return new ServiceActionResult<UserDbEntity>(userDbEntity);
         }
         catch (Exception e)

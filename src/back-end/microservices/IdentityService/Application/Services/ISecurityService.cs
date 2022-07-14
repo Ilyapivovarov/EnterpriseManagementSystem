@@ -7,5 +7,5 @@ public interface ISecurityService
     /// </summary>
     /// <param name="password"></param>
     /// <returns></returns>
-    public string EncryptPassword(string password);
+    public string EncryptPasswordOrException(string password);
 }
