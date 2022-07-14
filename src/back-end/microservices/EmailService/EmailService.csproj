@@ -4,16 +4,21 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>d057baf7-4394-45c4-9537-0e6f5c0911de</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerfileContext>..\..\..\..</DockerfileContext>
+        <DockerComposeProjectPath>..\..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="11.0.1"/>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
-        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.3"/>
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.5"/>
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.6"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.7"/>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.16.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.2"/>
     </ItemGroup>
 
     <ItemGroup>

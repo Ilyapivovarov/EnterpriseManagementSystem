@@ -31,7 +31,7 @@ public static class InfrastructureExtensions
             else
                 configurator.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
+                    cfg.Host(configuration.GetConnectionString("RabbitMq"), 5672, "/", h =>
                     {
                         h.Username("guest");
                         h.Password("guest");

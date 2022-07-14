@@ -11,6 +11,7 @@ public static class TaskDbContextSeed
             {
                 Author = new UserDbEntity
                 {
+                    IdentityGuid = Guid.NewGuid(),
                     EmailAddress = "admin@admin.com",
                     FirstName = "Admin",
                     LastName = "Admin",

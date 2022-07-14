@@ -47,6 +47,16 @@ services:
     environment:
       ME_CONFIG_MONGODB_URL: mongodb://10.20.10.7:27017/
   
+  react-app:
+    build:
+      context: src/front-end/react-client-app
+      dockerfile: Dockerfile
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.200
+    ports:
+      - "3001:80"
+  
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway
     build:
@@ -56,10 +66,13 @@ services:
       - "8080:80"
     depends_on:
       - identityservice
+      - emailservice
+      - userservice
+      - taskservice
     networks:
       emsnetwork:
         ipv4_address: 10.20.10.100
-
+  
   identityservice:
     image: ${DOCKER_REGISTRY-}identityservice
     build:
@@ -71,13 +84,39 @@ services:
     networks:
       emsnetwork:
         ipv4_address: 10.20.10.101
-  
-  react-app:
+
+  emailservice:
+    image: ${DOCKER_REGISTRY-}emailservice
     build:
-      context: src/front-end/react-client-app
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/back-end/microservices/EmailService/Dockerfile
+    depends_on:
+      - db
+      - rabbitmq
     networks:
       emsnetwork:
-        ipv4_address: 10.20.10.200
-    ports:
-      - "3001:80"
+        ipv4_address: 10.20.10.102
+
+  taskservice:
+    image: ${DOCKER_REGISTRY-}taskservice
+    build:
+      context: .
+      dockerfile: src/back-end/microservices/TaskService/Dockerfile
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.103
+  
+  userservice:
+    image: ${DOCKER_REGISTRY-}userservice
+    build:
+      context: .
+      dockerfile: src/back-end/microservices/UserService/Dockerfile
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.104

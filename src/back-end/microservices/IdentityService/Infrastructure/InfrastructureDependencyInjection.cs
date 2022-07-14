@@ -57,7 +57,7 @@ public static class InfrastructureDependencyInjection
             else
                 configurator.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host("localhost", "/", h =>
+                    cfg.Host(configuration.GetConnectionString("RabbitMq"), 5672, "/", h =>
                     {
                         h.Username("guest");
                         h.Password("guest");

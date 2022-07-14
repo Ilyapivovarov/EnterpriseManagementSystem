@@ -27,7 +27,7 @@ public static class InfrastructureDependencyInjection
             configurator.AddConsumer<EmailForNewUserConsumer>();
             configurator.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host("localhost", "/", h =>
+                cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
                 {
                     h.Username("guest");
                     h.Password("guest");

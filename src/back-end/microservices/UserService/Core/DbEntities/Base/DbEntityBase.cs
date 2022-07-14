@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UserService.Core.DbEntities.Base;
 
@@ -9,12 +8,11 @@ public abstract class DbEntityBase
     [Key]
     public int Id { get; protected set; }
 
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Guid { get; protected set; } = Guid.NewGuid();
 
     public DateTime Created { get; set; }
 
     public DateTime Updated { get; set; }
 
-    public bool IsDeleted { get; set; } = false;
+    public bool IsDeleted { get; set; }
 }
