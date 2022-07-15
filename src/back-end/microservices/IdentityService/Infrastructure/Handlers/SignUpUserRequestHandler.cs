@@ -1,5 +1,3 @@
-using EnterpriseManagementSystem.Contracts.WebContracts.Response;
-
 namespace IdentityService.Infrastructure.Handlers;
 
 public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IActionResult>

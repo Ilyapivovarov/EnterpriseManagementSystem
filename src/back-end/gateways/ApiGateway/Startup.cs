@@ -39,8 +39,7 @@ public sealed class Startup
         app.UseCors(x => x
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .SetIsOriginAllowed(s => true)
-            .AllowCredentials());
+            .SetIsOriginAllowed(s => true));
 
         app.UseAuthentication();
         app.UseAuthorization();

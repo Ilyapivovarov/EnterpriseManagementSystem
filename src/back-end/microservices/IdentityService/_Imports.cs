@@ -2,6 +2,7 @@ global using AutoMapper;
 global using EnterpriseManagementSystem.Contracts;
 global using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
+global using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 global using EnterpriseManagementSystem.JwtAuthorization;
 global using IdentityService;
 global using IdentityService.Application;

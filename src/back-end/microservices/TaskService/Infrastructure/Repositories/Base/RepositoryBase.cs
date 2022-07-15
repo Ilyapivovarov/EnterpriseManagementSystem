@@ -30,7 +30,7 @@ public abstract class RepositoryBase
     {
         try
         {
-            await Task.Run(() => writeAction(_taskDbContext), cancellationToken);
+            writeAction(_taskDbContext);
             await _taskDbContext.SaveChagesAsync(cancellationToken);
 
             return true;

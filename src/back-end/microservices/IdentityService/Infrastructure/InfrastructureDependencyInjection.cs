@@ -52,12 +52,13 @@ public static class InfrastructureDependencyInjection
 
         services.AddMassTransit(configurator =>
         {
+
             if (environment.IsEnvironment("Testing"))
                 configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
             else
                 configurator.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host(configuration.GetConnectionString("RabbitMq"), 5672, "/", h =>
+                    cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
                     {
                         h.Username("guest");
                         h.Password("guest");

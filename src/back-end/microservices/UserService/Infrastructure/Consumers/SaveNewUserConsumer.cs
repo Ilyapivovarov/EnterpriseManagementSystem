@@ -32,8 +32,11 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
                     FirstName = userDataResponse.FirstName,
                     IdentityGuid = userDataResponse.IdentityGuid,
                     LastName = userDataResponse.LastName
+                },
+                Position = new PositionDbEntity
+                {
+                    Name = "CEO"
                 }
-
             });
         }
         catch (Exception e)

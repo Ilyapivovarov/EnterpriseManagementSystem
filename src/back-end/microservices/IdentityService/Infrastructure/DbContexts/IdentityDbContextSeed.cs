@@ -1,5 +1,3 @@
-using EnterpriseManagementSystem.Contracts.WebContracts.Response;
-
 namespace IdentityService.Infrastructure.DbContexts;
 
 public sealed class IdentityDbContextSeed
@@ -10,7 +8,6 @@ public sealed class IdentityDbContextSeed
         try
         {
             var context = services.GetRequiredService<IIdentityDbContext>();
-            var bus = services.GetRequiredService<IBus>();
             if (!context.Users.Any())
             {
                 var defaultUser = new UserDbEntity
@@ -33,7 +30,10 @@ public sealed class IdentityDbContextSeed
 
                 var @event = new SignUpUserIntegrationEvent(new UserDataResponse(defaultUser.Guid, "Admin", "Admin",
                     defaultUser.Email.Address, DateTime.Now));
+
+                var bus = services.GetRequiredService<IBus>();
                 await bus.Publish(@event);
+                logger.LogInformation("Send succcess");
             }
         }
         catch (Exception ex)
