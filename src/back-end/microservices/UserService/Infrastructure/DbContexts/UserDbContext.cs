@@ -15,7 +15,7 @@ public sealed class UserDbContext : DbContext, IUserDbContext
 
     public DbSet<EmployeeDbEntity> Eployees => Set<EmployeeDbEntity>();
 
-    public DbSet<PositionDbEntity> Position => Set<PositionDbEntity>();
+    public DbSet<PositionDbEntity> Positions => Set<PositionDbEntity>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

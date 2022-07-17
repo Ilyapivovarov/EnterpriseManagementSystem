@@ -30,14 +30,16 @@ public abstract class TestBase
         _jsonSerializerOptions = new JsonSerializerOptions
             {PropertyNameCaseInsensitive = true};
     }
+
+    protected abstract string UseEnvironment { get; } 
     
     protected TestServer Server { get; set; } = null!;
 
-    protected IUserDbContext UserDbContext => Server.Services.GetRequiredService<IUserDbContext>();
+    protected IServiceScope ServiceScope => Server.Services.CreateScope();
+
+    protected IUserDbContext UserDbContext => ServiceScope.ServiceProvider.GetRequiredService<IUserDbContext>();
 
     protected EmployeeDbEntity DefaultEmployee => UserDbContext.Eployees.First();
-
-    protected string? AccessToken { get; private set; }
 
     protected HttpClient HttpClient { get; private set; } = null!;
 
@@ -45,9 +47,9 @@ public abstract class TestBase
     {
         Server = CreateTestServer();
         HttpClient = Server.CreateClient();
-        AccessToken = GenerateAccessToken(DefaultEmployee.User);
+        var accessToken = GenerateAccessToken(DefaultEmployee.UserDbEntity);
         HttpClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, AccessToken);
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken);
     }
 
     protected StringContent GetStringContent(object obj)
@@ -79,12 +81,12 @@ public abstract class TestBase
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-    
-    private static TestServer CreateTestServer()
+
+    private TestServer CreateTestServer()
     {
         var hostBuilder = WebHost.CreateDefaultBuilder()
             .UseStartup<Startup>()
-            .UseEnvironment("Testing");
+            .UseEnvironment(UseEnvironment);
 
         return new TestServer(hostBuilder);
     }

@@ -23,20 +23,13 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
         {
             var userDataResponse = context.Message.UserDataResponse;
 
-            await _employeeRepository.SaveAsync(new EmployeeDbEntity
+            await _userRepository.SaveAsync(new UserDbEntity
             {
-                User = new UserDbEntity
-                {
-                    DateBrith = userDataResponse.DataBrith,
-                    EmailAddress = userDataResponse.EmailAddress,
-                    FirstName = userDataResponse.FirstName,
-                    IdentityGuid = userDataResponse.IdentityGuid,
-                    LastName = userDataResponse.LastName
-                },
-                Position = new PositionDbEntity
-                {
-                    Name = "CEO"
-                }
+                DateBrith = userDataResponse.DataBrith,
+                EmailAddress = userDataResponse.EmailAddress,
+                FirstName = userDataResponse.FirstName,
+                IdentityGuid = userDataResponse.IdentityGuid,
+                LastName = userDataResponse.LastName
             });
         }
         catch (Exception e)

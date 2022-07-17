@@ -27,7 +27,7 @@ public sealed class UpdateEmployeeRequestHandler : HandlerBase<UpdateEmployeeMed
             if (employeeDbEntity == null)
                 return NotFoud("Not found employee");
 
-            _userService.UpdateUserInfo(employeeDbEntity.User, employeeRequest.UserData?.FirstName,
+            _userService.UpdateUserInfo(employeeDbEntity.UserDbEntity, employeeRequest.UserData?.FirstName,
                 employeeRequest.UserData?.LastName);
 
             var saveResult = await _employeeRepository.UpdateAsync(employeeDbEntity);

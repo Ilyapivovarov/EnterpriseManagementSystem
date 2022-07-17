@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using UserService.Core.DbEntities.Base;
 
 namespace UserService.Core.DbEntities;
 
+[Table("Users")]
 public class UserDbEntity : DbEntityBase
 {
     public string FirstName { get; set; } = null!;

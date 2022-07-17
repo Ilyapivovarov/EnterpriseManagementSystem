@@ -11,6 +11,8 @@ namespace UserService.FunctionalTests.Controllers.EmployeeController;
 
 public sealed class GetEmployeeByPage : TestBase
 {
+    protected override string UseEnvironment => "Testing";
+    
     [SetUp]
     public void Setup()
     {

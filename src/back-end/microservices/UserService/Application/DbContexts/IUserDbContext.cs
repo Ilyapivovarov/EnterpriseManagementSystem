@@ -6,7 +6,7 @@ public interface IUserDbContext
 
     public DbSet<EmployeeDbEntity> Eployees { get; }
 
-    public DbSet<PositionDbEntity> Position { get; }
+    public DbSet<PositionDbEntity> Positions { get; }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 

@@ -12,7 +12,7 @@ public class UserDbContextSeed
             {
                 userDbContext.Eployees.Add(new EmployeeDbEntity
                 {
-                    User = new UserDbEntity
+                    UserDbEntity = new UserDbEntity
                     {
                         EmailAddress = "admin@admin.com",
                         IdentityGuid = Guid.NewGuid(),

@@ -9,6 +9,8 @@ namespace UserService.FunctionalTests.Controllers.EmployeeController;
 
 public sealed class UpdateEmployeeInfoTests : TestBase
 {
+    protected override string UseEnvironment => "Testing";
+    
     [SetUp]
     public void Setup()
     {
@@ -21,7 +23,7 @@ public sealed class UpdateEmployeeInfoTests : TestBase
         var employeeBeforeUpdating = DefaultEmployee;
 
         var data = new UpdateEmployeeRequest(employeeBeforeUpdating.Guid,
-            new UserDataReqeust(employeeBeforeUpdating.User.IdentityGuid, "UpdateName", "UpdateLastName",
+            new UserDataReqeust(employeeBeforeUpdating.UserDbEntity.IdentityGuid, "UpdateName", "UpdateLastName",
                 DateTime.Today));
         var result = await HttpClient.PutAsync("employee", GetStringContent(data));
 

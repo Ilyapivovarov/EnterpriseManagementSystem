@@ -6,6 +6,7 @@ using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using UserService.Application.DbContexts;
 using UserService.FunctionalTests.Base;
 using UserService.Infrastructure.Mapper;
 
@@ -13,6 +14,8 @@ namespace UserService.FunctionalTests.Consumers;
 
 public sealed class SaveNewUserConsumerScenarioTest : TestBase
 {
+    protected override string UseEnvironment => "Development";
+    
     [SetUp]
     public void Setup()
     {
@@ -22,7 +25,8 @@ public sealed class SaveNewUserConsumerScenarioTest : TestBase
     [Test]
     public async Task SuccessScenarion()
     {
-        var bus = Server.Services.GetRequiredService<IBus>();
+        using var services = ServiceScope;
+        var bus = services.ServiceProvider.GetRequiredService<IBus>();
         var userData = new UserDataResponse(Guid.NewGuid(), "Test", "Test", "Test@address.com", DateTime.Today);
 
         var @event = new SignUpUserIntegrationEvent(userData);
@@ -30,7 +34,9 @@ public sealed class SaveNewUserConsumerScenarioTest : TestBase
 
         await Task.Delay(2000);
 
-        Assert.AreEqual(userData, UserDbContext.Users.Last().ToDto());
+        var userDbContext = ServiceScope.ServiceProvider.GetRequiredService<IUserDbContext>();
+        Assert.AreEqual(userData, userDbContext.Users.OrderBy(x => x.Created).Last().ToDto());
+
 
     }
 }
