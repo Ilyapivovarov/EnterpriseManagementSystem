@@ -31,8 +31,8 @@ public abstract class TestBase
             {PropertyNameCaseInsensitive = true};
     }
 
-    protected abstract string UseEnvironment { get; } 
-    
+    protected abstract string UseEnvironment { get; }
+
     protected TestServer Server { get; set; } = null!;
 
     protected IServiceScope ServiceScope => Server.Services.CreateScope();

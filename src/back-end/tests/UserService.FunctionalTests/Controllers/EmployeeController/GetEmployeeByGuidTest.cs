@@ -26,6 +26,7 @@ public sealed class GetEmployeeByGuidTest : TestBase
 
         var content = await result.Content.ReadFromJsonAsync<EmployeeDataResponse>();
 
+        Assert.IsNotNull(content);
         Assert.AreEqual(content, DefaultEmployee.ToDto());
     }
 
