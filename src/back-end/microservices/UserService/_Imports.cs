@@ -18,5 +18,6 @@ global using EnterpriseManagementSystem.Contracts.WebContracts.Request;
 global using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 global using EnterpriseManagementSystem.JwtAuthorization;
 global using UserService.Core.DbEntities;
+global using UserService.Core.DbEntities.Base;
 global using UserService.Infrastructure.Consumers;
 global using UserService.Infrastructure.Repository;

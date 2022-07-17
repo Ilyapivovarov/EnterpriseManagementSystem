@@ -1,5 +1,3 @@
-using UserService.Core.DbEntities.Base;
-
 namespace UserService.Infrastructure.DbContexts;
 
 public sealed class UserDbContext : DbContext, IUserDbContext
@@ -19,7 +17,9 @@ public sealed class UserDbContext : DbContext, IUserDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<DbEntityBase>().HasQueryFilter(entity => !entity.IsDeleted);
+        modelBuilder.Entity<UserDbEntity>().HasQueryFilter(entity => !entity.IsDeleted);
+        modelBuilder.Entity<EmployeeDbEntity>().HasQueryFilter(entity => !entity.IsDeleted);
+        modelBuilder.Entity<PositionDbEntity>().HasQueryFilter(entity => !entity.IsDeleted);
         base.OnModelCreating(modelBuilder);
     }
 

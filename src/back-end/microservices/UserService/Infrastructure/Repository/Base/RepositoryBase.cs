@@ -1,5 +1,3 @@
-using UserService.Core.DbEntities.Base;
-
 namespace UserService.Infrastructure.Repository.Base;
 
 public abstract class RepositoryBase
