@@ -9,8 +9,6 @@ namespace UserService.FunctionalTests.Controllers.EmployeeController;
 
 public sealed class UpdateEmployeeInfoTests : TestBase
 {
-    protected override string UseEnvironment => "Testing";
-    
     [SetUp]
     public void Setup()
     {

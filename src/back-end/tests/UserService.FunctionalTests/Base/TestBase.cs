@@ -31,7 +31,7 @@ public abstract class TestBase
             {PropertyNameCaseInsensitive = true};
     }
 
-    protected abstract string UseEnvironment { get; }
+    protected virtual string UseEnvironment => "Testing";
 
     protected TestServer Server { get; set; } = null!;
 

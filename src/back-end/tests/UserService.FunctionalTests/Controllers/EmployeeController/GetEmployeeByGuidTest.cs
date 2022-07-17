@@ -11,8 +11,6 @@ namespace UserService.FunctionalTests.Controllers.EmployeeController;
 
 public sealed class GetEmployeeByGuidTest : TestBase
 {
-    protected override string UseEnvironment => "Testing";
-    
     [SetUp]
     public void Setup()
     {
