@@ -9,7 +9,7 @@ public abstract class DbEntityBase
     [Key]
     public int Id { get; protected set; }
 
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public Guid Guid { get; protected set; } = Guid.NewGuid();
 
     public DateTime Created { get; set; }
