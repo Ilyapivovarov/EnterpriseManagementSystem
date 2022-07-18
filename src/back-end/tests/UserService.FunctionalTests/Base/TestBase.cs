@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NUnit.Framework;
 using UserService.Application.DbContexts;
 using UserService.Core.DbEntities;
 
@@ -42,6 +43,13 @@ public abstract class TestBase
     protected EmployeeDbEntity DefaultEmployee => UserDbContext.Eployees.First();
 
     protected HttpClient HttpClient { get; private set; } = null!;
+
+    [OneTimeTearDown]
+    public void OneTimeTearDown()
+    {
+        ServiceScope.Dispose();
+        Server.Dispose();
+    }
 
     protected void RefreshServer()
     {
