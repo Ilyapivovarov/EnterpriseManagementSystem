@@ -24,6 +24,21 @@ public sealed class UnitTests
         var encyptPassword = securityService.EncryptPasswordOrException(password);
 
         Assert.AreNotEqual(password, encyptPassword);
+        Assert.Pass(encyptPassword);
+    }
+
+    [Test]
+    public void EqualEncryptPasswordsTest()
+    {
+        var securityService = new SecurityService(Logger);
+
+        const string password = "12345";
+        var encyptPassword = securityService.EncryptPasswordOrException(password);
+
+        var encyptPassword2 = securityService.EncryptPasswordOrException(password);
+
+        Assert.AreEqual(encyptPassword, encyptPassword2);
+        Assert.Pass(encyptPassword);
 
     }
 }

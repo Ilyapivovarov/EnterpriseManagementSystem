@@ -4,16 +4,18 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
 {
     private readonly ILogger<SignInUserRequestHandler> _logger;
     private readonly ISessionService _sessionBlService;
+    private readonly ISecurityService _securityService;
     private readonly ISessionRepository _sessionRepository;
     private readonly IUserRepository _userRepository;
 
     public SignInUserRequestHandler(ILogger<SignInUserRequestHandler> logger, IUserRepository userRepository,
-        ISessionRepository sessionRepository, ISessionService sessionBlService)
+        ISessionRepository sessionRepository, ISessionService sessionBlService, ISecurityService securityService)
     {
         _logger = logger;
         _userRepository = userRepository;
         _sessionRepository = sessionRepository;
         _sessionBlService = sessionBlService;
+        _securityService = securityService;
     }
 
     public async Task<IActionResult> Handle(SignInRequest signInRequest, CancellationToken cancellationToken)
@@ -22,7 +24,8 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
         {
             var signInDto = signInRequest.SignIn;
 
-            var user = await _userRepository.GetUserByEmailAndPasswordAsync(signInDto.Email, signInDto.Password);
+            var hashPassword = _securityService.EncryptPasswordOrException(signInDto.Password);
+            var user = await _userRepository.GetUserByEmailAndPasswordAsync(signInDto.Email, hashPassword);
             if (user == null)
                 return new NotFoundObjectResult("Incrrect email or password");
 

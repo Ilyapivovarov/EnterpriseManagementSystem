@@ -14,7 +14,7 @@ namespace UserService.FunctionalTests.Consumers;
 
 public sealed class SaveNewUserConsumerScenarioTest : TestBase
 {
-    protected override string UseEnvironment => "Development";
+    // protected override string UseEnvironment => "Development";
     
     [SetUp]
     public void Setup()

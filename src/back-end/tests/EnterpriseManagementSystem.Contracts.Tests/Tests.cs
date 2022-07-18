@@ -13,7 +13,7 @@ public sealed class Tests
     { }
 
     [Test]
-    public void Test1()
+    public void DtoEqulsTest()
     {
         var taskGuid = Guid.NewGuid();
         var executorGuid = Guid.NewGuid();
@@ -31,7 +31,7 @@ public sealed class Tests
     }
 
     [Test]
-    public void Test2()
+    public void SerializationTest()
     {
         var taskGuid = Guid.NewGuid();
         var executorGuid = Guid.NewGuid();
