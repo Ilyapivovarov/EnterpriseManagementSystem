@@ -37,16 +37,15 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
             if (userWithSameEmail != null)
                 return new BadRequestObjectResult("This email already exist");
 
-            var encryptPassword = _securityService.EncryptPasswordOrException(password);
-            var user = _userBlService.Create(email, encryptPassword);
+            var user = _userBlService.Create(email, password);
             if (!await _userRepository.SaveUserAsync(user))
                 return new BadRequestObjectResult("Error while save user");
 
             var session = _sessionBlService.CreateSession(user);
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
 
-            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(user.Guid, signUpDto.FirstName,
-                signUpDto.LastName, signUpDto.Email, null));
+            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(user.Guid, firFristName,
+                lastName, signUpDto.Email, null));
             await _bus.Publish(@event, cancellationToken);
 
             return new OkObjectResult(session.ToDto());
