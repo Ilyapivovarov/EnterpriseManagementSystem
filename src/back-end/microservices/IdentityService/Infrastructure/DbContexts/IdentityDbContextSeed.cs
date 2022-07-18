@@ -8,21 +8,10 @@ public sealed class IdentityDbContextSeed
         try
         {
             var context = services.GetRequiredService<IIdentityDbContext>();
+            var userService = services.GetRequiredService<IUserService>();
             if (!context.Users.Any())
             {
-                var defaultUser = new UserDbEntity
-                {
-                    Password = "admin",
-                    Role = new UserRoleDbEntity
-                    {
-                        Name = "Admin"
-                    },
-                    Email = new EmailDbEntity
-                    {
-                        Address = "admin@admin.com",
-                        IsVerified = true
-                    }
-                };
+                var defaultUser = userService.Create("admin@admin.com", "admin");
                 
                 context.Users.Add(defaultUser);
 

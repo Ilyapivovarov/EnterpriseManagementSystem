@@ -22,7 +22,7 @@ public sealed class UserService : IUserService
                 Address = email,
                 IsVerified = false
             },
-            Password = password,
+            Password = _securityService.EncryptPasswordOrException(password),
             Role = new UserRoleDbEntity
             {
                 Name = "Test"

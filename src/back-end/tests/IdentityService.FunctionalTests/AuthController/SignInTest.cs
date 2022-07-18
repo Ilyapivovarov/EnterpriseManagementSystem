@@ -19,7 +19,7 @@ public sealed class SignInTest : TestBase
     public async Task SuccessScenario()
     {
         var sessionCountBefore = IdentityDbContext.Sessions.Count();
-        var data = new SignIn(DefaultUser.Email.Address, DefaultUser.Password);
+        var data = new SignIn("admin@admin.com", "admin");
 
         var result = await Client.PostAsync("auth/sign-in", GetStringContent(data));
 
