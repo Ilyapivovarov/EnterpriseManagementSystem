@@ -17,12 +17,11 @@ public sealed class IdentityDbContextSeed
                 var @event = new SignUpUserIntegrationEvent(new UserDataResponse(defaultUser.Guid, "Admin", "Admin",
                     defaultUser.Email.Address, DateTime.Now));
 
+                await context.SaveChangesAsync();
+                
                 var bus = services.GetRequiredService<IBus>();
                 var endPoint = await bus.GetPublishSendEndpoint<SignUpUserIntegrationEvent>();
                 await endPoint.Send(@event);
-                // await context.SaveChangesAsync();
-                
-                logger.LogInformation("Send succcess");
             }
         }
         catch (Exception ex)
