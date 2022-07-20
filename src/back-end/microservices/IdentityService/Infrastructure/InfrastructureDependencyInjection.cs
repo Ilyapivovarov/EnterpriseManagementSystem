@@ -68,12 +68,10 @@ public static class InfrastructureDependencyInjection
 
         #endregion
 
-        #region Register Cors
-
-        services.AddCors();
-
-        #endregion
+        #region Register HostedServices
 
         services.AddHostedService<DefaultDataSeedHostedServices>();
+
+        #endregion
     }
 }

@@ -25,16 +25,11 @@ public sealed class Startup
 
     public void Configure(IApplicationBuilder app)
     {
-        if (Environment.IsDevelopment()) app.UseDeveloperExceptionPage();
+        if (Environment.IsDevelopment())
+            app.UseDeveloperExceptionPage();
 
         app.UseRouting();
-
-        app.UseCors(x => x
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .SetIsOriginAllowed(_ => true)
-            .AllowCredentials());
-
+        
         app.UseAuthentication();
         app.UseAuthorization();
 
