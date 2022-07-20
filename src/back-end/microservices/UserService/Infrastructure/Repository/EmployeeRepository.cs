@@ -18,6 +18,12 @@ public sealed class EmployeeRepository : RepositoryBase, IEmployeeRepository
         return await LoadDataAsync(db => db.Eployees.FirstOrDefault(x => x.Guid == guid));
     }
 
+    public async Task<EmployeeDbEntity?> GetByUserIdentityGuidAsync(Guid identityGuid)
+    {
+        return await LoadDataAsync(db => db.Eployees
+            .FirstOrDefault(x => x.UserDbEntity.IdentityGuid == identityGuid));
+    }
+
     public async Task<EmployeeDbEntity[]?> GetEmployeesByRange(Range range)
     {
         return await LoadDataAsync(db => db.Eployees.OrderBy(x => x.UserDbEntity.EmailAddress)

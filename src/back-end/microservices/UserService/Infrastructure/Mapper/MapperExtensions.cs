@@ -4,7 +4,7 @@ namespace UserService.Infrastructure.Mapper;
 
 public static class MapperExtensions
 {
-    public static UserDataResponse? ToDto(this UserDbEntity userDbEntity)
+    public static UserDataResponse ToDto(this UserDbEntity userDbEntity)
     {
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<UserDbEntity, UserDataResponse>()

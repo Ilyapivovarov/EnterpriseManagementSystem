@@ -18,7 +18,7 @@ const HomePage: FC = () => {
             {isLoading && <Box sx={{display: 'flex'}}>
                 <CircularProgress/>
             </Box>}
-            {isSuccess && <Typography> Welcome {data.firstName}</Typography>}
+            {isSuccess && <Typography> Welcome {data.user.firstName}</Typography>}
         </Paper>
     )
 }

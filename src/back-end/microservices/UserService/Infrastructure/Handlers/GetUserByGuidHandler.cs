@@ -19,7 +19,7 @@ public sealed class GetUserByGuidHandler : HandlerBase<GetUserGuidRequest>
         {
             var guid = request.Guid;
 
-            var employeeDbEntity = await _employeeRepository.GetByGuidAsync(guid);
+            var employeeDbEntity = await _employeeRepository.GetByUserIdentityGuidAsync(guid);
 
             return employeeDbEntity == null ? NotFoud("Not found employee with guid") : Ok(employeeDbEntity.ToDto());
         }

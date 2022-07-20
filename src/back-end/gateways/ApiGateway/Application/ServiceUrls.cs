@@ -89,21 +89,31 @@ public static class ServiceUrls
 
     public static class UserServiceApi
     {
-        private const string BaseUrl = "user";
-
-        public static string GetUserByPage(string pageNumber)
+        public static class Employee
         {
-            return $"{BaseUrl}/{pageNumber}";
+            private const string BaseUrl = "employee";
+
+            public static string GetByIdentityGuid(string guid)
+            {
+                return $"{BaseUrl}/{guid}";
+            }
         }
 
-        public static string GetByIdentityGuid(string guid)
+        public static class User
         {
-            return $"{BaseUrl}/{guid}";
-        }
+            private const string BaseUrl = "user";
 
-        public static string UpdateUserInfo()
-        {
-            return $"{BaseUrl}";
+            public static string GetUserByPage(string pageNumber)
+            {
+                return $"{BaseUrl}/{pageNumber}";
+            }
+
+            public static string UpdateUserInfo()
+            {
+                return $"{BaseUrl}";
+            }
         }
+        
+       
     }
 }
