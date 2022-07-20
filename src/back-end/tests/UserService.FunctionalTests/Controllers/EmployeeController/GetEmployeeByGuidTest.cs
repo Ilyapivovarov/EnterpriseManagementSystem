@@ -20,7 +20,7 @@ public sealed class GetEmployeeByGuidTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        var result = await HttpClient.GetAsync($"employee/{DefaultEmployee.Guid}");
+        var result = await HttpClient.GetAsync($"employee/{DefaultEmployee.UserDbEntity.IdentityGuid}");
 
         var content = await result.Content.ReadFromJsonAsync<EmployeeDataResponse>();
 

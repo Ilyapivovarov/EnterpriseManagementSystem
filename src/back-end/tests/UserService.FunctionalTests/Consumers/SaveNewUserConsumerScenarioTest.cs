@@ -14,8 +14,6 @@ namespace UserService.FunctionalTests.Consumers;
 
 public sealed class SaveNewUserConsumerScenarioTest : TestBase
 {
-    protected override string UseEnvironment => "Development";
-    
     [SetUp]
     public void Setup()
     {
@@ -36,7 +34,5 @@ public sealed class SaveNewUserConsumerScenarioTest : TestBase
 
         var userDbContext = ServiceScope.ServiceProvider.GetRequiredService<IUserDbContext>();
         Assert.AreEqual(userData, userDbContext.Users.OrderBy(x => x.Created).Last().ToDto());
-
-
     }
 }
