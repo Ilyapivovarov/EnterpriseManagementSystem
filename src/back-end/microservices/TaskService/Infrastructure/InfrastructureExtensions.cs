@@ -1,8 +1,3 @@
-using EnterpriseManagementSystem.JwtAuthorization;
-using TaskService.Infrastructure.Consumers;
-using TaskService.Infrastructure.HostedServices;
-using TaskService.Infrastructure.Repositories;
-
 namespace TaskService.Infrastructure;
 
 public static class InfrastructureExtensions
@@ -26,29 +21,6 @@ public static class InfrastructureExtensions
 
         #endregion
 
-        #region Register MassTransisist
-
-        services.AddMassTransit(configurator =>
-        {
-            configurator.AddConsumer<SaveNewUserConsumer>();
-            if (environment.IsEnvironment("Testing"))
-                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
-            else
-                configurator.UsingRabbitMq((context, cfg) =>
-                {
-                    
-                    cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
-                    {
-                        h.Username("guest");
-                        h.Password("guest");
-                    });
-                    cfg.ConfigureEndpoints(context);
-                    cfg.UseMessageRetry(x => x.Interval(3, TimeSpan.FromSeconds(5)));
-                });
-        });
-
-        #endregion
-
         #region Registre repositories
 
         services.AddTransient<IUserRepository, UserRepository>();
@@ -69,6 +41,33 @@ public static class InfrastructureExtensions
 
         #endregion
 
+        #region Register hosted services
+
         services.AddHostedService<DefaultDataSeedServices>();
+
+        #endregion
+
+        #region Register MassTransisist
+
+        services.AddMassTransit(configurator =>
+        {
+            configurator.AddConsumer<SaveNewUserConsumer>()
+                .Endpoint(x => x.Name = $"{nameof(TaskService)}_{nameof(SaveNewUserConsumer)}");
+            ;
+            if (environment.IsEnvironment("Testing"))
+                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+            else
+                configurator.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                    cfg.ConfigureEndpoints(context);
+                });
+        });
+
+        #endregion
     }
 }

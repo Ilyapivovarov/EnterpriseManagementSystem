@@ -20,30 +20,7 @@ public static class InfrastructureExtensions
         services.AddScoped<IUserDbContext, UserDbContext>();
 
         #endregion
-
-        #region Register MassTransit
-
-        services.AddMassTransit(configurator =>
-        {
-            configurator.AddConsumer<SaveNewUserConsumer>();
-            if (environment.IsEnvironment("Testing"))
-                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
-            else
-                configurator.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
-                    {
-                        h.Username("guest");
-                        h.Password("guest");
-                    });
-                    cfg.ConfigureEndpoints(context);
-                    cfg.UseMessageRetry(x => x.Interval(3, TimeSpan.FromSeconds(5)));
-
-                });
-        });
-
-        #endregion
-
+        
         #region Register HostedServices
 
         services.AddHostedService<SeedDefaultDataHostedService>();
@@ -66,6 +43,29 @@ public static class InfrastructureExtensions
         #region Registrer services
 
         services.AddTransient<IUserService, Services.UserService>();
+
+        #endregion
+
+        #region Register MassTransit
+
+        services.AddMassTransit(configurator =>
+        {
+            configurator.SetKebabCaseEndpointNameFormatter();
+            configurator.AddConsumer<SaveNewUserConsumer>()
+                .Endpoint(x => x.Name = $"{nameof(UserService)}_{nameof(SaveNewUserConsumer)}");
+            if (environment.IsEnvironment("Testing"))
+                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+            else
+                configurator.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                    cfg.ConfigureEndpoints(context);
+                });
+        });
 
         #endregion
     }

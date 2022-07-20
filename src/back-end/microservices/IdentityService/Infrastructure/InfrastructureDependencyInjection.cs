@@ -52,7 +52,6 @@ public static class InfrastructureDependencyInjection
 
         services.AddMassTransit(configurator =>
         {
-
             if (environment.IsEnvironment("Testing"))
                 configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
             else

@@ -12,16 +12,16 @@ public sealed class IdentityDbContextSeed
             if (!context.Users.Any())
             {
                 var defaultUser = userService.Create("admin@admin.com", "admin");
-                
                 context.Users.Add(defaultUser);
-
-                await context.SaveChangesAsync();
-
+                
                 var @event = new SignUpUserIntegrationEvent(new UserDataResponse(defaultUser.Guid, "Admin", "Admin",
                     defaultUser.Email.Address, DateTime.Now));
 
                 var bus = services.GetRequiredService<IBus>();
-                await bus.Publish(@event);
+                var endPoint = await bus.GetPublishSendEndpoint<SignUpUserIntegrationEvent>();
+                await endPoint.Send(@event);
+                // await context.SaveChangesAsync();
+                
                 logger.LogInformation("Send succcess");
             }
         }
