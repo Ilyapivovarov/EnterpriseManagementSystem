@@ -39,7 +39,7 @@ export const signIn = createAsyncThunk<Session, SignIn, { rejectValue: string }>
 export const signUp = createAsyncThunk<Session, SignUp, { rejectValue: string }>(
     'authSlice/sing-up',
     async (authModel, {rejectWithValue}) => {
-        const response = await fetch(`${baseUrl}/auth/sign-in`, {
+        const response = await fetch(`${baseUrl}/auth/sign-up`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json;charset=UTF-8',
