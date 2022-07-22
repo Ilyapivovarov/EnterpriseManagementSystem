@@ -4,7 +4,6 @@ export interface Account {
     lastName?: string,
 }
 
-
 export interface EmployeeDataResponse {
     guid: string,
     user: UserDataResponse,

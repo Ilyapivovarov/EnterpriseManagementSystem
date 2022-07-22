@@ -56,9 +56,9 @@ public sealed class SessionService : ISessionService
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Email, user.Email.Address),
-            new(ClaimTypes.UserData, user.Guid.ToString()),
-            new(ClaimTypes.Role, user.Role.Name)
+            new(JwtRegisteredClaimNames.Email, user.Email.Address),
+            new(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
+            new("role", user.Role.Name)
         };
 
         var token = new JwtSecurityToken(
