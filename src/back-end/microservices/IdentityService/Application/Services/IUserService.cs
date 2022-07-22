@@ -1,5 +1,3 @@
-using IdentityService.Core.ReturnedValue;
-
 namespace IdentityService.Application.Services;
 
 public interface IUserService

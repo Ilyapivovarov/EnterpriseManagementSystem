@@ -11,7 +11,4 @@ public class EmailDbEntity : DbEntityBase
     public string Address { get; set; } = null!;
 
     public bool IsVerified { get; set; }
-
-    [ForeignKey("UserId")]
-    public int UserId { get; set; }
 }

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
@@ -12,10 +10,9 @@ using System.Threading.Tasks;
 using EnterpriseManagementSystem.JwtAuthorization;
 using IdentityService.Application.DbContexts;
 using IdentityService.Core.DbEntities;
-using IdentityService.Infrastructure.DbContexts;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -27,6 +24,8 @@ namespace IdentityService.FunctionalTests.Base;
 public abstract class TestBase
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private IServiceProvider _service;
+    private IServiceScope? _serviceScoped;
 
     protected TestBase()
     {
@@ -36,28 +35,30 @@ public abstract class TestBase
 
     protected virtual string EnvironmentName => "Testing";
 
-    protected IServiceScope Services => Server.Services.CreateScope();
+    protected IServiceProvider Service => _service ??= ServiceScope.ServiceProvider;
 
-    protected IIdentityDbContext IdentityDbContext => Server.Services.GetRequiredService<IIdentityDbContext>();
+    protected HttpClient Client { get; set; }
 
-    protected HttpClient Client { get; private set; } = null!;
+    private IServiceScope ServiceScope => _serviceScoped ??= Server.Services.CreateScope();
 
-    protected UserDbEntity DefaultUser => IdentityDbContext.Users.First();
+    private TestServer Server { get; set; }
 
-    private TestServer Server { get; set; } = null!;
-    
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
     {
-        await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
+        ServiceScope.Dispose();
+    }
+
+    protected async Task<UserDbEntity> GetDefaultUser()
+    {
+        return await Service.GetRequiredService<IIdentityDbContext>()
+            .Users.FirstAsync();
     }
 
     protected void RefreshServer()
     {
         Server = CreateTestServer();
         Client = Server.CreateClient();
-        Client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, GenerateAccessToken(DefaultUser));
     }
 
     protected StringContent GetStringContent(object obj)
@@ -66,7 +67,7 @@ public abstract class TestBase
             JsonSerializer.Serialize(obj, _jsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
     }
 
-    private string GenerateAccessToken(UserDbEntity user)
+    protected string GenerateAccessToken(UserDbEntity user)
     {
         var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
         var authParams = authOption.Value;

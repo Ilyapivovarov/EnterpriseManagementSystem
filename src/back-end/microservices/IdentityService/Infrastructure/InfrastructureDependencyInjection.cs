@@ -31,14 +31,16 @@ public static class InfrastructureDependencyInjection
         services.AddTransient<ISessionRepository, SessionRepository>();
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<ISessionRepository, SessionRepository>();
+        services.AddTransient<IUserRoleRepository, UserRoleRepository>();
 
         #endregion
 
         #region Register services
 
         services.AddTransient<ISecurityService, SecurityService>();
-        services.AddTransient<IUserService, UserService>();
+        services.AddTransient<IUserService, Services.UserService>();
         services.AddTransient<ISessionService, SessionService>();
+        services.AddTransient<IUserRoleService, UserRoleService>();
 
         #endregion
 

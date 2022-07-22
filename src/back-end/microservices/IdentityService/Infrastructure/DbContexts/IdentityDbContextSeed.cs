@@ -1,3 +1,5 @@
+using UserService.Core;
+
 namespace IdentityService.Infrastructure.DbContexts;
 
 public sealed class IdentityDbContextSeed
@@ -41,9 +43,12 @@ public sealed class IdentityDbContextSeed
 
     private static async Task<bool> SaveDefaultRolesAsync(IServiceProvider services)
     {
-        var adminRole = await services.GetRequiredService<IUserRoleService>().GetOrCreate("Admin");
-        var readerRole = await services.GetRequiredService<IUserRoleService>().GetOrCreate("Reader");
+        var adminRole = await services.GetRequiredService<IUserRoleService>()
+            .GetOrCreateAndReturn(DefaultUserRoleNames.Admin);
 
-        return await services.GetRequiredService<IUserRoleRepository>().SaveRange(adminRole, readerRole);
+        var readerRole = await services.GetRequiredService<IUserRoleService>()
+            .GetOrCreateAndReturn(DefaultUserRoleNames.Reader);
+
+        return !adminRole.HasError && !readerRole.HasError;
     }
 }

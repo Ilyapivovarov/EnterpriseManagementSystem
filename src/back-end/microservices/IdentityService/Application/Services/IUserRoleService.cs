@@ -2,5 +2,5 @@ namespace IdentityService.Application.Services;
 
 public interface IUserRoleService
 {
-    public Task<UserRoleDbEntity> GetOrCreate(string name);
+    public Task<ServiceActionResult<UserRoleDbEntity>> GetOrCreateAndReturn(string name);
 }
