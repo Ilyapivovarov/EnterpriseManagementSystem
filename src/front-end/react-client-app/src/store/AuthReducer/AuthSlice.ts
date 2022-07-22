@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {AuthState} from "./AuthTypes";
-import {resetAuthState, signIn, signOut} from "./AuthActionCreators";
+import {resetAuthState, signIn, signOut, signUp} from "./AuthActionCreators";
 
 const initialState: AuthState = {
     currentSession: null,
@@ -25,6 +25,21 @@ export const authSlice = createSlice({
                 localStorage.setItem("session", JSON.stringify(state.currentSession))
             })
             .addCase(signIn.rejected, (state, action) => {
+                state.isLoading = false;
+                state.currentSession = null;
+                state.error = action.payload
+            })
+            .addCase(signUp.pending, (state) => {
+                state.error = null;
+                state.isLoading = true;
+            })
+            .addCase(signUp.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.currentSession = action.payload;
+
+                localStorage.setItem("session", JSON.stringify(state.currentSession))
+            })
+            .addCase(signUp.rejected, (state, action) => {
                 state.isLoading = false;
                 state.currentSession = null;
                 state.error = action.payload

@@ -29,7 +29,7 @@ public abstract class RepositoryBase
         try
         {
             writeFunc(_dbContext);
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
             return true;
         }
         catch (Exception e)

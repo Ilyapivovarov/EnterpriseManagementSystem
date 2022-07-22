@@ -76,7 +76,8 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
 
     public async Task<bool> SaveUserAsync(UserDbEntity user)
     {
-        return await Task.Run(() => SaveUser(user));
+        return await SaveDataAsync(db => db.Users.Add(user),
+            $"Error while creating user with email {user.Email.Address}");
     }
 
     public bool UpdateUser(UserDbEntity user)

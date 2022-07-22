@@ -1,4 +1,4 @@
-import {FC, FormEvent} from 'react';
+import {FC, FormEvent, useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,6 +21,10 @@ const SignUpPage: FC = () => {
     const navigate = useNavigate();
     const {currentSession} = useAppSelector(x => x.authReducer)
 
+    useEffect(() => {
+        if (currentSession != null)
+            navigate('/')
+    }, [currentSession])
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
