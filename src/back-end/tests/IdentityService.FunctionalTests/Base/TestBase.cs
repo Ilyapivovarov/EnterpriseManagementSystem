@@ -4,6 +4,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using IdentityService.Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@ namespace IdentityService.FunctionalTests.Base;
 public abstract class TestBase
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private IServiceProvider _service;
+    private IServiceProvider? _service;
     private IServiceScope? _serviceScoped;
 
     protected TestBase()
@@ -24,7 +25,7 @@ public abstract class TestBase
             {PropertyNameCaseInsensitive = true};
     }
 
-    protected virtual string EnvironmentName => "Testing";
+    protected abstract string EnvironmentName { get; }
 
     protected IServiceProvider Service => _service ??= ServiceScope.ServiceProvider;
 
@@ -37,6 +38,7 @@ public abstract class TestBase
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
     {
+        await Service.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
         ServiceScope.Dispose();
     }
 
@@ -52,7 +54,7 @@ public abstract class TestBase
         return new StringContent(
             JsonSerializer.Serialize(obj, _jsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
     }
-    
+
     private TestServer CreateTestServer()
     {
         var hostBuilder = new WebHostBuilder()
