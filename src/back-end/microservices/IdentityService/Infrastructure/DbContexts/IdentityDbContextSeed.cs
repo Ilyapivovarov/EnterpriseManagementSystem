@@ -7,18 +7,27 @@ public sealed class IdentityDbContextSeed
         var logger = services.GetRequiredService<ILogger<IdentityDbContextSeed>>();
         try
         {
-            var context = services.GetRequiredService<IIdentityDbContext>();
-            var userService = services.GetRequiredService<IUserService>();
-            if (!context.Users.Any())
+            var users = await services.GetRequiredService<IUserRepository>().GetUsersByPageAsync();
+            if (users == null || users.Length == 0)
             {
-                var defaultUser = userService.Create("admin@admin.com", "admin");
-                context.Users.Add(defaultUser);
-                
+                var saveRoleResult = await SaveDefaultRolesAsync(services);
+                if (!saveRoleResult)
+                    throw new Exception("Error while save user roles");
+
+                var adminRole = await services.GetRequiredService<IUserRoleRepository>().GetAdminRole();
+                if (adminRole == null)
+                    throw new Exception("Default role is null");
+
+                var userService = services.GetRequiredService<IUserService>();
+                var defaultUser = userService.Create("admin@admin.com", "admin", adminRole);
+                var saveUserResult = await services.GetRequiredService<IUserRepository>()
+                    .SaveUserAsync(defaultUser);
+                if (!saveUserResult)
+                    throw new Exception("Error while save default user");
+
                 var @event = new SignUpUserIntegrationEvent(new UserDataResponse(defaultUser.Guid, "Admin", "Admin",
                     defaultUser.Email.Address, DateTime.Now));
 
-                await context.SaveChangesAsync();
-                
                 var bus = services.GetRequiredService<IBus>();
                 var endPoint = await bus.GetPublishSendEndpoint<SignUpUserIntegrationEvent>();
                 await endPoint.Send(@event);
@@ -26,7 +35,15 @@ public sealed class IdentityDbContextSeed
         }
         catch (Exception ex)
         {
-            logger.LogCritical(ex, "An error occurred while migrating or seeding the database");
+            logger.LogCritical(ex, ex.Message);
         }
+    }
+
+    private static async Task<bool> SaveDefaultRolesAsync(IServiceProvider services)
+    {
+        var adminRole = await services.GetRequiredService<IUserRoleService>().GetOrCreate("Admin");
+        var readerRole = await services.GetRequiredService<IUserRoleService>().GetOrCreate("Reader");
+
+        return await services.GetRequiredService<IUserRoleRepository>().SaveRange(adminRole, readerRole);
     }
 }

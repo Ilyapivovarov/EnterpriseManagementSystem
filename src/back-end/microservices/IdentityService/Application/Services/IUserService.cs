@@ -9,8 +9,9 @@ public interface IUserService
     /// </summary>
     /// <param name="email"></param>
     /// <param name="password"></param>
+    /// <param name="userRoleDbEntity"></param>
     /// <returns></returns>
-    public UserDbEntity Create(string email, string password);
+    public UserDbEntity Create(string email, string password, UserRoleDbEntity userRoleDbEntity);
 
     /// <summary>
     ///     Change password for user
@@ -27,4 +28,6 @@ public interface IUserService
     /// <param name="newEmail"></param>
     /// <returns></returns>
     public ServiceActionResult<UserDbEntity> ChangeEmail(UserDbEntity userDbEntity, string newEmail);
+
+    public Task<ServiceActionResult<UserDbEntity>> TryCreateUser(string email, string password);
 }

@@ -2,25 +2,27 @@ namespace IdentityService.Infrastructure.Handlers;
 
 public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IActionResult>
 {
-    private readonly IBus _bus;
     private readonly ILogger<SignUpUserRequestHandler> _logger;
-    private readonly ISecurityService _securityService;
-    private readonly ISessionService _sessionBlService;
-    private readonly ISessionRepository _sessionRepository;
-    private readonly IUserService _userBlService;
+    private readonly IBus _bus;
+    private readonly IUserService _userService;
     private readonly IUserRepository _userRepository;
+    private readonly ISessionService _sessionBlService;
+    private readonly IUserRoleRepository _userRoleRepository;
+    private readonly ISessionRepository _sessionRepository;
 
-    public SignUpUserRequestHandler(ILogger<SignUpUserRequestHandler> logger, IUserService userBlService,
-        IUserRepository userRepository, ISessionService sessionBlService, ISessionRepository sessionRepository,
-        ISecurityService securityService, IBus bus)
+
+    public SignUpUserRequestHandler(ILogger<SignUpUserRequestHandler> logger, IBus bus, IUserService userService,
+        IUserRepository userRepository, ISessionService sessionBlService, IUserRoleRepository userRoleRepository,
+        ISessionRepository sessionRepository)
     {
         _logger = logger;
-        _userBlService = userBlService;
+        _bus = bus;
+        _userService = userService;
         _userRepository = userRepository;
         _sessionBlService = sessionBlService;
+        _userRoleRepository = userRoleRepository;
         _sessionRepository = sessionRepository;
-        _securityService = securityService;
-        _bus = bus;
+
     }
 
     public async Task<IActionResult> Handle(SignUpRequest authRequest, CancellationToken cancellationToken)
@@ -33,18 +35,14 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
             if (!password.Equals(confirmPassword, StringComparison.Ordinal))
                 return new BadRequestObjectResult("Passwords is not same");
 
-            var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
-            if (userWithSameEmail != null)
-                return new BadRequestObjectResult("This email already exist");
+            var userServiceResult = await _userService.TryCreateUser(email, password);
+            if (userServiceResult.Value == null)
+                return new BadRequestObjectResult(userServiceResult.Error);
 
-            var user = _userBlService.Create(email, password);
-            if (!await _userRepository.SaveUserAsync(user))
-                return new BadRequestObjectResult("Error while save user");
-
-            var session = _sessionBlService.CreateSession(user);
+            var session = _sessionBlService.CreateSession(userServiceResult.Value);
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
 
-            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(user.Guid, firFristName,
+            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(userServiceResult.Value.Guid, firFristName,
                 lastName, signUpDto.Email, null));
             await _bus.Publish(@event, cancellationToken);
 
