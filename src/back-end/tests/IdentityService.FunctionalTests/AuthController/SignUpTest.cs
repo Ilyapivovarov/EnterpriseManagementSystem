@@ -1,13 +1,17 @@
 using System.Linq;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts;
+using IdentityService.Application.Repositories;
 using IdentityService.FunctionalTests.Base;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace IdentityService.FunctionalTests.AuthController;
 
 public sealed class SignUpTest : TestBase
 {
+    protected override string EnvironmentName => "Development";
+
     [SetUp]
     public void Setup()
     {
@@ -22,10 +26,12 @@ public sealed class SignUpTest : TestBase
 
         var result = await Client.PostAsync("auth/sign-up", content);
 
-        var newUser = IdentityDbContext.Users.Last();
+        using var services = Services;
+        var newUser = await services.ServiceProvider
+            .GetRequiredService<IUserRepository>().GetUserByEmailAsync(data.Email);
 
         Assert.IsTrue(result.IsSuccessStatusCode);
-        Assert.IsTrue(newUser.Email.Address == data.Email);
+        Assert.IsTrue(newUser?.Email.Address == data.Email);
     }
 
     [Test]

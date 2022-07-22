@@ -34,13 +34,17 @@ public abstract class TestBase
             {PropertyNameCaseInsensitive = true};
     }
 
+    protected virtual string EnvironmentName => "Testing";
+
+    protected IServiceScope Services => Server.Services.CreateScope();
+
     protected IIdentityDbContext IdentityDbContext => Server.Services.GetRequiredService<IIdentityDbContext>();
 
     protected HttpClient Client { get; private set; } = null!;
 
     protected UserDbEntity DefaultUser => IdentityDbContext.Users.First();
 
-    protected TestServer Server { get; private set; } = null!;
+    private TestServer Server { get; set; } = null!;
     
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
@@ -86,13 +90,13 @@ public abstract class TestBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    private static TestServer CreateTestServer()
+    private TestServer CreateTestServer()
     {
         var hostBuilder = new WebHostBuilder()
             .ConfigureAppConfiguration(
-                configuration => configuration.AddJsonFile("appsettings.Testing.json"))
+                configuration => configuration.AddJsonFile($"appsettings.{EnvironmentName}.json"))
             .UseStartup<Startup>()
-            .UseEnvironment("Testing");
+            .UseEnvironment(EnvironmentName);
 
         return new TestServer(hostBuilder);
     }
