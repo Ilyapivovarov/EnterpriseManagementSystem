@@ -40,10 +40,11 @@ public abstract class TestBase
         ServiceScope.Dispose();
     }
 
-    protected void RefreshServer()
+    protected async Task RefreshServer()
     {
         Server = CreateTestServer();
         Client = Server.CreateClient();
+        await Task.Delay(2000);
     }
 
     protected StringContent GetStringContent(object obj)

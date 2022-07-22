@@ -1,16 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using UserService.Core;
 
 namespace IdentityService.Infrastructure.DbContexts;
 
 public sealed class IdentityDbContext : DbContext, IIdentityDbContext
 {
-    private readonly ISecurityService _securityService;
-
-    public IdentityDbContext(DbContextOptions<IdentityDbContext> options, ISecurityService securityService)
+    public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
         : base(options)
     {
-        _securityService = securityService;
         Database.EnsureCreated();
     }
 
