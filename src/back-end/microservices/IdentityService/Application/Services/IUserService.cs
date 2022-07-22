@@ -29,5 +29,11 @@ public interface IUserService
     /// <returns></returns>
     public ServiceActionResult<UserDbEntity> ChangeEmail(UserDbEntity userDbEntity, string newEmail);
 
+    /// <summary>
+    ///     Creating user
+    /// </summary>
+    /// <param name="email"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
     public Task<ServiceActionResult<UserDbEntity>> TryCreateUser(string email, string password);
 }

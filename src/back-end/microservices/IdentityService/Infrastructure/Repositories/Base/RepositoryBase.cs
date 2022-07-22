@@ -53,4 +53,34 @@ public abstract class RepositoryBase
             return false;
         }
     }
+
+    protected async Task<T?> LoadDataAsync<T>(Func<IIdentityDbContext, T?> loadFunc,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            return await Task.Run(() => loadFunc(_dbContext), cancellationToken);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return default;
+        }
+    }
+
+    protected async Task<bool> WriteDataAsync(Action<IIdentityDbContext> writeAction)
+    {
+        try
+        {
+            writeAction(_dbContext);
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return false;
+        }
+    }
 }
