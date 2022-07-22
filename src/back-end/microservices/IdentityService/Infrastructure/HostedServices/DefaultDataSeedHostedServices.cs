@@ -16,7 +16,7 @@ public sealed class DefaultDataSeedHostedServices : IHostedService
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        // _hostApplicationLifetime.ApplicationStarted.Register(InitDefaultData);
+        _hostApplicationLifetime.ApplicationStarted.Register(InitDefaultData);
         return Task.CompletedTask;
     }
 

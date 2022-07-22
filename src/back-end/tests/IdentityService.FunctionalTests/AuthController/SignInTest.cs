@@ -16,10 +16,6 @@ public sealed class SignInTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        // Client.DefaultRequestHeaders.Authorization =
-        //     new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, 
-        //         GenerateAccessToken(await GetDefaultUser()));
-        
         var data = new SignIn("admin@admin.com", "admin");
         
         var result = await Client.PostAsync("auth/sign-in", GetStringContent(data));
