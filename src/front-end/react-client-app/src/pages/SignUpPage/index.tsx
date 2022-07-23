@@ -34,8 +34,8 @@ const SignUpPage: FC = () => {
             email: data.get('email') as string,
             password: data.get('password') as string,
             confirmPassword: data.get('confirmPassword') as string,
-            firstName: data.get('password') as string,
-            lastName: data.get('password') as string,
+            firstName: data.get('firstName') as string,
+            lastName: data.get('lastName') as string,
         }))
     };
 
