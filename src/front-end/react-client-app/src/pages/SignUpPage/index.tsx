@@ -29,7 +29,7 @@ const SignUpPage: FC = () => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-
+        console.log(data)
         dispatch(signUp({
             email: data.get('email') as string,
             password: data.get('password') as string,

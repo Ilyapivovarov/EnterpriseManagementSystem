@@ -19,15 +19,18 @@ const AdminNavItems: FC = () => {
     const {currentSession} = useAppSelector(x => x.authReducer);
 
     const decodeToken = jwt_decode<DecodeToken>(currentSession!.accessToken);
-    console.log(decodeToken)
-    return (
-        <ListItemButton>
-            <ListItemIcon>
-                <SettingsIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Settings"/>
-        </ListItemButton>
-    );
+    console.log(decodeToken);
+    if (decodeToken.role == "Admin")
+        return (
+            <ListItemButton>
+                <ListItemIcon>
+                    <SettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Settings"/>
+            </ListItemButton>
+        );
+
+    return <></>
 };
 
 export default AdminNavItems;

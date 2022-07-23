@@ -8,7 +8,7 @@ namespace IdentityService.FunctionalTests.AuthController;
 
 public sealed class SignInTest : TestBase
 {
-    protected override string EnvironmentName => "Testing";
+    protected override string EnvironmentName => "Development";
     
     [SetUp]
     public async Task Setup()

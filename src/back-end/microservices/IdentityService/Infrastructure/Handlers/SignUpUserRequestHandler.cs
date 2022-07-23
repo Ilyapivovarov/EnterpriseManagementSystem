@@ -31,7 +31,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
         {
             var signUpDto = authRequest.SignUp;
 
-            var (firFristName, lastName, email, password, confirmPassword) = signUpDto;
+            var (fristName, lastName, email, password, confirmPassword) = signUpDto;
             if (!password.Equals(confirmPassword, StringComparison.Ordinal))
                 return new BadRequestObjectResult("Passwords is not same");
 
@@ -42,7 +42,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
             var session = _sessionBlService.CreateSession(userServiceResult.Value);
             await _sessionRepository.SaveOrUpdateSessionAsync(session);
 
-            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(userServiceResult.Value.Guid, firFristName,
+            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(userServiceResult.Value.Guid, fristName,
                 lastName, signUpDto.Email, null));
             await _bus.Publish(@event, cancellationToken);
 
