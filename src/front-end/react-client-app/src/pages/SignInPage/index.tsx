@@ -20,15 +20,6 @@ import {useNavigate} from "react-router-dom";
 
 const SignInPage: FC = () => {
     const dispatch = useAppDispatch()
-
-    const navigate = useNavigate();
-    const {currentSession} = useAppSelector(x => x.authReducer)
-
-    useEffect(() => {
-        if (currentSession)
-            navigate("/")
-    }, [currentSession, navigate]);
-
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 

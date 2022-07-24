@@ -7,6 +7,7 @@ import Layout from "./components/Layout/Layout";
 import RequireAuth from "./hoc/RequireAuth";
 import TaskPage from "./pages/TaskPage/inde";
 import SettingsPage from "./pages/SettingsPage";
+import RequireAnonymous from "./hoc/RequireAnonymous";
 
 const App: FC = () => (
     <Routes>
@@ -15,7 +16,7 @@ const App: FC = () => (
             <Route path={"task/"} element={<TaskPage/>}/>
             <Route path={"settings/"} element={<SettingsPage/>}/>
         </Route>
-        <Route path={"/"}>
+        <Route path={"/"} element={<RequireAnonymous/>}>
             <Route path={"sign-in"} element={<SignInPage/>}/>
             <Route path={"sign-up"} element={<SignUpPage/>}/>
         </Route>
@@ -23,3 +24,7 @@ const App: FC = () => (
 )
 
 export default App;
+
+const NotFoundPage: FC = () => (
+    <h1>Not found</h1>
+)
