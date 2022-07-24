@@ -5,14 +5,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 import {useAppSelector} from "../../hooks";
 import jwt_decode from "jwt-decode";
-
-interface DecodeToken {
-    "email": string,
-    "sub": string,
-    "role": string,
-    "exp": number,
-    "iss": string,
-}
+import {DecodeToken} from "../../types/authTypes";
 
 const AdminNavItems: FC = () => {
 

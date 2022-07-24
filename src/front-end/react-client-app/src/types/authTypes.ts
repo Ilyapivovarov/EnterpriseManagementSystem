@@ -16,3 +16,11 @@ export interface SignUp {
     firstName: string,
     lastName: string
 }
+
+export interface DecodeToken {
+    "email": string,
+    "sub": string,
+    "role": string,
+    "exp": number,
+    "iss": string,
+}

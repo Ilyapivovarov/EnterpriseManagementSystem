@@ -6,12 +6,14 @@ import SignUpPage from "./pages/SignUpPage";
 import Layout from "./components/Layout/Layout";
 import RequireAuth from "./hoc/RequireAuth";
 import TaskPage from "./pages/TaskPage/inde";
+import SettingsPage from "./pages/SettingsPage";
 
 const App: FC = () => (
     <Routes>
         <Route path={"/"} element={<RequireAuth children={<Layout/>}/>}>
             <Route index element={<HomePage/>}/>
             <Route path={"task/"} element={<TaskPage/>}/>
+            <Route path={"settings/"} element={<SettingsPage/>}/>
         </Route>
         <Route path={"/"}>
             <Route path={"sign-in"} element={<SignInPage/>}/>
