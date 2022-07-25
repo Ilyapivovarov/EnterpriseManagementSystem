@@ -5,7 +5,7 @@ import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import Layout from "./components/Layout/Layout";
 import RequireAuth from "./hoc/RequireAuth";
-import TaskPage from "./pages/TaskPage/inde";
+import TaskPage from "./pages/TaskPage";
 import SettingsPage from "./pages/SettingsPage";
 import RequireAnonymous from "./hoc/RequireAnonymous";
 
