@@ -11,10 +11,11 @@ const RequireAuth: FC = (props) => {
 
 
     useEffect(() => {
-        dispatch(resetAuthState()).unwrap().catch(() => {
-            if (!currentSession)
+        dispatch(resetAuthState())
+            .unwrap()
+            .catch(() => {
                 navigate("/sign-in")
-        })
+            })
     }, []);
 
 

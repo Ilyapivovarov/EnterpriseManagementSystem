@@ -1,4 +1,4 @@
-import {FC, FormEvent, useEffect} from 'react';
+import {FC, FormEvent} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,22 +10,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {useNavigate} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {signUp} from '../../store/AuthReducer/AuthActionCreators';
 
 
 const SignUpPage: FC = () => {
-
-    const dispatch = useAppDispatch()
-
     const navigate = useNavigate();
-    const {currentSession} = useAppSelector(x => x.authReducer)
-
-    useEffect(() => {
-        if (currentSession != null)
-            navigate('/')
-    }, [currentSession])
-
+    const dispatch = useAppDispatch()
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -36,7 +27,9 @@ const SignUpPage: FC = () => {
             confirmPassword: data.get('confirmPassword') as string,
             firstName: data.get('firstName') as string,
             lastName: data.get('lastName') as string,
-        }))
+        })).unwrap()
+            .then(_ => navigate("/"))
+            .catch(error => console.log(error))
     };
 
     return (

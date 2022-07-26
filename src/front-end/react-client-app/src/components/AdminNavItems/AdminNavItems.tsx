@@ -8,11 +8,9 @@ import jwt_decode from "jwt-decode";
 import {DecodeToken} from "../../types/authTypes";
 
 const AdminNavItems: FC = () => {
-
     const {currentSession} = useAppSelector(x => x.authReducer);
-
     const decodeToken = jwt_decode<DecodeToken>(currentSession!.accessToken);
-    console.log(decodeToken);
+    
     if (decodeToken.role == "Admin")
         return (
             <ListItemButton>

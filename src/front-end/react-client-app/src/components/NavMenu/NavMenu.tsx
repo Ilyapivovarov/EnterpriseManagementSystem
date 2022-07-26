@@ -6,21 +6,23 @@ import ListItemText from "@mui/material/ListItemText";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import List from "@mui/material/List";
 import AdminNavItems from "../AdminNavItems/AdminNavItems";
+import {NavLink} from "react-router-dom";
 
 const NavMenu: React.FC = () => {
     return (
         <List component="nav">
-            <ListItemButton>
+            <ListItemButton component={NavLink} to={"/users"}>
                 <ListItemIcon>
                     <DashboardIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Users"/>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton component={NavLink} to={"/tasks"}>
                 <ListItemIcon>
                     <ShoppingCartIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Tasks"/>
+                <ListItemText primary="Tasks">
+                </ListItemText>
             </ListItemButton>
             <AdminNavItems/>
         </List>

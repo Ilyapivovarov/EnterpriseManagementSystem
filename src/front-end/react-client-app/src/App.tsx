@@ -13,7 +13,10 @@ const App: FC = () => (
     <Routes>
         <Route path={"/"} element={<RequireAuth children={<Layout/>}/>}>
             <Route index element={<HomePage/>}/>
-            <Route path={"task/"} element={<TaskPage/>}/>
+            <Route path={"users/"} element={<UserListPage/>}/>
+            <Route path={"users/:guid"} element={<UserPage/>}/>
+            <Route path={"tasks/"} element={<TaskListPage/>}/>
+            <Route path={"tasks/:id"} element={<TaskPage/>}/>
             <Route path={"settings/"} element={<SettingsPage/>}/>
         </Route>
         <Route path={"/"} element={<RequireAnonymous/>}>
@@ -27,4 +30,17 @@ export default App;
 
 const NotFoundPage: FC = () => (
     <h1>Not found</h1>
+)
+
+const TaskListPage: FC = () => (
+    <h1>There will be task list page</h1>
+)
+
+
+const UserListPage: FC = () => (
+    <h1>There will be user list page</h1>
+)
+
+const UserPage: FC = () => (
+    <h1>There will be user page</h1>
 )

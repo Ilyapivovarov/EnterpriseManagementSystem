@@ -10,12 +10,11 @@ const RequireAnonymous: FC = (props) => {
     useEffect(() => {
         dispatch(resetAuthState())
             .unwrap()
-            .then(x => {
-                if (x)
-                    navigate("/")
+            .then(_ => {
+                navigate("/")
             })
     }, []);
-    
+
     return (
         <>
             <Outlet/>

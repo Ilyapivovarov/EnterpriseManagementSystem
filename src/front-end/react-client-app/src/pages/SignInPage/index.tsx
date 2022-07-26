@@ -1,4 +1,4 @@
-import {FC, FormEvent, useEffect} from "react";
+import {FC, FormEvent} from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
     Avatar,
@@ -14,12 +14,13 @@ import {
     Typography,
 } from "@mui/material";
 import {signIn} from "../../store/AuthReducer/AuthActionCreators";
-import {useAppDispatch, useAppSelector} from "../../hooks";
+import {useAppDispatch} from "../../hooks";
 import {useNavigate} from "react-router-dom";
 
 
 const SignInPage: FC = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -29,6 +30,9 @@ const SignInPage: FC = () => {
 
         if (email && password) {
             dispatch(signIn({email, password}))
+                .unwrap()
+                .then(_ => navigate("/"))
+                .catch(error => console.log(error))
         }
     };
 
