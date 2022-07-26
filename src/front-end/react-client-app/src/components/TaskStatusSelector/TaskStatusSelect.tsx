@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {TaskStatusDto} from "../../types/taskTypes";
 import {FormControl, InputLabel, MenuItem, Select, Tooltip} from "@mui/material";
 
@@ -25,18 +25,22 @@ interface TaskStatusSelectorProps {
 
 const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({selectedStatusId}) => {
 
-    return (<Tooltip title={"Change status"}>
+    const [selectedValue, setSelectedValue] = useState<number>(selectedStatusId);
+    return (
         <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
             <InputLabel id="task-status-select">Status</InputLabel>
-            <Select
-                labelId="task-status-select"
-                id="select-status"
-                value={selectedStatusId}
-            >
-                {mockTaskStatues.map(x => <MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>)}
-            </Select>
+            <Tooltip title={"Change status"} placement="top" disableFocusListener>
+                <Select
+                    labelId="task-status-select"
+                    id="select-status"
+                    value={selectedValue}
+                >
+                    {mockTaskStatues.map(x => <MenuItem key={x.id} value={x.id}
+                                                        onClick={() => setSelectedValue(x.id)}>{x.name}</MenuItem>)}
+                </Select>
+            </Tooltip>
         </FormControl>
-    </Tooltip>);
+    );
 };
 
 export default TaskStatusSelector;

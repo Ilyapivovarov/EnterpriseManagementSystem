@@ -45,7 +45,7 @@ const UserSelectDialog: FC<UserSelectDialogProps> = ({onClose, selectedValue, op
     );
 };
 
-const SimpleDialogDemo: FC = () => {
+const UserSelector: FC = () => {
     const [open, setOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(emails[1]);
 
@@ -59,10 +59,11 @@ const SimpleDialogDemo: FC = () => {
     };
 
     return (
-        <Tooltip title={"Change executor"}>
-            <div>
-                <FormControl variant="standard" sx={{m: 1, minWidth: 200}}>
-                    <InputLabel id="task-executor-select">Executor</InputLabel>
+
+        <div>
+            <FormControl variant="standard" sx={{m: 1, minWidth: 200}}>
+                <InputLabel id="task-executor-select">Executor</InputLabel>
+                <Tooltip title={"Change executor"} disableFocusListener>
                     <Select labelId="task-executor-select"
                             id="select-executor"
                             value={selectedValue}
@@ -72,15 +73,15 @@ const SimpleDialogDemo: FC = () => {
                             {selectedValue}
                         </MenuItem>
                     </Select>
+                </Tooltip>
+            </FormControl>
+            <UserSelectDialog
+                selectedValue={selectedValue}
+                open={open}
+                onClose={handleClose}
+            />
+        </div>
 
-                </FormControl>
-                <UserSelectDialog
-                    selectedValue={selectedValue}
-                    open={open}
-                    onClose={handleClose}
-                />
-            </div>
-        </Tooltip>
     );
 }
-export default SimpleDialogDemo;
+export default UserSelector;

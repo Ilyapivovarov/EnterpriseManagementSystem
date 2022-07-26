@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Link from "../../components/Link/Link";
 import {TaskDto} from '../../types/taskTypes';
 import TaskStatusSelector from "../../components/TaskStatusSelector/TaskStatusSelect";
-import SimpleDialogDemo from "../../components/UserSelector/UserSelector";
+import UserSelector from "../../components/UserSelector/UserSelector";
 
 const task: TaskDto = {
     id: 1,
@@ -77,7 +77,7 @@ const TaskPage = () => {
                     </Typography>
                     <Box display={"flex"} justifyContent={"space-between"}>
                         <div style={{marginRight: "5px"}}>
-                            <SimpleDialogDemo/>
+                            <UserSelector/>
                         </div>
                         <TaskStatusSelector selectedStatusId={task.status.id}/>
                     </Box>
