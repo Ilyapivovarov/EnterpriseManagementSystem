@@ -1,73 +1,53 @@
 import React from 'react';
 import {Box, Button, ButtonGroup, Paper, Typography} from "@mui/material";
-import {NavLink} from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Link from "../../components/Link/Link";
+import {TaskDto} from '../../types/taskTypes';
+import TaskStatusSelector from "../../components/TaskStatusSelector/TaskStatusSelect";
+import SimpleDialogDemo from "../../components/UserSelector/UserSelector";
 
-interface UserDto {
-    guid: string,
-    firstName: string,
-    lastName: string,
-    emailAddress: string,
-}
-
-interface TaskStatusDto {
-    name: string
-}
-
-interface TaskDto {
-    id: number,
-    guid: string,
-    name: string,
-    description: string,
-    executor: UserDto,
-    observers: UserDto[],
-    inspector: UserDto,
-    author: UserDto,
-    status: TaskStatusDto,
-}
-
-const mockData: TaskDto = {
+const task: TaskDto = {
     id: 1,
     guid: "ca851edd-cafd-4ce2-9daa-1ee323502f96",
     name: "Test task",
     description: "Show task",
+    created: new Date(),
     executor: {
         emailAddress: "admin@admin.com",
         firstName: "Admin",
-        lastName: "ADmin",
+        lastName: "Admin",
         guid: "036e58dc-17c3-4c60-93a8-572d6089e3f1"
     },
     author: {
         emailAddress: "admin@admin.com",
         firstName: "Admin",
-        lastName: "ADmin",
+        lastName: "Admin",
         guid: "036e58dc-17c3-4c60-93a8-572d6089e3f1"
     },
 
     inspector: {
         emailAddress: "admin@admin.com",
         firstName: "Admin",
-        lastName: "ADmin",
+        lastName: "Admin",
         guid: "036e58dc-17c3-4c60-93a8-572d6089e3f1"
     },
     observers: [
         {
             emailAddress: "admin@admin.com",
             firstName: "Admin",
-            lastName: "ADmin",
+            lastName: "Admin",
             guid: "036e58dc-17c3-4c60-93a8-572d6089e3f1"
         }
     ],
     status: {
-        name: "Active"
+        id: 2,
+        name: "Active",
+        guid: "84d8a7a6-c2be-41c4-90e1-36a7969ab3f1",
     }
 }
 
-
 const TaskPage = () => {
-
-
     return (
         <Paper
             sx={{
@@ -76,20 +56,38 @@ const TaskPage = () => {
                 flexDirection: 'column',
                 height: '100%',
             }}>
+            <Box padding={1} display={"flex"} justifyContent={"space-between"}>
+                <Typography fontSize={14} paddingLeft={1}>
+                    Task-{task.id} created by <Link
+                    to={`/users/${task.author.guid}`}>{task.author.firstName} {task.author.lastName} </Link>
+                    {task.created.toLocaleDateString()}
+                </Typography>
+                <Box>
+                    <ButtonGroup size="small">
+                        <Button key="edit"><EditIcon/></Button>
+                        <Button key="delete"><DeleteIcon/></Button>
+                    </ButtonGroup>
+                </Box>
 
-
-            <Box padding={1}>
-                <ButtonGroup size="small">
-                    <Button key="one"><EditIcon/></Button>
-                    <Button key="one"><DeleteIcon/></Button>
-                </ButtonGroup>
             </Box>
-            <Typography fontSize={14} paddingLeft={1}>
-                Task-{mockData.id} created by <NavLink
-                to={`/users/${mockData.author.guid}`}>{mockData.author.firstName} {mockData.author.lastName} </NavLink>
-            </Typography>
-
-
+            <Box padding={1}>
+                <Box display={"flex"} justifyContent={"space-between"}>
+                    <Typography paddingBottom={2} paddingTop={1} variant="h3" paddingLeft={1}>
+                        {task.name}
+                    </Typography>
+                    <Box display={"flex"} justifyContent={"space-between"}>
+                        <div style={{marginRight: "5px"}}>
+                            <SimpleDialogDemo/>
+                        </div>
+                        <TaskStatusSelector selectedStatusId={task.status.id}/>
+                    </Box>
+                </Box>
+                <Typography fontSize={20} paddingLeft={1}>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, cumque eaque fuga illum in
+                    molestiae perferendis porro quaerat recusandae soluta. Assumenda molestiae quae reiciendis
+                    repudiandae soluta? Amet assumenda minima minus!
+                </Typography>
+            </Box>
         </Paper>)
 };
 
