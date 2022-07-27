@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {AuthState} from "./AuthTypes";
-import {resetAuthState, signIn, signOut, signUp} from "./AuthActionCreators";
+import { createSlice } from '@reduxjs/toolkit'
+import { AuthState } from './AuthTypes'
+import { resetAuthState, signIn, signOut, signUp } from './AuthActionCreators'
 
 const initialState: AuthState = {
     currentSession: null,
@@ -9,7 +9,7 @@ const initialState: AuthState = {
 }
 
 export const authSlice = createSlice({
-    name: "authSlice",
+    name: 'authSlice',
     initialState,
     reducers: {},
     extraReducers: builder => {
@@ -44,21 +44,21 @@ export const authSlice = createSlice({
                 state.currentSession = null;
                 state.error = action.payload
             })
-            .addCase(resetAuthState.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-            })
-            .addCase(resetAuthState.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.currentSession = action.payload;
-                state.error = null;
-            })
-            .addCase(resetAuthState.rejected, (state, action) => {
-                return initialState;
-            })
-            .addCase(signOut.fulfilled, (state) => {
-                return initialState;
-            })
+          .addCase(resetAuthState.pending, (state) => {
+              state.isLoading = true
+              state.error = null
+          })
+          .addCase(resetAuthState.fulfilled, (state, action) => {
+              state.isLoading = false
+              state.currentSession = action.payload
+              state.error = null
+          })
+          .addCase(resetAuthState.rejected, () => {
+              return initialState
+          })
+          .addCase(signOut.fulfilled, () => {
+              return initialState
+          })
 
     }
 })

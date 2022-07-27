@@ -1,33 +1,37 @@
-import {FC, useState} from 'react';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
-import PersonIcon from '@mui/icons-material/Person';
-import {FormControl, InputLabel, MenuItem, Select, Tooltip} from '@mui/material';
+import React from 'react'
+import Avatar from '@mui/material/Avatar'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import ListItemText from '@mui/material/ListItemText'
+import DialogTitle from '@mui/material/DialogTitle'
+import Dialog from '@mui/material/Dialog'
+import PersonIcon from '@mui/icons-material/Person'
+import { FormControl, InputLabel, MenuItem, Select, Tooltip } from '@mui/material'
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+const emails = ['username@gmail.com', 'user02@gmail.com']
 
 interface UserSelectDialogProps {
     open: boolean;
     selectedValue: string;
-    onClose: (value: string) => void;
+    onClose: Function;
 }
 
-const UserSelectDialog: FC<UserSelectDialogProps> = ({onClose, selectedValue, open}) => {
+const UserSelectDialog: React.FC<UserSelectDialogProps> = ({
+    onClose,
+    selectedValue,
+    open
+}) => {
     const handleClose = () => {
-        onClose(selectedValue);
-    };
+        onClose(selectedValue)
+    }
 
     const handleListItemClick = (value: string) => {
-        onClose(value);
-    };
+        onClose(value)
+    }
 
     return (
-        <Dialog onClose={handleClose} open={open}>
+      <Dialog onClose={handleClose} open={open}>
             <DialogTitle>Set executor</DialogTitle>
             <List sx={{pt: 0}}>
                 {emails.map((email) => (
@@ -45,18 +49,18 @@ const UserSelectDialog: FC<UserSelectDialogProps> = ({onClose, selectedValue, op
     );
 };
 
-const UserSelector: FC = () => {
-    const [open, setOpen] = useState(false);
-    const [selectedValue, setSelectedValue] = useState(emails[1]);
+const UserSelector: React.FC = () => {
+    const [open, setOpen] = React.useState(false)
+    const [selectedValue, setSelectedValue] = React.useState(emails[1])
 
     const handleClickOpen = () => {
-        setOpen(true);
-    };
+        setOpen(true)
+    }
 
     const handleClose = (value: string) => {
-        setOpen(false);
-        setSelectedValue(value);
-    };
+        setOpen(false)
+        setSelectedValue(value)
+    }
 
     return (
 

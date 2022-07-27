@@ -1,32 +1,31 @@
-import {FC, useEffect} from 'react';
-import {useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../hooks";
-import {resetAuthState} from "../store/AuthReducer/AuthActionCreators";
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../hooks'
+import { resetAuthState } from '../store/AuthReducer/AuthActionCreators'
 
-const RequireAuth: FC = (props) => {
-    const navigate = useNavigate();
-    const {currentSession} = useAppSelector(x => x.authReducer)
+const RequireAuth: React.FC = (props) => {
+  const navigate = useNavigate()
+  const { currentSession } = useAppSelector(x => x.authReducer)
 
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
+  React.useEffect(() => {
+    dispatch(resetAuthState())
+      .unwrap()
+      .catch(() => {
+        navigate('/sign-in')
+      })
+  }, [])
 
-    useEffect(() => {
-        dispatch(resetAuthState())
-            .unwrap()
-            .catch(() => {
-                navigate("/sign-in")
-            })
-    }, []);
+  if (currentSession) {
+    return (
+      <>
+        {props.children}
+      </>
+    )
+  }
 
+  return <></>
+}
 
-    if (currentSession)
-        return (
-            <>
-                {props.children}
-            </>
-        );
-
-    return <></>
-};
-
-export default RequireAuth;
+export default RequireAuth

@@ -1,23 +1,23 @@
-import {FC, useEffect} from 'react';
-import {Outlet, useNavigate} from "react-router-dom";
-import {useAppDispatch} from "../hooks";
-import {resetAuthState} from "../store/AuthReducer/AuthActionCreators";
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../hooks'
+import { resetAuthState } from '../store/AuthReducer/AuthActionCreators'
 
-const RequireAnonymous: FC = (props) => {
-    const navigate = useNavigate();
+const RequireAnonymous: React.FC = ({ children }) => {
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
-    useEffect(() => {
+    React.useEffect(() => {
         dispatch(resetAuthState())
-            .unwrap()
-            .then(_ => {
-                navigate("/")
-            })
-    }, []);
+          .unwrap()
+          .then(() => {
+              navigate('/')
+          })
+    }, [])
 
     return (
         <>
-            <Outlet/>
+            {children}
         </>
     );
 

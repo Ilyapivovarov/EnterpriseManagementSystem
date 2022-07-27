@@ -1,16 +1,19 @@
-import {FC} from 'react';
-import {NavLink} from "react-router-dom";
+import React from 'react'
+import { NavLink } from 'react-router-dom'
 
-import "./Link.css"
+import './Link.css'
 
 interface LinkProps {
-    to: string
+  to: string
 }
 
-const Link: FC<LinkProps> = ({to, children}) => {
-    return (
-        <NavLink id={"nav-link"} to={to}>{children}</NavLink>
-    );
-};
+const Link: React.FC<LinkProps> = ({
+  to,
+  children
+}) => {
+  return (
+    <NavLink id={'nav-link'} to={to}>{children}</NavLink>
+  )
+}
 
-export default Link;
+export default Link
