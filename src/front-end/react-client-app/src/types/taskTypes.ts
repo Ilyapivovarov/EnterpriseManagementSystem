@@ -1,26 +1,25 @@
 export interface UserDto {
-    id: number
-    guid: string,
-    firstName: string,
-    lastName: string,
-    emailAddress: string,
+  id: number
+  guid: string,
+  firstName: string,
+  lastName: string,
+  emailAddress: string,
 }
 
 export interface TaskStatusDto {
-    id: number,
-    guid: string,
-    name: string
+  id: number,
+  guid: string,
+  name: string
 }
 
 export interface TaskDto {
-    id: number,
-    guid: string,
-    name: string,
-    description: string,
-    created: Date,
-    executor: UserDto,
-    observers: UserDto[],
-    inspector: UserDto,
-    author: UserDto,
-    status: TaskStatusDto,
+  id: number,
+  guid: string,
+  name: string,
+  description?: string,
+  created: Date,
+  executor: UserDto,
+  inspector?: UserDto,
+  author: UserDto,
+  status: TaskStatusDto,
 }

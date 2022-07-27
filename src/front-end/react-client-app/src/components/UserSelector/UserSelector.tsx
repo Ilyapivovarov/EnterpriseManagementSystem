@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar'
 import PersonIcon from '@mui/icons-material/Person'
 import ListItemText from '@mui/material/ListItemText'
 import { blue } from '@mui/material/colors'
+import { UserDto } from '../../types/taskTypes'
 
 const emails = ['user01@gmail.com', 'user02@gmail.com', 'user03@gmail.com',
   'user04@gmail.com', 'user05@gmail.com', 'user06@gmail.com',
@@ -93,13 +94,13 @@ const UserSelectDialog: React.FC<UserSelectDialogProps> = ({
 }
 
 interface UserSelectorProps {
-  currentExecutor?: number
+  currentExecutor?: UserDto
 }
 
 const UserSelector: React.FC<UserSelectorProps> = ({ currentExecutor }) => {
   const [open, setOpen] = React.useState(false)
   const [selectedValue, setSelectedValue] = React.useState<string>(currentExecutor ?
-    emails[currentExecutor]
+    currentExecutor.emailAddress
     : '')
 
   const handleClickOpen = () => {
@@ -135,7 +136,7 @@ const UserSelector: React.FC<UserSelectorProps> = ({ currentExecutor }) => {
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
-        currentExecutor={currentExecutor}
+        currentExecutor={currentExecutor?.id}
       />
     </div>
 

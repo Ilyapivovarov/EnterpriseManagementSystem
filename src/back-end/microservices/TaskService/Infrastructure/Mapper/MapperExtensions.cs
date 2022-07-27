@@ -1,4 +1,3 @@
-using AutoMapper;
 using EnterpriseManagementSystem.Contracts.Common;
 using TaskService.Infrastructure.Mapper.Converters;
 
@@ -6,45 +5,55 @@ namespace TaskService.Infrastructure.Mapper;
 
 public static class MapperExtensions
 {
-    public static TaskInfo ToDto(this TaskDbEntity taskDbEntity)
+    public static TaskDto ToDto(this TaskDbEntity taskDbEntity)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<TaskDbEntity, TaskInfo>()
-                .ConvertUsing<TaskDbEntityToTaskInfoConverter>());
+            cfg.CreateMap<TaskDbEntity, TaskDto>()
+                .ConvertUsing<TaskDbEntityToDtoConverter>());
 
         var mapper = new AutoMapper.Mapper(cfg);
 
-        return mapper.Map<TaskDbEntity, TaskInfo>(taskDbEntity);
+        return mapper.Map<TaskDbEntity, TaskDto>(taskDbEntity);
     }
 
-    public static RecordsCollection<TaskInfo> ToDto(this ICollection<TaskDbEntity> taskDbEntity)
+    public static RecordsCollection<TaskDto> ToDto(this ICollection<TaskDbEntity> taskDbEntity)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<TaskDbEntity, TaskInfo>()
-                .ConvertUsing<TaskDbEntityToTaskInfoConverter>());
+            cfg.CreateMap<TaskDbEntity, TaskDto>()
+                .ConvertUsing<TaskDbEntityToDtoConverter>());
 
         var mapper = new AutoMapper.Mapper(cfg);
 
-        return mapper.Map<ICollection<TaskDbEntity>, RecordsCollection<TaskInfo>>(taskDbEntity);
+        return mapper.Map<ICollection<TaskDbEntity>, RecordsCollection<TaskDto>>(taskDbEntity);
     }
 
-    public static Account ToDto(this UserDbEntity userDbEntity)
+    public static UserDto ToDto(this UserDbEntity userDbEntity)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<UserDbEntity, Account>()
-                .ConvertUsing<UserDbEntityToAccountConverter>());
+            cfg.CreateMap<UserDbEntity, UserDto>()
+                .ConvertUsing<UserDbEntityToDtoConverter>());
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<UserDbEntity, Account>(userDbEntity);
+        return mapper.Map<UserDbEntity, UserDto>(userDbEntity);
     }
 
-    public static RecordsCollection<Account> ToDto(this ICollection<UserDbEntity> userDbEntities)
+    public static RecordsCollection<UserDto> ToDto(this ICollection<UserDbEntity> userDbEntities)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<UserDbEntity, Account>()
-                .ConvertUsing<UserDbEntityToAccountConverter>());
+            cfg.CreateMap<UserDbEntity, UserDto>()
+                .ConvertUsing<UserDbEntityToDtoConverter>());
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<ICollection<UserDbEntity>, RecordsCollection<Account>>(userDbEntities);
+        return mapper.Map<ICollection<UserDbEntity>, RecordsCollection<UserDto>>(userDbEntities);
+    }
+
+    public static TaskStatusDto ToDto(this TaskStatusDbEntity taskStatusDbEntity)
+    {
+        var cfg = new MapperConfiguration(cfg =>
+            cfg.CreateMap<TaskStatusDbEntity, TaskStatusDto>()
+                .ConvertUsing<TaskStatusToDtoConverter>());
+
+        var mapper = new AutoMapper.Mapper(cfg);
+        return mapper.Map<TaskStatusDbEntity, TaskStatusDto>(taskStatusDbEntity);
     }
 }

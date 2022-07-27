@@ -38,8 +38,8 @@ public sealed class CreateNewTaskHandler : RequestHandlerBase<NewTaskRequest>
             if (!saveResult)
                 return Error("Error while save task");
 
-            var @event = new CreateNewTaskIntegrationEvent(newTaskDbEntity.ToDto());
-            await _bus.Publish(@event, cancellationToken);
+            // var @event = new CreateNewTaskIntegrationEvent(newTaskDbEntity.ToDto());
+            // await _bus.Publish(@event, cancellationToken);
 
             return Ok();
         }
