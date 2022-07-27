@@ -22,61 +22,61 @@ const dataPage = () => {
     return <Loader/>
   }
 
-  if (!isSuccess) {
-    return <>{error}</>
-  }
-
-  return (
-    <Paper
-      sx={{
-        padding: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-      }}
-    >
-      <Box padding={1} display={'flex'} justifyContent={'space-between'}>
-        <Typography fontSize={14} paddingLeft={1}>
-          Task-{data.id} created by{' '}
-          <Link to={`/users/${data.author.guid}`}>
-            {data.author.firstName} {data.author.lastName}{' '}
-          </Link>
-          {new Date(data.created).toLocaleDateString()}
-        </Typography>
-        <Box>
-          <ButtonGroup size="small">
-            <Button key="edit">
-              <EditIcon/>
-            </Button>
-            <Button key="delete">
-              <DeleteIcon/>
-            </Button>
-          </ButtonGroup>
-        </Box>
-      </Box>
-      <Box padding={1}>
-        <Box display={'flex'} justifyContent={'space-between'}>
-          <Typography
-            paddingBottom={2}
-            paddingTop={1}
-            variant="h3"
-            paddingLeft={1}
-          >
-            {data.name}
+  if (isSuccess) {
+    return (
+      <Paper
+        sx={{
+          padding: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+        }}
+      >
+        <Box padding={1} display={'flex'} justifyContent={'space-between'}>
+          <Typography fontSize={14} paddingLeft={1}>
+            Task-{data.id} created by{' '}
+            <Link to={`/users/${data.author.guid}`}>
+              {data.author.firstName} {data.author.lastName}{' '}
+            </Link>
+            {new Date(data.created).toLocaleDateString()}
           </Typography>
-          <Box display={'flex'} justifyContent={'space-between'}>
-            <div style={{ marginRight: '5px' }}>
-              <UserSelector currentExecutor={data.executor}/>
-            </div>
-            <TaskStatusSelector selectedStatusId={1}/>
+          <Box>
+            <ButtonGroup size="small">
+              <Button key="edit">
+                <EditIcon/>
+              </Button>
+              <Button key="delete">
+                <DeleteIcon/>
+              </Button>
+            </ButtonGroup>
           </Box>
         </Box>
-        <Typography fontSize={20} paddingLeft={1}>
-          {data.description}
-        </Typography>
-      </Box>
-    </Paper>
-  )
+        <Box padding={1}>
+          <Box display={'flex'} justifyContent={'space-between'}>
+            <Typography
+              paddingBottom={2}
+              paddingTop={1}
+              variant="h3"
+              paddingLeft={1}
+            >
+              {data.name}
+            </Typography>
+            <Box display={'flex'} justifyContent={'space-between'}>
+              <div style={{ marginRight: '5px' }}>
+                <UserSelector currentExecutor={data.executor}/>
+              </div>
+              <TaskStatusSelector selectedStatusId={1}/>
+            </Box>
+          </Box>
+          <Typography fontSize={20} paddingLeft={1}>
+            {data.description}
+          </Typography>
+        </Box>
+      </Paper>
+    )
+  }
+
+  return <>{error}</>
 }
 
 export default dataPage
