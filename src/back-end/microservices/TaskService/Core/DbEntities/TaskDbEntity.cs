@@ -8,7 +8,7 @@ public class TaskDbEntity : DbEntityBase
 
     public virtual UserDbEntity? Executor { get; set; }
 
-    public virtual List<UserDbEntity> Observers { get; init; } = new();
+    // public virtual List<UserDbEntity> Observers { get; init; } = new();
 
     public virtual UserDbEntity? Inspector { get; set; }
 

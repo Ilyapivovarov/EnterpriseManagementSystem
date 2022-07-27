@@ -12,7 +12,7 @@ public static class TaskDbEntityBuilder
             Description = description,
             Inspector = usersInvolvedInTask.Inspector,
             Name = name,
-            Observers = usersInvolvedInTask.Observers,
+            // Observers = usersInvolvedInTask.Observers,
             Status = taskStatusDbEntity
         };
     }
@@ -28,11 +28,11 @@ public static class TaskDbEntityBuilder
         if (name != null)
             taskDbEntity.Name = name;
 
-        var newObservers = taskDbEntity.Observers.UnionBy(usersInvolvedInTask.Observers,
-            entity => entity.Guid);
-        taskDbEntity.Observers.Clear();
-        taskDbEntity.Observers.AddRange(newObservers);
-        
+        // var newObservers = taskDbEntity.Observers.UnionBy(usersInvolvedInTask.Observers,
+        //     entity => entity.Guid);
+        // taskDbEntity.Observers.Clear();
+        // taskDbEntity.Observers.AddRange(newObservers);
+
         taskDbEntity.Status = taskStatusDbEntity;
     }
 }

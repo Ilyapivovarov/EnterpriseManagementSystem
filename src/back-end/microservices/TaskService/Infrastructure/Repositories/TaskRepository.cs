@@ -8,6 +8,11 @@ public sealed class TaskRepository : RepositoryBase, ITaskRepository
         : base(taskDbContext, logger)
     { }
 
+    public async Task<TaskDbEntity?> GetTaskByIdAsync(int id)
+    {
+        return await LoadDataAsync(db => db.Tasks.FirstOrDefault(x => x.Id == id));
+    }
+
     public async Task<TaskDbEntity?> GetTaskByGuidAsync(Guid guid)
     {
         return await LoadDataAsync(db => db.Tasks.FirstOrDefault(x => x.Guid == guid));

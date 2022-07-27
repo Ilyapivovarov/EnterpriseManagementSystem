@@ -3,6 +3,13 @@ namespace TaskService.Application.Repositories;
 public interface ITaskRepository
 {
     /// <summary>
+    ///     Getting entity by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public Task<TaskDbEntity?> GetTaskByIdAsync(int id);
+
+    /// <summary>
     ///     Getting entity by guid
     /// </summary>
     /// <param name="guid"></param>

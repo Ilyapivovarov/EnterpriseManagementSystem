@@ -1,4 +1,5 @@
 using AutoMapper;
+using EnterpriseManagementSystem.Contracts.Common;
 
 namespace TaskService.Infrastructure.Mapper.Converters;
 
@@ -9,6 +10,6 @@ public sealed class TaskDbEntityToTaskInfoConverter : ITypeConverter<TaskDbEntit
         return new TaskInfo(source.Guid, source.Name, source.Description, source.Status.Name, source.Author.ToDto(),
             source.Executor?.ToDto(),
             source.Inspector?.ToDto(),
-            source.Observers?.ToDto());
+            new RecordsCollection<Account>());
     }
 }

@@ -18,7 +18,7 @@ public sealed class DefaultDataSeedServices : IHostedService
     {
         if (!_webHostEnvironment.IsEnvironment("Testing"))
             return Task.CompletedTask;
-        
+
         _hostApplicationLifetime.ApplicationStarted.Register(OnStarted);
         return Task.CompletedTask;
     }
@@ -27,10 +27,10 @@ public sealed class DefaultDataSeedServices : IHostedService
     {
         return Task.CompletedTask;
     }
-    
-    private void OnStarted()
+
+    private async void OnStarted()
     {
         using var services = _scopeFactory.CreateScope();
-        TaskDbContextSeed.InitData(services.ServiceProvider);
+        await TaskDbContextSeed.InitData(services.ServiceProvider);
     }
 }

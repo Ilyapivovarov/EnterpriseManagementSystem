@@ -2,30 +2,27 @@ namespace TaskService.Infrastructure.DbContexts;
 
 public static class TaskDbContextSeed
 {
-    public static void InitData(IServiceProvider services)
+    public static async Task InitData(IServiceProvider services)
     {
         var taskDbContext = services.GetRequiredService<ITaskDbContext>();
-        if (!taskDbContext.Users.Any() && !taskDbContext.Tasks.Any())
+        var taskRepository = services.GetRequiredService<ITaskRepository>();
+
+        if (!taskDbContext.Tasks.Any())
         {
-            taskDbContext.Tasks.Add(new TaskDbEntity
+            var firstUser = taskDbContext.Users.First();
+            await taskRepository.SaveTaskAsync(new TaskDbEntity
             {
-                Author = new UserDbEntity
-                {
-                    IdentityGuid = Guid.NewGuid(),
-                    EmailAddress = "admin@admin.com",
-                    FirstName = "Admin",
-                    LastName = "Admin",
-                },
-                Description = "Test desc",
-                Name = "Test",
+                Author = firstUser,
+                Name = "Test name",
+                Executor = firstUser,
                 Status = new TaskStatusDbEntity
                 {
                     Name = "Registred"
-                }
+                },
+                Description = "Test desc"
             });
 
-            taskDbContext.SaveChanges();
         }
-        
+
     }
 }
