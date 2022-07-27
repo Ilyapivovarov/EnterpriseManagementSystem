@@ -75,6 +75,11 @@ public static class ServiceUrls
                 return BaseUrl;
             }
 
+            public static string GetTaskById(string id)
+            {
+                return $"{BaseUrl}/{id}";
+            }
+
             public static string GetTaskByGuid(string guid)
             {
                 return $"{BaseUrl}/{guid}";
@@ -113,7 +118,7 @@ public static class ServiceUrls
                 return $"{BaseUrl}";
             }
         }
-        
-       
+
+
     }
 }

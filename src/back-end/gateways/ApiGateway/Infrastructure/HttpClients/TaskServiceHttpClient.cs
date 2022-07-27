@@ -12,6 +12,12 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
         _client = client;
     }
 
+    public async Task<IActionResult> GetTaskByIdAsync(string id)
+    {
+        var response = await _client.GetAsync(ServiceUrls.TaskApi.TaskController.GetTaskById(id));
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
+    }
+
     public async Task<IActionResult> GetTaskByGuidAsync(string guid)
     {
         var response = await _client.GetAsync(ServiceUrls.TaskApi.TaskController.GetTaskByGuid(guid));

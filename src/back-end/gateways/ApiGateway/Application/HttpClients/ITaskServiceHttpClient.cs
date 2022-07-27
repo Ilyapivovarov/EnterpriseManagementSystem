@@ -2,6 +2,8 @@ namespace ApiGateway.Application.HttpClients;
 
 public interface ITaskServiceHttpClient
 {
+    public Task<IActionResult> GetTaskByIdAsync(string id);
+
     public Task<IActionResult> GetTaskByGuidAsync(string guid);
 
     public Task<IActionResult> CreateNewTaskAsync(NewTask newTask);

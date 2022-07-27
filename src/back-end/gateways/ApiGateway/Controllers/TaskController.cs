@@ -12,7 +12,19 @@ public sealed class TaskController
     }
 
     /// <summary>
-    ///     Getting task with guid
+    ///     Getting by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("{id:int}")]
+    public async Task<IActionResult> GetTaskById(string id)
+    {
+        return await _taskServiceHttpClient.GetTaskByGuidAsync(id);
+    }
+
+    /// <summary>
+    ///     Getting task by guid
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>

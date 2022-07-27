@@ -1,26 +1,25 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../hooks'
 import { resetAuthState } from '../store/AuthReducer/AuthActionCreators'
 
-const RequireAnonymous: React.FC = ({ children }) => {
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+const RequireAnonymous: React.FC = () => {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
-    React.useEffect(() => {
-        dispatch(resetAuthState())
-          .unwrap()
-          .then(() => {
-              navigate('/')
-          })
-    }, [])
+  React.useEffect(() => {
+    dispatch(resetAuthState())
+      .unwrap()
+      .catch((e) => {
+        console.log(e)
+        navigate('/sign-in')
+      })
+  }, [])
 
-    return (
-        <>
-            {children}
-        </>
-    );
+  return (
+    <Outlet/>
+  )
 
-};
+}
 
-export default RequireAnonymous;
+export default RequireAnonymous
