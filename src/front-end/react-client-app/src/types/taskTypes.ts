@@ -1,4 +1,5 @@
 export interface UserDto {
+    id: number
     guid: string,
     firstName: string,
     lastName: string,
