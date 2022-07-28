@@ -17,7 +17,7 @@ const App: React.FC = () => (
       <Route path={'users/:guid'} element={<UserPage/>}/>
       <Route path={'tasks/'} element={<TaskListPage/>}/>
       <Route path={'tasks/:id'} element={<TaskPage/>}/>
-      <Route path={'settings/'} element={<SettingsPage/>}/>
+      <Route path={'settings'} element={<SettingsPage/>}/>
     </Route>
     <Route path={'/'} element={<RequireAnonymous/>}>
       <Route path={'sign-in'} element={<SignInPage/>}/>
