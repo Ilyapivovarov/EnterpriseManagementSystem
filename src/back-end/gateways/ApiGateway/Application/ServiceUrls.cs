@@ -90,6 +90,16 @@ public static class ServiceUrls
                 return BaseUrl;
             }
         }
+
+        public static class TaskStatusesController
+        {
+            private const string BaseUrl = "TaskStatus";
+
+            public static string GetAll()
+            {
+                return BaseUrl;
+            }
+        }
     }
 
     public static class UserServiceApi
@@ -118,7 +128,5 @@ public static class ServiceUrls
                 return $"{BaseUrl}";
             }
         }
-
-
     }
 }

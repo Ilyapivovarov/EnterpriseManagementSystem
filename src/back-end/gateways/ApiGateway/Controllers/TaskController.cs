@@ -20,7 +20,7 @@ public sealed class TaskController
     [Route("{id:int}")]
     public async Task<IActionResult> GetTaskById(string id)
     {
-        return await _taskServiceHttpClient.GetTaskByGuidAsync(id);
+        return await _taskServiceHttpClient.GetTaskByIdAsync(id);
     }
 
     /// <summary>

@@ -9,4 +9,6 @@ public interface ITaskStatusRepository
     public Task<TaskStatusDbEntity> GetDefaultTaskStatus();
 
     public Task<TaskStatusDbEntity?> GetByName(string statusName);
+
+    public Task<TaskStatusDbEntity[]?> GetAllStatuses();
 }

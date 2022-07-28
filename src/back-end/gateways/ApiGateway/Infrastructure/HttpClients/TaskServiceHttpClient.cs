@@ -37,4 +37,10 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
             GetStringContent(taskInfo.ToJson()));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
+
+    public async Task<IActionResult> GetAllTaskStatuses()
+    {
+        var response = await _client.GetAsync(ServiceUrls.TaskApi.TaskStatusesController.GetAll());
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
+    }
 }

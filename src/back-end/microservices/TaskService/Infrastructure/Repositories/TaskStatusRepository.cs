@@ -32,4 +32,9 @@ public sealed class TaskStatusRepository : RepositoryBase, ITaskStatusRepository
     {
         return await LoadDataAsync(db => db.TaskStatuses.FirstOrDefault(x => x.Name == statusName));
     }
+
+    public async Task<TaskStatusDbEntity[]?> GetAllStatuses()
+    {
+        return await LoadDataAsync(db => db.TaskStatuses.ToArray());
+    }
 }

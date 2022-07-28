@@ -13,8 +13,8 @@ public class TaskDbContextSeed
                 var taskService = services.GetRequiredService<ITaskService>();
 
                 var registeredStatus = await taskService.GetOrCreateTaskByName("Registered");
-                var activeStatus = await taskService.GetOrCreateTaskByName("Active");
-                var completedStatus = await taskService.GetOrCreateTaskByName("Completed");
+                await taskService.GetOrCreateTaskByName("Active");
+                await taskService.GetOrCreateTaskByName("Completed");
 
                 var firstUser = taskDbContext.Users.First();
                 if (registeredStatus.Value != null)

@@ -56,4 +56,17 @@ public static class MapperExtensions
         var mapper = new AutoMapper.Mapper(cfg);
         return mapper.Map<TaskStatusDbEntity, TaskStatusDto>(taskStatusDbEntity);
     }
+
+    public static RecordsCollection<TaskStatusDto> ToDto(this ICollection<TaskStatusDbEntity>? taskStatusDbEntities)
+    {
+        if (taskStatusDbEntities == null)
+            return new RecordsCollection<TaskStatusDto>();
+
+        var cfg = new MapperConfiguration(cfg =>
+            cfg.CreateMap<TaskStatusDbEntity, TaskStatusDto>()
+                .ConvertUsing<TaskStatusToDtoConverter>());
+
+        var mapper = new AutoMapper.Mapper(cfg);
+        return mapper.Map<ICollection<TaskStatusDbEntity>, RecordsCollection<TaskStatusDto>>(taskStatusDbEntities);
+    }
 }
