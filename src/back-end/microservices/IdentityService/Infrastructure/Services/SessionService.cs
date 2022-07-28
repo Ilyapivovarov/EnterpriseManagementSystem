@@ -8,10 +8,17 @@ namespace IdentityService.Infrastructure.Services;
 public sealed class SessionService : ISessionService
 {
     private readonly IOptions<AuthOption> _authOptions;
+    private readonly ILogger<SessionService> _logger;
+    private readonly ISessionRepository _sessionRepository;
+    private readonly IUserRepository _userRepository;
 
-    public SessionService(IOptions<AuthOption> authOptions)
+    public SessionService(ILogger<SessionService> logger, IOptions<AuthOption> authOptions,
+        ISessionRepository sessionRepository, IUserRepository userRepository)
     {
+        _logger = logger;
         _authOptions = authOptions;
+        _sessionRepository = sessionRepository;
+        _userRepository = userRepository;
     }
 
     public SessionDbEntity CreateSession(UserDbEntity user)
@@ -45,6 +52,35 @@ public sealed class SessionService : ISessionService
         session.AccessToken = accessToken;
         session.RefreshToken = Guid.NewGuid();
         return session;
+    }
+
+    public async Task<ServiceActionResult<SessionDbEntity?>> RefreshToken(string refreshToken)
+    {
+        try
+        {
+            var session = await _sessionRepository.GetByRefreshToken(Guid.Parse(refreshToken));
+
+            if (session == null)
+                return new ServiceActionResult<SessionDbEntity?>("Not found");
+
+            var user = await _userRepository.GetUserByGuidAsync(session.User.Guid);
+            if (user == null)
+                return new ServiceActionResult<SessionDbEntity?>("Not found user");
+
+            session.AccessToken = GenerateAccessToken(user);
+            session.RefreshToken = Guid.NewGuid();
+
+            var saveResult = await _sessionRepository.Update(session);
+            if (saveResult)
+                return new ServiceActionResult<SessionDbEntity?>(session);
+
+            return new ServiceActionResult<SessionDbEntity?>("Error");
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            throw;
+        }
     }
 
     private string GenerateAccessToken(UserDbEntity user)

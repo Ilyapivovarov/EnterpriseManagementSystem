@@ -31,4 +31,11 @@ public sealed class IdentityServiceHttpClient : HttpClientBase, IIdentityService
         var response = await _httpClient.DeleteAsync(ServiceUrls.IdentityApi.AuthController.SignOut());
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
+
+    public async Task<IActionResult> RefreshToken(string refreshToken)
+    {
+        var response =
+            await _httpClient.PutAsync(ServiceUrls.IdentityApi.AuthController.RefreshToken(refreshToken), null);
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
+    }
 }

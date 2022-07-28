@@ -40,4 +40,14 @@ public sealed class SessionRepository : RepositoryBase, ISessionRepository
         return await SaveDataAsync(db => db.Sessions.Remove(session),
             $"Error while removind sessiong with guid {session.Guid}");
     }
+
+    public async Task<SessionDbEntity?> GetByRefreshToken(Guid refreshToken)
+    {
+        return await LoadDataAsync(db => db.Sessions.FirstOrDefault(x => x.RefreshToken == refreshToken));
+    }
+
+    public async Task<bool> Update(SessionDbEntity sessionDbEntity)
+    {
+        return await WriteDataAsync(db => db.Sessions.Update(sessionDbEntity));
+    }
 }

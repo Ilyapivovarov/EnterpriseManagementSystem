@@ -21,7 +21,6 @@ public sealed class AuthController : ControllerBase
     /// <param name="signIn">Authentication data</param>
     /// <returns></returns>
     [HttpPost]
-    [AllowAnonymous]
     [Route("sign-in")]
     public async Task<IActionResult> SignInUser([FromBody] SignIn signIn)
     {
@@ -34,7 +33,6 @@ public sealed class AuthController : ControllerBase
     /// <param name="signUp">Register data</param>
     /// <returns></returns>
     [HttpPost]
-    [AllowAnonymous]
     [Route("sign-up")]
     public async Task<IActionResult> SignUpUser([FromBody] SignUp signUp)
     {
@@ -46,10 +44,18 @@ public sealed class AuthController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpDelete]
+    [Authorize]
     [Route("sign-out")]
     public async Task<IActionResult> SignOutUser()
     {
         var guidStr = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
         return await _mediator.Send(new SignOutRequest(Guid.Parse(guidStr)));
+    }
+
+    [HttpPut]
+    [Route("refresh/{refreshToken}")]
+    public async Task<IActionResult> RefreshToken(string refreshToken)
+    {
+        return await _mediator.Send(new RefreshTokenRequest(refreshToken));
     }
 }

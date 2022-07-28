@@ -35,4 +35,12 @@ public class AuthController : ControllerBase
     {
         return await _identityServiceHttpClient.SignOutUser();
     }
+
+    [HttpPut]
+    [AllowAnonymous]
+    [Route("refresh/{refreshToken}")]
+    public async Task<IActionResult> RefreshToken(string refreshToken)
+    {
+        return await _identityServiceHttpClient.RefreshToken(refreshToken);
+    }
 }

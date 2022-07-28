@@ -11,4 +11,8 @@ public interface ISessionRepository
     public Task<SessionDbEntity?> GetSessionByUserGuid(Guid userGuid);
 
     public Task<bool> RemoveSession(SessionDbEntity session);
+
+    Task<SessionDbEntity?> GetByRefreshToken(Guid refreshToken);
+
+    Task<bool> Update(SessionDbEntity sessionDbEntity);
 }

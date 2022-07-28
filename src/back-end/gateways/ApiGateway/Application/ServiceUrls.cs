@@ -29,6 +29,11 @@ public static class ServiceUrls
             {
                 return "auth/sign-out";
             }
+
+            public static string RefreshToken(string refreshToken)
+            {
+                return $"auth/refresh/{refreshToken}";
+            }
         }
 
         public static class UserController
