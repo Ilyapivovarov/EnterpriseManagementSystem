@@ -34,11 +34,11 @@ const dataPage = () => {
       >
         <Box padding={1} display={'flex'} justifyContent={'space-between'}>
           <Typography fontSize={14} paddingLeft={1}>
-            Task-{data.id} created by{' '}
+            <b>EMS-{data.id}</b> created by{' '}
             <Link to={`/users/${data.author.guid}`}>
               {data.author.firstName} {data.author.lastName}{' '}
             </Link>
-            {new Date(data.created).toLocaleDateString()}
+            on {new Date(data.created).toLocaleDateString()} {new Date(data.created).toLocaleTimeString()}
           </Typography>
           <Box>
             <ButtonGroup size="small">
