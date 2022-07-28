@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import SignInPage from './pages/SignInPage'
 import HomePage from './pages/HomePage'
 import SignUpPage from './pages/SignUpPage'
@@ -8,24 +8,39 @@ import TaskPage from './pages/TaskPage'
 import SettingsPage from './pages/SettingsPage'
 import RequireAnonymous from './hoc/RequireAnonymous'
 import Layout from './components/Layout/Layout'
+import { useAppDispatch } from './hooks'
+import { resetAuthState } from './store/AuthReducer/AuthActionCreators'
 
-const App: React.FC = () => (
-  <Routes>
-    <Route path={'/'} element={<RequireAuth><Layout/></RequireAuth>}>
-      <Route index element={<HomePage/>}/>
-      <Route path={'users/'} element={<UserListPage/>}/>
-      <Route path={'users/:guid'} element={<UserPage/>}/>
-      <Route path={'tasks/'} element={<TaskListPage/>}/>
-      <Route path={'tasks/:id'} element={<TaskPage/>}/>
-      <Route path={'settings'} element={<SettingsPage/>}/>
-    </Route>
-    <Route path={'/'} element={<RequireAnonymous/>}>
-      <Route path={'sign-in'} element={<SignInPage/>}/>
-      <Route path={'sign-up'} element={<SignUpPage/>}/>
-    </Route>
-    <Route path="*" element={<NotFoundPage/>}/>
-  </Routes>
-)
+const App: React.FC = () => {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
+  React.useEffect(() => {
+    dispatch(resetAuthState())
+      .unwrap()
+      .catch(() => {
+        navigate('/sign-in')
+      })
+  }, [])
+
+  return (
+    <Routes>
+      <Route path={'/'} element={<RequireAuth><Layout/></RequireAuth>}>
+        <Route index element={<HomePage/>}/>
+        <Route path={'users/'} element={<UserListPage/>}/>
+        <Route path={'users/:guid'} element={<UserPage/>}/>
+        <Route path={'tasks/'} element={<TaskListPage/>}/>
+        <Route path={'tasks/:id'} element={<TaskPage/>}/>
+        <Route path={'settings'} element={<SettingsPage/>}/>
+      </Route>
+      <Route path={'/'} element={<RequireAnonymous/>}>
+        <Route path={'sign-in'} element={<SignInPage/>}/>
+        <Route path={'sign-up'} element={<SignUpPage/>}/>
+      </Route>
+      <Route path="*" element={<NotFoundPage/>}/>
+    </Routes>
+  )
+}
 
 export default App
 
