@@ -8,7 +8,7 @@ public sealed class TaskStatusRepository : RepositoryBase, ITaskStatusRepository
         : base(taskDbContext, logger)
     { }
 
-    public async Task<bool> SaveTaskStatusDbEntity(TaskStatusDbEntity taskStatusDbEntity)
+    public async Task<bool> SaveAsync(TaskStatusDbEntity taskStatusDbEntity)
     {
         return await WriteDataAsync(db => db.TaskStatuses.Add(taskStatusDbEntity));
     }

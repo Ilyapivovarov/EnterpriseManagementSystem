@@ -1,27 +1,38 @@
 namespace TaskService.Infrastructure.DbContexts;
 
-public static class TaskDbContextSeed
+public class TaskDbContextSeed
 {
     public static async Task InitData(IServiceProvider services)
     {
-        var taskDbContext = services.GetRequiredService<ITaskDbContext>();
-        var taskRepository = services.GetRequiredService<ITaskRepository>();
-
-        if (!taskDbContext.Tasks.Any())
+        var logger = services.GetRequiredService<ILogger<TaskDbContextSeed>>();
+        try
         {
-            var firstUser = taskDbContext.Users.First();
-            await taskRepository.SaveTaskAsync(new TaskDbEntity
+            var taskDbContext = services.GetRequiredService<ITaskDbContext>();
+            if (!taskDbContext.Tasks.Any())
             {
-                Author = firstUser,
-                Name = "Test name",
-                Executor = firstUser,
-                Status = new TaskStatusDbEntity
-                {
-                    Name = "Registred"
-                },
-                Description = "Test desc"
-            });
+                var taskService = services.GetRequiredService<ITaskService>();
 
+                var registeredStatus = await taskService.GetOrCreateTaskByName("Registered");
+                var activeStatus = await taskService.GetOrCreateTaskByName("Active");
+                var completedStatus = await taskService.GetOrCreateTaskByName("Completed");
+
+                var firstUser = taskDbContext.Users.First();
+                if (registeredStatus.Value != null)
+                    await services.GetRequiredService<ITaskRepository>()
+                        .SaveTaskAsync(new TaskDbEntity
+                        {
+                            Author = firstUser,
+                            Executor = firstUser,
+                            Name = "Test task",
+                            Created = DateTime.Now,
+                            Status = registeredStatus.Value
+                        });
+
+            }
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e.Message);
         }
 
     }

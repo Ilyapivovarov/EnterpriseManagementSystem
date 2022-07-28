@@ -41,7 +41,7 @@ public static class InfrastructureExtensions
 
         #endregion
 
-        #region Register hosted services
+        #region Register HostedServices
 
         services.AddHostedService<DefaultDataSeedServices>();
 

@@ -12,4 +12,11 @@ public interface ITaskService
     /// <returns></returns>
     public Task<UsersInvolvedInTask> GetUsersInvolvedInTask(Guid authorGuid, Guid? executorGuid = null,
         Guid? inspectorGuid = null, ICollection<Guid>? observerGuids = null);
+
+    /// <summary>
+    ///     Geting or creating task with name
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public Task<ServiceResult<TaskStatusDbEntity>> GetOrCreateTaskByName(string name);
 }
