@@ -46,7 +46,9 @@ export const signIn = createAsyncThunk<Session, SignIn, { rejectValue: string }>
       body: JSON.stringify(authModel),
     })
     if (response.ok) {
-      return await response.json()
+      const result = await response.json()
+      localStorage.setItem('session', JSON.stringify(result))
+      return result
     }
 
     return rejectWithValue(await response.text())

@@ -21,8 +21,6 @@ export const authSlice = createSlice({
       .addCase(signIn.fulfilled, (state, action) => {
         state.isLoading = false
         state.currentSession = action.payload
-
-        localStorage.setItem('session', JSON.stringify(state.currentSession))
       })
       .addCase(signIn.rejected, (state, action) => {
         state.isLoading = false
