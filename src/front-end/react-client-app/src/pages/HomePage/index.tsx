@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, CircularProgress, Paper, Typography } from '@mui/material'
 import { useGetAccountByGuidQuery } from '../../services/accountService'
 import { useAppSelector } from '../../hooks'
+import { NavLink } from 'react-router-dom'
 
 const HomePage: React.FC = () => {
   const { currentSession } = useAppSelector(x => x.authReducer)
@@ -22,7 +23,8 @@ const HomePage: React.FC = () => {
       {isLoading && <Box sx={{ display: 'flex' }}>
         <CircularProgress/>
       </Box>}
-      {isSuccess && <Typography> Welcome {data.user.firstName}</Typography>}
+      {isSuccess &&
+        <Typography> Welcome {data.user.firstName} <NavLink to={'tasks/1'}>First task</NavLink> </Typography>}
     </Paper>
   )
 }
