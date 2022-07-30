@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
-import { UserDto } from '../types/taskTypes'
+import { UsersByPageDto } from '../types/taskTypes'
 import { Session } from '../types/authTypes'
 
 const baseUrl = process.env.REACT_APP_API_KEY
@@ -17,7 +17,7 @@ export const executorService = createApi({
     },
   }),
   endpoints: (build) => ({
-    getUsersByPage: build.query<UserDto[], { page: number, count: number }>({
+    getUsersByPage: build.query<UsersByPageDto, { page: number, count: number }>({
       query: ({
         page,
         count

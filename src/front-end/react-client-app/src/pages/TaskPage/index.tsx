@@ -3,11 +3,11 @@ import { Box, Button, ButtonGroup, Paper, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Link from '../../components/Link/Link'
-import UserSelector from '../../components/UserSelector/UserSelector'
 import { useGetTaskByIdQuery } from '../../services/taskService'
 import { useParams } from 'react-router-dom'
 import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelect'
 import Loader from '../../components/Loader/Loader'
+import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector'
 
 const dataPage = () => {
   const { id } = useParams()
@@ -63,7 +63,7 @@ const dataPage = () => {
             </Typography>
             <Box display={'flex'} justifyContent={'space-between'}>
               <div style={{ marginRight: '5px' }}>
-                <UserSelector currentExecutor={data.executor}/>
+                <ExecutorSelector currentExecutor={data.executor}/>
               </div>
               <TaskStatusSelector selectedStatusId={1}/>
             </Box>

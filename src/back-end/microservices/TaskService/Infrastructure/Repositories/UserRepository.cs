@@ -25,4 +25,9 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
             .Take(count)
             .ToArray());
     }
+
+    public async Task<int> Count()
+    {
+        return await LoadDataAsync(db => db.Users.Count());
+    }
 }

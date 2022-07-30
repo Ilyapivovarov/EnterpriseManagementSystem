@@ -12,23 +12,23 @@ import { blue } from '@mui/material/colors'
 import { UserDto } from '../../types/taskTypes'
 import { useGetUsersByPageQuery } from '../../services/executorService'
 
-interface UserSelectDialogItemsProps {
+interface ExecutorSelectorDialogItemsProps {
   id: number,
   email: string,
   handleListItemClick: Function,
-  currentExecutor?: boolean
+  isCurrentUser?: boolean
 }
 
-const UserSelectDialogItems: React.FC<UserSelectDialogItemsProps> = ({
+const ExecutorSelectorDialogItems: React.FC<ExecutorSelectorDialogItemsProps> = ({
   id,
   handleListItemClick,
   email,
-  currentExecutor
+  isCurrentUser
 }) => {
   return (
-    <ListItem button onClick={() => handleListItemClick(email)} key={id} disabled={currentExecutor}>
+    <ListItem button onClick={() => handleListItemClick(email)} key={id} disabled={isCurrentUser}>
       <ListItemAvatar>
-        {currentExecutor ?
+        {isCurrentUser ?
           <Avatar sx={{
             bgcolor: blue[100],
             color: blue[600]
@@ -44,14 +44,14 @@ const UserSelectDialogItems: React.FC<UserSelectDialogItemsProps> = ({
   )
 }
 
-interface UserSelectDialogProps {
+interface ExecutorSelectorDialogProps {
   open: boolean;
   selectedValue: string;
   onClose: Function;
   currentExecutor?: number
 }
 
-const UserSelectDialog: React.FC<UserSelectDialogProps> = ({
+const ExecutorSelectorDialog: React.FC<ExecutorSelectorDialogProps> = ({
   onClose,
   selectedValue,
   open,
@@ -61,53 +61,68 @@ const UserSelectDialog: React.FC<UserSelectDialogProps> = ({
     onClose(selectedValue)
   }
 
-  const handleListItemClick = (value: string) => {
-    onClose(value)
-  }
+  return (
+    <Dialog onClose={handleClose} open={open}>
+      <DialogTitle>Set executor</DialogTitle>
+      <ExecutorListWithPag onClose={onClose} currentExecutor={currentExecutor}/>
+    </Dialog>
+  )
+}
 
+interface ExecutorListWithPagProps {
+  onClose: Function;
+  currentExecutor?: number
+}
+
+const ExecutorListWithPag: React.FC<ExecutorListWithPagProps> = ({
+  currentExecutor,
+  onClose
+}) => {
+
+  const pageSize = 10
   const [page, setPage] = React.useState<number>(1)
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value)
-  }
-
   const {
     data,
     isSuccess,
     error
   } = useGetUsersByPageQuery({
     page,
-    count: 10
+    count: pageSize
   })
 
+  const handleListItemClick = (value: string) => {
+    onClose(value)
+  }
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value)
+  }
+
   if (isSuccess) {
-    console.log(data)
     return (
-      <Dialog onClose={handleClose} open={open}>
-        <DialogTitle>Set executor</DialogTitle>
-        <List sx={{ pt: 0 }}>
-          {
-            data.map((x) => <UserSelectDialogItems email={x.emailAddress}
-                                                   id={x.id}
-                                                   handleListItemClick={() => handleListItemClick(x.emailAddress)}
-                                                   key={x.id}
-                                                   currentExecutor={currentExecutor == x.id}/>)
-          }
-          <Stack spacing={2}>
-            <Pagination count={3} page={page} onChange={handleChange}/>
-          </Stack>
-        </List>
-      </Dialog>
+      <List sx={{ pt: 0 }}>
+        {
+          data.users.map(x => <ExecutorSelectorDialogItems email={x.emailAddress}
+                                                           id={x.id}
+                                                           handleListItemClick={() => handleListItemClick(x.emailAddress)}
+                                                           key={x.id}
+                                                           isCurrentUser={currentExecutor == x.id}/>)
+        }
+        <Stack spacing={2}>
+          <Pagination count={Math.ceil(data.total / pageSize)} page={page} onChange={handleChange}/>
+        </Stack>
+      </List>
     )
   }
 
   return <>{error}</>
 }
 
-interface UserSelectorProps {
+interface ExecutorSelectorProps {
   currentExecutor?: UserDto
 }
 
-const UserSelector: React.FC<UserSelectorProps> = ({ currentExecutor }) => {
+const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({ currentExecutor }) => {
   const [open, setOpen] = React.useState(false)
   const [selectedValue, setSelectedValue] = React.useState<string>(currentExecutor ?
     currentExecutor.emailAddress
@@ -142,7 +157,7 @@ const UserSelector: React.FC<UserSelectorProps> = ({ currentExecutor }) => {
           </Select>
         </Tooltip>
       </FormControl>
-      <UserSelectDialog
+      <ExecutorSelectorDialog
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
@@ -152,4 +167,4 @@ const UserSelector: React.FC<UserSelectorProps> = ({ currentExecutor }) => {
 
   )
 }
-export default UserSelector
+export default ExecutorSelector

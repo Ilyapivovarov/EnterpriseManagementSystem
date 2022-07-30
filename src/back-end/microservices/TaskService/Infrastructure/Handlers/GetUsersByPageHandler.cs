@@ -18,7 +18,9 @@ public sealed class GetUsersByPageHandler : RequestHandlerBase<GetUsersByPageReq
         {
             var users = await _userRepository.GetUsersByPage(request.Count * request.PageNumber - request.Count,
                 request.Count);
-            return Ok(users.ToDto());
+            var count = await _userRepository.Count();
+
+            return Ok(new {Total = count, Users = users.ToDto()});
         }
         catch (Exception e)
         {

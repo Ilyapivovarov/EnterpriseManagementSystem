@@ -23,3 +23,8 @@ export interface TaskDto {
   author: UserDto,
   status: TaskStatusDto,
 }
+
+export interface UsersByPageDto {
+  total: number,
+  users: UserDto[],
+}

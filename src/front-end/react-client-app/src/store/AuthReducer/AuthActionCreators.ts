@@ -20,6 +20,7 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
           headers: {
             'content-type': 'application/json;charset=UTF-8',
           },
+
         })
         if (response.ok) {
           const result = await response.json()
