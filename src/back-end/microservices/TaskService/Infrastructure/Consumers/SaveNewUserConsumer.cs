@@ -27,7 +27,7 @@ public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
                     IdentityGuid = account.IdentityGuid
                 };
 
-                await _userRepository.SaveUserDbEntityAsync(user);
+                await _userRepository.SaveAsync(user);
             }
         }
         catch (Exception e)

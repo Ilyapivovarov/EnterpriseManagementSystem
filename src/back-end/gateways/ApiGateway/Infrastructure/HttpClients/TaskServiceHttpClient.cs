@@ -43,4 +43,10 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
         var response = await _client.GetAsync(ServiceUrls.TaskApi.TaskStatusesController.GetAll());
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
+
+    public async Task<IActionResult> GetUsersByPage(int page, int count)
+    {
+        var response = await _client.GetAsync(ServiceUrls.TaskApi.UserController.GetUsersByPage(page, count));
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
+    }
 }

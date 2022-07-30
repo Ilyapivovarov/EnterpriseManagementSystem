@@ -105,6 +105,16 @@ public static class ServiceUrls
                 return BaseUrl;
             }
         }
+
+        public static class UserController
+        {
+            private const string BaseUrl = "user";
+
+            public static string GetUsersByPage(int page, int count)
+            {
+                return $"{BaseUrl}?page={page}&count={count}";
+            }
+        }
     }
 
     public static class UserServiceApi

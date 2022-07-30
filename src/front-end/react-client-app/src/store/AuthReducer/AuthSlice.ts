@@ -52,7 +52,6 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.currentSession = action.payload
         state.error = null
-        console.log(state)
         localStorage.setItem('session', JSON.stringify(state.currentSession))
       })
       .addCase(resetAuthState.rejected, () => {

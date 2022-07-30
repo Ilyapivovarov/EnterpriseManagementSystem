@@ -11,10 +11,8 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
     if (session) {
       const decodeToken = jwtDecode<DecodeToken>(session.accessToken)
       if (new Date(decodeToken.exp * 1000) > new Date()) {
-        console.log('token valid')
         return session
       } else {
-        console.log('update refresh token')
         const response = await fetch(`${baseUrl}/auth/refresh/${session.refreshToken}`, {
           method: 'PUT',
           headers: {

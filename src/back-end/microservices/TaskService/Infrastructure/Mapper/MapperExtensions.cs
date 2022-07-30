@@ -37,8 +37,11 @@ public static class MapperExtensions
         return mapper.Map<UserDbEntity, UserDto>(userDbEntity);
     }
 
-    public static RecordsCollection<UserDto> ToDto(this ICollection<UserDbEntity> userDbEntities)
+    public static RecordsCollection<UserDto> ToDto(this ICollection<UserDbEntity>? userDbEntities)
     {
+        if (userDbEntities == null)
+            return new RecordsCollection<UserDto>();
+
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<UserDbEntity, UserDto>()
                 .ConvertUsing<UserDbEntityToDtoConverter>());
