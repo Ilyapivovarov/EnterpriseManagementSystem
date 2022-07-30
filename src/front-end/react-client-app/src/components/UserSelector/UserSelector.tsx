@@ -10,11 +10,7 @@ import PersonIcon from '@mui/icons-material/Person'
 import ListItemText from '@mui/material/ListItemText'
 import { blue } from '@mui/material/colors'
 import { UserDto } from '../../types/taskTypes'
-
-const emails = ['user01@gmail.com', 'user02@gmail.com', 'user03@gmail.com',
-  'user04@gmail.com', 'user05@gmail.com', 'user06@gmail.com',
-  'user07@gmail.com', 'user08@gmail.com', 'user09@gmail.com',
-  'user10@gmail.com', 'user11@gmail.com']
+import { useGetUsersByPageQuery } from '../../services/executorService'
 
 interface UserSelectDialogItemsProps {
   id: number,
@@ -69,28 +65,42 @@ const UserSelectDialog: React.FC<UserSelectDialogProps> = ({
     onClose(value)
   }
 
-  const [page, setPage] = React.useState(1)
+  const [page, setPage] = React.useState<number>(1)
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
   }
-  return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Set executor</DialogTitle>
-      <List sx={{ pt: 0 }}>
-        {
-          emails.slice(page * 10 - 10, page * 10 - 1)
-            .map((email, id) => <UserSelectDialogItems email={email}
-                                                       id={id}
-                                                       handleListItemClick={() => handleListItemClick(email)}
-                                                       key={id}
-                                                       currentExecutor={currentExecutor == id}/>)
-        }
-        <Stack spacing={2}>
-          <Pagination count={emails.length % 10 + 1} page={page} onChange={handleChange}/>
-        </Stack>
-      </List>
-    </Dialog>
-  )
+
+  const {
+    data,
+    isSuccess,
+    error
+  } = useGetUsersByPageQuery({
+    page,
+    count: 10
+  })
+
+  if (isSuccess) {
+    console.log(data)
+    return (
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Set executor</DialogTitle>
+        <List sx={{ pt: 0 }}>
+          {
+            data.map((x) => <UserSelectDialogItems email={x.emailAddress}
+                                                   id={x.id}
+                                                   handleListItemClick={() => handleListItemClick(x.emailAddress)}
+                                                   key={x.id}
+                                                   currentExecutor={currentExecutor == x.id}/>)
+          }
+          <Stack spacing={2}>
+            <Pagination count={3} page={page} onChange={handleChange}/>
+          </Stack>
+        </List>
+      </Dialog>
+    )
+  }
+
+  return <>{error}</>
 }
 
 interface UserSelectorProps {

@@ -4,6 +4,7 @@ import { accountApi } from '../services/accountService'
 import authReducer from './AuthReducer/AuthSlice'
 import { taskApi } from '../services/taskService'
 import { taskStatusApi } from '../services/taskStatusesServices'
+import { executorService } from '../services/executorService'
 
 const rootReducers = combineReducers({
   authReducer,
@@ -11,6 +12,7 @@ const rootReducers = combineReducers({
   [taskApi.reducerPath]: taskApi.reducer,
   [accountApi.reducerPath]: accountApi.reducer,
   [taskStatusApi.reducerPath]: taskStatusApi.reducer,
+  [executorService.reducerPath]: executorService.reducer,
 })
 
 export const store = configureStore({
@@ -21,6 +23,7 @@ export const store = configureStore({
       .concat(accountApi.middleware)
       .concat(taskApi.middleware)
       .concat(taskStatusApi.middleware)
+      .concat(executorService.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>
