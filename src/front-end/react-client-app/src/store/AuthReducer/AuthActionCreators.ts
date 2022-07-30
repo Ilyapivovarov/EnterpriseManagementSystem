@@ -11,24 +11,26 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
     if (session) {
       const decodeToken = jwtDecode<DecodeToken>(session.accessToken)
       if (new Date(decodeToken.exp * 1000) > new Date()) {
+        console.log('Token is valid')
         return session
       } else {
+        console.log('Trying update token')
         const response = await fetch(`${baseUrl}/auth/refresh/${session.refreshToken}`, {
           method: 'PUT',
           headers: {
             'content-type': 'application/json;charset=UTF-8',
           },
         })
-
         if (response.ok) {
-          return await response.json()
-        } else {
-          return rejectWithValue(await response.json())
+          const result = await response.json()
+          console.log('Token successfully updated')
+          localStorage.setItem('session', result)
+          return result
         }
       }
     }
     localStorage.clear()
-    return rejectWithValue('Token is expired')
+    return rejectWithValue('Error while updating token')
   }
 )
 
