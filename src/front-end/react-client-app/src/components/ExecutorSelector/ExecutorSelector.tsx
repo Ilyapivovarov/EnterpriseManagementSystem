@@ -12,37 +12,54 @@ import { blue } from '@mui/material/colors'
 import { UserDto } from '../../types/taskTypes'
 import { useGetUsersByPageQuery } from '../../services/executorService'
 
-interface ExecutorSelectorDialogItemsProps {
-  id: number,
-  email: string,
-  handleListItemClick: Function,
-  isCurrentUser?: boolean
+interface ExecutorSelectorProps {
+  currentExecutor?: UserDto
 }
 
-const ExecutorSelectorDialogItems: React.FC<ExecutorSelectorDialogItemsProps> = ({
-  id,
-  handleListItemClick,
-  email,
-  isCurrentUser
-}) => {
+const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({ currentExecutor }) => {
+  const [open, setOpen] = React.useState(false)
+  const [selectedValue, setSelectedValue] = React.useState<string>(currentExecutor ?
+    currentExecutor.emailAddress
+    : '')
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = (value: string) => {
+    setOpen(false)
+    setSelectedValue(value)
+  }
+
   return (
-    <ListItem button onClick={() => handleListItemClick(email)} key={id} disabled={isCurrentUser}>
-      <ListItemAvatar>
-        {isCurrentUser ?
-          <Avatar sx={{
-            bgcolor: blue[100],
-            color: blue[600]
-          }}>
-            <PersonIcon/>
-          </Avatar> :
-          <Avatar>
-            <PersonIcon/>
-          </Avatar>}
-      </ListItemAvatar>
-      <ListItemText primary={email}/>
-    </ListItem>
+    <div>
+      <FormControl variant="standard" sx={{
+        m: 1,
+        minWidth: 200
+      }}>
+        <InputLabel id="task-executor-select">Executor</InputLabel>
+        <Tooltip title={'Change executor'} disableFocusListener>
+          <Select labelId="task-executor-select"
+                  id="select-executor"
+                  value={selectedValue}
+                  onClick={handleClickOpen}
+                  open={false}>
+            <MenuItem value={selectedValue}>
+              {selectedValue}
+            </MenuItem>
+          </Select>
+        </Tooltip>
+      </FormControl>
+      <ExecutorSelectorDialog
+        selectedValue={selectedValue}
+        open={open}
+        onClose={handleClose}
+        currentExecutor={currentExecutor?.id}
+      />
+    </div>
   )
 }
+
+export default ExecutorSelector
 
 interface ExecutorSelectorDialogProps {
   open: boolean;
@@ -118,53 +135,34 @@ const ExecutorListWithPag: React.FC<ExecutorListWithPagProps> = ({
   return <>{error}</>
 }
 
-interface ExecutorSelectorProps {
-  currentExecutor?: UserDto
+interface ExecutorSelectorDialogItemsProps {
+  id: number,
+  email: string,
+  handleListItemClick: Function,
+  isCurrentUser?: boolean
 }
 
-const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({ currentExecutor }) => {
-  const [open, setOpen] = React.useState(false)
-  const [selectedValue, setSelectedValue] = React.useState<string>(currentExecutor ?
-    currentExecutor.emailAddress
-    : '')
-
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = (value: string) => {
-    setOpen(false)
-    setSelectedValue(value)
-  }
-
+const ExecutorSelectorDialogItems: React.FC<ExecutorSelectorDialogItemsProps> = ({
+  id,
+  handleListItemClick,
+  email,
+  isCurrentUser
+}) => {
   return (
-
-    <div>
-      <FormControl variant="standard" sx={{
-        m: 1,
-        minWidth: 200
-      }}>
-        <InputLabel id="task-executor-select">Executor</InputLabel>
-        <Tooltip title={'Change executor'} disableFocusListener>
-          <Select labelId="task-executor-select"
-                  id="select-executor"
-                  value={selectedValue}
-                  onClick={handleClickOpen}
-                  open={false}>
-            <MenuItem value={selectedValue}>
-              {selectedValue}
-            </MenuItem>
-          </Select>
-        </Tooltip>
-      </FormControl>
-      <ExecutorSelectorDialog
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-        currentExecutor={currentExecutor?.id}
-      />
-    </div>
-
+    <ListItem button onClick={() => handleListItemClick(email)} key={id} disabled={isCurrentUser}>
+      <ListItemAvatar>
+        {isCurrentUser ?
+          <Avatar sx={{
+            bgcolor: blue[100],
+            color: blue[600]
+          }}>
+            <PersonIcon/>
+          </Avatar> :
+          <Avatar>
+            <PersonIcon/>
+          </Avatar>}
+      </ListItemAvatar>
+      <ListItemText primary={email}/>
+    </ListItem>
   )
 }
-export default ExecutorSelector
