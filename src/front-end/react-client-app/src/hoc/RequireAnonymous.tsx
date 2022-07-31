@@ -8,9 +8,9 @@ const RequireAnonymous: React.FC = () => {
 
   React.useEffect(() => {
     if (currentSession) {
-      navigate('/sign-in')
+      navigate('/')
     }
-  }, [])
+  }, [currentSession])
 
   return (
     <Outlet/>

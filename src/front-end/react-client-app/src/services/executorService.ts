@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 import { UsersByPageDto } from '../types/taskTypes'
-import { Session } from '../types/authTypes'
+import { RootState } from '../store'
+import { resetAuthState } from '../store/AuthReducer/AuthActionCreators'
 
 const baseUrl = process.env.REACT_APP_API_KEY
 
@@ -8,13 +9,13 @@ export const executorService = createApi({
   reducerPath: 'executorService',
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseUrl}`,
-    prepareHeaders: (headers) => {
-      const session = JSON.parse(localStorage.getItem('session')!) as Session
-      if (session) {
-        headers.set('authorization', `Bearer ${session.accessToken}`)
+    prepareHeaders: (headers, { getState }) => {
+      const accessToken = (getState() as RootState).authReducer.currentSession?.accessToken
+      if (accessToken) {
+        headers.set('authorization', `Bearer ${accessToken}`)
       }
       return headers
-    },
+    }
   }),
   endpoints: (build) => ({
     getUsersByPage: build.query<UsersByPageDto, { page: number, count: number }>({
@@ -26,6 +27,13 @@ export const executorService = createApi({
         method: 'GET',
 
       }),
+      onQueryStarted: async (_, { dispatch }) => {
+        try {
+          dispatch(resetAuthState())
+        } catch (e) {
+          console.error('Error while reset auth state', e)
+        }
+      },
     })
   }),
 })
