@@ -1,15 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { EmployeeDataResponse } from '../types/accountTypes'
 import { resetAuthState } from '../store/AuthReducer/AuthActionCreators'
-import { RootState } from '../store'
+import { RootState, store } from '../store'
 
 const baseUrl = process.env.REACT_APP_API_KEY
 
-export const accountApi = createApi({
-  reducerPath: 'accountApi',
+export const employeeApi = createApi({
+  reducerPath: 'employeeApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseUrl}/employee`,
     prepareHeaders: (headers, { getState }) => {
+      store.dispatch(resetAuthState())
       const accessToken = (getState() as RootState).authReducer.currentSession?.accessToken
       if (accessToken) {
         headers.set('authorization', `Bearer ${accessToken}`)
@@ -19,20 +20,13 @@ export const accountApi = createApi({
   }),
 
   endpoints: (build) => ({
-    getAccountByGuid: build.query<EmployeeDataResponse, string>({
+    getEmployeeByGuid: build.query<EmployeeDataResponse, string>({
       query: (guid) => ({
         url: `/${guid}`,
         validateStatus: () => true
-      }),
-      onQueryStarted: async (_, { dispatch }) => {
-        try {
-          dispatch(resetAuthState())
-        } catch (e) {
-          console.error('Error while reset auth state', e)
-        }
-      },
+      })
     })
   }),
 })
 
-export const { useGetAccountByGuidQuery } = accountApi
+export const { useGetEmployeeByGuidQuery } = employeeApi

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, CircularProgress, Paper, Typography } from '@mui/material'
-import { useGetAccountByGuidQuery } from '../../services/accountService'
+import { useGetEmployeeByGuidQuery } from '../../services/employeeService'
 import { useAppSelector } from '../../hooks'
 import { NavLink } from 'react-router-dom'
 
@@ -10,7 +10,7 @@ const HomePage: React.FC = () => {
     data,
     isLoading,
     isSuccess
-  } = useGetAccountByGuidQuery(currentSession!.userGuid)
+  } = useGetEmployeeByGuidQuery(currentSession!.userGuid)
   return (
     <Paper
       sx={{
