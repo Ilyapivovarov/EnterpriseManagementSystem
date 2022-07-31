@@ -11,10 +11,10 @@ const RequireAnonymous: React.FC = () => {
   } = useAppSelector(x => x.authReducer)
 
   React.useEffect(() => {
-    if (currentSession) {
+    if (currentSession && !isLoading) {
       navigate('/')
     }
-  }, [currentSession])
+  }, [currentSession, isLoading])
 
   if (isLoading) {
     return <Loader/>

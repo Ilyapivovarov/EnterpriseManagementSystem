@@ -9,12 +9,12 @@ const RequireAuth: React.FC = (props) => {
     currentSession,
     isLoading
   } = useAppSelector(x => x.authReducer)
-  
+
   React.useEffect(() => {
-    if (!currentSession) {
+    if (!currentSession && !isLoading) {
       navigate('/sign-in')
     }
-  }, [currentSession])
+  }, [currentSession, isLoading])
 
   if (isLoading) {
     return <Loader/>
