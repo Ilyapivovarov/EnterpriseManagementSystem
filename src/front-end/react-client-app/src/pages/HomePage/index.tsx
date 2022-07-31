@@ -1,8 +1,9 @@
 import React from 'react'
-import { Box, CircularProgress, Paper, Typography } from '@mui/material'
+import { Box, CircularProgress, Typography } from '@mui/material'
 import { useGetEmployeeByGuidQuery } from '../../services/employeeService'
 import { useAppSelector } from '../../hooks'
 import { NavLink } from 'react-router-dom'
+import PageWrapper from '../../components/PageWrapper/PageWrapper'
 
 const HomePage: React.FC = () => {
   const { currentSession } = useAppSelector(x => x.authReducer)
@@ -12,20 +13,13 @@ const HomePage: React.FC = () => {
     isSuccess
   } = useGetEmployeeByGuidQuery(currentSession!.userGuid)
   return (
-    <Paper
-      sx={{
-        p: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%'
-      }}
-    >
+    <PageWrapper>
       {isLoading && <Box sx={{ display: 'flex' }}>
         <CircularProgress/>
       </Box>}
       {isSuccess &&
         <Typography> Welcome {data.user.firstName} <NavLink to={'tasks/1'}>First task</NavLink> </Typography>}
-    </Paper>
+    </PageWrapper>
   )
 }
 

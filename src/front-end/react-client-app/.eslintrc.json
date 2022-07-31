@@ -23,6 +23,20 @@
   "rules": {
     "no-unused-vars": "warn",
     "no-unused-expressions": "warn",
-    "no-unused-labels": "warn"
+    "no-unused-labels": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".tsx",
+          ".ts"
+        ]
+      }
+    ]
+    //should add ".ts" if typescript project
   }
 }
+

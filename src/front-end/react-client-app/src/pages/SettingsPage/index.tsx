@@ -20,7 +20,7 @@ const SettingsPage: FC = () => {
       p: 2,
       display: 'flex',
       flexDirection: 'column',
-      height: '100%',
+      height: '200vh',
     }}
   >
     <Typography variant="h3" gutterBottom component="div">

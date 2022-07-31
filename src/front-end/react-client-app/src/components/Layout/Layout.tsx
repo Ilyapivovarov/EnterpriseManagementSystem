@@ -10,7 +10,6 @@ import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import Badge from '@mui/material/Badge'
 import Container from '@mui/material/Container'
-import Grid from '@mui/material/Grid'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import NotificationsIcon from '@mui/icons-material/Notifications'
@@ -166,9 +165,9 @@ const DashboardContent: React.FC = () => {
             mt: 4,
             mb: 4
           }}>
-            <Grid item xs={12} md={8} lg={9}>
-              <Outlet/>
-            </Grid>
+
+            <Outlet/>
+
           </Container>
         </Box>
       }
