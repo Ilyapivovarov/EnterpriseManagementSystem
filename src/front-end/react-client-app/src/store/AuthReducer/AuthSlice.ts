@@ -34,8 +34,6 @@ export const authSlice = createSlice({
       .addCase(signUp.fulfilled, (state, action) => {
         state.isLoading = false
         state.currentSession = action.payload
-
-        localStorage.setItem('session', JSON.stringify(state.currentSession))
       })
       .addCase(signUp.rejected, (state, action) => {
         state.isLoading = false
@@ -50,7 +48,6 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.currentSession = action.payload
         state.error = null
-        localStorage.setItem('session', JSON.stringify(state.currentSession))
       })
       .addCase(resetAuthState.rejected, () => {
         return initialState
@@ -58,7 +55,6 @@ export const authSlice = createSlice({
       .addCase(signOut.fulfilled, () => {
         return initialState
       })
-
   }
 })
 

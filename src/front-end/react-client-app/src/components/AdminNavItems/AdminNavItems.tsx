@@ -3,10 +3,10 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import SettingsIcon from '@mui/icons-material/Settings'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
+import { NavLink } from 'react-router-dom'
 import { useAppSelector } from '../../hooks'
 import jwt_decode from 'jwt-decode'
 import { DecodeToken } from '../../types/authTypes'
-import { NavLink } from 'react-router-dom'
 
 const AdminNavItems: FC = () => {
   const { currentSession } = useAppSelector(x => x.authReducer)
@@ -22,7 +22,6 @@ const AdminNavItems: FC = () => {
       </ListItemButton>
     )
   }
-
   return <></>
 }
 

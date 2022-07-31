@@ -25,7 +25,7 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
         if (response.ok) {
           const result = await response.json()
           console.log('Token successfully updated')
-          localStorage.setItem('session', result)
+          localStorage.setItem('session', JSON.stringify(result))
           return result
         }
       }

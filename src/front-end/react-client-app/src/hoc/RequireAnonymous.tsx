@@ -1,19 +1,24 @@
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '../hooks'
-import { resetAuthState } from '../store/AuthReducer/AuthActionCreators'
+import { useAppSelector } from '../hooks'
+import Loader from '../components/Loader/Loader'
 
 const RequireAnonymous: React.FC = () => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const {
+    currentSession,
+    isLoading
+  } = useAppSelector(x => x.authReducer)
 
   React.useEffect(() => {
-    dispatch(resetAuthState())
-      .unwrap()
-      .then(() => {
-        navigate('/')
-      })
-  }, [])
+    if (currentSession) {
+      navigate('/')
+    }
+  }, [currentSession])
+
+  if (isLoading) {
+    return <Loader/>
+  }
 
   return (
     <Outlet/>

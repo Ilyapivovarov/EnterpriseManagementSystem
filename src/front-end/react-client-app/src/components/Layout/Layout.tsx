@@ -89,7 +89,8 @@ const DashboardContent: React.FC = () => {
 
   const logOutHandler = () => {
     dispatch(signOut())
-    navigate('/sign-in')
+      .unwrap()
+      .finally(() => navigate('/sign-in'))
   }
 
   return (
