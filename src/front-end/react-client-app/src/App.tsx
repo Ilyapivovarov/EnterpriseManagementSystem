@@ -8,6 +8,7 @@ import TaskPage from './pages/TaskPage'
 import SettingsPage from './pages/SettingsPage'
 import RequireAnonymous from './hoc/RequireAnonymous'
 import Layout from './components/Layout/Layout'
+import TaskListPage from './pages/TaskListPage/TaskListPage'
 
 const App: React.FC = () => {
   return (
@@ -33,10 +34,6 @@ export default App
 
 const NotFoundPage: React.FC = () => (
   <h1>Not found</h1>
-)
-
-const TaskListPage: React.FC = () => (
-  <h1>There will be task list page</h1>
 )
 
 const UserListPage: React.FC = () => (

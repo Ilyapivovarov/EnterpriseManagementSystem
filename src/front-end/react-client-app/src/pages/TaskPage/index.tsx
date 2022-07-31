@@ -21,8 +21,9 @@ const dataPage = () => {
   if (isLoading) {
     return <Loader/>
   }
-
+  console.log(data)
   if (isSuccess) {
+    console.log(JSON.stringify(data))
     return (
       <Paper
         sx={{

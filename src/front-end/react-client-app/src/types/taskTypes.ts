@@ -16,10 +16,10 @@ export interface TaskDto {
   id: number,
   guid: string,
   name: string,
-  description?: string,
+  description: string | null,
   created: Date,
   executor: UserDto,
-  inspector?: UserDto,
+  inspector: UserDto | null,
   author: UserDto,
   status: TaskStatusDto,
 }
