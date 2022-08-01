@@ -36,7 +36,6 @@
         ]
       }
     ]
-    //should add ".ts" if typescript project
   }
 }
 
