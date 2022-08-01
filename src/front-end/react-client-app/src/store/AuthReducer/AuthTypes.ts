@@ -1,4 +1,4 @@
-import {Session} from "../../types/authTypes";
+import {Session} from '../../types/authTypes';
 
 export interface AuthState {
     currentSession: Session | null,

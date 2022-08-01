@@ -1,30 +1,34 @@
 {
-  "env": {
-    "browser": true,
+    "env": {
+        "browser": true,
     "es2021": true,
     "node": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
     },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
-  "rules": {
+    
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/jsx-runtime",
+        "google"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
     "no-unused-vars": "warn",
     "no-unused-expressions": "warn",
     "no-unused-labels": "warn",
     "react/react-in-jsx-scope": "off",
+    "require-jsdoc": 0,
+    "max-len": "off",
     "react/jsx-filename-extension": [
       1,
       {
@@ -36,7 +40,5 @@
         ]
       }
     ]
-    //should add ".ts" if typescript project
   }
 }
-

@@ -1,18 +1,17 @@
-import React, { FC } from 'react'
-import { useAppSelector } from '../../hooks'
-import jwt_decode from 'jwt-decode'
-import { DecodeToken } from '../../types/authTypes'
-import { useNavigate } from 'react-router-dom'
-import { Paper, Typography } from '@mui/material'
+import React from 'react';
+import {useAppSelector} from '../../hooks';
+import jwtDecode from 'jwt-decode';
+import {DecodeToken} from '../../types/authTypes';
+import {useNavigate} from 'react-router-dom';
+import {Paper, Typography} from '@mui/material';
 
-const SettingsPage: FC = () => {
-  const { currentSession } = useAppSelector(x => x.authReducer)
-  const navigate = useNavigate()
+const SettingsPage: React.FC = () => {
+  const {currentSession} = useAppSelector((x) => x.authReducer);
+  const navigate = useNavigate();
 
-  console.log('asf')
-  const decodeToken = jwt_decode<DecodeToken>(currentSession!.accessToken)
+  const decodeToken = jwtDecode<DecodeToken>(currentSession!.accessToken);
   if (decodeToken.role != 'Admin') {
-    navigate('/')
+    navigate('/');
   }
 
   return <Paper
@@ -27,7 +26,7 @@ const SettingsPage: FC = () => {
       There will be settings page
     </Typography>
 
-  </Paper>
-}
+  </Paper>;
+};
 
-export default SettingsPage
+export default SettingsPage;

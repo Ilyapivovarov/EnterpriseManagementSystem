@@ -18,9 +18,9 @@ export interface SignUp {
 }
 
 export interface DecodeToken {
-    "email": string,
-    "sub": string,
-    "role": string,
-    "exp": number,
-    "iss": string,
+    'email': string,
+    'sub': string,
+    'role': string,
+    'exp': number,
+    'iss': string,
 }

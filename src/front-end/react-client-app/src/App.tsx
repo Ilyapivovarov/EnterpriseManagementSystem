@@ -1,14 +1,14 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import SignInPage from './pages/SignInPage'
-import HomePage from './pages/HomePage'
-import SignUpPage from './pages/SignUpPage'
-import RequireAuth from './hoc/RequireAuth'
-import TaskPage from './pages/TaskPage'
-import SettingsPage from './pages/SettingsPage'
-import RequireAnonymous from './hoc/RequireAnonymous'
-import Layout from './components/Layout/Layout'
-import TaskListPage from './pages/TaskListPage/TaskListPage'
+import React from 'react';
+import {Route, Routes} from 'react-router-dom';
+import SignInPage from './pages/SignInPage';
+import HomePage from './pages/HomePage';
+import SignUpPage from './pages/SignUpPage';
+import RequireAuth from './hoc/RequireAuth';
+import TaskPage from './pages/TaskPage';
+import SettingsPage from './pages/SettingsPage';
+import RequireAnonymous from './hoc/RequireAnonymous';
+import Layout from './components/Layout/Layout';
+import TaskListPage from './pages/TaskListPage/TaskListPage';
 
 const App: React.FC = () => {
   return (
@@ -27,19 +27,19 @@ const App: React.FC = () => {
       </Route>
       <Route path="*" element={<NotFoundPage/>}/>
     </Routes>
-  )
-}
+  );
+};
 
-export default App
+export default App;
 
 const NotFoundPage: React.FC = () => (
   <h1>Not found</h1>
-)
+);
 
 const UserListPage: React.FC = () => (
   <h1>There will be user list page</h1>
-)
+);
 
 const UserPage: React.FC = () => (
   <h1>There will be user page</h1>
-)
+);

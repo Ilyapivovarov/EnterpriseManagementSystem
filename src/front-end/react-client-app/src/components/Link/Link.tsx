@@ -1,7 +1,7 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import {NavLink} from 'react-router-dom';
 
-import './Link.css'
+import './Link.css';
 
 interface LinkProps {
   to: string
@@ -9,11 +9,11 @@ interface LinkProps {
 
 const Link: React.FC<LinkProps> = ({
   to,
-  children
+  children,
 }) => {
   return (
     <NavLink id={'nav-link'} to={to}>{children}</NavLink>
-  )
-}
+  );
+};
 
-export default Link
+export default Link;

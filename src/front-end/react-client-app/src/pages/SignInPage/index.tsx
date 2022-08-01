@@ -1,5 +1,5 @@
-import React from 'react'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import React from 'react';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
   Avatar,
   Box,
@@ -11,32 +11,32 @@ import {
   Grid,
   Link,
   TextField,
-  Typography
-} from '@mui/material'
-import { signIn } from '../../store/AuthReducer/AuthActionCreators'
-import { useAppDispatch } from '../../hooks'
-import { useNavigate } from 'react-router-dom'
+  Typography,
+} from '@mui/material';
+import {signIn} from '../../store/AuthReducer/AuthActionCreators';
+import {useAppDispatch} from '../../hooks';
+import {useNavigate} from 'react-router-dom';
 
 const SignInPage: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const formData = new FormData(event.currentTarget)
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
 
     if (email && password) {
       dispatch(signIn({
         email,
-        password
+        password,
       }))
-        .unwrap()
-        .then(() => navigate('/'))
-        .catch((error) => console.log(error))
+          .unwrap()
+          .then(() => navigate('/'))
+          .catch((error) => console.log(error));
     }
-  }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -46,19 +46,19 @@ const SignInPage: React.FC = () => {
           marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <Avatar sx={{
           m: 1,
-          bgcolor: 'secondary.main'
+          bgcolor: 'secondary.main',
         }}>
           <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
           <TextField
             margin="normal"
             required
@@ -89,7 +89,7 @@ const SignInPage: React.FC = () => {
             variant="contained"
             sx={{
               mt: 3,
-              mb: 2
+              mb: 2,
             }}
           >
             Sign In
@@ -109,7 +109,7 @@ const SignInPage: React.FC = () => {
         </Box>
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default SignInPage
+export default SignInPage;

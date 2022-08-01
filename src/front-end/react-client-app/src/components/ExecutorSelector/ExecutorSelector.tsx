@@ -1,48 +1,48 @@
-import React from 'react'
-import List from '@mui/material/List'
-import DialogTitle from '@mui/material/DialogTitle'
-import Dialog from '@mui/material/Dialog'
-import { FormControl, InputLabel, MenuItem, Pagination, Select, Stack, Tooltip } from '@mui/material'
-import ListItem from '@mui/material/ListItem'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import Avatar from '@mui/material/Avatar'
-import PersonIcon from '@mui/icons-material/Person'
-import ListItemText from '@mui/material/ListItemText'
-import { blue } from '@mui/material/colors'
-import { UserDto } from '../../types/taskTypes'
-import { useGetUsersByPageQuery } from '../../services/executorService'
+import React from 'react';
+import List from '@mui/material/List';
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import {FormControl, InputLabel, MenuItem, Pagination, Select, Stack, Tooltip} from '@mui/material';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import PersonIcon from '@mui/icons-material/Person';
+import ListItemText from '@mui/material/ListItemText';
+import {blue} from '@mui/material/colors';
+import {UserDto} from '../../types/taskTypes';
+import {useGetUsersByPageQuery} from '../../services/executorService';
 
 interface ExecutorSelectorProps {
   currentExecutor?: UserDto
 }
 
-const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({ currentExecutor }) => {
-  const [open, setOpen] = React.useState(false)
+const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor}) => {
+  const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState<string>(currentExecutor ?
-    currentExecutor.emailAddress
-    : '')
+    currentExecutor.emailAddress :
+    '');
 
   const handleClickOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
   const handleClose = (value: string) => {
-    setOpen(false)
-    setSelectedValue(value)
-  }
+    setOpen(false);
+    setSelectedValue(value);
+  };
 
   return (
     <div>
       <FormControl variant="standard" sx={{
         m: 1,
-        minWidth: 200
+        minWidth: 200,
       }}>
         <InputLabel id="task-executor-select">Executor</InputLabel>
         <Tooltip title={'Change executor'} disableFocusListener>
           <Select labelId="task-executor-select"
-                  id="select-executor"
-                  value={selectedValue}
-                  onClick={handleClickOpen}
-                  open={false}>
+            id="select-executor"
+            value={selectedValue}
+            onClick={handleClickOpen}
+            open={false}>
             <MenuItem value={selectedValue}>
               {selectedValue}
             </MenuItem>
@@ -56,10 +56,10 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({ currentExecutor }) 
         currentExecutor={currentExecutor?.id}
       />
     </div>
-  )
-}
+  );
+};
 
-export default ExecutorSelector
+export default ExecutorSelector;
 
 interface ExecutorSelectorDialogProps {
   open: boolean;
@@ -72,19 +72,19 @@ const ExecutorSelectorDialog: React.FC<ExecutorSelectorDialogProps> = ({
   onClose,
   selectedValue,
   open,
-  currentExecutor
+  currentExecutor,
 }) => {
   const handleClose = () => {
-    onClose(selectedValue)
-  }
+    onClose(selectedValue);
+  };
 
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Set executor</DialogTitle>
       <ExecutorListWithPag onClose={onClose} currentExecutor={currentExecutor}/>
     </Dialog>
-  )
-}
+  );
+};
 
 interface ExecutorListWithPagProps {
   onClose: Function;
@@ -93,47 +93,46 @@ interface ExecutorListWithPagProps {
 
 const ExecutorListWithPag: React.FC<ExecutorListWithPagProps> = ({
   currentExecutor,
-  onClose
+  onClose,
 }) => {
-
-  const pageSize = 10
-  const [page, setPage] = React.useState<number>(1)
+  const pageSize = 10;
+  const [page, setPage] = React.useState<number>(1);
   const {
     data,
     isSuccess,
-    error
+    error,
   } = useGetUsersByPageQuery({
     page,
-    count: pageSize
-  })
+    count: pageSize,
+  });
 
   const handleListItemClick = (value: string) => {
-    onClose(value)
-  }
+    onClose(value);
+  };
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value)
-  }
+    setPage(value);
+  };
 
   if (isSuccess) {
     return (
-      <List sx={{ pt: 0 }}>
+      <List sx={{pt: 0}}>
         {
-          data.users.map(x => <ExecutorSelectorDialogItems email={x.emailAddress}
-                                                           id={x.id}
-                                                           handleListItemClick={() => handleListItemClick(x.emailAddress)}
-                                                           key={x.id}
-                                                           isCurrentUser={currentExecutor == x.id}/>)
+          data.users.map((x) => <ExecutorSelectorDialogItems email={x.emailAddress}
+            id={x.id}
+            handleListItemClick={() => handleListItemClick(x.emailAddress)}
+            key={x.id}
+            isCurrentUser={currentExecutor == x.id}/>)
         }
         <Stack spacing={2}>
           <Pagination count={Math.ceil(data.total / pageSize)} page={page} onChange={handleChange}/>
         </Stack>
       </List>
-    )
+    );
   }
 
-  return <>{error}</>
-}
+  return <>{error}</>;
+};
 
 interface ExecutorSelectorDialogItemsProps {
   id: number,
@@ -146,7 +145,7 @@ const ExecutorSelectorDialogItems: React.FC<ExecutorSelectorDialogItemsProps> = 
   id,
   handleListItemClick,
   email,
-  isCurrentUser
+  isCurrentUser,
 }) => {
   return (
     <ListItem button onClick={() => handleListItemClick(email)} key={id} disabled={isCurrentUser}>
@@ -154,7 +153,7 @@ const ExecutorSelectorDialogItems: React.FC<ExecutorSelectorDialogItemsProps> = 
         {isCurrentUser ?
           <Avatar sx={{
             bgcolor: blue[100],
-            color: blue[600]
+            color: blue[600],
           }}>
             <PersonIcon/>
           </Avatar> :
@@ -164,5 +163,5 @@ const ExecutorSelectorDialogItems: React.FC<ExecutorSelectorDialogItemsProps> = 
       </ListItemAvatar>
       <ListItemText primary={email}/>
     </ListItem>
-  )
-}
+  );
+};

@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
-import { Paper } from '@mui/material'
+import React, {FC} from 'react';
+import {Paper} from '@mui/material';
 
-const PageWrapper: FC = ({ children }) => {
+const PageWrapper: FC = ({children}) => {
   return (
     <Paper
       sx={{
@@ -9,13 +9,13 @@ const PageWrapper: FC = ({ children }) => {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        width: '100%'
+        width: '100%',
       }}
     >
       {children}
     </Paper>
 
-  )
-}
+  );
+};
 
-export default PageWrapper
+export default PageWrapper;

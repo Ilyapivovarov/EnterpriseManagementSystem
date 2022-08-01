@@ -1,28 +1,28 @@
-import React from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
-import { useAppSelector } from '../hooks'
-import Loader from '../components/Loader/Loader'
+import React from 'react';
+import {Outlet, useNavigate} from 'react-router-dom';
+import {useAppSelector} from '../hooks';
+import Loader from '../components/Loader/Loader';
 
 const RequireAnonymous: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     currentSession,
-    isLoading
-  } = useAppSelector(x => x.authReducer)
+    isLoading,
+  } = useAppSelector((x) => x.authReducer);
 
   React.useEffect(() => {
     if (currentSession && !isLoading) {
-      navigate('/')
+      navigate('/');
     }
-  }, [currentSession, isLoading])
+  }, [currentSession, isLoading]);
 
   if (isLoading) {
-    return <Loader/>
+    return <Loader/>;
   }
 
   return (
     <Outlet/>
-  )
-}
+  );
+};
 
-export default RequireAnonymous
+export default RequireAnonymous;

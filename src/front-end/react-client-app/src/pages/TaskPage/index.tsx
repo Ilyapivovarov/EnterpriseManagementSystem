@@ -1,29 +1,29 @@
-import React from 'react'
-import { Box, Button, ButtonGroup, Paper, Typography } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Link from '../../components/Link/Link'
-import { useGetTaskByIdQuery } from '../../services/taskService'
-import { useParams } from 'react-router-dom'
-import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelect'
-import Loader from '../../components/Loader/Loader'
-import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector'
+import React from 'react';
+import {Box, Button, ButtonGroup, Paper, Typography} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Link from '../../components/Link/Link';
+import {useGetTaskByIdQuery} from '../../services/taskService';
+import {useParams} from 'react-router-dom';
+import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelect';
+import Loader from '../../components/Loader/Loader';
+import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector';
 
-const dataPage = () => {
-  const { id } = useParams()
+const TaskPage : React.FC = () => {
+  const {id} = useParams();
   const {
     data,
     isLoading,
     isSuccess,
-    error
-  } = useGetTaskByIdQuery(id!)
+    error,
+  } = useGetTaskByIdQuery(id!);
 
   if (isLoading) {
-    return <Loader/>
+    return <Loader/>;
   }
-  console.log(data)
+  console.log(data);
   if (isSuccess) {
-    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data));
     return (
       <Paper
         sx={{
@@ -63,7 +63,7 @@ const dataPage = () => {
               {data.name}
             </Typography>
             <Box display={'flex'} justifyContent={'space-between'}>
-              <div style={{ marginRight: '5px' }}>
+              <div style={{marginRight: '5px'}}>
                 <ExecutorSelector currentExecutor={data.executor}/>
               </div>
               <TaskStatusSelector selectedStatusId={1}/>
@@ -74,10 +74,10 @@ const dataPage = () => {
           </Typography>
         </Box>
       </Paper>
-    )
+    );
   }
 
-  return <>{error}</>
-}
+  return <>{error}</>;
+};
 
-export default dataPage
+export default TaskPage;

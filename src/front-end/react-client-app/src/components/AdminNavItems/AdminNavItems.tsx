@@ -1,16 +1,16 @@
-import React, { FC } from 'react'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import SettingsIcon from '@mui/icons-material/Settings'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemButton from '@mui/material/ListItemButton'
-import { NavLink } from 'react-router-dom'
-import { useAppSelector } from '../../hooks'
-import jwt_decode from 'jwt-decode'
-import { DecodeToken } from '../../types/authTypes'
+import React, {FC} from 'react';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import {NavLink} from 'react-router-dom';
+import {useAppSelector} from '../../hooks';
+import jwtDecode from 'jwt-decode';
+import {DecodeToken} from '../../types/authTypes';
 
 const AdminNavItems: FC = () => {
-  const { currentSession } = useAppSelector(x => x.authReducer)
-  const decodeToken = jwt_decode<DecodeToken>(currentSession!.accessToken)
+  const {currentSession} = useAppSelector((x) => x.authReducer);
+  const decodeToken = jwtDecode<DecodeToken>(currentSession!.accessToken);
 
   if (decodeToken.role == 'Admin') {
     return (
@@ -20,9 +20,9 @@ const AdminNavItems: FC = () => {
         </ListItemIcon>
         <ListItemText primary="Settings"/>
       </ListItemButton>
-    )
+    );
   }
-  return <></>
-}
+  return <></>;
+};
 
-export default AdminNavItems
+export default AdminNavItems;
