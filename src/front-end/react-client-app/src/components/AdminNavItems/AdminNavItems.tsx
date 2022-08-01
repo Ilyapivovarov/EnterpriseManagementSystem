@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ListItemText from '@mui/material/ListItemText';
@@ -8,7 +8,7 @@ import {useAppSelector} from '../../hooks';
 import jwtDecode from 'jwt-decode';
 import {DecodeToken} from '../../types/authTypes';
 
-const AdminNavItems: FC = () => {
+const AdminNavItems: React.FC = () => {
   const {currentSession} = useAppSelector((x) => x.authReducer);
   const decodeToken = jwtDecode<DecodeToken>(currentSession!.accessToken);
 
