@@ -11,19 +11,12 @@ import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector
 
 const TaskPage : React.FC = () => {
   const {id} = useParams();
-  const {
-    data,
-    isLoading,
-    isSuccess,
-    error,
-  } = useGetTaskByIdQuery(id!);
+  const {data, isLoading, isSuccess, error} = useGetTaskByIdQuery(id!);
 
   if (isLoading) {
     return <Loader/>;
   }
-  console.log(data);
   if (isSuccess) {
-    console.log(JSON.stringify(data));
     return (
       <Paper
         sx={{
@@ -77,7 +70,7 @@ const TaskPage : React.FC = () => {
     );
   }
 
-  return <>{error}</>;
+  return <>{JSON.parse(JSON.stringify(error)).data}</>;
 };
 
 export default TaskPage;
