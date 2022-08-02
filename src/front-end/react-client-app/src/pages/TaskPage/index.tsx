@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, ButtonGroup, Paper, Typography} from '@mui/material';
+import {Box, Button, ButtonGroup, Typography} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from '../../components/Link/Link';
@@ -8,8 +8,9 @@ import {useParams} from 'react-router-dom';
 import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelect';
 import Loader from '../../components/Loader/Loader';
 import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector';
+import PageWrapper from '../../components/PageWrapper/PageWrapper';
 
-const TaskPage : React.FC = () => {
+const TaskPage: React.FC = () => {
   const {id} = useParams();
   const {
     data,
@@ -21,63 +22,58 @@ const TaskPage : React.FC = () => {
   if (isLoading) {
     return <Loader/>;
   }
-  console.log(data);
+
   if (isSuccess) {
     console.log(JSON.stringify(data));
     return (
-      <Paper
-        sx={{
-          padding: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-        }}
-      >
-        <Box padding={1} display={'flex'} justifyContent={'space-between'}>
-          <Typography fontSize={14} paddingLeft={1}>
-            <b>EMS-{data.id}</b> created by{' '}
-            <Link to={`/users/${data.author.guid}`}>
-              {data.author.firstName} {data.author.lastName}{' '}
-            </Link>
-            on {new Date(data.created).toLocaleDateString()} {new Date(data.created).toLocaleTimeString()}
-          </Typography>
-          <Box>
-            <ButtonGroup size="small">
-              <Button key="edit">
-                <EditIcon/>
-              </Button>
-              <Button key="delete">
-                <DeleteIcon/>
-              </Button>
-            </ButtonGroup>
-          </Box>
-        </Box>
-        <Box padding={1}>
-          <Box display={'flex'} justifyContent={'space-between'}>
-            <Typography
-              paddingBottom={2}
-              paddingTop={1}
-              variant="h3"
-              paddingLeft={1}
-            >
-              {data.name}
+      <PageWrapper>
+        <div>
+          <Box padding={1} display={'flex'} justifyContent={'space-between'}>
+            <Typography fontSize={14} paddingLeft={1}>
+              <b>EMS-{data.id}</b> created by{' '}
+              <Link to={`/users/${data.author.guid}`}>
+                {data.author.firstName} {data.author.lastName}{' '}
+              </Link>
+              on {new Date(data.created).toLocaleDateString()} {new Date(data.created).toLocaleTimeString()}
             </Typography>
-            <Box display={'flex'} justifyContent={'space-between'}>
-              <div style={{marginRight: '5px'}}>
-                <ExecutorSelector currentExecutor={data.executor}/>
-              </div>
-              <TaskStatusSelector selectedStatusId={1}/>
+            <Box>
+              <ButtonGroup size="small">
+                <Button key="edit">
+                  <EditIcon/>
+                </Button>
+                <Button key="delete">
+                  <DeleteIcon/>
+                </Button>
+              </ButtonGroup>
             </Box>
           </Box>
-          <Typography fontSize={20} paddingLeft={1}>
-            {data.description}
-          </Typography>
-        </Box>
-      </Paper>
+          <Box padding={1}>
+            <Box display={'flex'} justifyContent={'space-between'}>
+              <Typography
+                paddingBottom={2}
+                paddingTop={1}
+                variant="h3"
+                paddingLeft={1}
+              >
+                {data.name}
+              </Typography>
+              <Box display={'flex'} justifyContent={'space-between'}>
+                <div style={{marginRight: '5px'}}>
+                  <ExecutorSelector currentExecutor={data.executor}/>
+                </div>
+                <TaskStatusSelector selectedStatusId={1}/>
+              </Box>
+            </Box>
+            <Typography fontSize={20} paddingLeft={1}>
+              {data.description}
+            </Typography>
+          </Box>
+        </div>
+      </PageWrapper>
     );
+  } else {
+    return <PageWrapper>{JSON.parse(JSON.stringify(error)).data}</PageWrapper>;
   }
-
-  return <>{error}</>;
 };
 
 export default TaskPage;
