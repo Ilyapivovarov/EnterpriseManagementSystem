@@ -17,7 +17,7 @@ const TaskPage: React.FC = () => {
   if (isLoading) {
     return <Loader/>;
   }
-
+  console.log(data);
   if (isSuccess) {
     return (
       <PageWrapper>

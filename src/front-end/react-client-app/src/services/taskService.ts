@@ -22,7 +22,9 @@ export const taskApi = createApi({
     getTaskById: build.query<TaskDto, string>({
       query: (id) => ({
         url: `${id}`,
+        validateStatus: () => true,
       }),
+      transformResponse: ({data}: { data: TaskDto }) => data,
     }),
   }),
 });
