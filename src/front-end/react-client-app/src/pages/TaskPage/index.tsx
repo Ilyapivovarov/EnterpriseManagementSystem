@@ -19,7 +19,6 @@ const TaskPage: React.FC = () => {
   }
 
   if (isSuccess) {
-    console.log(JSON.stringify(data));
     return (
       <PageWrapper>
         <div>
