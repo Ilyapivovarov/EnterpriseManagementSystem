@@ -11,12 +11,15 @@ import ListItemText from '@mui/material/ListItemText';
 import {blue} from '@mui/material/colors';
 import {UserDto} from '../../types/taskTypes';
 import {useGetUsersByPageQuery} from '../../services/executorService';
+import Notification from '../Notification/Notification';
 
 interface ExecutorSelectorProps {
   currentExecutor?: UserDto
 }
 
 const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor}) => {
+  const [show, setShow] = React.useState(false);
+
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState<string>(currentExecutor ?
     currentExecutor.emailAddress :
@@ -27,11 +30,15 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor}) =>
   };
   const handleClose = (value: string) => {
     setOpen(false);
-    setSelectedValue(value);
+    if (value != selectedValue) {
+      setSelectedValue(value);
+      setShow(true);
+    }
   };
 
   return (
     <div>
+      <Notification message={'Executor has been chanched'} isOpen={show} onClose={() => setShow(false)} />
       <FormControl variant="standard" sx={{
         m: 1,
         minWidth: 200,

@@ -19,6 +19,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {signOut} from '../../store/AuthReducer/AuthActionCreators';
 import Loader from '../Loader/Loader';
 import NavMenu from '../NavMenu/NavMenu';
+import Notification from '../Notification/Notification';
 
 const drawerWidth: number = 240;
 
@@ -165,7 +166,6 @@ const DashboardContent: React.FC = () => {
             mt: 4,
             mb: 4,
           }}>
-
             <Outlet/>
 
           </Container>

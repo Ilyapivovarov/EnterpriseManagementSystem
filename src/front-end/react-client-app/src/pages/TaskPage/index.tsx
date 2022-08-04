@@ -14,7 +14,6 @@ const TaskPage: React.FC = () => {
   const {id} = useParams();
   const {data, isLoading, isSuccess, error} = useGetTaskByIdQuery(id!);
 
-
   if (isLoading) {
     return <Loader/>;
   }
