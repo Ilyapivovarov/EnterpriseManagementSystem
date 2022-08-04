@@ -41,4 +41,9 @@ public sealed class TaskService : ITaskService
 
         return new ServiceResult<TaskStatusDbEntity>($"Error wihle get or create satus with name {name}");
     }
+
+    public bool UpdateTaskStatus(TaskStatusDbEntity taskStatusDbEntity, TaskDbEntity taskDbEntity)
+    {
+        throw new NotImplementedException();
+    }
 }

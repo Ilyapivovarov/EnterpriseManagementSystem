@@ -19,4 +19,12 @@ public interface ITaskService
     /// <param name="name"></param>
     /// <returns></returns>
     public Task<ServiceResult<TaskStatusDbEntity>> GetOrCreateTaskByName(string name);
+
+    /// <summary>
+    /// Update task status
+    /// </summary>
+    /// <param name="taskStatusDbEntity"></param>
+    /// <param name="taskDbEntity"></param>
+    /// <returns></returns>
+    public bool UpdateTaskStatus(TaskStatusDbEntity taskStatusDbEntity, TaskDbEntity taskDbEntity);
 }
