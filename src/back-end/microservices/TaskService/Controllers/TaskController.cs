@@ -36,6 +36,18 @@ public sealed class TaskController : ControllerBase
     }
 
     /// <summary>
+    ///     Geting task by guid
+    /// </summary>
+    /// <param name="pageNumber"></param>
+    /// <param name="pageSize"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> GetTasksByPage(int pageNumber, int pageSize)
+    {
+        return await _mediator.Send(new GetTasksByPageRequest(pageNumber, pageSize));
+    }
+
+    /// <summary>
     ///     Create new task
     /// </summary>
     /// <param name="newTask">New task data</param>

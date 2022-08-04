@@ -8,6 +8,11 @@ public sealed class TaskRepository : RepositoryBase, ITaskRepository
         : base(taskDbContext, logger)
     { }
 
+    public async Task<int> GetTasksCount()
+    {
+        return await LoadDataAsync(db => db.Tasks.Count());
+    }
+
     public async Task<TaskDbEntity?> GetTaskByIdAsync(int id)
     {
         return await LoadDataAsync(db => db.Tasks.FirstOrDefault(x => x.Id == id));
@@ -16,6 +21,13 @@ public sealed class TaskRepository : RepositoryBase, ITaskRepository
     public async Task<TaskDbEntity?> GetTaskByGuidAsync(Guid guid)
     {
         return await LoadDataAsync(db => db.Tasks.FirstOrDefault(x => x.Guid == guid));
+    }
+
+    public async Task<TaskDbEntity[]?> GetTasksByPage(int pageNumber, int pageSize)
+    {
+        return await LoadDataAsync(db => db.Tasks.Skip(pageSize * pageNumber - pageSize)
+            .Take(pageSize)
+            .ToArray());
     }
 
     public async Task<bool> UpdateTaskAsync(TaskDbEntity taskDbEntity)

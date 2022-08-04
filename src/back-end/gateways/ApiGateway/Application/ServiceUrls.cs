@@ -85,6 +85,11 @@ public static class ServiceUrls
                 return $"{BaseUrl}/{id}";
             }
 
+            public static string GetTaskByPage(string pageNumber, string pageSize)
+            {
+                return $"{BaseUrl}?pageNumber={pageNumber}&pageSize={pageSize}";
+            }
+
             public static string GetTaskByGuid(string guid)
             {
                 return $"{BaseUrl}/{guid}";

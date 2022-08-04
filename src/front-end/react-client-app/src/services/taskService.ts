@@ -24,7 +24,6 @@ export const taskApi = createApi({
         url: `${id}`,
         validateStatus: () => true,
       }),
-      transformResponse: ({data}: { data: TaskDto }) => data,
     }),
   }),
 });

@@ -16,13 +16,17 @@ public static class MapperExtensions
         return mapper.Map<TaskDbEntity, TaskDto>(taskDbEntity);
     }
 
-    public static RecordsCollection<TaskDto> ToDto(this ICollection<TaskDbEntity> taskDbEntity)
+    public static RecordsCollection<TaskDto> ToDto(this ICollection<TaskDbEntity>? taskDbEntity)
     {
+        if (taskDbEntity == null)
+            return new RecordsCollection<TaskDto>();
+
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<TaskDbEntity, TaskDto>()
                 .ConvertUsing<TaskDbEntityToDtoConverter>());
 
         var mapper = new AutoMapper.Mapper(cfg);
+
 
         return mapper.Map<ICollection<TaskDbEntity>, RecordsCollection<TaskDto>>(taskDbEntity);
     }

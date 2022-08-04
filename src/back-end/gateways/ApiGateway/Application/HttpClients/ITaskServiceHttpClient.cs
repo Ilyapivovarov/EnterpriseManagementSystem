@@ -4,6 +4,8 @@ public interface ITaskServiceHttpClient
 {
     public Task<IActionResult> GetTaskByIdAsync(string id);
 
+    public Task<IActionResult> GetTasksByPage(string pageNumber, string pageSize);
+
     public Task<IActionResult> GetTaskByGuidAsync(string guid);
 
     public Task<IActionResult> CreateNewTaskAsync(NewTask newTask);
