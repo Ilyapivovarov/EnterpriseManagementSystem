@@ -37,7 +37,7 @@ const taskDtos: TaskDto[] = [
 const TaskListPage: React.FC = () => {
   return (
     <PageWrapper>
-      <TaskList tasks={taskDtos} />
+      <TaskList/>
     </PageWrapper>
   );
 };

@@ -8,7 +8,7 @@ import TaskPage from './pages/TaskPage';
 import SettingsPage from './pages/SettingsPage';
 import RequireAnonymous from './hoc/RequireAnonymous';
 import Layout from './components/Layout/Layout';
-import TaskListPage from './pages/TaskListPage/TaskListPage';
+import TaskListPage from './pages/TaskListPage/';
 
 const App: React.FC = () => {
   return (

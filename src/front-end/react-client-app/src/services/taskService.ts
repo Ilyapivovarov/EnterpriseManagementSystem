@@ -8,7 +8,7 @@ const baseUrl = process.env.REACT_APP_API_KEY;
 export const taskApi = createApi({
   reducerPath: 'taskApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${baseUrl}/task`,
+    baseUrl: `${baseUrl}`,
     prepareHeaders: (headers, {getState}) => {
       store.dispatch(resetAuthState());
       const accessToken = (getState() as RootState).authReducer.currentSession?.accessToken;
@@ -21,11 +21,17 @@ export const taskApi = createApi({
   endpoints: (build) => ({
     getTaskById: build.query<TaskDto, string>({
       query: (id) => ({
-        url: `${id}`,
+        url: `/task/${id}`,
+        validateStatus: () => true,
+      }),
+    }),
+    getTasksByPage: build.query<TaskDto[], { pageNumber: number, pageSize: number }>({
+      query: ({pageNumber, pageSize}) => ({
+        url: `/task?pageNumber=${pageNumber}&pageSize=${pageSize}`,
         validateStatus: () => true,
       }),
     }),
   }),
 });
 
-export const {useGetTaskByIdQuery} = taskApi;
+export const {useGetTaskByIdQuery, useGetTasksByPageQuery} = taskApi;
