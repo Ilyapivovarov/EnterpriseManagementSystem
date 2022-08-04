@@ -1,5 +1,4 @@
 import React from 'react';
-import {TaskDto} from '../../types/taskTypes';
 import {useNavigate} from 'react-router-dom';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
