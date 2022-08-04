@@ -58,19 +58,27 @@ export const signIn = createAsyncThunk<Session, SignIn, { rejectValue: string }>
 export const signUp = createAsyncThunk<Session, SignUp, { rejectValue: string }>(
     'authSlice/sing-up',
     async (authModel, {rejectWithValue}) => {
-      const response = await fetch(`${baseUrl}/auth/sign-up`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json;charset=UTF-8',
-        },
-        body: JSON.stringify(authModel),
-      });
+      try {
+        console.log(authModel);
+        const response = await fetch(`${baseUrl}/auth/sign-up`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+          },
+          body: JSON.stringify(authModel),
+        });
 
-      if (response.ok) {
-        return await response.json();
+        if (response.ok) {
+          const result = await response.json();
+          localStorage.setItem('session', JSON.stringify(result));
+          return result;
+        }
+
+        return rejectWithValue(await response.text());
+      } catch (e) {
+        console.log(e);
+        rejectWithValue('Error');
       }
-
-      return rejectWithValue(await response.text());
     },
 );
 

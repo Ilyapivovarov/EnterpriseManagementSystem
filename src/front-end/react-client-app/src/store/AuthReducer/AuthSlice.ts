@@ -15,30 +15,35 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
         .addCase(signIn.pending, (state) => {
-          state.error = null;
           state.isLoading = true;
+          state.error = null;
+          state.currentSession = null;
         })
         .addCase(signIn.fulfilled, (state, action) => {
           state.isLoading = false;
+          state.error = null;
           state.currentSession = action.payload;
         })
         .addCase(signIn.rejected, (state, action) => {
           state.isLoading = false;
-          state.currentSession = null;
           state.error = action.payload;
+          state.currentSession = null;
         })
         .addCase(signUp.pending, (state) => {
-          state.error = null;
           state.isLoading = true;
+          state.error = null;
+          state.currentSession = null;
         })
         .addCase(signUp.fulfilled, (state, action) => {
           state.isLoading = false;
+          state.error = null;
           state.currentSession = action.payload;
         })
         .addCase(signUp.rejected, (state, action) => {
           state.isLoading = false;
-          state.currentSession = null;
           state.error = action.payload;
+          state.currentSession = null;
+          console.log(action.payload);
         })
         .addCase(resetAuthState.pending, (state) => {
           state.isLoading = true;

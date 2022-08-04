@@ -27,7 +27,9 @@ const SignUpPage: React.FC = () => {
       firstName: data.get('firstName') as string,
       lastName: data.get('lastName') as string,
     })).unwrap()
-        .then(() => navigate('/'))
+        .then((e) => {
+          console.log(e);
+        })
         .catch((error) => console.log(error));
   };
 
