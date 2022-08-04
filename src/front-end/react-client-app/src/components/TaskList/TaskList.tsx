@@ -58,7 +58,8 @@ const TaskList: React.FC = () => {
                 tasks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) :
                 tasks
             ).map((task) => (
-              <TableRow key={task.id} hover onClick={() => navigate(`/tasks/${task.id}`)}>
+              <TableRow key={task.id} hover onClick={() => navigate(`/tasks/${task.id}`)}
+                style={{cursor: 'pointer'}} >
                 <TableCell component="th" scope="row">
                   {task.name}
                 </TableCell>
