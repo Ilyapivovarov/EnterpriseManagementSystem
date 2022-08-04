@@ -2,8 +2,6 @@ import React from 'react';
 import {Snackbar} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-
-import './Notification.css';
 import {SnackbarCloseReason} from '@mui/material/Snackbar/Snackbar';
 
 interface NotificationProps {
