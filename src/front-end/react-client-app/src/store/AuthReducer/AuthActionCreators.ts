@@ -10,7 +10,7 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
       const session = JSON.parse(localStorage.getItem('session')!) as Session | null;
       if (session) {
         const decodeToken = jwtDecode<DecodeToken>(session.accessToken);
-        if (new Date(decodeToken.exp * 1000) > new Date()) {
+        if (new Date(decodeToken.exp * 1000 - 10000) > new Date()) {
           console.log('Token is valid');
           return session;
         } else {
