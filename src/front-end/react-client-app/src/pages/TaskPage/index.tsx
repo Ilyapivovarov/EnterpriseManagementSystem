@@ -9,11 +9,14 @@ import Loader from '../../components/Loader/Loader';
 import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector';
 import PageWrapper from '../../components/PageWrapper/PageWrapper';
 import {useGetTaskStatusesQuery} from '../../services/taskStatusesServices';
+import {useAppDispatch} from '../../hooks';
+import {showNotification} from '../../store/NotificationReduser/notificationReduser';
+import Notification from '../../components/Notification/Notification';
 
 const TaskPage: React.FC = () => {
   const {id} = useParams();
   const taskId = Number.parseInt(id!);
-
+  const dispatch = useAppDispatch();
   const {data: task, isLoading: isTaskLoading, isSuccess: taskLoadingSuccess} = useGetTaskByIdQuery(taskId);
   const {data: statuses, isLoading: isStatusesLoading, isSuccess: taskStatusesSucces} = useGetTaskStatusesQuery();
 
@@ -31,6 +34,7 @@ const TaskPage: React.FC = () => {
     if (value != selectedValue) {
       setSelectedValue(value);
       await updateTaskStatus({taskId, statusId: value}).unwrap();
+      dispatch(showNotification('Status has been changed'));
     }
   };
 
@@ -47,6 +51,7 @@ const TaskPage: React.FC = () => {
             marginTop: '10px',
           }}
           elevation={1}>
+          <Notification/>
           <Breadcrumbs aria-label="breadcrumb">
             <Link to={'/'}>
              Home

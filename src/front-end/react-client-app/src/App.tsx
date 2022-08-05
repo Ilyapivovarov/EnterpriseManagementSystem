@@ -12,21 +12,23 @@ import TaskListPage from './pages/TaskListPage/';
 
 const App: React.FC = () => {
   return (
-    <Routes>
-      <Route path={'/'} element={<RequireAuth><Layout/></RequireAuth>}>
-        <Route index element={<HomePage/>}/>
-        <Route path={'users/'} element={<UserListPage/>}/>
-        <Route path={'users/:guid'} element={<UserPage/>}/>
-        <Route path={'tasks/'} element={<TaskListPage/>}/>
-        <Route path={'tasks/:id'} element={<TaskPage/>}/>
-        <Route path={'settings'} element={<SettingsPage/>}/>
-      </Route>
-      <Route path={'/'} element={<RequireAnonymous/>}>
-        <Route path={'sign-in'} element={<SignInPage/>}/>
-        <Route path={'sign-up'} element={<SignUpPage/>}/>
-      </Route>
-      <Route path="*" element={<NotFoundPage/>}/>
-    </Routes>
+    <>
+      <Routes>
+        <Route path={'/'} element={<RequireAuth><Layout/></RequireAuth>}>
+          <Route index element={<HomePage/>}/>
+          <Route path={'users/'} element={<UserListPage/>}/>
+          <Route path={'users/:guid'} element={<UserPage/>}/>
+          <Route path={'tasks/'} element={<TaskListPage/>}/>
+          <Route path={'tasks/:id'} element={<TaskPage/>}/>
+          <Route path={'settings'} element={<SettingsPage/>}/>
+        </Route>
+        <Route path={'/'} element={<RequireAnonymous/>}>
+          <Route path={'sign-in'} element={<SignInPage/>}/>
+          <Route path={'sign-up'} element={<SignUpPage/>}/>
+        </Route>
+        <Route path="*" element={<NotFoundPage/>}/>
+      </Routes>
+    </>
   );
 };
 

@@ -4,9 +4,12 @@ import authReducer from './AuthReducer/AuthSlice';
 import {taskApi} from '../services/taskService';
 import {taskStatusApi} from '../services/taskStatusesServices';
 import {executorService} from '../services/executorService';
+import notificationReducer from './NotificationReduser/notificationReduser';
+
 
 const rootReducers = combineReducers({
   authReducer,
+  notificationReducer,
   [taskApi.reducerPath]: taskApi.reducer,
   [employeeApi.reducerPath]: employeeApi.reducer,
   [taskStatusApi.reducerPath]: taskStatusApi.reducer,

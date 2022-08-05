@@ -1,21 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Snackbar} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import {SnackbarCloseReason} from '@mui/material/Snackbar/Snackbar';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {closeNotification} from '../../store/NotificationReduser/notificationReduser';
 
-interface NotificationProps {
-  message: string,
-  isOpen: boolean,
-  onClose: (event: React.SyntheticEvent<any> | Event, reason: SnackbarCloseReason) => void;
-}
+const Notification: React.FC = () => {
+  const {message, show} = useAppSelector((x) => x.notificationReducer);
+  useEffect(() => {
+    if (message) {
+      setTimeout(() => onClose(), 3000);
+    }
+  }, [message]);
 
-const Notification: React.FC<NotificationProps> = ({message, isOpen, onClose}) => {
+  const dispatch = useAppDispatch();
+
+  const onClose = () => dispatch(closeNotification());
+
   return (
     <Snackbar
-      open={isOpen}
-      autoHideDuration={5000}
-      onClose={onClose}
+      open={show}
+      autoHideDuration={50}
+      onClick={onClose}
       message={message}
       anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
       action={
@@ -24,7 +30,7 @@ const Notification: React.FC<NotificationProps> = ({message, isOpen, onClose}) =
             aria-label="close"
             color="inherit"
             sx={{p: 0.5}}
-            onClick={(e) => onClose(e, 'timeout')}
+            // onClick={() => onClose()}
           >
             <CloseIcon />
           </IconButton>

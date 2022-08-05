@@ -38,7 +38,6 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor}) =>
 
   return (
     <div>
-      <Notification message={'Executor has been chanched'} isOpen={show} onClose={() => setShow(false)} />
       <FormControl variant="standard" sx={{
         m: 1,
         minWidth: 200,
