@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Breadcrumbs, Button, ButtonGroup, FormControl, InputLabel, MenuItem, Paper, Select, Tooltip, Typography} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -14,11 +14,17 @@ const TaskPage: React.FC = () => {
   const {id} = useParams();
   const taskId = Number.parseInt(id!);
 
-  const {data, isLoading, isSuccess, error} = useGetTaskByIdQuery(taskId);
-  const {data: statuses, isSuccess: taskStatusesSucces} = useGetTaskStatusesQuery();
+  const {data: task, isLoading: isTaskLoading, isSuccess: taskLoadingSuccess} = useGetTaskByIdQuery(taskId);
+  const {data: statuses, isLoading: isStatusesLoading, isSuccess: taskStatusesSucces} = useGetTaskStatusesQuery();
 
   const [updateTaskStatus] = useUpdateTaskStatusMutation();
-  const [selectedValue, setSelectedValue] = useState<number | undefined>(data?.status.id);
+  const [selectedValue, setSelectedValue] = useState<number | undefined>(task?.status.id);
+
+  React.useEffect(() => {
+    if (task) {
+      setSelectedValue(task.status.id);
+    }
+  }, [task]);
 
 
   const onClickHandle = async (value: number) => {
@@ -28,11 +34,11 @@ const TaskPage: React.FC = () => {
     }
   };
 
-  if (isLoading) {
+  if (isTaskLoading && isStatusesLoading) {
     return <Loader/>;
   }
 
-  if (isSuccess && taskStatusesSucces) {
+  if (taskLoadingSuccess && taskStatusesSucces && selectedValue) {
     return (
       <>
         <Paper
@@ -48,7 +54,7 @@ const TaskPage: React.FC = () => {
             <Link to={'/tasks'}>
               Tasks
             </Link>
-            <Typography color="text.primary">EMS-{data.id}</Typography>
+            <Typography color="text.primary">EMS-{task.id}</Typography>
           </Breadcrumbs>
         </Paper>
         <PageWrapper>
@@ -56,11 +62,11 @@ const TaskPage: React.FC = () => {
           <div>
             <Box padding={1} display={'flex'} justifyContent={'space-between'}>
               <Typography fontSize={14} paddingLeft={1}>
-                <b>EMS-{data.id}</b> created by{' '}
-                <Link to={`/users/${data.author.guid}`}>
-                  {data.author.firstName} {data.author.lastName}{' '}
+                <b>EMS-{task.id}</b> created by{' '}
+                <Link to={`/users/${task.author.guid}`}>
+                  {task.author.firstName} {task.author.lastName}{' '}
                 </Link>
-              on {new Date(data.created).toLocaleDateString()} {new Date(data.created).toLocaleTimeString()}
+              on {new Date(task.created).toLocaleDateString()} {new Date(task.created).toLocaleTimeString()}
               </Typography>
               <Box>
                 <ButtonGroup size="small">
@@ -81,11 +87,11 @@ const TaskPage: React.FC = () => {
                   variant="h3"
                   paddingLeft={1}
                 >
-                  {data.name}
+                  {task.name}
                 </Typography>
                 <Box display={'flex'} justifyContent={'space-between'}>
                   <div style={{marginRight: '5px'}}>
-                    <ExecutorSelector currentExecutor={data.executor}/>
+                    <ExecutorSelector currentExecutor={task.executor}/>
                   </div>
                   <FormControl variant="standard" sx={{
                     m: 1,
@@ -96,7 +102,7 @@ const TaskPage: React.FC = () => {
                       <Select
                         labelId="task-status-select"
                         id="select-status"
-                        value={data.status.id}
+                        value={selectedValue}
                       >
                         {statuses.map((x) => <MenuItem key={x.id} value={x.id}
                           onClick={() => onClickHandle(x.id)}>{x.name}</MenuItem>)}
@@ -106,7 +112,7 @@ const TaskPage: React.FC = () => {
                 </Box>
               </Box>
               <Typography fontSize={20} paddingLeft={1}>
-                {data.description}
+                {task.description}
               </Typography>
             </Box>
           </div>
