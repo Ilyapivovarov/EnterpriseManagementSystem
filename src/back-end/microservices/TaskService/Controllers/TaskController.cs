@@ -47,6 +47,12 @@ public sealed class TaskController : ControllerBase
         return await _mediator.Send(new GetTasksByPageRequest(pageNumber, pageSize));
     }
 
+    /// <summary>
+    ///     Update task status
+    /// </summary>
+    /// <param name="taskId"></param>
+    /// <param name="statusId"></param>
+    /// <returns></returns>
     [HttpPut]
     [Route("status")]
     public async Task<IActionResult> UpdateTaskStatus(int taskId, int statusId)

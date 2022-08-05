@@ -14,7 +14,6 @@ const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({selectedStatusId}) => 
   const {isLoading, data, isSuccess, error} = useGetTaskStatusesQuery();
 
   const onClickHandle = (value: number) => {
-    console.log(selectedValue, value);
     if (value != selectedValue) {
       setSelectedValue(value);
       setShow(true);

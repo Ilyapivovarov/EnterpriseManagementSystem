@@ -55,7 +55,7 @@ const TaskPage: React.FC = () => {
                 <div style={{marginRight: '5px'}}>
                   <ExecutorSelector currentExecutor={data.executor}/>
                 </div>
-                <TaskStatusSelector selectedStatusId={1}/>
+                <TaskStatusSelector selectedStatusId={data.status.id}/>
               </Box>
             </Box>
             <Typography fontSize={20} paddingLeft={1}>

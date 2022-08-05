@@ -22,4 +22,17 @@ public sealed class TaskController : ControllerBase
     {
         return await _taskServiceHttpClient.GetTasksByPage(pageNumber, pageSize);
     }
+
+    /// <summary>
+    ///     Update task status
+    /// </summary>
+    /// <param name="taskId"></param>
+    /// <param name="statusId"></param>
+    /// <returns></returns>
+    [HttpPut]
+    [Route("status")]
+    public async Task<IActionResult> UpdateTaskStatus(string taskId, string statusId)
+    {
+        return await _taskServiceHttpClient.UpdateTaskStatus(taskId, statusId);
+    }
 }

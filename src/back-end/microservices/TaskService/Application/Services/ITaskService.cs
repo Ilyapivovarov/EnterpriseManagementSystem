@@ -26,5 +26,6 @@ public interface ITaskService
     /// <param name="taskStatusDbEntity"></param>
     /// <param name="taskDbEntity"></param>
     /// <returns></returns>
-    public bool UpdateTaskStatus(TaskStatusDbEntity taskStatusDbEntity, TaskDbEntity taskDbEntity);
+    public ServiceResult<TaskDbEntity> UpdateTaskStatus(TaskStatusDbEntity taskStatusDbEntity,
+        TaskDbEntity taskDbEntity);
 }

@@ -7,7 +7,8 @@ public sealed class UpdateTaskStatusHandler : RequestHandlerBase<UpdateTaskStatu
     private readonly ITaskStatusRepository _taskStatusRepository;
     private readonly ITaskService _taskService;
 
-    public UpdateTaskStatusHandler(ILogger<UpdateTaskStatusHandler> logger, ITaskRepository taskRepository, ITaskStatusRepository taskStatusRepository, ITaskService taskService)
+    public UpdateTaskStatusHandler(ILogger<UpdateTaskStatusHandler> logger, ITaskRepository taskRepository,
+        ITaskStatusRepository taskStatusRepository, ITaskService taskService)
     {
         _logger = logger;
         _taskRepository = taskRepository;
@@ -15,7 +16,8 @@ public sealed class UpdateTaskStatusHandler : RequestHandlerBase<UpdateTaskStatu
         _taskService = taskService;
     }
 
-    public override async Task<IActionResult> Handle(UpdateTaskStatusRequest request, CancellationToken cancellationToken)
+    public override async Task<IActionResult> Handle(UpdateTaskStatusRequest request,
+        CancellationToken cancellationToken)
     {
         try
         {
@@ -28,11 +30,16 @@ public sealed class UpdateTaskStatusHandler : RequestHandlerBase<UpdateTaskStatu
                 return NotFound("Task status not found");
 
             var serviceResult = _taskService.UpdateTaskStatus(taskStatusDbEntity, taskDbEntity);
+            if (serviceResult.Value == null)
+                return Error(serviceResult.Error);
+
+            await _taskRepository.UpdateAsync(serviceResult.Value);
+
+            return Ok();
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
-
             return Error("Error while changing task status");
         }
     }

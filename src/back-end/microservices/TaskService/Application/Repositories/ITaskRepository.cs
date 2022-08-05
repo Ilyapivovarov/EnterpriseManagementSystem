@@ -37,7 +37,7 @@ public interface ITaskRepository
     /// </summary>
     /// <param name="taskDbEntity"></param>
     /// <returns></returns>
-    public Task<bool> UpdateTaskAsync(TaskDbEntity taskDbEntity);
+    public Task<bool> UpdateAsync(TaskDbEntity taskDbEntity);
 
     /// <summary>
     ///     Save entity

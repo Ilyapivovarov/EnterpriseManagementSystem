@@ -20,7 +20,7 @@ public abstract class RequestHandlerBase<T> : IRequestHandler<T, IActionResult>
         return new BadRequestResult();
     }
 
-    protected IActionResult Error(object obj)
+    protected IActionResult Error(object? obj)
     {
         return new BadRequestObjectResult(obj);
     }

@@ -30,7 +30,7 @@ public sealed class TaskRepository : RepositoryBase, ITaskRepository
             .ToArray());
     }
 
-    public async Task<bool> UpdateTaskAsync(TaskDbEntity taskDbEntity)
+    public async Task<bool> UpdateAsync(TaskDbEntity taskDbEntity)
     {
         return await WriteDataAsync(x => x.Tasks.Update(taskDbEntity));
     }

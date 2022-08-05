@@ -3,10 +3,13 @@ namespace TaskService.Infrastructure.Services;
 public sealed class TaskService : ITaskService
 {
     private readonly ITaskStatusRepository _taskRepository;
+    private readonly ILogger<TaskService> _logger;
     private readonly IUserRepository _userRepository;
 
-    public TaskService(IUserRepository userRepository, ITaskStatusRepository taskStatusRepository)
+    public TaskService(ILogger<TaskService> logger, IUserRepository userRepository,
+        ITaskStatusRepository taskStatusRepository)
     {
+        _logger = logger;
         _userRepository = userRepository;
         _taskRepository = taskStatusRepository;
     }
@@ -42,8 +45,19 @@ public sealed class TaskService : ITaskService
         return new ServiceResult<TaskStatusDbEntity>($"Error wihle get or create satus with name {name}");
     }
 
-    public bool UpdateTaskStatus(TaskStatusDbEntity taskStatusDbEntity, TaskDbEntity taskDbEntity)
+    public ServiceResult<TaskDbEntity> UpdateTaskStatus(TaskStatusDbEntity taskStatusDbEntity,
+        TaskDbEntity taskDbEntity)
     {
-        throw new NotImplementedException();
+        try
+        {
+            taskDbEntity.Status = taskStatusDbEntity;
+
+            return new ServiceResult<TaskDbEntity>(taskDbEntity);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return new ServiceResult<TaskDbEntity>("Error while updating task status");
+        }
     }
 }

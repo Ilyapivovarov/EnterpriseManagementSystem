@@ -30,7 +30,7 @@ public sealed class UpdateTaskHander : RequestHandlerBase<UpdateTaskRequest>
             TaskDbEntityBuilder.Update(ref taskDbEntity, updateTask.Description, updateTask.Name,
                 taskDbEntity.Status, userInvolvedInTask);
 
-            var saveSuccess = await _taskRepository.UpdateTaskAsync(taskDbEntity);
+            var saveSuccess = await _taskRepository.UpdateAsync(taskDbEntity);
             return saveSuccess ? Ok() : Error("Error while save task");
         }
         catch (Exception e)
