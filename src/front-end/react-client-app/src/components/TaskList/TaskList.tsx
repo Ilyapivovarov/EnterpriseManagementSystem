@@ -14,7 +14,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import {TableHead} from '@mui/material';
+import {TableHead, Typography} from '@mui/material';
 import {useGetTasksByPageQuery} from '../../services/taskService';
 import Loader from '../Loader/Loader';
 
@@ -58,9 +58,11 @@ const TaskList: React.FC = () => {
                 tasks
             ).map((task) => (
               <TableRow key={task.id} hover onClick={() => navigate(`/tasks/${task.id}`)}
-                style={{cursor: 'pointer'}} >
+                style={{cursor: 'pointer'}}>
                 <TableCell component="th" scope="row">
-                  {task.name}
+                  <Typography component={'span'} >
+                    <b>EMS-{task.id}</b> {task.name}
+                  </Typography>
                 </TableCell>
                 <TableCell style={{width: 160}} align="right">
                   {task.status.name}
