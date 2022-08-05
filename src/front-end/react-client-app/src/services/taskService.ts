@@ -7,6 +7,7 @@ const baseUrl = process.env.REACT_APP_API_KEY;
 
 export const taskApi = createApi({
   reducerPath: 'taskApi',
+  tagTypes: ['task'],
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseUrl}`,
     prepareHeaders: (headers, {getState}) => {
@@ -19,19 +20,26 @@ export const taskApi = createApi({
     },
   }),
   endpoints: (build) => ({
-    getTaskById: build.query<TaskDto, string>({
+    getTaskById: build.query<TaskDto, number>({
       query: (id) => ({
         url: `/task/${id}`,
-        validateStatus: () => true,
       }),
+      providesTags: ['task'],
     }),
     getTasksByPage: build.query<TaskDto[], { pageNumber: number, pageSize: number }>({
       query: ({pageNumber, pageSize}) => ({
         url: `/task?pageNumber=${pageNumber}&pageSize=${pageSize}`,
-        validateStatus: () => true,
       }),
+      providesTags: ['task'],
+    }),
+    updateTaskStatus: build.mutation<void, {taskId: number, statusId: number}>({
+      query: ({taskId, statusId}) => ({
+        url: `/task/status?taskId=${taskId}&statusId=${statusId}`,
+        method: 'PUT',
+      }),
+      invalidatesTags: ['task'],
     }),
   }),
 });
 
-export const {useGetTaskByIdQuery, useGetTasksByPageQuery} = taskApi;
+export const {useGetTaskByIdQuery, useGetTasksByPageQuery, useUpdateTaskStatusMutation} = taskApi;
