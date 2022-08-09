@@ -103,14 +103,7 @@ const ExecutorListWithPag: React.FC<ExecutorListWithPagProps> = ({
 }) => {
   const pageSize = 10;
   const [page, setPage] = React.useState<number>(1);
-  const {
-    data,
-    isSuccess,
-    error,
-  } = useGetUsersByPageQuery({
-    page,
-    count: pageSize,
-  });
+  const {data, isSuccess, error} = useGetUsersByPageQuery({page, count: pageSize});
 
   const handleListItemClick = (value: string) => {
     onClose(value);

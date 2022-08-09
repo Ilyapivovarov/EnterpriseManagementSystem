@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Box, Breadcrumbs, Button, ButtonGroup, FormControl, InputLabel, MenuItem, Paper, Select, Tooltip, Typography} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -12,16 +12,22 @@ import {useGetTaskStatusesQuery} from '../../services/taskStatusesServices';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
 import Notification from '../../components/Notification/Notification';
+import EditableTextField from '../../components/EditableTextField/EditableTextField';
+import SaveIcon from '@mui/icons-material/Save';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {red, green, blueGrey} from '@mui/material/colors';
 
 const TaskPage: React.FC = () => {
   const {id} = useParams();
   const taskId = Number.parseInt(id!);
   const dispatch = useAppDispatch();
+
   const {data: task, isLoading: isTaskLoading, isSuccess: taskLoadingSuccess} = useGetTaskByIdQuery(taskId);
   const {data: statuses, isLoading: isStatusesLoading, isSuccess: taskStatusesSucces} = useGetTaskStatusesQuery();
 
   const [updateTaskStatus] = useUpdateTaskStatusMutation();
   const [selectedValue, setSelectedValue] = useState<number | undefined>(task?.status.id);
+  const [isEditMode, setEditMode] = useState<boolean>(false);
 
   React.useEffect(() => {
     if (task) {
@@ -36,6 +42,15 @@ const TaskPage: React.FC = () => {
       await updateTaskStatus({taskId, statusId: value}).unwrap();
       dispatch(showNotification('Status has been changed'));
     }
+  };
+
+  const onSave = () => {
+    console.log('Save changes');
+    setEditMode(false);
+  };
+
+  const onBack = () => {
+    setEditMode(false);
   };
 
   if (isTaskLoading && isStatusesLoading) {
@@ -63,7 +78,6 @@ const TaskPage: React.FC = () => {
           </Breadcrumbs>
         </Paper>
         <PageWrapper>
-
           <div>
             <Box padding={1} display={'flex'} justifyContent={'space-between'}>
               <Typography fontSize={14} paddingLeft={1}>
@@ -73,13 +87,27 @@ const TaskPage: React.FC = () => {
                 </Link>
               on {new Date(task.created).toLocaleDateString()} {new Date(task.created).toLocaleTimeString()}
               </Typography>
-              <Box>
+              <Box hidden={isEditMode}>
                 <ButtonGroup size="small">
-                  <Button key="edit">
+                  <Button key="edit" onClick={() => {
+                    setEditMode(!isEditMode);
+                    const input = document.getElementById('task-name') as HTMLInputElement | null;
+                    console.log(input?.value);
+                  }}>
                     <EditIcon/>
                   </Button>
-                  <Button key="delete">
+                </ButtonGroup>
+              </Box>
+              <Box hidden={!isEditMode}>
+                <ButtonGroup size="small">
+                  <Button key="back" onClick={onBack} sx={{color: blueGrey[500]}}>
+                    <ArrowBackIcon/>
+                  </Button>
+                  <Button key="delete" sx={{color: red[500]}}>
                     <DeleteIcon/>
+                  </Button>
+                  <Button sx={{color: green[500]}} key="save" onClick={onSave}>
+                    <SaveIcon/>
                   </Button>
                 </ButtonGroup>
               </Box>
@@ -92,7 +120,14 @@ const TaskPage: React.FC = () => {
                   variant="h3"
                   paddingLeft={1}
                 >
-                  {task.name}
+                  <EditableTextField id={'task-name'} lable={'Task name'}
+                    isEditable={isEditMode}
+                    value={task.name}
+                    fullWidth={false}
+                    multiline={false}
+                    variant={'outlined'}
+                  />
+
                 </Typography>
                 <Box display={'flex'} justifyContent={'space-between'}>
                   <div style={{marginRight: '5px'}}>
@@ -116,8 +151,22 @@ const TaskPage: React.FC = () => {
                   </FormControl>
                 </Box>
               </Box>
-              <Typography fontSize={20} paddingLeft={1}>
-                {task.description}
+              <Typography
+                paddingBottom={2}
+                paddingTop={1}
+                variant="h3"
+                paddingLeft={1}
+              >
+                <EditableTextField
+                  id={'task-description'}
+                  lable={'Task description'}
+                  isEditable={isEditMode}
+                  value={task.description}
+                  fullWidth={true}
+                  multiline={true}
+                  variant={'outlined'}
+                />
+
               </Typography>
             </Box>
           </div>
