@@ -2,11 +2,14 @@ import React, {useState} from 'react';
 import {FormControl, InputLabel, MenuItem, MenuProps, Select, SelectChangeEvent} from '@mui/material';
 import {UserDto, UsersByPageDto} from '../../types/taskTypes';
 import {Session} from '../../types/authTypes';
+import {useUpdateTaskExecutorMutation} from '../../services/taskService';
 
 const baseUrl = process.env.REACT_APP_API_KEY;
 
 interface ExecutorSelectorProps {
   currentExecutor: UserDto,
+  selected: number
+  onSelect: (value: number) => void;
 }
 
 const fetchExecutors = async (page: number) : Promise<UsersByPageDto> => {
@@ -22,7 +25,7 @@ const fetchExecutors = async (page: number) : Promise<UsersByPageDto> => {
 };
 
 function unique(executors : UserDto[]) {
-  const result : UserDto[]= [];
+  const result : UserDto[] = [];
 
   for (const executor of executors) {
     if (result.filter((x) => x.id == executor.id).length == 0) {
@@ -32,15 +35,8 @@ function unique(executors : UserDto[]) {
   return result;
 }
 
-const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor}) => {
+const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor, selected, onSelect}) => {
   const [executors, setExecutors] = useState<UserDto[]>(unique([currentExecutor]));
-  const [executorName, setExecutorName] = React.useState<string>(currentExecutor.emailAddress);
-
-  const handleChange = (event: SelectChangeEvent<typeof executorName>) => {
-    const {target: {value}} = event;
-    console.log('Change executor');
-    setExecutorName(value);
-  };
 
   const menuProps = () : Partial<MenuProps> => {
     const [page, setPage] = useState(1);
@@ -72,12 +68,12 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor}) =>
         variant="standard"
         id="task-executor-selector"
         multiline
-        value={executorName}
-        onChange={handleChange}
+        defaultValue={currentExecutor.id}
+        value={selected}
         MenuProps={menuProps()}
       >
         {executors.map((executor, key) => (
-          <MenuItem key={key} value={executor.emailAddress}>
+          <MenuItem key={key} value={executor.id} onClick={() => onSelect(executor.id)}>
             {executor.emailAddress}
           </MenuItem>
         ))}

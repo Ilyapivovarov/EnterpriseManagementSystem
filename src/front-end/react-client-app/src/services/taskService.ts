@@ -39,7 +39,14 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
+    updateTaskExecutor: build.mutation<void, {taskId: number, executorId: number}>({
+      query: ({taskId, executorId}) => ({
+        url: `/task/executor?taskId=${taskId}&executorId=${executorId}`,
+        method: 'PUT',
+      }),
+      invalidatesTags: ['task'],
+    }),
   }),
 });
 
-export const {useGetTaskByIdQuery, useGetTasksByPageQuery, useUpdateTaskStatusMutation} = taskApi;
+export const {useGetTaskByIdQuery, useGetTasksByPageQuery, useUpdateTaskStatusMutation, useUpdateTaskExecutorMutation} = taskApi;

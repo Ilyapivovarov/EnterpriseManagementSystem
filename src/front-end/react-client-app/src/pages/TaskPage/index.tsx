@@ -1,9 +1,26 @@
 import React, {useState} from 'react';
-import {Box, Breadcrumbs, Button, ButtonGroup, FormControl, InputLabel, MenuItem, Paper, Select, Tooltip, Typography} from '@mui/material';
+import {
+  Box,
+  Breadcrumbs,
+  Button,
+  ButtonGroup,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from '../../components/Link/Link';
-import {useGetTaskByIdQuery, useUpdateTaskStatusMutation} from '../../services/taskService';
+import {
+  useGetTaskByIdQuery,
+  useUpdateTaskExecutorMutation,
+  useUpdateTaskStatusMutation,
+} from '../../services/taskService';
 import {useParams} from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import PageWrapper from '../../components/PageWrapper/PageWrapper';
@@ -29,11 +46,24 @@ const TaskPage: React.FC = () => {
   const [selectedValue, setSelectedValue] = useState<number | undefined>(task?.status.id);
   const [isEditMode, setEditMode] = useState<boolean>(false);
 
+  const [updateTaskExecutor] = useUpdateTaskExecutorMutation();
+  const [executorId, setExecutorId] = React.useState<number>(0);
+
+
   React.useEffect(() => {
     if (task) {
       setSelectedValue(task.status.id);
+      setExecutorId(task.executor.id);
     }
   }, [task]);
+
+  const handleChange = async (value : number) => {
+    if (task?.executor.id != value) {
+      await updateTaskExecutor({taskId: 1, executorId: value as number});
+      // .unwrap()
+      // .then((x) => setExecutorId(value as number));
+    }
+  };
 
   const onClickHandle = async (value: number) => {
     if (value != selectedValue) {
@@ -129,7 +159,7 @@ const TaskPage: React.FC = () => {
 
                 </Typography>
                 <Box display={'flex'} justifyContent={'space-between'}>
-                  <ExecutorSelector currentExecutor={task.executor}/>
+                  <ExecutorSelector currentExecutor={task.executor} selected={executorId} onSelect={handleChange}/>
                   <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
                     <InputLabel id="task-status-select">Status</InputLabel>
                     <Tooltip title={'Change status'} placement="top" disableFocusListener>
