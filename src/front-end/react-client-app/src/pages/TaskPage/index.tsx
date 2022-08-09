@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Breadcrumbs, Button, ButtonGroup, FormControl, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Tooltip, Typography} from '@mui/material';
+import {Box, Breadcrumbs, Button, ButtonGroup, FormControl, InputLabel, MenuItem, Paper, Select, Tooltip, Typography} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from '../../components/Link/Link';
@@ -15,64 +15,23 @@ import EditableTextField from '../../components/EditableTextField/EditableTextFi
 import SaveIcon from '@mui/icons-material/Save';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {red, green, blueGrey} from '@mui/material/colors';
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-
+import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector';
 
 const TaskPage: React.FC = () => {
   const {id} = useParams();
   const taskId = Number.parseInt(id!);
   const dispatch = useAppDispatch();
 
-  const MenuProps = {
-    PaperProps: {
-      onScroll: (e : React.UIEvent<HTMLDivElement, UIEvent>) => {
-        console.log(e.currentTarget.scrollTop);
-        console.log(e.currentTarget.scrollHeight - e.currentTarget.clientHeight);
-        if (e.currentTarget.scrollHeight - e.currentTarget.clientHeight <= e.currentTarget.scrollTop) {
-          if (executors.length < 20) {
-            setExecutors((s) => [...s, ...['Van Henry',
-              'April Tucker',
-              'Ralph Hubbard',
-              'Omar Alexander',
-              'Bradley Wilkerson',
-              'Virginia Andrews',
-              'Kelly Snyder']]);
-          }
-        }
-      },
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
-  const names = [
-    'Admin Admin',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-  ];
-
   const {data: task, isLoading: isTaskLoading, isSuccess: taskLoadingSuccess} = useGetTaskByIdQuery(taskId);
   const {data: statuses, isLoading: isStatusesLoading, isSuccess: taskStatusesSucces} = useGetTaskStatusesQuery();
 
   const [updateTaskStatus] = useUpdateTaskStatusMutation();
-  const [executorName, setExecutorName] = React.useState<string | undefined>(`${task?.executor.firstName} ${task?.executor.lastName}`);
   const [selectedValue, setSelectedValue] = useState<number | undefined>(task?.status.id);
-  const [executors, setExecutors] = useState(names);
   const [isEditMode, setEditMode] = useState<boolean>(false);
 
   React.useEffect(() => {
     if (task) {
       setSelectedValue(task.status.id);
-      setExecutorName(`${task.executor.firstName} ${task.executor.lastName}`);
     }
   }, [task]);
 
@@ -92,10 +51,6 @@ const TaskPage: React.FC = () => {
     setEditMode(false);
   };
 
-  const handleChange = (event: SelectChangeEvent<typeof executorName>) => {
-    const {target: {value}} = event;
-    setExecutorName(value);
-  };
 
   if (isTaskLoading && isStatusesLoading) {
     return <Loader/>;
@@ -174,24 +129,7 @@ const TaskPage: React.FC = () => {
 
                 </Typography>
                 <Box display={'flex'} justifyContent={'space-between'}>
-                  <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
-                    <InputLabel id="task-executor-selector-lable">Executor</InputLabel>
-                    <Select
-                      labelId={'task-executor-selector-lable'}
-                      variant="standard"
-                      id="task-executor-selector"
-                      multiline
-                      value={executorName}
-                      onChange={handleChange}
-                      MenuProps={MenuProps}
-                    >
-                      {executors.map((name, key) => (
-                        <MenuItem key={key} value={name}>
-                          {name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                  <ExecutorSelector currentExecutor={task.executor}/>
                   <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
                     <InputLabel id="task-status-select">Status</InputLabel>
                     <Tooltip title={'Change status'} placement="top" disableFocusListener>

@@ -1,166 +1,89 @@
-import React from 'react';
-import List from '@mui/material/List';
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
-import {FormControl, InputLabel, MenuItem, Pagination, Select, Stack, Tooltip} from '@mui/material';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import PersonIcon from '@mui/icons-material/Person';
-import ListItemText from '@mui/material/ListItemText';
-import {blue} from '@mui/material/colors';
-import {UserDto} from '../../types/taskTypes';
-import {useGetUsersByPageQuery} from '../../services/executorService';
-import Notification from '../Notification/Notification';
+import React, {useState} from 'react';
+import {FormControl, InputLabel, MenuItem, MenuProps, Select, SelectChangeEvent} from '@mui/material';
+import {UserDto, UsersByPageDto} from '../../types/taskTypes';
+import {Session} from '../../types/authTypes';
+
+const baseUrl = process.env.REACT_APP_API_KEY;
 
 interface ExecutorSelectorProps {
-  currentExecutor?: UserDto
+  currentExecutor: UserDto,
+}
+
+const fetchExecutors = async (page: number) : Promise<UsersByPageDto> => {
+  const response = await fetch(`${baseUrl}/user?page=${page}&count=5`, {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json;charset=UTF-8',
+      'authorization': `bearer ${(JSON.parse(localStorage.getItem('session')!) as Session).accessToken}`,
+    },
+  });
+  const result = await response.json();
+  return result as UsersByPageDto;
+};
+
+function unique(executors : UserDto[]) {
+  const result : UserDto[]= [];
+
+  for (const executor of executors) {
+    if (result.filter((x) => x.id == executor.id).length == 0) {
+      result.push(executor);
+    }
+  }
+  return result;
 }
 
 const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor}) => {
-  const [show, setShow] = React.useState(false);
+  const [executors, setExecutors] = useState<UserDto[]>(unique([currentExecutor]));
+  const [executorName, setExecutorName] = React.useState<string>(currentExecutor.emailAddress);
 
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState<string>(currentExecutor ?
-    currentExecutor.emailAddress :
-    '');
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleChange = (event: SelectChangeEvent<typeof executorName>) => {
+    const {target: {value}} = event;
+    console.log('Change executor');
+    setExecutorName(value);
   };
-  const handleClose = (value: string) => {
-    setOpen(false);
-    if (value != selectedValue) {
-      setSelectedValue(value);
-      setShow(true);
-    }
+
+  const menuProps = () : Partial<MenuProps> => {
+    const [page, setPage] = useState(1);
+    React.useEffect(() => {
+      fetchExecutors(page)
+          .then((x) => setExecutors((s) => unique([...s, ...x.users])));
+    }, [page]);
+
+    return {
+      PaperProps: {
+        onScroll: (e : React.UIEvent<HTMLDivElement, UIEvent>) => {
+          if (e.currentTarget.scrollHeight - e.currentTarget.clientHeight == e.currentTarget.scrollTop) {
+            setPage((x) => x + 1);
+          }
+        },
+        style: {
+          maxHeight: 150,
+          width: 250,
+        },
+      },
+    };
   };
 
   return (
-    <div>
-      <FormControl variant="standard" sx={{
-        m: 1,
-        minWidth: 200,
-      }}>
-        <InputLabel id="task-executor-select">Executor</InputLabel>
-        <Tooltip title={'Change executor'} disableFocusListener>
-          <Select labelId="task-executor-select"
-            id="select-executor"
-            value={selectedValue}
-            onClick={handleClickOpen}
-            open={false}>
-            <MenuItem value={selectedValue}>
-              {selectedValue}
-            </MenuItem>
-          </Select>
-        </Tooltip>
-      </FormControl>
-      <ExecutorSelectorDialog
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-        currentExecutor={currentExecutor?.id}
-      />
-    </div>
+    <FormControl variant="standard" sx={{m: 1, width: 250}}>
+      <InputLabel id="task-executor-selector-lable">Executor</InputLabel>
+      <Select
+        labelId={'task-executor-selector-lable'}
+        variant="standard"
+        id="task-executor-selector"
+        multiline
+        value={executorName}
+        onChange={handleChange}
+        MenuProps={menuProps()}
+      >
+        {executors.map((executor, key) => (
+          <MenuItem key={key} value={executor.emailAddress}>
+            {executor.emailAddress}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
 export default ExecutorSelector;
-
-interface ExecutorSelectorDialogProps {
-  open: boolean;
-  selectedValue: string;
-  onClose: Function;
-  currentExecutor?: number
-}
-
-const ExecutorSelectorDialog: React.FC<ExecutorSelectorDialogProps> = ({
-  onClose,
-  selectedValue,
-  open,
-  currentExecutor,
-}) => {
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
-
-  return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Set executor</DialogTitle>
-      <ExecutorListWithPag onClose={onClose} currentExecutor={currentExecutor}/>
-    </Dialog>
-  );
-};
-
-interface ExecutorListWithPagProps {
-  onClose: Function;
-  currentExecutor?: number
-}
-
-const ExecutorListWithPag: React.FC<ExecutorListWithPagProps> = ({
-  currentExecutor,
-  onClose,
-}) => {
-  const pageSize = 10;
-  const [page, setPage] = React.useState<number>(1);
-  const {data, isSuccess, error} = useGetUsersByPageQuery({page, count: pageSize});
-
-  const handleListItemClick = (value: string) => {
-    onClose(value);
-  };
-
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
-
-  if (isSuccess) {
-    return (
-      <List sx={{pt: 0}}>
-        {
-          data.users.map((x) => <ExecutorSelectorDialogItems email={x.emailAddress}
-            id={x.id}
-            handleListItemClick={() => handleListItemClick(x.emailAddress)}
-            key={x.id}
-            isCurrentUser={currentExecutor == x.id}/>)
-        }
-        <Stack spacing={2}>
-          <Pagination count={Math.ceil(data.total / pageSize)} page={page} onChange={handleChange}/>
-        </Stack>
-      </List>
-    );
-  }
-
-  return <>{error}</>;
-};
-
-interface ExecutorSelectorDialogItemsProps {
-  id: number,
-  email: string,
-  handleListItemClick: Function,
-  isCurrentUser?: boolean
-}
-
-const ExecutorSelectorDialogItems: React.FC<ExecutorSelectorDialogItemsProps> = ({
-  id,
-  handleListItemClick,
-  email,
-  isCurrentUser,
-}) => {
-  return (
-    <ListItem button onClick={() => handleListItemClick(email)} key={id} disabled={isCurrentUser}>
-      <ListItemAvatar>
-        {isCurrentUser ?
-          <Avatar sx={{
-            bgcolor: blue[100],
-            color: blue[600],
-          }}>
-            <PersonIcon/>
-          </Avatar> :
-          <Avatar>
-            <PersonIcon/>
-          </Avatar>}
-      </ListItemAvatar>
-      <ListItemText primary={email}/>
-    </ListItem>
-  );
-};
