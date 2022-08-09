@@ -35,4 +35,17 @@ public sealed class TaskController : ControllerBase
     {
         return await _taskServiceHttpClient.UpdateTaskStatus(taskId, statusId);
     }
+    
+    /// <summary>
+    ///     Update task executor
+    /// </summary>
+    /// <param name="taskId"></param>
+    /// <param name="executorId"></param>
+    /// <returns></returns>
+    [HttpPut]
+    [Route("executor")]
+    public async Task<IActionResult> UpdateTaskExecutor(string taskId, string executorId)
+    {
+        return await _taskServiceHttpClient.UpdateTaskExecutor(taskId, executorId);
+    }
 }

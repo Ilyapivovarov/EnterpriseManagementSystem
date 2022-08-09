@@ -28,4 +28,13 @@ public interface ITaskService
     /// <returns></returns>
     public ServiceResult<TaskDbEntity> UpdateTaskStatus(TaskStatusDbEntity taskStatusDbEntity,
         TaskDbEntity taskDbEntity);
+    
+    /// <summary>
+    /// Update executor
+    /// </summary>
+    /// <param name="userDbEntity"></param>
+    /// <param name="taskDbEntity"></param>
+    /// <returns></returns>
+    public ServiceResult<TaskDbEntity> SetExecutor(UserDbEntity userDbEntity,
+        TaskDbEntity taskDbEntity);
 }

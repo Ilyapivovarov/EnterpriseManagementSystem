@@ -60,4 +60,18 @@ public sealed class TaskService : ITaskService
             return new ServiceResult<TaskDbEntity>("Error while updating task status");
         }
     }
+
+    public ServiceResult<TaskDbEntity> SetExecutor(UserDbEntity userDbEntity, TaskDbEntity taskDbEntity)
+    {
+        try
+        {
+            taskDbEntity.Executor = userDbEntity;
+            return new ServiceResult<TaskDbEntity>(taskDbEntity);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return new ServiceResult<TaskDbEntity>("Error while updating task executor");
+        }
+    }
 }

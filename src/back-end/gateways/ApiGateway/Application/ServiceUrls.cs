@@ -99,6 +99,12 @@ public static class ServiceUrls
             {
                 return $"{BaseUrl}/status?taskId={taskId}&statusId={statusId}";
             }
+            
+            public static string UpdateTaskExecutor(string taskId, string executorId)
+            {
+                return $"{BaseUrl}/executor?taskId={taskId}&executorId={executorId}";
+            }
+
 
             public static string UpdateTask()
             {

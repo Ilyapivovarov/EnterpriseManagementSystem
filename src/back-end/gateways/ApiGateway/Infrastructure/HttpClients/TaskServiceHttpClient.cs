@@ -62,4 +62,11 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
             GetStringContent("sad"));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
+
+    public async Task<IActionResult> UpdateTaskExecutor(string taskId, string executorId)
+    {
+        var response = await _client.PutAsync(ServiceUrls.TaskApi.TaskController.UpdateTaskExecutor(taskId, executorId),
+            GetStringContent("sad"));
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
+    }
 }

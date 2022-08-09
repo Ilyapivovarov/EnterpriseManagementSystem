@@ -17,4 +17,6 @@ public interface ITaskServiceHttpClient
     public Task<IActionResult> GetUsersByPage(int page, int count);
 
     public Task<IActionResult> UpdateTaskStatus(string taskId, string statusId);
+    
+    public Task<IActionResult> UpdateTaskExecutor(string taskId, string executorId);
 }
