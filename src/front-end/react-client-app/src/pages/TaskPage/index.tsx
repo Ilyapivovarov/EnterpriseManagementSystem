@@ -28,8 +28,18 @@ const TaskPage: React.FC = () => {
   const MenuProps = {
     PaperProps: {
       onScroll: (e : React.UIEvent<HTMLDivElement, UIEvent>) => {
-        if (ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP <= e.currentTarget.scrollTop) {
-          setExecutors((s) => [...s, ...names]);
+        console.log(e.currentTarget.scrollTop);
+        console.log(e.currentTarget.scrollHeight - e.currentTarget.clientHeight);
+        if (e.currentTarget.scrollHeight - e.currentTarget.clientHeight <= e.currentTarget.scrollTop) {
+          if (executors.length < 20) {
+            setExecutors((s) => [...s, ...['Van Henry',
+              'April Tucker',
+              'Ralph Hubbard',
+              'Omar Alexander',
+              'Bradley Wilkerson',
+              'Virginia Andrews',
+              'Kelly Snyder']]);
+          }
         }
       },
       style: {
@@ -41,13 +51,6 @@ const TaskPage: React.FC = () => {
 
   const names = [
     'Admin Admin',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
     'Van Henry',
     'April Tucker',
     'Ralph Hubbard',
