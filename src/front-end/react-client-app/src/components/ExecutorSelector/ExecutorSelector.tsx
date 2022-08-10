@@ -81,7 +81,7 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({task}) => {
         }
       >
         {executors.map((executor, key) => (
-          <MenuItem key={key} value={executor.id} onClick={() => handleChange(executor.id)}>
+          <MenuItem key={key} value={executor.id} disabled={executor.id == task.executor.id} onClick={() => handleChange(executor.id)}>
             {executor.emailAddress}
           </MenuItem>
         ))}
