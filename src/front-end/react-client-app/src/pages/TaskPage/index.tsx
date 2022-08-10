@@ -119,8 +119,8 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task, statuses}) => {
 
               </Typography>
               <Box display={'flex'} justifyContent={'space-between'}>
-                <ExecutorSelector currentExecutor={task.executor}/>
-                <TaskStatusSelector selectedStatusId={task.status.id}/>
+                <ExecutorSelector task={task}/>
+                <TaskStatusSelector task={task}/>
               </Box>
             </Box>
             <Typography

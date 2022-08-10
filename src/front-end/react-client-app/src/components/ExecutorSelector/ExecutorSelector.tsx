@@ -1,27 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
-import {UserDto, UsersByPageDto} from '../../types/taskTypes';
+import {TaskDto, UserDto, UsersByPageDto} from '../../types/taskTypes';
 import {useUpdateTaskExecutorMutation} from '../../services/taskService';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
-
-const baseUrl = process.env.REACT_APP_API_KEY;
+import {useLazyGetExecutorsByPageQuery} from '../../services/executorService';
 
 interface ExecutorSelectorProps {
-  currentExecutor: UserDto,
+  task: TaskDto,
 }
-
-const fetchExecutors = async (page: number, token: string ) : Promise<UsersByPageDto> => {
-  const response = await fetch(`${baseUrl}/user?page=${page}&count=5`, {
-    method: 'GET',
-    headers: {
-      'content-type': 'application/json;charset=UTF-8',
-      'authorization': `bearer ${token}`,
-    },
-  });
-  const result = await response.json();
-  return result as UsersByPageDto;
-};
 
 function unique(executors : UserDto[]) {
   const result : UserDto[] = [];
@@ -34,33 +21,42 @@ function unique(executors : UserDto[]) {
   return result;
 }
 
-const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor}) => {
+const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({task}) => {
   const dispatch = useAppDispatch();
-  const {currentSession} = useAppSelector((x) => x.authReducer);
 
+  const [getExecutorsByPage] = useLazyGetExecutorsByPageQuery();
   const [page, setPage] = useState(1);
-  const [executors, setExecutors] = useState<UserDto[]>([currentExecutor]);
+  const [executors, setExecutors] = useState<UserDto[]>([task.executor]);
   const [updateTaskExecutor] = useUpdateTaskExecutorMutation();
-  const [executorId, setExecutorId] = React.useState<number>(currentExecutor.id);
+  const [executorId, setExecutorId] = React.useState<number>(task.executor.id);
+  const [hasExecutorsFlag, setHasExecutorsFlag] = useState(true);
+
+  const fetchExecutors = () => {
+    if (hasExecutorsFlag) {
+      getExecutorsByPage({page: page, count: 5})
+          .unwrap()
+          .then((x) => {
+            console.log(executors.length);
+            console.log(x.total);
+            setHasExecutorsFlag(x.total != executors.length);
+            console.log(hasExecutorsFlag);
+            setExecutors((s) => unique([...s, ...x.users]));
+          });
+    }
+  };
 
   React.useEffect(() => {
-    fetchExecutors(page, currentSession!.accessToken)
-        .then((x) => setExecutors((s) => unique([...s, ...x.users])));
+    fetchExecutors();
+  }, []);
+
+  React.useEffect(() => {
+    fetchExecutors();
   }, [page]);
-
-
-  useEffect(() => {
-    setExecutorId(currentExecutor.id);
-    setExecutors([currentExecutor]);
-    fetchExecutors(page, currentSession!.accessToken)
-        .then((x) => setExecutors((s) => unique([...s, ...x.users])));
-  }, [currentExecutor]);
-
 
   const handleChange = async (value : number) => {
     if (executorId!= value) {
       setExecutorId(value);
-      await updateTaskExecutor({taskId: 1, executorId: value});
+      await updateTaskExecutor({taskId: task.id, executorId: value});
       dispatch(showNotification('Executor has been changed'));
     }
   };

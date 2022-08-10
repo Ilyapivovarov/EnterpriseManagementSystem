@@ -19,7 +19,7 @@ export const executorService = createApi({
     },
   }),
   endpoints: (build) => ({
-    getUsersByPage: build.query<UsersByPageDto, { page: number, count: number }>({
+    getExecutorsByPage: build.query<UsersByPageDto, { page: number, count: number }>({
       query: ({
         page,
         count,
@@ -32,4 +32,4 @@ export const executorService = createApi({
   }),
 });
 
-export const {useGetUsersByPageQuery} = executorService;
+export const {useGetExecutorsByPageQuery, useLazyGetExecutorsByPageQuery} = executorService;

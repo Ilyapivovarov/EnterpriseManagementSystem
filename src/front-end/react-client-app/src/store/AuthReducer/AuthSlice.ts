@@ -45,10 +45,6 @@ export const authSlice = createSlice({
           state.currentSession = null;
           console.log(action.payload);
         })
-        .addCase(resetAuthState.pending, (state) => {
-          state.isLoading = true;
-          state.error = null;
-        })
         .addCase(resetAuthState.fulfilled, (state, action) => {
           state.currentSession = action.payload;
           state.isLoading = false;

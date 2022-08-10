@@ -5,28 +5,29 @@ import Loader from '../Loader/Loader';
 import {useUpdateTaskStatusMutation} from '../../services/taskService';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
+import {TaskDto} from '../../types/taskTypes';
 
 interface TaskStatusSelectorProps {
-    selectedStatusId: number
+    task: TaskDto
 }
 
-const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({selectedStatusId}) => {
+const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({task}) => {
   const dispatch = useAppDispatch();
 
   const {isLoading, data, isSuccess, error} = useGetTaskStatusesQuery();
   const [updateTaskStatus] = useUpdateTaskStatusMutation();
 
 
-  const [selectedValue, setSelectedValue] = useState<number>(selectedStatusId);
+  const [selectedValue, setSelectedValue] = useState<number>(task.status.id);
   React.useEffect(() => {
-    setSelectedValue(selectedStatusId);
-  }, [selectedStatusId]);
+    setSelectedValue(task.status.id);
+  }, [task]);
 
 
   const onClickHandle = async (value: number) => {
     if (value != selectedValue) {
       setSelectedValue(value);
-      await updateTaskStatus({taskId: 1, statusId: value});
+      await updateTaskStatus({taskId: task.id, statusId: value});
       dispatch(showNotification('Status has been changed'));
     }
   };

@@ -11,7 +11,7 @@ const RequireAuth: React.FC = (props) => {
     if (!currentSession && !isLoading) {
       navigate('/sign-in');
     }
-  }, []);
+  }, [currentSession, isLoading]);
 
   if (isLoading) {
     return <Loader/>;
