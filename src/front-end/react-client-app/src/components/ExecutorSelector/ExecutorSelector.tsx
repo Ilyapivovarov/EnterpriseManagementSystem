@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
-import {TaskDto, UserDto, UsersByPageDto} from '../../types/taskTypes';
+import {TaskDto, UserDto} from '../../types/taskTypes';
 import {useUpdateTaskExecutorMutation} from '../../services/taskService';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
@@ -25,11 +25,11 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({task}) => {
   const dispatch = useAppDispatch();
 
   const [getExecutorsByPage] = useLazyGetExecutorsByPageQuery();
-  const [page, setPage] = useState(1);
-  const [executors, setExecutors] = useState<UserDto[]>([task.executor]);
+  const [page, setPage] = React.useState(1);
+  const [executors, setExecutors] = React.useState<UserDto[]>([task.executor]);
   const [updateTaskExecutor] = useUpdateTaskExecutorMutation();
   const [executorId, setExecutorId] = React.useState<number>(task.executor.id);
-  const [hasExecutorsFlag, setHasExecutorsFlag] = useState(true);
+  const [hasExecutorsFlag, setHasExecutorsFlag] = React.useState(true);
 
   const fetchExecutors = () => {
     if (hasExecutorsFlag) {
