@@ -2,21 +2,34 @@ import React, {FC, useState} from 'react';
 import {FormControl, InputLabel, MenuItem, Select, Tooltip} from '@mui/material';
 import {useGetTaskStatusesQuery} from '../../services/taskStatusesServices';
 import Loader from '../Loader/Loader';
+import {useUpdateTaskStatusMutation} from '../../services/taskService';
+import {useAppDispatch} from '../../hooks';
+import {showNotification} from '../../store/NotificationReduser/notificationReduser';
 
 interface TaskStatusSelectorProps {
     selectedStatusId: number
 }
 
 const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({selectedStatusId}) => {
-  const [selectedValue, setSelectedValue] = useState<number>(selectedStatusId);
-  const {isLoading, data, isSuccess, error} = useGetTaskStatusesQuery();
+  const dispatch = useAppDispatch();
 
-  const onClickHandle = (value: number) => {
+  const {isLoading, data, isSuccess, error} = useGetTaskStatusesQuery();
+  const [updateTaskStatus] = useUpdateTaskStatusMutation();
+
+
+  const [selectedValue, setSelectedValue] = useState<number>(selectedStatusId);
+  React.useEffect(() => {
+    setSelectedValue(selectedStatusId);
+  }, [selectedStatusId]);
+
+
+  const onClickHandle = async (value: number) => {
     if (value != selectedValue) {
       setSelectedValue(value);
+      await updateTaskStatus({taskId: 1, statusId: value});
+      dispatch(showNotification('Status has been changed'));
     }
   };
-
 
   if (isLoading) {
     return <Loader/>;

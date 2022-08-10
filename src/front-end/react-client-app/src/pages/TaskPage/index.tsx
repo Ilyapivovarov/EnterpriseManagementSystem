@@ -17,6 +17,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {red, green, blueGrey} from '@mui/material/colors';
 import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector';
 import {TaskDto, TaskStatusDto} from '../../types/taskTypes';
+import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelect';
 
 interface TaskPageContentProps {
   task: TaskDto,
@@ -119,19 +120,7 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task, statuses}) => {
               </Typography>
               <Box display={'flex'} justifyContent={'space-between'}>
                 <ExecutorSelector currentExecutor={task.executor}/>
-                <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
-                  <InputLabel id="task-status-select">Status</InputLabel>
-                  <Tooltip title={'Change status'} placement="top" disableFocusListener>
-                    <Select
-                      labelId="task-status-select"
-                      id="select-status"
-                      value={selectedValue}
-                    >
-                      {statuses.map((x) => <MenuItem key={x.id} value={x.id}
-                        onClick={() => onClickHandle(x.id)}>{x.name}</MenuItem>)}
-                    </Select>
-                  </Tooltip>
-                </FormControl>
+                <TaskStatusSelector selectedStatusId={task.status.id}/>
               </Box>
             </Box>
             <Typography

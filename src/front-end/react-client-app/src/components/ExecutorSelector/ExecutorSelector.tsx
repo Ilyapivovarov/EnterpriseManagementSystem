@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {FormControl, InputLabel, MenuItem, MenuProps, Select, SelectChangeEvent} from '@mui/material';
+import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 import {UserDto, UsersByPageDto} from '../../types/taskTypes';
-import {Session} from '../../types/authTypes';
 import {useUpdateTaskExecutorMutation} from '../../services/taskService';
-import {useNavigate} from 'react-router-dom';
-import Notification from '../Notification/Notification';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
 
