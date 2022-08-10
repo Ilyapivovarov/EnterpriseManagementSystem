@@ -5,13 +5,13 @@ import Loader from '../components/Loader/Loader';
 
 const RequireAnonymous: React.FC = () => {
   const navigate = useNavigate();
-  const {currentSession, isLoading} = useAppSelector((x) => x.authReducer);
+  const {isLoading, isAuth} = useAppSelector((x) => x.authReducer);
 
   React.useEffect(() => {
-    if (currentSession && !isLoading) {
+    if (!isAuth) {
       navigate('/');
     }
-  }, [currentSession, isLoading]);
+  }, [isAuth]);
 
   if (isLoading) {
     return <Loader/>;

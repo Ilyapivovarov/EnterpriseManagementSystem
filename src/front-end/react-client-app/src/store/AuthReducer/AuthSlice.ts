@@ -6,6 +6,7 @@ const initialState: AuthState = {
   currentSession: null,
   error: null,
   isLoading: false,
+  isAuth: false,
 };
 
 export const authSlice = createSlice({
@@ -18,36 +19,40 @@ export const authSlice = createSlice({
           state.isLoading = true;
           state.error = null;
           state.currentSession = null;
+          state.isAuth = false;
         })
         .addCase(signIn.fulfilled, (state, action) => {
           state.isLoading = false;
           state.error = null;
           state.currentSession = action.payload;
+          state.isAuth = true;
         })
         .addCase(signIn.rejected, (state, action) => {
           state.isLoading = false;
           state.error = action.payload;
           state.currentSession = null;
+          state.isAuth = false;
         })
         .addCase(signUp.pending, (state) => {
           state.isLoading = true;
           state.error = null;
           state.currentSession = null;
+          state.isAuth = false;
         })
         .addCase(signUp.fulfilled, (state, action) => {
           state.isLoading = false;
           state.error = null;
           state.currentSession = action.payload;
+          state.isAuth = true;
         })
         .addCase(signUp.rejected, (state, action) => {
           state.isLoading = false;
           state.error = action.payload;
           state.currentSession = null;
-          console.log(action.payload);
+          state.isAuth = false;
         })
         .addCase(resetAuthState.fulfilled, (state, action) => {
           state.currentSession = action.payload;
-          state.isLoading = false;
         })
         .addCase(resetAuthState.rejected, () => {
           return initialState;

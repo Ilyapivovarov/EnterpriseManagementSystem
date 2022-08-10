@@ -5,13 +5,13 @@ import Loader from '../components/Loader/Loader';
 
 const RequireAuth: React.FC = (props) => {
   const navigate = useNavigate();
-  const {currentSession, isLoading} = useAppSelector((x) => x.authReducer);
+  const {currentSession, isLoading, isAuth} = useAppSelector((x) => x.authReducer);
 
   React.useEffect(() => {
-    if (!currentSession && !isLoading) {
+    if (isAuth) {
       navigate('/sign-in');
     }
-  }, [currentSession, isLoading]);
+  }, [isAuth]);
 
   if (isLoading) {
     return <Loader/>;
