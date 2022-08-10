@@ -1,23 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FormControl, InputLabel, MenuItem, MenuProps, Select, SelectChangeEvent} from '@mui/material';
 import {UserDto, UsersByPageDto} from '../../types/taskTypes';
 import {Session} from '../../types/authTypes';
 import {useUpdateTaskExecutorMutation} from '../../services/taskService';
+import {useNavigate} from 'react-router-dom';
+import Notification from '../Notification/Notification';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {showNotification} from '../../store/NotificationReduser/notificationReduser';
 
 const baseUrl = process.env.REACT_APP_API_KEY;
 
 interface ExecutorSelectorProps {
   currentExecutor: UserDto,
-  selected: number
-  onSelect: (value: number) => void;
 }
 
-const fetchExecutors = async (page: number) : Promise<UsersByPageDto> => {
+const fetchExecutors = async (page: number, token: string ) : Promise<UsersByPageDto> => {
   const response = await fetch(`${baseUrl}/user?page=${page}&count=5`, {
     method: 'GET',
     headers: {
       'content-type': 'application/json;charset=UTF-8',
-      'authorization': `bearer ${(JSON.parse(localStorage.getItem('session')!) as Session).accessToken}`,
+      'authorization': `bearer ${token}`,
     },
   });
   const result = await response.json();
@@ -35,29 +37,41 @@ function unique(executors : UserDto[]) {
   return result;
 }
 
-const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor, selected, onSelect}) => {
-  const [executors, setExecutors] = useState<UserDto[]>(unique([currentExecutor]));
+const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor}) => {
+  const dispatch = useAppDispatch();
+  const {currentSession} = useAppSelector((x) => x.authReducer);
 
-  const menuProps = () : Partial<MenuProps> => {
-    const [page, setPage] = useState(1);
-    React.useEffect(() => {
-      fetchExecutors(page)
-          .then((x) => setExecutors((s) => unique([...s, ...x.users])));
-    }, [page]);
+  const [page, setPage] = useState(1);
+  const [executors, setExecutors] = useState<UserDto[]>([currentExecutor]);
+  const [updateTaskExecutor] = useUpdateTaskExecutorMutation();
+  const [executorId, setExecutorId] = React.useState<number>(currentExecutor.id);
 
-    return {
-      PaperProps: {
-        onScroll: (e : React.UIEvent<HTMLDivElement, UIEvent>) => {
-          if (e.currentTarget.scrollHeight - e.currentTarget.clientHeight == e.currentTarget.scrollTop) {
-            setPage((x) => x + 1);
-          }
-        },
-        style: {
-          maxHeight: 150,
-          width: 250,
-        },
-      },
-    };
+  React.useEffect(() => {
+    fetchExecutors(page, currentSession!.accessToken)
+        .then((x) => setExecutors((s) => unique([...s, ...x.users])));
+  }, [page]);
+
+
+  useEffect(() => {
+    setExecutorId(currentExecutor.id);
+    setExecutors([currentExecutor]);
+    fetchExecutors(page, currentSession!.accessToken)
+        .then((x) => setExecutors((s) => unique([...s, ...x.users])));
+  }, [currentExecutor]);
+
+
+  const handleChange = async (value : number) => {
+    if (executorId!= value) {
+      setExecutorId(value);
+      await updateTaskExecutor({taskId: 1, executorId: value});
+      dispatch(showNotification('Executor has been changed'));
+    }
+  };
+
+  const onScroll = (e : React.UIEvent<HTMLDivElement, UIEvent>) => {
+    if (e.currentTarget.scrollHeight - e.currentTarget.clientHeight == e.currentTarget.scrollTop) {
+      setPage((x) => x + 1);
+    }
   };
 
   return (
@@ -68,16 +82,21 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({currentExecutor, sel
         variant="standard"
         id="task-executor-selector"
         multiline
-        defaultValue={currentExecutor.id}
-        value={selected}
-        MenuProps={menuProps()}
+        value={executorId}
+        MenuProps={
+          {style: {maxHeight: 150, width: 250},
+            PaperProps: {
+              onScroll: onScroll,
+            }}
+        }
       >
         {executors.map((executor, key) => (
-          <MenuItem key={key} value={executor.id} onClick={() => onSelect(executor.id)}>
+          <MenuItem key={key} value={executor.id} onClick={() => handleChange(executor.id)}>
             {executor.emailAddress}
           </MenuItem>
         ))}
       </Select>
+
     </FormControl>
   );
 };
