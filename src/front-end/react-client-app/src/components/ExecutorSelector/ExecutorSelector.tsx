@@ -36,10 +36,7 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({task}) => {
       getExecutorsByPage({page: page, count: 5})
           .unwrap()
           .then((x) => {
-            console.log(executors.length);
-            console.log(x.total);
             setHasExecutorsFlag(x.total != executors.length);
-            console.log(hasExecutorsFlag);
             setExecutors((s) => unique([...s, ...x.users]));
           });
     }
