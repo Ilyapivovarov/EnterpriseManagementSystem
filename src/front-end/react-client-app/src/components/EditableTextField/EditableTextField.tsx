@@ -1,8 +1,5 @@
 import React from 'react';
-import EditIcon from '@mui/icons-material/Edit';
-import {Box, TextField, Tooltip} from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import SaveIcon from '@mui/icons-material/Save';
+import {InputLabel, TextField, Typography} from '@mui/material';
 
 interface EditableTextFieldProps {
   id: string,
@@ -11,14 +8,18 @@ interface EditableTextFieldProps {
   multiline: boolean,
   fullWidth: boolean,
   isEditable: boolean,
-  value?: string | null,
+  placeholder?: string,
+  value?: string,
 }
 
 const EditableTextField: React.FC<EditableTextFieldProps> = ({isEditable,
   value, id, lable,
-  fullWidth, multiline, variant}) => {
-  const [isEditMode, setIsEditMode] = React.useState(false);
+  fullWidth, multiline, variant, placeholder}) => {
   const [newValue, setNewValue] = React.useState<string>(value ? value : '');
+
+  React.useEffect(() => {
+    setNewValue(value ? value : '');
+  }, [isEditable]);
 
   const onChange = (e : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.preventDefault();
@@ -26,34 +27,31 @@ const EditableTextField: React.FC<EditableTextFieldProps> = ({isEditable,
   };
 
   return (
-    <Box>
-      {
-          isEditMode ?
-            <Tooltip title={`Edit ${lable?.toLowerCase()}`}>
-              <IconButton onClick={() => setIsEditMode(false)}>
-                <SaveIcon />
-              </IconButton>
-            </Tooltip> :
-           <Tooltip title={`Edit ${lable?.toLowerCase()}`}>
-             <IconButton onClick={() => setIsEditMode(true)}>
-               <EditIcon />
-             </IconButton>
-           </Tooltip>
-
+    <>
+      {isEditable ?
+        <TextField
+          style={{marginLeft: '10px'}}
+          id={id}
+          label={lable}
+          onChange={onChange}
+          multiline={multiline}
+          value={newValue}
+          minRows={5}
+          fullWidth={fullWidth}
+          variant={variant}
+          InputProps={{
+            readOnly: !isEditable,
+          }}
+        /> :
+        <>
+          <InputLabel>{lable}</InputLabel>
+          <Typography>
+            {value ? value : placeholder}
+          </Typography>
+        </>
       }
-      <TextField
-        style={{marginLeft: '10px'}}
-        id={id}
-        label={lable}
-        onChange={onChange}
-        value={newValue}
-        fullWidth={fullWidth}
-        variant={isEditMode ? 'outlined' : 'standard'}
-        InputProps={{
-          readOnly: !isEditMode,
-        }}
-      />
-    </Box>
+
+    </>
   );
 };
 

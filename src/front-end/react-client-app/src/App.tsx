@@ -9,10 +9,12 @@ import SettingsPage from './pages/SettingsPage';
 import RequireAnonymous from './hoc/RequireAnonymous';
 import Layout from './components/Layout/Layout';
 import TaskListPage from './pages/TaskListPage/';
+import Notification from './components/Notification/Notification';
 
 const App: React.FC = () => {
   return (
     <>
+      <Notification/>
       <Routes>
         <Route path={'/'} element={<RequireAuth><Layout/></RequireAuth>}>
           <Route index element={<HomePage/>}/>
