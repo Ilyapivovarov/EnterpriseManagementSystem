@@ -1,37 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {Box, Breadcrumbs, Button, ButtonGroup, FormControl, InputLabel, MenuItem, Paper, Tooltip, Select, Typography} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React from 'react';
+import {Box, Breadcrumbs, Paper, Typography} from '@mui/material';
 import Link from '../../components/Link/Link';
-import {useGetTaskByIdQuery, useUpdateTaskStatusMutation} from '../../services/taskService';
+import {useGetTaskByIdQuery} from '../../services/taskService';
 import {useParams} from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import PageWrapper from '../../components/PageWrapper/PageWrapper';
-import {useGetTaskStatusesQuery} from '../../services/taskStatusesServices';
 import Notification from '../../components/Notification/Notification';
 import EditableTextField from '../../components/EditableTextField/EditableTextField';
-import SaveIcon from '@mui/icons-material/Save';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {red, green, blueGrey} from '@mui/material/colors';
 import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector';
 import {TaskDto} from '../../types/taskTypes';
 import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelect';
+import EditableMultilineTextField from '../../components/EditableMultilineTextField/EditableMultilineTextField';
 
 interface TaskPageContentProps {
   task: TaskDto,
 }
 
 const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
-  const [isEditMode, setEditMode] = useState<boolean>(false);
-
-  const onSave = () => {
-    setEditMode(false);
-  };
-
-  const onBack = () => {
-    setEditMode(false);
-  };
-
   return (
     <>
       <Paper
@@ -61,30 +46,6 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
               </Link>
               on {new Date(task.created).toLocaleDateString()} {new Date(task.created).toLocaleTimeString()}
             </Typography>
-            <Box hidden={isEditMode}>
-              <ButtonGroup size="small">
-                <Button key="edit" onClick={() => {
-                  setEditMode(!isEditMode);
-                  const input = document.getElementById('task-name') as HTMLInputElement | null;
-                  console.log(input?.value);
-                }}>
-                  <EditIcon/>
-                </Button>
-              </ButtonGroup>
-            </Box>
-            <Box hidden={!isEditMode}>
-              <ButtonGroup size="small">
-                <Button key="back" onClick={onBack} sx={{color: blueGrey[500]}}>
-                  <ArrowBackIcon/>
-                </Button>
-                <Button key="delete" sx={{color: red[500]}}>
-                  <DeleteIcon/>
-                </Button>
-                <Button sx={{color: green[500]}} key="save" onClick={onSave}>
-                  <SaveIcon/>
-                </Button>
-              </ButtonGroup>
-            </Box>
           </Box>
           <Box padding={1}>
             <Box display={'flex'} justifyContent={'space-between'}>
@@ -95,7 +56,7 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
                 paddingLeft={1}
               >
                 <EditableTextField id={'task-name'} lable={'Task name'}
-                  isEditable={isEditMode}
+                  isEditable={true}
                   value={task.name}
                   fullWidth={false}
                   multiline={false}
@@ -114,14 +75,14 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
               variant="h3"
               paddingLeft={1}
             >
-              <EditableTextField
+              <EditableMultilineTextField
                 id={'task-description'}
                 lable={'Task description'}
-                isEditable={isEditMode}
+                placeholder={'Task description is empty'}
+                isEditable={true}
                 value={task.description}
                 fullWidth={true}
-                multiline={true}
-                variant={'outlined'}
+                onSaveHandler={(value) => console.log(value)}
               />
 
             </Typography>
@@ -144,7 +105,7 @@ const TaskPage: React.FC = () => {
     return <TaskPageContent task={task}/>;
   }
 
-  return <>Error</>;
+  return <>ASFASF</>;
 };
 
 export default TaskPage;

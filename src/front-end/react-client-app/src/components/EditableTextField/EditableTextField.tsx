@@ -1,5 +1,8 @@
 import React from 'react';
-import {TextField, Typography} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import {Box, TextField, Tooltip} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import SaveIcon from '@mui/icons-material/Save';
 
 interface EditableTextFieldProps {
   id: string,
@@ -11,7 +14,10 @@ interface EditableTextFieldProps {
   value?: string | null,
 }
 
-const EditableTextField: React.FC<EditableTextFieldProps> = ({isEditable, value, id, lable, fullWidth, multiline}) => {
+const EditableTextField: React.FC<EditableTextFieldProps> = ({isEditable,
+  value, id, lable,
+  fullWidth, multiline, variant}) => {
+  const [isEditMode, setIsEditMode] = React.useState(false);
   const [newValue, setNewValue] = React.useState<string>(value ? value : '');
 
   const onChange = (e : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -19,29 +25,36 @@ const EditableTextField: React.FC<EditableTextFieldProps> = ({isEditable, value,
     setNewValue(e.target.value);
   };
 
-  if (isEditable) {
-    return <TextField
-      id={id}
-      label={lable}
-      variant="outlined"
-      value={newValue}
-      onChange={onChange}
-      fullWidth={fullWidth}
-      multiline={multiline}
-      rows={10}/>;
-  } else {
-    return (<div>
-      <Typography
+  return (
+    <Box>
+      {
+          isEditMode ?
+            <Tooltip title={`Edit ${lable?.toLowerCase()}`}>
+              <IconButton onClick={() => setIsEditMode(false)}>
+                <SaveIcon />
+              </IconButton>
+            </Tooltip> :
+           <Tooltip title={`Edit ${lable?.toLowerCase()}`}>
+             <IconButton onClick={() => setIsEditMode(true)}>
+               <EditIcon />
+             </IconButton>
+           </Tooltip>
+
+      }
+      <TextField
+        style={{marginLeft: '10px'}}
         id={id}
-        paddingBottom={2}
-        paddingTop={1}
-        variant="h3"
-        paddingLeft={1}
-      >
-        {value}
-      </Typography>
-    </div>);
-  }
+        label={lable}
+        onChange={onChange}
+        value={newValue}
+        fullWidth={fullWidth}
+        variant={isEditMode ? 'outlined' : 'standard'}
+        InputProps={{
+          readOnly: !isEditMode,
+        }}
+      />
+    </Box>
+  );
 };
 
 export default EditableTextField;
