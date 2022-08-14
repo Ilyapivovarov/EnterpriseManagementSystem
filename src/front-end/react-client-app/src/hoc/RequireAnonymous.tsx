@@ -11,7 +11,7 @@ const RequireAnonymous: React.FC = () => {
     if (isAuth && !isLoading) {
       navigate('/');
     }
-  }, []);
+  }, [isAuth]);
 
   if (isLoading) {
     return <Loader/>;

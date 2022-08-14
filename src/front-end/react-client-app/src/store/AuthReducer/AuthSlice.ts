@@ -72,8 +72,11 @@ export const authSlice = createSlice({
         .addCase(resetAuthState.fulfilled, (state, action) => {
           state.currentSession = action.payload;
         })
-        .addCase(resetAuthState.rejected, () => {
-          return initialState;
+        .addCase(resetAuthState.rejected, (state, action) => {
+          state.isLoading = false;
+          state.error = action.payload;
+          state.currentSession = null;
+          state.isAuth = false;
         })
         .addCase(signOut.fulfilled, () => {
           return initialState;

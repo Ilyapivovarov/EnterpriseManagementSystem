@@ -66,6 +66,8 @@ export const firstResetAuthState = createAsyncThunk<Session, void, { rejectValue
             }
           }
         }
+
+        return rejectWithValue('Error');
       } catch (e) {
         console.log(e);
         localStorage.clear();
