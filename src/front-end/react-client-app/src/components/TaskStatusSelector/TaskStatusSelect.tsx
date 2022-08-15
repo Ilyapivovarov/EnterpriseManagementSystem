@@ -24,11 +24,13 @@ const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({task}) => {
   }, [task]);
 
 
-  const onClickHandle = async (value: number) => {
+  const onClickHandle = (value: number) => {
     if (value != selectedValue) {
       setSelectedValue(value);
-      await updateTaskStatus({taskId: task.id, statusId: value});
-      dispatch(showNotification('Status has been changed'));
+      updateTaskStatus({taskId: task.id, statusId: value})
+          .unwrap()
+          .then(() => dispatch(showNotification( {message: 'Status has been changed', type: 'success'})))
+          .catch(() => dispatch(showNotification( {message: 'Error while change task status', type: 'error'})));
     }
   };
 

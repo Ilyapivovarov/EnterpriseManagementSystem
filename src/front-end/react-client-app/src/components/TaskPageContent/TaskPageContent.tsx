@@ -37,10 +37,10 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
         name: taskNameElem.value, description: taskDEscriptionElem.value})
           .unwrap()
           .then(() => {
-            dispatch(showNotification('Task has been updated'));
+            dispatch(showNotification({message: 'Task has been updated', type: 'success'}));
             setEditMode(false);
           })
-          .catch(() => dispatch(showNotification('Error while update task')));
+          .catch(() => dispatch(showNotification({message: 'Error while update task', type: 'error'})));
     } else {
       setEditMode(false);
     }

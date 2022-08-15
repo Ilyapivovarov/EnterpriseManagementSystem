@@ -4,20 +4,23 @@ import type {PayloadAction} from '@reduxjs/toolkit';
 interface CounterState {
   message: string | null,
   show: boolean;
+  type: 'success' | 'error',
 }
 
 const initialState: CounterState = {
   show: false,
   message: null,
+  type: 'success',
 };
 
 export const notificationSlice = createSlice({
   name: 'notification',
   initialState,
   reducers: {
-    showNotification: (state, action: PayloadAction<string>) => {
+    showNotification: (state, action: PayloadAction<{message: string, type: 'success' | 'error'}>) => {
       state.show = true;
-      state.message = action.payload;
+      state.message = action.payload.message;
+      state.type = action.payload.type;
     },
     closeNotification: (state) => {
       state.show = false;

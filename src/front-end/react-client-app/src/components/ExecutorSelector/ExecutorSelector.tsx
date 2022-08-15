@@ -50,11 +50,13 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({task}) => {
     fetchExecutors();
   }, [page]);
 
-  const handleChange = async (value : number) => {
+  const handleChange = (value : number) => {
     if (executorId!= value) {
       setExecutorId(value);
-      await updateTaskExecutor({taskId: task.id, executorId: value});
-      dispatch(showNotification('Executor has been changed'));
+      updateTaskExecutor({taskId: task.id, executorId: value})
+          .unwrap()
+          .then(() => dispatch(showNotification({message: 'Executor has been changed', type: 'success'})))
+          .catch(() => dispatch(showNotification({message: 'Error while change executor', type: 'error'})));
     }
   };
 
