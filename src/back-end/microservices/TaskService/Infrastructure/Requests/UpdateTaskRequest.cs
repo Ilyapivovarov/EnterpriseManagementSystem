@@ -2,10 +2,10 @@ namespace TaskService.Infrastructure.Requests;
 
 public sealed class UpdateTaskRequest : IRequest<IActionResult>
 {
-    public UpdateTaskRequest(UpdateTask taskInfo)
+    public UpdateTaskRequest(UpdatedTaskDto taskInfo)
     {
         UpdateTask = taskInfo;
     }
 
-    public UpdateTask UpdateTask { get; }
+    public UpdatedTaskDto UpdateTask { get; }
 }

@@ -19,7 +19,7 @@ export interface TaskDto {
   description?: string,
   created: Date,
   executor: UserDto,
-  inspector: UserDto | null,
+  inspectors: UserDto[] | null,
   author: UserDto,
   status: TaskStatusDto,
 }

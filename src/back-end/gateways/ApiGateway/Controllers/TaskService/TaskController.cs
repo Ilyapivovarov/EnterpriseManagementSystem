@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.Dto;
+
 namespace ApiGateway.Controllers.TaskService;
 
 [ApiController]
@@ -47,5 +49,16 @@ public sealed class TaskController : ControllerBase
     public async Task<IActionResult> UpdateTaskExecutor(string taskId, string executorId)
     {
         return await _taskServiceHttpClient.UpdateTaskExecutor(taskId, executorId);
+    }
+
+    /// <summary>
+    ///     Update task
+    /// </summary>
+    /// <param name="updatedTaskDto"></param>
+    /// <returns></returns>
+    [HttpPut]
+    public async Task<IActionResult> UpdateTask(UpdatedTaskDto updatedTaskDto)
+    {
+        return await _taskServiceHttpClient.UpdateTaskAsync(updatedTaskDto);
     }
 }

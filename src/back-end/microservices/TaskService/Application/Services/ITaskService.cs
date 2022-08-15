@@ -37,4 +37,13 @@ public interface ITaskService
     /// <returns></returns>
     public ServiceResult<TaskDbEntity> SetExecutor(UserDbEntity userDbEntity,
         TaskDbEntity taskDbEntity);
+
+    /// <summary>
+    /// Update task and name for task
+    /// </summary>
+    /// <param name="taskDbEntity"></param>
+    /// <param name="name"></param>
+    /// <param name="description"></param>
+    /// <returns></returns>
+    public ServiceResult<TaskDbEntity> UpdateTask(TaskDbEntity taskDbEntity, string name, string? description);
 }

@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.Dto;
+
 namespace ApiGateway.Application.HttpClients;
 
 public interface ITaskServiceHttpClient
@@ -10,7 +12,7 @@ public interface ITaskServiceHttpClient
 
     public Task<IActionResult> CreateNewTaskAsync(NewTask newTask);
 
-    public Task<IActionResult> UpdateTaskAsync(TaskInfo taskInfo);
+    public Task<IActionResult> UpdateTaskAsync(UpdatedTaskDto updatedTaskDto);
 
     public Task<IActionResult> GetAllTaskStatuses();
 

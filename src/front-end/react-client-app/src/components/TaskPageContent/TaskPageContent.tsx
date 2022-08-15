@@ -2,7 +2,11 @@ import {TaskDto} from '../../types/taskTypes';
 import React from 'react';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
-import {Box, Breadcrumbs, Button, Paper, Typography} from '@mui/material';
+import {
+  Box,
+  Breadcrumbs,
+  Button, Paper, Typography,
+} from '@mui/material';
 import Link from '../Link/Link';
 import PageWrapper from '../PageWrapper/PageWrapper';
 import ButtonWithConfirmationWindow from '../ButtonWithConfirmationWindow/ButtonWithConfirmationWindow';
@@ -134,7 +138,6 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
                 placeholder={'This is task not have description'}
                 variant={'outlined'}
               />
-
             </Typography>
           </Box>
         </div>

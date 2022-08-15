@@ -1,4 +1,5 @@
 using ApiGateway.Infrastructure.HttpClients.Base;
+using EnterpriseManagementSystem.Contracts.Dto;
 using EnterpriseManagementSystem.Contracts.WebContracts.Extensions;
 
 namespace ApiGateway.Infrastructure.HttpClients;
@@ -37,10 +38,10 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
-    public async Task<IActionResult> UpdateTaskAsync(TaskInfo taskInfo)
+    public async Task<IActionResult> UpdateTaskAsync(UpdatedTaskDto updatedTaskDto)
     {
-        var response = await _client.PostAsync(ServiceUrls.TaskApi.TaskController.UpdateTask(),
-            GetStringContent(taskInfo.ToJson()));
+        var response = await _client.PutAsync(ServiceUrls.TaskApi.TaskController.UpdateTask(),
+            GetStringContent(updatedTaskDto.ToJson()));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 

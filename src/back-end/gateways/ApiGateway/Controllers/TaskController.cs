@@ -45,15 +45,4 @@ public sealed class TaskController
     {
         return await _taskServiceHttpClient.CreateNewTaskAsync(newTask);
     }
-
-    /// <summary>
-    ///     Updating task
-    /// </summary>
-    /// <param name="taskInfo"></param>
-    /// <returns></returns>
-    [HttpPut]
-    public async Task<IActionResult> UpdateTask(TaskInfo taskInfo)
-    {
-        return await _taskServiceHttpClient.UpdateTaskAsync(taskInfo);
-    }
 }
