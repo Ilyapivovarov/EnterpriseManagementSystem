@@ -16,6 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditableTextField from '../EditableTextField/EditableTextField';
 import ExecutorSelector from '../ExecutorSelector/ExecutorSelector';
 import TaskStatusSelector from '../TaskStatusSelector/TaskStatusSelect';
+import {useUpdateTaskMutation} from '../../services/taskService';
 
 interface TaskPageContentProps {
   task: TaskDto,
@@ -24,6 +25,7 @@ interface TaskPageContentProps {
 const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
   const dispatch = useAppDispatch();
 
+  const [updateTask] = useUpdateTaskMutation();
   const [editMode, setEditMode] = React.useState(false);
 
   const onSaveHandler = () => {
@@ -31,8 +33,16 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
     const taskDEscriptionElem = document.getElementById('task-description') as HTMLInputElement;
 
     if (taskNameElem.value != task.name || taskDEscriptionElem.value != task.description) {
-      console.log('save task');
-      dispatch(showNotification('Task has been updated'));
+      updateTask({id: task.id, guid: task.guid,
+        name: taskNameElem.value, description: taskDEscriptionElem.value})
+          .unwrap()
+          .then(() => {
+            dispatch(showNotification('Task has been updated'));
+            setEditMode(false);
+          })
+          .catch(() => dispatch(showNotification('Error while update task')));
+    } else {
+      setEditMode(false);
     }
 
     setEditMode(false);
