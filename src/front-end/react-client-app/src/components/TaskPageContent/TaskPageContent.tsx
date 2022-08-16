@@ -38,14 +38,9 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
           .unwrap()
           .then(() => {
             dispatch(showNotification({message: 'Task has been updated', type: 'success'}));
-            setEditMode(false);
           })
           .catch(() => dispatch(showNotification({message: 'Error while update task', type: 'error'})));
-    } else {
-      setEditMode(false);
     }
-
-    setEditMode(false);
   };
 
   const onDeleteHandler = () => {
