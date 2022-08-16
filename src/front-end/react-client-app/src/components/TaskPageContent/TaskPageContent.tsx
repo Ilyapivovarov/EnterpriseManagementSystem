@@ -2,11 +2,7 @@ import {TaskDto} from '../../types/taskTypes';
 import React from 'react';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
-import {
-  Box,
-  Breadcrumbs,
-  Button, Paper, Typography,
-} from '@mui/material';
+import {Box, Breadcrumbs, Button, Paper, Typography} from '@mui/material';
 import Link from '../Link/Link';
 import PageWrapper from '../PageWrapper/PageWrapper';
 import ButtonWithConfirmationWindow from '../ButtonWithConfirmationWindow/ButtonWithConfirmationWindow';
@@ -33,14 +29,18 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
     const taskDEscriptionElem = document.getElementById('task-description') as HTMLInputElement;
 
     if (taskNameElem.value != task.name || taskDEscriptionElem.value != task.description) {
-      updateTask({id: task.id, guid: task.guid,
-        name: taskNameElem.value, description: taskDEscriptionElem.value})
+      updateTask({
+        id: task.id, guid: task.guid,
+        name: taskNameElem.value, description: taskDEscriptionElem.value,
+      })
           .unwrap()
           .then(() => {
             dispatch(showNotification({message: 'Task has been updated', type: 'success'}));
           })
           .catch(() => dispatch(showNotification({message: 'Error while update task', type: 'error'})));
     }
+
+    setEditMode(false);
   };
 
   const onDeleteHandler = () => {
@@ -140,7 +140,7 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
                 value={task.description}
                 fullWidth={true}
                 multiline={true}
-                placeholder={'This is task not have description'}
+                placeholder={'This task has no description'}
                 variant={'outlined'}
               />
             </Typography>
