@@ -1,39 +1,101 @@
 import React from 'react';
 import {TaskDto} from '../../types/taskTypes';
-import {Box, Button, Card, CardActions, CardContent, Typography} from '@mui/material';
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import {useNavigate} from 'react-router-dom';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 interface TaskListProps {
     tasks: TaskDto[]
 }
 
 const TaskList: React.FC<TaskListProps> = ({tasks}) => {
+  const navigate = useNavigate();
+
+  const [selectedExecutor, setSelectedExecutor] = React.useState('All');
+  const [filteredTasks, setFilteredTasks] = React.useState(tasks);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const value = event.target.value as string;
+    setSelectedExecutor(value);
+    console.log(value);
+    if (value == 'All') {
+      setFilteredTasks(tasks);
+    } else {
+      setFilteredTasks(tasks.filter((x) => x.executor.emailAddress == value));
+    }
+  };
+
   return (
     <Box>
-      <Box display={'flex'} flexDirection={'column'} sx={{height: '500px'}}>
-        {tasks.map((task) =>
-          <Card variant="outlined" style={{display: 'flex', justifyContent: 'space-between'}}>
-            <CardContent>
-              <Box style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Box>
-                  <Typography variant="h5" component="div">
-                    {task.name}
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    {task.status.name}
-                  </Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary">
-                  {task.description?.slice(0, 69)}
-                </Typography>
-              </Box>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>)}
+      <Box style={{padding: '5px', display: 'flex', justifyContent: 'space-between'}}>
+        <FormControl size={'small'} style={{width: '200px'}}>
+          <InputLabel id="executors-filter">Executor</InputLabel>
+          <Select
+            labelId="executors-filter"
+            value={selectedExecutor}
+            label="Executors"
+            onChange={handleChange}
+          >
+            <MenuItem value={'All'}>All</MenuItem>
+            {tasks.map((task) =>
+              <MenuItem key={task.id} value={task.executor.emailAddress}>
+                {task.executor.emailAddress}
+              </MenuItem>)
+            }
+          </Select>
+        </FormControl>
+        <Tooltip title="Create new task">
+          <IconButton>
+            <AddCircleOutlineIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
-      <Box>
-                Action
+      <Box style={{padding: '5px'}}>
+        {filteredTasks.map((task) =>
+          <Card
+            variant="outlined"
+            key={task.id}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginTop: '2px',
+            }}
+          >
+            <CardActionArea onClick={() => navigate(`${task.id}`)}>
+              <CardContent style={{width: '100%'}} >
+                <Box style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <Box>
+                    <Typography variant="h5" component="div">
+                      {task.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" >
+                      {task.description && task.description.length > 70 ?
+                        task.description.slice(0, 60).concat('...') :
+                        task.description}
+                    </Typography>
+                  </Box>
+                  <Box style={{height: '50px'}}>
+                    <Typography variant="h6" component="div">
+                      {task.status.name}
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </CardActionArea>
+          </Card>)}
       </Box>
     </Box>
   );

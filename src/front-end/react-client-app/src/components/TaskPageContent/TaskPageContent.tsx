@@ -26,12 +26,12 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
 
   const onSaveHandler = () => {
     const taskNameElem = document.getElementById('task-name') as HTMLInputElement;
-    const taskDEscriptionElem = document.getElementById('task-description') as HTMLInputElement;
+    const taskDescriptionElem = document.getElementById('task-description') as HTMLInputElement;
 
-    if (taskNameElem.value != task.name || taskDEscriptionElem.value != task.description) {
+    if (taskNameElem.value != task.name || taskDescriptionElem.value != task.description) {
       updateTask({
         id: task.id, guid: task.guid,
-        name: taskNameElem.value, description: taskDEscriptionElem.value,
+        name: taskNameElem.value, description: taskDescriptionElem.value,
       })
           .unwrap()
           .then(() => {
