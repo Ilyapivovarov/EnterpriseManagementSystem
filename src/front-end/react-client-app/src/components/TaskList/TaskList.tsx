@@ -1,7 +1,7 @@
 import React from 'react';
 import {TaskDto} from '../../types/taskTypes';
 import {
-  Box,
+  Box, Button,
   Card,
   CardActionArea,
   CardContent,
@@ -58,9 +58,14 @@ const TaskList: React.FC<TaskListProps> = ({tasks}) => {
           </Select>
         </FormControl>
         <Tooltip title="Create new task">
-          <IconButton>
-            <AddCircleOutlineIcon />
-          </IconButton>
+          <Button
+            color={'primary'}
+            variant={'outlined'}
+            onClick={() => navigate('new')}
+            endIcon={<AddCircleOutlineIcon />}
+          >
+            Create new task
+          </Button>
         </Tooltip>
       </Box>
       <Box style={{padding: '5px'}}>
@@ -81,7 +86,7 @@ const TaskList: React.FC<TaskListProps> = ({tasks}) => {
                     <Typography variant="h5" component="div">
                       {task.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" >
+                    <Typography variant="body2">
                       {task.description && task.description.length > 70 ?
                         task.description.slice(0, 60).concat('...') :
                         task.description}

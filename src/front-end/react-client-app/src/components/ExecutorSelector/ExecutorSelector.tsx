@@ -4,7 +4,7 @@ import {UserDto} from '../../types/taskTypes';
 import {useLazyGetExecutorsByPageQuery} from '../../services/executorService';
 
 interface ExecutorSelectorProps {
-  executor: UserDto,
+  executor?: UserDto,
   onChange: (executor: UserDto) => void;
 }
 
@@ -22,9 +22,9 @@ function unique(executors : UserDto[]) {
 const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({executor, onChange}) => {
   const [getExecutorsByPage] = useLazyGetExecutorsByPageQuery();
   const [page, setPage] = React.useState(1);
-  const [executors, setExecutors] = React.useState<UserDto[]>([executor]);
+  const [executors, setExecutors] = React.useState<UserDto[]>(executor ? [executor] : []);
 
-  const [executorId, setExecutorId] = React.useState<number>(executor.id);
+  const [executorId, setExecutorId] = React.useState<number | undefined>(executor?.id);
   const [hasExecutorsFlag, setHasExecutorsFlag] = React.useState(true);
 
   const fetchExecutors = () => {
@@ -67,7 +67,7 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({executor, onChange})
         variant="standard"
         id="task-executor-selector"
         multiline
-        value={executorId}
+        value={executorId ? executorId : ''}
         MenuProps={
           {style: {maxHeight: 150, width: 250},
             PaperProps: {
@@ -79,7 +79,7 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({executor, onChange})
           <MenuItem
             key={key}
             value={x.id}
-            disabled={x.id == executor.id}
+            disabled={executorId == x.id}
             onClick={() => handleChange(x)}
           >
             {x.emailAddress}

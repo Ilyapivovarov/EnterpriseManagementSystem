@@ -5,16 +5,16 @@ import Loader from '../Loader/Loader';
 import {TaskStatusDto} from '../../types/taskTypes';
 
 interface TaskStatusSelectorProps {
-    status: TaskStatusDto,
+    status?: TaskStatusDto,
     onChange: (statusId: TaskStatusDto) => void
 }
 
 const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({status, onChange}) => {
   const {isLoading, data, isSuccess, error} = useGetTaskStatusesQuery();
-  const [selectedValue, setSelectedValue] = useState<number>(status.id);
+  const [selectedValue, setSelectedValue] = useState<number | undefined>(status?.id);
 
   React.useEffect(() => {
-    setSelectedValue(status.id);
+    setSelectedValue(status?.id);
   }, [status]);
 
   const onClickHandle = (value: TaskStatusDto) => {
@@ -38,10 +38,16 @@ const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({status, onChange}) => 
           <Select
             labelId="task-status-select"
             id="select-status"
-            value={selectedValue}
+            value={selectedValue ? selectedValue : ''}
           >
-            {data.map((x) => <MenuItem key={x.id} value={x.id}
-              onClick={() => onClickHandle(x)}>{x.name}</MenuItem>)}
+            {data.map((x) => <MenuItem
+              key={x.id}
+              value={x.id}
+              onClick={() => onClickHandle(x)}
+              disabled={selectedValue == x.id}
+            >
+              {x.name}
+            </MenuItem>)}
           </Select>
         </Tooltip>
       </FormControl>

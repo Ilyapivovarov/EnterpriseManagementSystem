@@ -10,6 +10,7 @@ import RequireAnonymous from './hoc/RequireAnonymous';
 import Layout from './components/Layout/Layout';
 import TaskListPage from './pages/TaskListPage/';
 import Notification from './components/Notification/Notification';
+import CreateTaskPage from './pages/CreateTaskPage';
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route path={'users/:guid'} element={<UserPage/>}/>
           <Route path={'tasks/'} element={<TaskListPage/>}/>
           <Route path={'tasks/:id'} element={<TaskPage/>}/>
+          <Route path={'tasks/new'} element={<CreateTaskPage/>}/>
           <Route path={'settings'} element={<SettingsPage/>}/>
         </Route>
         <Route path={'/'} element={<RequireAnonymous/>}>
