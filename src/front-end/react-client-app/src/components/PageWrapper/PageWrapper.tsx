@@ -12,7 +12,7 @@ const PageWrapper: React.FC = ({children}) => {
         flexDirection: 'column',
         height: '100%',
         width: '100%',
-        minHeight: '80vh',
+        minHeight: '75vh',
       }}
     >
       {children}
