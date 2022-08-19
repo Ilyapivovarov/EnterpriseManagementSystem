@@ -1,5 +1,6 @@
-import {TaskDto} from '../../types/taskTypes';
 import React from 'react';
+import {useUpdateTaskExecutorMutation, useUpdateTaskMutation, useUpdateTaskStatusMutation} from '../../services/taskService';
+import {TaskDto} from '../../types/taskTypes';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
 import {Box, Breadcrumbs, Button, Paper, Typography} from '@mui/material';
@@ -12,7 +13,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditableTextField from '../EditableTextField/EditableTextField';
 import ExecutorSelector from '../ExecutorSelector/ExecutorSelector';
 import TaskStatusSelector from '../TaskStatusSelector/TaskStatusSelect';
-import {useUpdateTaskMutation} from '../../services/taskService';
 
 interface TaskPageContentProps {
   task: TaskDto,
@@ -21,8 +21,25 @@ interface TaskPageContentProps {
 const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
   const dispatch = useAppDispatch();
 
+  const [updateTaskExecutor] = useUpdateTaskExecutorMutation();
+  const [updateTaskStatus] = useUpdateTaskStatusMutation();
   const [updateTask] = useUpdateTaskMutation();
+
   const [editMode, setEditMode] = React.useState(false);
+
+  const onExecutorChanged = (executorId: number) => {
+    updateTaskExecutor({taskId: task.id, executorId})
+        .unwrap()
+        .then(() => dispatch(showNotification({message: 'Executor has been changed', type: 'success'})))
+        .catch(() => dispatch(showNotification({message: 'Error while change executor', type: 'error'})));
+  };
+
+  const onStatusChanged = (statusId : number) => {
+    updateTaskStatus({taskId: task.id, statusId})
+        .unwrap()
+        .then(() => dispatch(showNotification( {message: 'Status has been changed', type: 'success'})))
+        .catch(() => dispatch(showNotification( {message: 'Error while change task status', type: 'error'})));
+  };
 
   const onSaveHandler = () => {
     const taskNameElem = document.getElementById('task-name') as HTMLInputElement;
@@ -123,8 +140,8 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
 
               </Typography>
               <Box display={'flex'} justifyContent={'space-between'}>
-                <ExecutorSelector task={task}/>
-                <TaskStatusSelector task={task}/>
+                <ExecutorSelector executor={task.executor} onChange={onExecutorChanged}/>
+                <TaskStatusSelector onChange={onStatusChanged} status={task.status}/>
               </Box>
             </Box>
             <Typography

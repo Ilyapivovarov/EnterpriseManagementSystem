@@ -1,13 +1,11 @@
 import React from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
-import {TaskDto, UserDto} from '../../types/taskTypes';
-import {useUpdateTaskExecutorMutation} from '../../services/taskService';
-import {useAppDispatch} from '../../hooks';
-import {showNotification} from '../../store/NotificationReduser/notificationReduser';
+import {UserDto} from '../../types/taskTypes';
 import {useLazyGetExecutorsByPageQuery} from '../../services/executorService';
 
 interface ExecutorSelectorProps {
-  task: TaskDto,
+  executor: UserDto,
+  onChange: (executorId: number) => void;
 }
 
 function unique(executors : UserDto[]) {
@@ -21,14 +19,12 @@ function unique(executors : UserDto[]) {
   return result;
 }
 
-const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({task}) => {
-  const dispatch = useAppDispatch();
-
+const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({executor, onChange}) => {
   const [getExecutorsByPage] = useLazyGetExecutorsByPageQuery();
   const [page, setPage] = React.useState(1);
-  const [executors, setExecutors] = React.useState<UserDto[]>([task.executor]);
-  const [updateTaskExecutor] = useUpdateTaskExecutorMutation();
-  const [executorId, setExecutorId] = React.useState<number>(task.executor.id);
+  const [executors, setExecutors] = React.useState<UserDto[]>([executor]);
+
+  const [executorId, setExecutorId] = React.useState<number>(executor.id);
   const [hasExecutorsFlag, setHasExecutorsFlag] = React.useState(true);
 
   const fetchExecutors = () => {
@@ -53,10 +49,7 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({task}) => {
   const handleChange = (value : number) => {
     if (executorId!= value) {
       setExecutorId(value);
-      updateTaskExecutor({taskId: task.id, executorId: value})
-          .unwrap()
-          .then(() => dispatch(showNotification({message: 'Executor has been changed', type: 'success'})))
-          .catch(() => dispatch(showNotification({message: 'Error while change executor', type: 'error'})));
+      onChange(value);
     }
   };
 
@@ -82,14 +75,14 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({task}) => {
             }}
         }
       >
-        {executors.map((executor, key) => (
+        {executors.map((x, key) => (
           <MenuItem
             key={key}
-            value={executor.id}
-            disabled={executor.id == task.executor.id}
-            onClick={() => handleChange(executor.id)}
+            value={x.id}
+            disabled={x.id == executor.id}
+            onClick={() => handleChange(x.id)}
           >
-            {executor.emailAddress}
+            {x.emailAddress}
           </MenuItem>
         ))}
       </Select>

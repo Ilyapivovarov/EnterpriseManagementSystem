@@ -2,35 +2,25 @@ import React, {FC, useState} from 'react';
 import {FormControl, InputLabel, MenuItem, Select, Tooltip} from '@mui/material';
 import {useGetTaskStatusesQuery} from '../../services/taskStatusesServices';
 import Loader from '../Loader/Loader';
-import {useUpdateTaskStatusMutation} from '../../services/taskService';
-import {useAppDispatch} from '../../hooks';
-import {showNotification} from '../../store/NotificationReduser/notificationReduser';
-import {TaskDto} from '../../types/taskTypes';
+import {TaskStatusDto} from '../../types/taskTypes';
 
 interface TaskStatusSelectorProps {
-    task: TaskDto
+    status: TaskStatusDto,
+    onChange: (statusId: number) => void
 }
 
-const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({task}) => {
-  const dispatch = useAppDispatch();
-
+const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({status, onChange}) => {
   const {isLoading, data, isSuccess, error} = useGetTaskStatusesQuery();
-  const [updateTaskStatus] = useUpdateTaskStatusMutation();
+  const [selectedValue, setSelectedValue] = useState<number>(status.id);
 
-
-  const [selectedValue, setSelectedValue] = useState<number>(task.status.id);
   React.useEffect(() => {
-    setSelectedValue(task.status.id);
-  }, [task]);
-
+    setSelectedValue(status.id);
+  }, [status]);
 
   const onClickHandle = (value: number) => {
     if (value != selectedValue) {
       setSelectedValue(value);
-      updateTaskStatus({taskId: task.id, statusId: value})
-          .unwrap()
-          .then(() => dispatch(showNotification( {message: 'Status has been changed', type: 'success'})))
-          .catch(() => dispatch(showNotification( {message: 'Error while change task status', type: 'error'})));
+      onChange(value);
     }
   };
 
