@@ -6,7 +6,7 @@ import {TaskStatusDto} from '../../types/taskTypes';
 
 interface TaskStatusSelectorProps {
     status: TaskStatusDto,
-    onChange: (statusId: number) => void
+    onChange: (statusId: TaskStatusDto) => void
 }
 
 const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({status, onChange}) => {
@@ -17,9 +17,9 @@ const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({status, onChange}) => 
     setSelectedValue(status.id);
   }, [status]);
 
-  const onClickHandle = (value: number) => {
-    if (value != selectedValue) {
-      setSelectedValue(value);
+  const onClickHandle = (value: TaskStatusDto) => {
+    if (value.id != selectedValue) {
+      setSelectedValue(value.id);
       onChange(value);
     }
   };
@@ -41,7 +41,7 @@ const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({status, onChange}) => 
             value={selectedValue}
           >
             {data.map((x) => <MenuItem key={x.id} value={x.id}
-              onClick={() => onClickHandle(x.id)}>{x.name}</MenuItem>)}
+              onClick={() => onClickHandle(x)}>{x.name}</MenuItem>)}
           </Select>
         </Tooltip>
       </FormControl>

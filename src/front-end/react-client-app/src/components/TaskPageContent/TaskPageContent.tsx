@@ -1,6 +1,6 @@
 import React from 'react';
 import {useUpdateTaskExecutorMutation, useUpdateTaskMutation, useUpdateTaskStatusMutation} from '../../services/taskService';
-import {TaskDto} from '../../types/taskTypes';
+import {TaskDto, TaskStatusDto, UserDto} from '../../types/taskTypes';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
 import {Box, Breadcrumbs, Button, Paper, Typography} from '@mui/material';
@@ -27,15 +27,15 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
 
   const [editMode, setEditMode] = React.useState(false);
 
-  const onExecutorChanged = (executorId: number) => {
-    updateTaskExecutor({taskId: task.id, executorId})
+  const onExecutorChanged = (executor: UserDto) => {
+    updateTaskExecutor({taskId: task.id, executorId: executor.id})
         .unwrap()
         .then(() => dispatch(showNotification({message: 'Executor has been changed', type: 'success'})))
         .catch(() => dispatch(showNotification({message: 'Error while change executor', type: 'error'})));
   };
 
-  const onStatusChanged = (statusId : number) => {
-    updateTaskStatus({taskId: task.id, statusId})
+  const onStatusChanged = (status: TaskStatusDto) => {
+    updateTaskStatus({taskId: task.id, statusId: status.id})
         .unwrap()
         .then(() => dispatch(showNotification( {message: 'Status has been changed', type: 'success'})))
         .catch(() => dispatch(showNotification( {message: 'Error while change task status', type: 'error'})));

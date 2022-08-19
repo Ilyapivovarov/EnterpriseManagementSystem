@@ -5,7 +5,7 @@ import {useLazyGetExecutorsByPageQuery} from '../../services/executorService';
 
 interface ExecutorSelectorProps {
   executor: UserDto,
-  onChange: (executorId: number) => void;
+  onChange: (executor: UserDto) => void;
 }
 
 function unique(executors : UserDto[]) {
@@ -46,9 +46,9 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({executor, onChange})
     fetchExecutors();
   }, [page]);
 
-  const handleChange = (value : number) => {
-    if (executorId!= value) {
-      setExecutorId(value);
+  const handleChange = (value : UserDto) => {
+    if (executorId != value.id) {
+      setExecutorId(value.id);
       onChange(value);
     }
   };
@@ -80,7 +80,7 @@ const ExecutorSelector: React.FC<ExecutorSelectorProps> = ({executor, onChange})
             key={key}
             value={x.id}
             disabled={x.id == executor.id}
-            onClick={() => handleChange(x.id)}
+            onClick={() => handleChange(x)}
           >
             {x.emailAddress}
           </MenuItem>
