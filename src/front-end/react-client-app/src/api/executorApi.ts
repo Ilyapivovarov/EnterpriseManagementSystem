@@ -25,7 +25,6 @@ export const executorApi = createApi({
       }) => ({
         url: `user?page=${page}&count=${count}`,
         method: 'GET',
-
       }),
     }),
   }),

@@ -1,11 +1,13 @@
-import {TaskStatusDto, UserDto} from '../types/taskTypes';
+import {UserDto} from '../types/taskTypes';
 
 export interface UpdatedTask{
   id: number,
   guid: string,
   name: string,
-  description: string | null,
+  description?: string,
   created: Date,
-  executor: UserDto,
-  inspector: UserDto | null,
+  authorId: number
+  executorId?: number,
+  statusId: number
+  inspector?: number,
 }
