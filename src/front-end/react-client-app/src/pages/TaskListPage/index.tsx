@@ -4,7 +4,7 @@ import TaskList from '../../components/TaskList/TaskList';
 import {Breadcrumbs, Paper, Typography} from '@mui/material';
 import Link from '../../components/Link/Link';
 import {useNavigate} from 'react-router-dom';
-import {useGetTasksByPageQuery} from '../../services/taskService';
+import {useGetTasksByPageQuery} from '../../api/taskApi';
 import Loader from '../../components/Loader/Loader';
 
 const TaskListPage: React.FC = () => {

@@ -2,13 +2,12 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react';
 import {UsersByPageDto} from '../types/taskTypes';
 import {RootState, store} from '../store';
 import {resetAuthState} from '../store/AuthReducer/AuthActionCreators';
+import {BaseUrl} from '../helpers/Constants';
 
-const baseUrl = process.env.REACT_APP_API_KEY;
-
-export const executorService = createApi({
-  reducerPath: 'executorService',
+export const executorApi = createApi({
+  reducerPath: 'executorApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${baseUrl}`,
+    baseUrl: `${BaseUrl}`,
     prepareHeaders: (headers, {getState}) => {
       store.dispatch(resetAuthState());
       const accessToken = (getState() as RootState).authReducer.currentSession?.accessToken;
@@ -32,4 +31,4 @@ export const executorService = createApi({
   }),
 });
 
-export const {useGetExecutorsByPageQuery, useLazyGetExecutorsByPageQuery} = executorService;
+export const {useGetExecutorsByPageQuery, useLazyGetExecutorsByPageQuery} = executorApi;

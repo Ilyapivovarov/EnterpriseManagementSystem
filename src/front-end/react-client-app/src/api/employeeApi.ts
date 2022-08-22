@@ -2,13 +2,12 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {EmployeeDataResponse} from '../types/accountTypes';
 import {resetAuthState} from '../store/AuthReducer/AuthActionCreators';
 import {RootState, store} from '../store';
-
-const baseUrl = process.env.REACT_APP_API_KEY;
+import {BaseUrl} from '../helpers/Constants';
 
 export const employeeApi = createApi({
   reducerPath: 'employeeApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${baseUrl}/employee`,
+    baseUrl: `${BaseUrl}/employee`,
     prepareHeaders: (headers, {getState}) => {
       store.dispatch(resetAuthState());
       const accessToken = (getState() as RootState).authReducer.currentSession?.accessToken;

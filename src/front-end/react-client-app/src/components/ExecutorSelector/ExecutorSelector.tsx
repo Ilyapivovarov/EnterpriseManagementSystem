@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 import {UserDto} from '../../types/taskTypes';
-import {useLazyGetExecutorsByPageQuery} from '../../services/executorService';
+import {useLazyGetExecutorsByPageQuery} from '../../api/executorApi';
 
 interface ExecutorSelectorProps {
   executor?: UserDto,

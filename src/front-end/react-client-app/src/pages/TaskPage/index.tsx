@@ -1,5 +1,5 @@
 import React from 'react';
-import {useGetTaskByIdQuery} from '../../services/taskService';
+import {useGetTaskByIdQuery} from '../../api/taskApi';
 import {useParams} from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import TaskPageContent from '../../components/TaskPageContent/TaskPageContent';

@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import {FormControl, InputLabel, MenuItem, Select, Tooltip} from '@mui/material';
-import {useGetTaskStatusesQuery} from '../../services/taskStatusesServices';
+import {useGetTaskStatusesQuery} from '../../api/taskStatusApi';
 import Loader from '../Loader/Loader';
 import {TaskStatusDto} from '../../types/taskTypes';
 

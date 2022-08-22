@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, CircularProgress, Typography} from '@mui/material';
-import {useGetEmployeeByGuidQuery} from '../../services/employeeService';
+import {useGetEmployeeByGuidQuery} from '../../api/employeeApi';
 import {useAppSelector} from '../../hooks';
 import {NavLink} from 'react-router-dom';
 import PageWrapper from '../../components/PageWrapper/PageWrapper';

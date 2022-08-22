@@ -1,5 +1,5 @@
 import React from 'react';
-import {useUpdateTaskExecutorMutation, useUpdateTaskMutation, useUpdateTaskStatusMutation} from '../../services/taskService';
+import {useUpdateTaskExecutorMutation, useUpdateTaskMutation, useUpdateTaskStatusMutation} from '../../api/taskApi';
 import {TaskDto, TaskStatusDto, UserDto} from '../../types/taskTypes';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';

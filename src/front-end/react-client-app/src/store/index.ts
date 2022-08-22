@@ -1,9 +1,9 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {employeeApi} from '../services/employeeService';
+import {employeeApi} from '../api/employeeApi';
 import authReducer from './AuthReducer/AuthSlice';
-import {taskApi} from '../services/taskService';
-import {taskStatusApi} from '../services/taskStatusesServices';
-import {executorService} from '../services/executorService';
+import {taskApi} from '../api/taskApi';
+import {taskStatusApi} from '../api/taskStatusApi';
+import {executorApi} from '../api/executorApi';
 import notificationReducer from './NotificationReduser/notificationReduser';
 
 
@@ -13,7 +13,7 @@ const rootReducers = combineReducers({
   [taskApi.reducerPath]: taskApi.reducer,
   [employeeApi.reducerPath]: employeeApi.reducer,
   [taskStatusApi.reducerPath]: taskStatusApi.reducer,
-  [executorService.reducerPath]: executorService.reducer,
+  [executorApi.reducerPath]: executorApi.reducer,
 });
 
 export const store = configureStore({
@@ -23,7 +23,7 @@ export const store = configureStore({
         .concat(employeeApi.middleware)
         .concat(taskApi.middleware)
         .concat(taskStatusApi.middleware)
-        .concat(executorService.middleware),
+        .concat(executorApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>

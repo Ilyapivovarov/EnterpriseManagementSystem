@@ -2,14 +2,13 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {TaskDto} from '../types/taskTypes';
 import {RootState, store} from '../store';
 import {resetAuthState} from '../store/AuthReducer/AuthActionCreators';
-
-const baseUrl = process.env.REACT_APP_API_KEY;
+import {BaseUrl} from '../helpers/Constants';
 
 export const taskApi = createApi({
   reducerPath: 'taskApi',
   tagTypes: ['task'],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${baseUrl}`,
+    baseUrl: `${BaseUrl}`,
     prepareHeaders: async (headers, {getState}) => {
       await store.dispatch(resetAuthState());
       const accessToken = (getState() as RootState).authReducer.currentSession?.accessToken;
