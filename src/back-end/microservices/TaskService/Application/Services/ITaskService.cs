@@ -21,24 +21,29 @@ public interface ITaskService
     public Task<ServiceResult<TaskStatusDbEntity>> GetOrCreateTaskByName(string name);
 
     /// <summary>
-    /// Update task status
+    /// Set task status
     /// </summary>
     /// <param name="taskStatusDbEntity"></param>
     /// <param name="taskDbEntity"></param>
     /// <returns></returns>
     public ServiceResult<TaskDbEntity> UpdateTaskStatus(TaskStatusDbEntity taskStatusDbEntity,
         TaskDbEntity taskDbEntity);
-    
-    /// <summary>
-    /// Update executor
-    /// </summary>
-    /// <param name="userDbEntity"></param>
-    /// <param name="taskDbEntity"></param>
-    /// <returns></returns>
-    public ServiceResult<TaskDbEntity> SetExecutor(UserDbEntity userDbEntity,
-        TaskDbEntity taskDbEntity);
 
-    public ServiceResult<TaskDbEntity> SetInspector(UserDbEntity inspector, TaskDbEntity task);
+    /// <summary>
+    /// Set executor
+    /// </summary>
+    /// <param name="task"></param>
+    /// <param name="newExecutor"></param>
+    /// <returns></returns>
+    public ServiceResult<TaskDbEntity> SetExecutor(TaskDbEntity task, UserDbEntity? newExecutor);
+
+    /// <summary>
+    /// Set inspector
+    /// </summary>
+    /// <param name="inspector"></param>
+    /// <param name="task"></param>
+    /// <returns></returns>
+    public ServiceResult<TaskDbEntity> SetInspector(UserDbEntity? inspector, TaskDbEntity task);
     
     /// <summary>
     /// Update task and name for task

@@ -26,8 +26,6 @@ public sealed class SetInspectorHandler : RequestHandlerBase<SetInspectorRequest
                 return NotFound($"Not found task with id {request.TaskId}");
 
             var inspector = await _userRepository.GetUserById(request.InspectorId);
-            if (inspector == null)
-                return NotFound($"Not found task with id {request.InspectorId}");
 
             var serviceResult = _taskService.SetInspector(inspector, task);
             if (serviceResult.Value == null)

@@ -26,10 +26,8 @@ public sealed class SetExecutorHandler : RequestHandlerBase<SetExecutorRequest>
                 return NotFound("Not found task");
             
             var newExecutor = await _userRepository.GetUserById(request.ExecutorId);
-            if (newExecutor == null)
-                return NotFound("Not found executor");
 
-            var serviceResult = _taskService.SetExecutor(newExecutor,  task);
+            var serviceResult = _taskService.SetExecutor(task,  newExecutor);
             if (serviceResult.Value == null)
                 return Error(serviceResult.Error);
 

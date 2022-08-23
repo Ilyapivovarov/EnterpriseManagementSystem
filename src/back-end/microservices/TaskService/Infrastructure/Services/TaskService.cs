@@ -61,12 +61,14 @@ public sealed class TaskService : ITaskService
         }
     }
 
-    public ServiceResult<TaskDbEntity> SetExecutor(UserDbEntity userDbEntity, TaskDbEntity taskDbEntity)
+    public ServiceResult<TaskDbEntity> SetExecutor(TaskDbEntity task, UserDbEntity? newExecutor)
     {
         try
         {
-            taskDbEntity.Executor = userDbEntity;
-            return new ServiceResult<TaskDbEntity>(taskDbEntity);
+            if (task.Executor?.Id != newExecutor?.Id)
+                task.Executor = newExecutor;
+            
+            return new ServiceResult<TaskDbEntity>(task);
         }
         catch (Exception e)
         {
@@ -75,11 +77,13 @@ public sealed class TaskService : ITaskService
         }
     }
 
-    public ServiceResult<TaskDbEntity> SetInspector(UserDbEntity inspector, TaskDbEntity task)
+    public ServiceResult<TaskDbEntity> SetInspector(UserDbEntity? inspector, TaskDbEntity task)
     {
         try
         {
-            task.Inspector = inspector;
+            if (inspector?.Id != task.Inspector?.Id)
+                task.Inspector = inspector;
+            
             return new ServiceResult<TaskDbEntity>(task);
         }
         catch (Exception e)
