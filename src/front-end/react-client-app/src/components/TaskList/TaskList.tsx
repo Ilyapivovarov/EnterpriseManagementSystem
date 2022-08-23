@@ -1,19 +1,6 @@
 import React from 'react';
 import {TaskDto} from '../../types/taskTypes';
-import {
-  Box, Button,
-  Card,
-  CardActionArea,
-  CardContent,
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import {Box, Button, Card, CardActionArea, CardContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Tooltip, Typography} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
@@ -33,8 +20,10 @@ const TaskList: React.FC<TaskListProps> = ({tasks}) => {
     console.log(value);
     if (value == 'All') {
       setFilteredTasks(tasks);
+    } else if (value == 'No executor') {
+      setFilteredTasks(tasks.filter((x) => !x.executor));
     } else {
-      setFilteredTasks(tasks.filter((x) => x.executor.emailAddress == value));
+      setFilteredTasks(tasks.filter((x) => x.executor?.emailAddress == value));
     }
   };
 
@@ -50,9 +39,10 @@ const TaskList: React.FC<TaskListProps> = ({tasks}) => {
             onChange={handleChange}
           >
             <MenuItem value={'All'}>All</MenuItem>
-            {tasks.map((task) =>
-              <MenuItem key={task.id} value={task.executor.emailAddress}>
-                {task.executor.emailAddress}
+            <MenuItem value={'No executor'}>No executor</MenuItem>
+            {tasks.filter((x) => x.executor).map((task) =>
+              <MenuItem key={task.id} value={task.executor!.emailAddress}>
+                {task.executor!.emailAddress }
               </MenuItem>)
             }
           </Select>

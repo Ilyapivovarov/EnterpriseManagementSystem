@@ -33,15 +33,34 @@ export const taskApi = createApi({
     }),
     updateTaskStatus: build.mutation<void, {taskId: number, statusId: number}>({
       query: ({taskId, statusId}) => ({
-        url: `/task/status?taskId=${taskId}&statusId=${statusId}`,
+        url: `/task/status`,
         method: 'PUT',
+        body: {
+          taskId,
+          statusId,
+        },
       }),
       invalidatesTags: ['task'],
     }),
     updateTaskExecutor: build.mutation<void, {taskId: number, executorId: number}>({
       query: ({taskId, executorId}) => ({
-        url: `/task/executor?taskId=${taskId}&executorId=${executorId}`,
+        url: `/task/executor`,
         method: 'PUT',
+        body: {
+          taskId,
+          executorId,
+        },
+      }),
+      invalidatesTags: ['task'],
+    }),
+    setInspector: build.mutation<void, {taskId: number, inspectorId: number}>({
+      query: ({taskId, inspectorId}) => ({
+        url: `/task/inspector`,
+        method: 'PUT',
+        body: {
+          taskId,
+          inspectorId,
+        },
       }),
       invalidatesTags: ['task'],
     }),
@@ -73,4 +92,4 @@ export const {useGetTaskByIdQuery,
   useUpdateTaskStatusMutation,
   useUpdateTaskExecutorMutation,
   useUpdateTaskMutation,
-  useRemoveTaskMutation} = taskApi;
+  useSetInspectorMutation} = taskApi;

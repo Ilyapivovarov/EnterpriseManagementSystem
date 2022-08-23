@@ -1,5 +1,10 @@
 import React from 'react';
-import {useUpdateTaskExecutorMutation, useUpdateTaskMutation, useUpdateTaskStatusMutation} from '../../api/taskApi';
+import {
+  useSetInspectorMutation,
+  useUpdateTaskExecutorMutation,
+  useUpdateTaskMutation,
+  useUpdateTaskStatusMutation,
+} from '../../api/taskApi';
 import {TaskDto, TaskStatusDto, UserDto} from '../../types/taskTypes';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
@@ -23,6 +28,7 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
 
   const [updateTaskExecutor] = useUpdateTaskExecutorMutation();
   const [updateTaskStatus] = useUpdateTaskStatusMutation();
+  const [setInspector] = useSetInspectorMutation();
   const [updateTask] = useUpdateTaskMutation();
 
   const [editMode, setEditMode] = React.useState(false);
@@ -42,7 +48,9 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
   };
 
   const onInspectorChanged = (inspector: UserDto) => {
-    console.log(inspector);
+    setInspector({taskId: task.id, inspectorId: inspector.id}).unwrap()
+        .then(() => dispatch(showNotification( {message: 'Inspector has been changed', type: 'success'})))
+        .catch(() => dispatch(showNotification( {message: 'Error while change inspector', type: 'error'})));
   };
 
   const onSaveHandler = () => {
