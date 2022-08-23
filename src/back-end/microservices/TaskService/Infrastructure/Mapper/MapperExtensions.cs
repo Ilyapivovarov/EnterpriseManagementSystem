@@ -1,4 +1,5 @@
 using EnterpriseManagementSystem.Contracts.Common;
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 using TaskService.Infrastructure.Mapper.Converters;
 
 namespace TaskService.Infrastructure.Mapper;

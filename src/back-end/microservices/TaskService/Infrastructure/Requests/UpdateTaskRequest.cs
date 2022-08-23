@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
+
 namespace TaskService.Infrastructure.Requests;
 
 public sealed class UpdateTaskRequest : IRequest<IActionResult>

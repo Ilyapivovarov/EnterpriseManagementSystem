@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
+
 namespace TaskService.Controllers;
 
 [ApiController]
@@ -50,37 +52,37 @@ public sealed class TaskController : ControllerBase
     /// <summary>
     ///     Update task status
     /// </summary>
-    /// <param name="setStatusRequest"></param>
+    /// <param name="setTaskStatusDto"></param>
     /// <returns></returns>
     [HttpPut]
     [Route("status")]
-    public async Task<IActionResult> SetStatus(SetStatusRequest setStatusRequest)
+    public async Task<IActionResult> SetStatus(SetTaskStatusDto setTaskStatusDto)
     {
-        return await _mediator.Send(setStatusRequest);
+        return await _mediator.Send(new SetStatusRequest(setTaskStatusDto.TaskId, setTaskStatusDto.StatusId));
     }
 
     /// <summary>
     /// Update executor for task
     /// </summary>
-    /// <param name="setExecutorRequest"></param>
+    /// <param name="setExecutorDto"></param>
     /// <returns></returns>
     [HttpPut]
     [Route("executor")]
-    public async Task<IActionResult> SetExecutor(SetExecutorRequest setExecutorRequest)
+    public async Task<IActionResult> SetExecutor(SetExecutorDto setExecutorDto)
     {
-        return await _mediator.Send(setExecutorRequest);
+        return await _mediator.Send(new SetExecutorRequest(setExecutorDto.TaskId, setExecutorDto.ExecutorId));
     }
 
     /// <summary>
     /// Set inspecto for task
     /// </summary>
-    /// <param name="updateInspectorRequest"></param>
+    /// <param name="setInspectorDto"></param>
     /// <returns></returns>
     [HttpPut]
     [Route("inspector")]
-    public async Task<IActionResult> SetInspector(SetInspectorRequest updateInspectorRequest)
+    public async Task<IActionResult> SetInspector(SetInspectorDto setInspectorDto)
     {
-        return await _mediator.Send(updateInspectorRequest);
+        return await _mediator.Send(new SetInspectorRequest(setInspectorDto.TaskId, setInspectorDto.InspectorId));
     }
     
     /// <summary>

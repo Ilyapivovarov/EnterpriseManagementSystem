@@ -1,4 +1,5 @@
 using EnterpriseManagementSystem.Contracts.Dto;
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 
 namespace ApiGateway.Controllers.TaskService;
 
@@ -28,27 +29,37 @@ public sealed class TaskController : ControllerBase
     /// <summary>
     ///     Update task status
     /// </summary>
-    /// <param name="taskId"></param>
-    /// <param name="statusId"></param>
+    /// <param name="setTaskStatusDto"></param>
     /// <returns></returns>
     [HttpPut]
     [Route("status")]
-    public async Task<IActionResult> UpdateTaskStatus(string taskId, string statusId)
+    public async Task<IActionResult> SetTaskStatus(SetTaskStatusDto setTaskStatusDto)
     {
-        return await _taskServiceHttpClient.UpdateTaskStatus(taskId, statusId);
+        return await _taskServiceHttpClient.SetTaskStatus(setTaskStatusDto);
     }
-    
+
     /// <summary>
     ///     Update task executor
     /// </summary>
-    /// <param name="taskId"></param>
-    /// <param name="executorId"></param>
+    /// <param name="setExecutorDto"></param>
     /// <returns></returns>
     [HttpPut]
     [Route("executor")]
-    public async Task<IActionResult> UpdateTaskExecutor(string taskId, string executorId)
+    public async Task<IActionResult> SetExecutor(SetExecutorDto setExecutorDto)
     {
-        return await _taskServiceHttpClient.UpdateTaskExecutor(taskId, executorId);
+        return await _taskServiceHttpClient.SetExecutor(setExecutorDto);
+    }
+    
+    /// <summary>
+    ///     Update task inspector
+    /// </summary>
+    /// <param name="setInspectorDto"></param>
+    /// <returns></returns>
+    [HttpPut]
+    [Route("inspector")]
+    public async Task<IActionResult> SetInspector(SetInspectorDto setInspectorDto)
+    {
+        return await _taskServiceHttpClient.SetInpector(setInspectorDto);
     }
 
     /// <summary>

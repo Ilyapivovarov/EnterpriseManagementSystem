@@ -95,14 +95,19 @@ public static class ServiceUrls
                 return $"{BaseUrl}/{guid}";
             }
 
-            public static string UpdateTaskStatus(string taskId, string statusId)
+            public static string SetTaskStatus()
             {
-                return $"{BaseUrl}/status?taskId={taskId}&statusId={statusId}";
+                return $"{BaseUrl}/status";
             }
             
-            public static string UpdateTaskExecutor(string taskId, string executorId)
+            public static string SetExecutor()
             {
-                return $"{BaseUrl}/executor?taskId={taskId}&executorId={executorId}";
+                return $"{BaseUrl}/executor";
+            }
+            
+            public static string SetInspector()
+            {
+                return $"{BaseUrl}/inspector";
             }
 
 

@@ -1,4 +1,4 @@
-namespace EnterpriseManagementSystem.Contracts.Dto;
+namespace EnterpriseManagementSystem.Contracts.Dto.TaskService;
 
 public sealed record TaskDto(int Id, Guid Guid, string Name, string? Description, DateTime Created, UserDto Author,
     UserDto? Executor, UserDto? Inspector, TaskStatusDto Status);

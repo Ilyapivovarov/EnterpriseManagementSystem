@@ -1,5 +1,6 @@
 using ApiGateway.Infrastructure.HttpClients.Base;
 using EnterpriseManagementSystem.Contracts.Dto;
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 using EnterpriseManagementSystem.Contracts.WebContracts.Extensions;
 
 namespace ApiGateway.Infrastructure.HttpClients;
@@ -57,17 +58,24 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
-    public async Task<IActionResult> UpdateTaskStatus(string taskId, string statusId)
+    public async Task<IActionResult> SetTaskStatus(SetTaskStatusDto setTaskStatusDto)
     {
-        var response = await _client.PutAsync(ServiceUrls.TaskApi.TaskController.UpdateTaskStatus(taskId, statusId),
-            GetStringContent("sad"));
+        var response = await _client.PutAsync(ServiceUrls.TaskApi.TaskController.SetTaskStatus(),
+            GetStringContent(setTaskStatusDto.ToJson()));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
-    public async Task<IActionResult> UpdateTaskExecutor(string taskId, string executorId)
+    public async Task<IActionResult> SetExecutor(SetExecutorDto setExecutorDto)
     {
-        var response = await _client.PutAsync(ServiceUrls.TaskApi.TaskController.UpdateTaskExecutor(taskId, executorId),
-            GetStringContent("sad"));
+        var response = await _client.PutAsync(ServiceUrls.TaskApi.TaskController.SetExecutor(),
+            GetStringContent(setExecutorDto.ToJson()));
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
+    }
+
+    public async Task<IActionResult> SetInpector(SetInspectorDto setInspectorDto)
+    {
+        var response = await _client.PutAsync(ServiceUrls.TaskApi.TaskController.SetInspector(),
+            GetStringContent(setInspectorDto.ToJson()));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 }

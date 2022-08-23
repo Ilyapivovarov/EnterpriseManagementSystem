@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
+
 namespace TaskService.Infrastructure.Mapper.Converters;
 
 public sealed class TaskStatusToDtoConverter : ITypeConverter<TaskStatusDbEntity, TaskStatusDto>

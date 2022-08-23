@@ -1,4 +1,5 @@
 using EnterpriseManagementSystem.Contracts.Dto;
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 
 namespace ApiGateway.Application.HttpClients;
 
@@ -18,7 +19,9 @@ public interface ITaskServiceHttpClient
 
     public Task<IActionResult> GetUsersByPage(int page, int count);
 
-    public Task<IActionResult> UpdateTaskStatus(string taskId, string statusId);
+    public Task<IActionResult> SetTaskStatus(SetTaskStatusDto setTaskStatusDto);
     
-    public Task<IActionResult> UpdateTaskExecutor(string taskId, string executorId);
+    public Task<IActionResult> SetExecutor(SetExecutorDto setExecutorDto);
+
+    public Task<IActionResult> SetInpector(SetInspectorDto setInspectorDto);
 }
