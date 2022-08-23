@@ -34,15 +34,4 @@ public sealed class TaskController
     {
         return await _taskServiceHttpClient.GetTaskByGuidAsync(guid);
     }
-
-    /// <summary>
-    ///     Creating new task
-    /// </summary>
-    /// <param name="newTask"></param>
-    /// <returns></returns>
-    [HttpPost]
-    public async Task<IActionResult> CreateTask(NewTask newTask)
-    {
-        return await _taskServiceHttpClient.CreateNewTaskAsync(newTask);
-    }
 }

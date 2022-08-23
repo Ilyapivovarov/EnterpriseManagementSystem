@@ -7,5 +7,8 @@ global using ApiGateway.Application.HttpClients;
 global using ApiGateway.Infrastructure.Extensions;
 global using ApiGateway.Infrastructure.Handlers;
 global using ApiGateway.Infrastructure.HttpClients;
+global using ApiGateway.Infrastructure.HttpClients.Base;
+global using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 global using EnterpriseManagementSystem.Contracts.WebContracts;
+global using EnterpriseManagementSystem.Contracts.WebContracts.Extensions;
 global using Microsoft.AspNetCore.Mvc;

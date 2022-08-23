@@ -1,6 +1,3 @@
-using EnterpriseManagementSystem.Contracts.Dto;
-using EnterpriseManagementSystem.Contracts.Dto.TaskService;
-
 namespace ApiGateway.Controllers.TaskService;
 
 [ApiController]
@@ -71,5 +68,15 @@ public sealed class TaskController : ControllerBase
     public async Task<IActionResult> UpdateTask(UpdatedTaskDto updatedTaskDto)
     {
         return await _taskServiceHttpClient.UpdateTaskAsync(updatedTaskDto);
+    }
+    
+    /// <summary>
+    ///     Create task
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IActionResult> CreateTask(CreateTaskDto taskInfo)
+    {
+        return await _taskServiceHttpClient.CreateTask(taskInfo);
     }
 }

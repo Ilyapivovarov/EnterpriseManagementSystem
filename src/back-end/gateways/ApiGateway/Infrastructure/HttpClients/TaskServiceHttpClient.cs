@@ -1,8 +1,3 @@
-using ApiGateway.Infrastructure.HttpClients.Base;
-using EnterpriseManagementSystem.Contracts.Dto;
-using EnterpriseManagementSystem.Contracts.Dto.TaskService;
-using EnterpriseManagementSystem.Contracts.WebContracts.Extensions;
-
 namespace ApiGateway.Infrastructure.HttpClients;
 
 public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClient
@@ -29,13 +24,6 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
     public async Task<IActionResult> GetTaskByGuidAsync(string guid)
     {
         var response = await _client.GetAsync(ServiceUrls.TaskApi.TaskController.GetTaskByGuid(guid));
-        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
-    }
-
-    public async Task<IActionResult> CreateNewTaskAsync(NewTask newTask)
-    {
-        var response = await _client.PostAsync(ServiceUrls.TaskApi.TaskController.CreateNewTask(),
-            GetStringContent(newTask.ToJson()));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
@@ -76,6 +64,13 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
     {
         var response = await _client.PutAsync(ServiceUrls.TaskApi.TaskController.SetInspector(),
             GetStringContent(setInspectorDto.ToJson()));
+        return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
+    }
+
+    public async Task<IActionResult> CreateTask(CreateTaskDto createTaskDto)
+    {
+        var response = await _client.PostAsync(ServiceUrls.TaskApi.TaskController.CreateTask(),
+            GetStringContent(createTaskDto.ToJson()));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 }

@@ -1,6 +1,3 @@
-using ApiGateway.Infrastructure.HttpClients.Base;
-using EnterpriseManagementSystem.Contracts.WebContracts.Extensions;
-
 namespace ApiGateway.Infrastructure.HttpClients;
 
 public sealed class IdentityServiceHttpClient : HttpClientBase, IIdentityServiceHttpClient

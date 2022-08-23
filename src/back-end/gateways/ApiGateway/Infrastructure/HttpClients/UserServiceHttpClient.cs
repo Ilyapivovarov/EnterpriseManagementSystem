@@ -1,5 +1,3 @@
-using ApiGateway.Infrastructure.HttpClients.Base;
-
 namespace ApiGateway.Infrastructure.HttpClients;
 
 public sealed class UserServiceHttpClient : HttpClientBase, IUserServiceHttpClient

@@ -115,6 +115,11 @@ public static class ServiceUrls
             {
                 return BaseUrl;
             }
+            
+            public static string CreateTask()
+            {
+                return BaseUrl;
+            }
         }
 
         public static class TaskStatusesController
