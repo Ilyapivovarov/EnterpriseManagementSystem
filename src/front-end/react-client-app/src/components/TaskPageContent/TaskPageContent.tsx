@@ -7,7 +7,7 @@ import {Box, Breadcrumbs, Button, Paper, Typography} from '@mui/material';
 import Link from '../Link/Link';
 import PageWrapper from '../PageWrapper/PageWrapper';
 import ButtonWithConfirmationWindow from '../ButtonWithConfirmationWindow/ButtonWithConfirmationWindow';
-import {Delete, KeyboardBackspace, Login} from '@mui/icons-material';
+import {Delete, KeyboardBackspace} from '@mui/icons-material';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import EditableTextField from '../EditableTextField/EditableTextField';
@@ -143,14 +143,26 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
                 />
 
               </Typography>
-              <Box display={'flex'} flexDirection={'column'}>
+              <Box
+                display={'flex'}
+                flexDirection={'column'}
+                borderLeft={'solid 1px'}
+                borderColor={'lightgray'}
+              >
                 <Box display={'flex'}>
-                  <TaskUserSelector current={task.executor} onChange={onExecutorChanged} lable={'Executor'}/>
-                  <TaskStatusSelector onChange={onStatusChanged} status={task.status}/>
+                  <TaskUserSelector
+                    current={task.executor}
+                    onChange={onExecutorChanged}
+                    lable={'Executor'}
+                  />
+                  <TaskStatusSelector
+                    onChange={onStatusChanged}
+                    status={task.status}
+                  />
                 </Box>
                 <Box>
                   <TaskUserSelector
-                    current={task.executor}
+                    current={task.inspector}
                     onChange={onInspectorChanged}
                     lable={'Inspector'}
                     fullWidth
