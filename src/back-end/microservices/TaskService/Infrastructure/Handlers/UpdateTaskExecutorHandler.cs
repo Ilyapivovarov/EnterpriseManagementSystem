@@ -1,13 +1,13 @@
 namespace TaskService.Infrastructure.Handlers;
 
-public sealed class UpdateTaskExecutorHandler : RequestHandlerBase<UpdateTaskExecutorRequest>
+public sealed class SetExecutorHandler : RequestHandlerBase<SetExecutorRequest>
 {
-    private readonly ILogger<UpdateTaskExecutorHandler> _logger;
+    private readonly ILogger<SetExecutorHandler> _logger;
     private readonly ITaskRepository _taskRepository;
     private readonly IUserRepository _userRepository;
     private readonly ITaskService _taskService;
 
-    public UpdateTaskExecutorHandler(ILogger<UpdateTaskExecutorHandler> logger, ITaskRepository taskRepository,
+    public SetExecutorHandler(ILogger<SetExecutorHandler> logger, ITaskRepository taskRepository,
         IUserRepository userRepository, ITaskService taskService)
     {
         _logger = logger;
@@ -17,7 +17,7 @@ public sealed class UpdateTaskExecutorHandler : RequestHandlerBase<UpdateTaskExe
 
     }
     
-    public override async Task<IActionResult> Handle(UpdateTaskExecutorRequest request, CancellationToken cancellationToken)
+    public override async Task<IActionResult> Handle(SetExecutorRequest request, CancellationToken cancellationToken)
     {
         try
         {

@@ -1,13 +1,13 @@
 namespace TaskService.Infrastructure.Handlers;
 
-public sealed class UpdateTaskStatusHandler : RequestHandlerBase<UpdateTaskStatusRequest>
+public sealed class SetStatusHandler : RequestHandlerBase<SetStatusRequest>
 {
-    private readonly ILogger<UpdateTaskStatusHandler> _logger;
+    private readonly ILogger<SetStatusHandler> _logger;
     private readonly ITaskRepository _taskRepository;
     private readonly ITaskStatusRepository _taskStatusRepository;
     private readonly ITaskService _taskService;
 
-    public UpdateTaskStatusHandler(ILogger<UpdateTaskStatusHandler> logger, ITaskRepository taskRepository,
+    public SetStatusHandler(ILogger<SetStatusHandler> logger, ITaskRepository taskRepository,
         ITaskStatusRepository taskStatusRepository, ITaskService taskService)
     {
         _logger = logger;
@@ -16,7 +16,7 @@ public sealed class UpdateTaskStatusHandler : RequestHandlerBase<UpdateTaskStatu
         _taskService = taskService;
     }
 
-    public override async Task<IActionResult> Handle(UpdateTaskStatusRequest request,
+    public override async Task<IActionResult> Handle(SetStatusRequest request,
         CancellationToken cancellationToken)
     {
         try

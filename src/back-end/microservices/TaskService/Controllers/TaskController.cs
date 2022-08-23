@@ -50,32 +50,35 @@ public sealed class TaskController : ControllerBase
     /// <summary>
     ///     Update task status
     /// </summary>
-    /// <param name="taskId"></param>
-    /// <param name="statusId"></param>
+    /// <param name="setStatusRequest"></param>
     /// <returns></returns>
     [HttpPut]
     [Route("status")]
-    public async Task<IActionResult> UpdateStatus(int taskId, int statusId)
+    public async Task<IActionResult> SetStatus(SetStatusRequest setStatusRequest)
     {
-        return await _mediator.Send(new UpdateTaskStatusRequest(taskId, statusId));
+        return await _mediator.Send(setStatusRequest);
     }
-    
+
     /// <summary>
     /// Update executor for task
     /// </summary>
-    /// <param name="taskId"></param>
-    /// <param name="executorId"></param>
+    /// <param name="setExecutorRequest"></param>
     /// <returns></returns>
     [HttpPut]
     [Route("executor")]
-    public async Task<IActionResult> UpdateExecutor(int taskId, int executorId)
+    public async Task<IActionResult> SetExecutor(SetExecutorRequest setExecutorRequest)
     {
-        return await _mediator.Send(new UpdateTaskExecutorRequest(taskId, executorId));
+        return await _mediator.Send(setExecutorRequest);
     }
 
+    /// <summary>
+    /// Set inspecto for task
+    /// </summary>
+    /// <param name="updateInspectorRequest"></param>
+    /// <returns></returns>
     [HttpPut]
     [Route("inspector")]
-    public async Task<IActionResult> UpdateInspector(SetInspectorRequest updateInspectorRequest)
+    public async Task<IActionResult> SetInspector(SetInspectorRequest updateInspectorRequest)
     {
         return await _mediator.Send(updateInspectorRequest);
     }

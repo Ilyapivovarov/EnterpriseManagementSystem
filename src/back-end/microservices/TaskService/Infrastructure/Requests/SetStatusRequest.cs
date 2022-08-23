@@ -1,8 +1,8 @@
 namespace TaskService.Infrastructure.Requests;
 
-public sealed class UpdateTaskStatusRequest : IRequest<IActionResult>
+public sealed class SetStatusRequest : IRequest<IActionResult>
 {
-    public UpdateTaskStatusRequest(int taskId, int statusId)
+    public SetStatusRequest(int taskId, int statusId)
     {
         TaskId = taskId;
         StatusId = statusId;

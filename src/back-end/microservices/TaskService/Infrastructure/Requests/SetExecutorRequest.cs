@@ -1,8 +1,8 @@
 namespace TaskService.Infrastructure.Requests;
 
-public sealed class UpdateTaskExecutorRequest : IRequest<IActionResult>
+public sealed class SetExecutorRequest : IRequest<IActionResult>
 {
-    public UpdateTaskExecutorRequest(int taskId, int executorId)
+    public SetExecutorRequest(int taskId, int executorId)
     {
         TaskId = taskId;
         ExecutorId = executorId;
