@@ -3,7 +3,7 @@ import {employeeApi} from '../api/employeeApi';
 import authReducer from './AuthReducer/AuthSlice';
 import {taskApi} from '../api/taskApi';
 import {taskStatusApi} from '../api/taskStatusApi';
-import {executorApi} from '../api/executorApi';
+import {taskUserApi} from '../api/taskUserApi';
 import notificationReducer from './NotificationReduser/notificationReduser';
 
 
@@ -13,7 +13,7 @@ const rootReducers = combineReducers({
   [taskApi.reducerPath]: taskApi.reducer,
   [employeeApi.reducerPath]: employeeApi.reducer,
   [taskStatusApi.reducerPath]: taskStatusApi.reducer,
-  [executorApi.reducerPath]: executorApi.reducer,
+  [taskUserApi.reducerPath]: taskUserApi.reducer,
 });
 
 export const store = configureStore({
@@ -23,7 +23,7 @@ export const store = configureStore({
         .concat(employeeApi.middleware)
         .concat(taskApi.middleware)
         .concat(taskStatusApi.middleware)
-        .concat(executorApi.middleware),
+        .concat(taskUserApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>

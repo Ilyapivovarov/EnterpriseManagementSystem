@@ -4,8 +4,8 @@ import {RootState, store} from '../store';
 import {resetAuthState} from '../store/AuthReducer/AuthActionCreators';
 import {BaseUrl} from '../helpers/Constants';
 
-export const executorApi = createApi({
-  reducerPath: 'executorApi',
+export const taskUserApi = createApi({
+  reducerPath: 'taskUserApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${BaseUrl}`,
     prepareHeaders: (headers, {getState}) => {
@@ -18,7 +18,7 @@ export const executorApi = createApi({
     },
   }),
   endpoints: (build) => ({
-    getExecutorsByPage: build.query<UsersByPageDto, { page: number, count: number }>({
+    getUsersByPage: build.query<UsersByPageDto, { page: number, count: number }>({
       query: ({
         page,
         count,
@@ -30,4 +30,4 @@ export const executorApi = createApi({
   }),
 });
 
-export const {useGetExecutorsByPageQuery, useLazyGetExecutorsByPageQuery} = executorApi;
+export const {useGetUsersByPageQuery, useLazyGetUsersByPageQuery} = taskUserApi;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 import {UserDto} from '../../types/taskTypes';
-import {useLazyGetExecutorsByPageQuery} from '../../api/executorApi';
+import {useLazyGetUsersByPageQuery} from '../../api/taskUserApi';
 
 interface TaskUserSelectorProps {
   current?: UserDto,
@@ -22,7 +22,7 @@ function unique(executors : UserDto[]) {
 }
 
 const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, lable, fullWidth}) => {
-  const [getExecutorsByPage] = useLazyGetExecutorsByPageQuery();
+  const [getExecutorsByPage] = useLazyGetUsersByPageQuery();
   const [page, setPage] = React.useState(1);
   const [executors, setExecutors] = React.useState<UserDto[]>(current ? [current] : []);
 
