@@ -4,7 +4,7 @@ import Link from '../../components/Link/Link';
 import PageWrapper from '../../components/PageWrapper/PageWrapper';
 import SaveIcon from '@mui/icons-material/Save';
 import EditableTextField from '../../components/EditableTextField/EditableTextField';
-import ExecutorSelector from '../../components/ExecutorSelector/ExecutorSelector';
+import TaskUserSelector from '../../components/TaskUserSelector/TaskUserSelector';
 import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelect';
 import {useAppDispatch} from '../../hooks';
 import {TaskStatusDto, UserDto} from '../../types/taskTypes';
@@ -74,7 +74,7 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
 
               </Typography>
               <Box display={'flex'} justifyContent={'space-between'}>
-                <ExecutorSelector onChange={onExecutorChanged}/>
+                <TaskUserSelector lable={'Executor'} onChange={onExecutorChanged}/>
                 <TaskStatusSelector onChange={onStatusChanged}/>
               </Box>
             </Box>

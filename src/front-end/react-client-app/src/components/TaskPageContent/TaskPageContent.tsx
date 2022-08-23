@@ -7,11 +7,11 @@ import {Box, Breadcrumbs, Button, Paper, Typography} from '@mui/material';
 import Link from '../Link/Link';
 import PageWrapper from '../PageWrapper/PageWrapper';
 import ButtonWithConfirmationWindow from '../ButtonWithConfirmationWindow/ButtonWithConfirmationWindow';
-import {Delete, KeyboardBackspace} from '@mui/icons-material';
+import {Delete, KeyboardBackspace, Login} from '@mui/icons-material';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import EditableTextField from '../EditableTextField/EditableTextField';
-import ExecutorSelector from '../ExecutorSelector/ExecutorSelector';
+import TaskUserSelector from '../TaskUserSelector/TaskUserSelector';
 import TaskStatusSelector from '../TaskStatusSelector/TaskStatusSelect';
 
 interface TaskPageContentProps {
@@ -39,6 +39,10 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
         .unwrap()
         .then(() => dispatch(showNotification( {message: 'Status has been changed', type: 'success'})))
         .catch(() => dispatch(showNotification( {message: 'Error while change task status', type: 'error'})));
+  };
+
+  const onInspectorChanged = (inspector: UserDto) => {
+    console.log(inspector);
   };
 
   const onSaveHandler = () => {
@@ -139,9 +143,19 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
                 />
 
               </Typography>
-              <Box display={'flex'} justifyContent={'space-between'}>
-                <ExecutorSelector executor={task.executor} onChange={onExecutorChanged}/>
-                <TaskStatusSelector onChange={onStatusChanged} status={task.status}/>
+              <Box display={'flex'} flexDirection={'column'}>
+                <Box display={'flex'}>
+                  <TaskUserSelector current={task.executor} onChange={onExecutorChanged} lable={'Executor'}/>
+                  <TaskStatusSelector onChange={onStatusChanged} status={task.status}/>
+                </Box>
+                <Box>
+                  <TaskUserSelector
+                    current={task.executor}
+                    onChange={onInspectorChanged}
+                    lable={'Inspector'}
+                    fullWidth
+                  />
+                </Box>
               </Box>
             </Box>
             <Typography

@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {FormControl, InputLabel, MenuItem, Select, Tooltip} from '@mui/material';
+import {Box, FormControl, InputLabel, MenuItem, Select, Tooltip} from '@mui/material';
 import {useGetTaskStatusesQuery} from '../../api/taskStatusApi';
 import Loader from '../Loader/Loader';
 import {TaskStatusDto} from '../../types/taskTypes';
@@ -29,28 +29,27 @@ const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({status, onChange}) => 
   }
   if (isSuccess) {
     return (
-      <FormControl variant="standard" sx={{
-        m: 1,
-        minWidth: 120,
-      }}>
-        <InputLabel id="task-status-select">Status</InputLabel>
-        <Tooltip title={'Change status'} placement="top" disableFocusListener>
-          <Select
-            labelId="task-status-select"
-            id="select-status"
-            value={selectedValue ? selectedValue : ''}
-          >
-            {data.map((x) => <MenuItem
-              key={x.id}
-              value={x.id}
-              onClick={() => onClickHandle(x)}
-              disabled={selectedValue == x.id}
+      <Box p={1} sx={{minWidth: 120}}>
+        <FormControl variant="standard" >
+          <InputLabel id="task-status-select">Status</InputLabel>
+          <Tooltip title={'Change status'} placement="top">
+            <Select
+              labelId="task-status-select"
+              id="select-status"
+              value={selectedValue ? selectedValue : ''}
             >
-              {x.name}
-            </MenuItem>)}
-          </Select>
-        </Tooltip>
-      </FormControl>
+              {data.map((x) => <MenuItem
+                key={x.id}
+                value={x.id}
+                onClick={() => onClickHandle(x)}
+                disabled={selectedValue == x.id}
+              >
+                {x.name}
+              </MenuItem>)}
+            </Select>
+          </Tooltip>
+        </FormControl>
+      </Box>
     );
   }
 
