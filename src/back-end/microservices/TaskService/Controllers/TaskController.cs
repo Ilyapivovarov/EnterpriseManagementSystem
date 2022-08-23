@@ -74,6 +74,16 @@ public sealed class TaskController : ControllerBase
     }
     
     /// <summary>
+    ///     Create task
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IActionResult> CreateTask(CreateTaskDto taskInfo)
+    {
+        return await _mediator.Send(new CreateTaskDtoRequest(taskInfo));
+    }
+    
+    /// <summary>
     ///     Update task
     /// </summary>
     /// <returns></returns>

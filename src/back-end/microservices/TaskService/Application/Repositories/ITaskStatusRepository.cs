@@ -10,7 +10,7 @@ public interface ITaskStatusRepository
 
     #region Read methods
 
-    public Task<TaskStatusDbEntity?> GetById(int id);
+    public Task<TaskStatusDbEntity?> GetById(int? id);
 
     public Task<TaskStatusDbEntity?> GetByGuid(Guid guid);
 

@@ -13,7 +13,7 @@ public interface IUserRepository
 
     public Task<UserDbEntity?> GetUserByGuid(Guid guid);
 
-    public Task<UserDbEntity?> GetUserById(int id);
+    public Task<UserDbEntity?> GetUserById(int? id);
 
     public Task<UserDbEntity[]?> GetUsersByPage(int start, int count);
 

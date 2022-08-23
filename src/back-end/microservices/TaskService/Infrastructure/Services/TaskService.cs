@@ -86,7 +86,32 @@ public sealed class TaskService : ITaskService
         catch (Exception e)
         {
             _logger.LogError(e.Message);
-            return new ServiceResult<TaskDbEntity>("Error while updating task executor");
+            return new ServiceResult<TaskDbEntity>("Error while updating task");
+        }
+    }
+
+    public ServiceResult<TaskDbEntity> CreateTask(string name, string? description, UserDbEntity author, TaskStatusDbEntity status,
+        UserDbEntity? executor, UserDbEntity? inspector)
+    {
+        try
+        {
+            var task = new TaskDbEntity
+            {
+                Name = name,
+                Description = description,
+                Created = DateTime.Now,
+                Author = author,
+                Status = status,
+                Executor = executor,
+                Inspector = inspector,
+            };
+            
+            return new ServiceResult<TaskDbEntity>(task);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return new ServiceResult<TaskDbEntity>("Error while creating task");
         }
     }
 }

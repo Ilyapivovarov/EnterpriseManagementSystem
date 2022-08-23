@@ -46,4 +46,7 @@ public interface ITaskService
     /// <param name="description"></param>
     /// <returns></returns>
     public ServiceResult<TaskDbEntity> UpdateTask(TaskDbEntity taskDbEntity, string name, string? description);
+
+    public ServiceResult<TaskDbEntity> CreateTask(string name, string? description, UserDbEntity author,
+        TaskStatusDbEntity status, UserDbEntity? executor, UserDbEntity? inspector);
 }

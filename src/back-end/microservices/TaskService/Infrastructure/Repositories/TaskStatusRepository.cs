@@ -13,7 +13,7 @@ public sealed class TaskStatusRepository : RepositoryBase, ITaskStatusRepository
         return await WriteDataAsync(db => db.TaskStatuses.Add(taskStatusDbEntity));
     }
 
-    public async Task<TaskStatusDbEntity?> GetById(int id)
+    public async Task<TaskStatusDbEntity?> GetById(int? id)
     {
         return await LoadDataAsync(db => db.TaskStatuses
             .FirstOrDefault(x => x.Id == id));
