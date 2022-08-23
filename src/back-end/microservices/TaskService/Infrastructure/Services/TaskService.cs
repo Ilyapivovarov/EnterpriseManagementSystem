@@ -75,6 +75,20 @@ public sealed class TaskService : ITaskService
         }
     }
 
+    public ServiceResult<TaskDbEntity> SetInspector(UserDbEntity inspector, TaskDbEntity task)
+    {
+        try
+        {
+            task.Inspector = inspector;
+            return new ServiceResult<TaskDbEntity>(task);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return new ServiceResult<TaskDbEntity>("Error while updating task executor");
+        }
+    }
+
     public ServiceResult<TaskDbEntity> UpdateTask(TaskDbEntity taskDbEntity, string name, string? description)
     {
         try

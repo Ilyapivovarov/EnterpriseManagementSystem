@@ -55,7 +55,7 @@ public sealed class TaskController : ControllerBase
     /// <returns></returns>
     [HttpPut]
     [Route("status")]
-    public async Task<IActionResult> UpdateTaskStatus(int taskId, int statusId)
+    public async Task<IActionResult> UpdateStatus(int taskId, int statusId)
     {
         return await _mediator.Send(new UpdateTaskStatusRequest(taskId, statusId));
     }
@@ -68,19 +68,16 @@ public sealed class TaskController : ControllerBase
     /// <returns></returns>
     [HttpPut]
     [Route("executor")]
-    public async Task<IActionResult> UpdateTaskExecutor(int taskId, int executorId)
+    public async Task<IActionResult> UpdateExecutor(int taskId, int executorId)
     {
         return await _mediator.Send(new UpdateTaskExecutorRequest(taskId, executorId));
     }
-    
-    /// <summary>
-    ///     Create task
-    /// </summary>
-    /// <returns></returns>
-    [HttpPost]
-    public async Task<IActionResult> CreateTask(CreateTaskDto taskInfo)
+
+    [HttpPut]
+    [Route("inspector")]
+    public async Task<IActionResult> UpdateInspector(SetInspectorRequest updateInspectorRequest)
     {
-        return await _mediator.Send(new CreateTaskDtoRequest(taskInfo));
+        return await _mediator.Send(updateInspectorRequest);
     }
     
     /// <summary>
@@ -91,5 +88,15 @@ public sealed class TaskController : ControllerBase
     public async Task<IActionResult> UpdateTask(UpdatedTaskDto taskInfo)
     {
         return await _mediator.Send(new UpdateTaskRequest(taskInfo));
+    }
+
+    /// <summary>
+    ///     Create task
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IActionResult> CreateTask(CreateTaskDto taskInfo)
+    {
+        return await _mediator.Send(new CreateTaskDtoRequest(taskInfo));
     }
 }

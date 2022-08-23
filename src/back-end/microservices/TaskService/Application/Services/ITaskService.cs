@@ -38,6 +38,8 @@ public interface ITaskService
     public ServiceResult<TaskDbEntity> SetExecutor(UserDbEntity userDbEntity,
         TaskDbEntity taskDbEntity);
 
+    public ServiceResult<TaskDbEntity> SetInspector(UserDbEntity inspector, TaskDbEntity task);
+    
     /// <summary>
     /// Update task and name for task
     /// </summary>
@@ -47,6 +49,16 @@ public interface ITaskService
     /// <returns></returns>
     public ServiceResult<TaskDbEntity> UpdateTask(TaskDbEntity taskDbEntity, string name, string? description);
 
+    /// <summary>
+    /// Create task
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="description"></param>
+    /// <param name="author"></param>
+    /// <param name="status"></param>
+    /// <param name="executor"></param>
+    /// <param name="inspector"></param>
+    /// <returns></returns>
     public ServiceResult<TaskDbEntity> CreateTask(string name, string? description, UserDbEntity author,
         TaskStatusDbEntity status, UserDbEntity? executor, UserDbEntity? inspector);
 }
