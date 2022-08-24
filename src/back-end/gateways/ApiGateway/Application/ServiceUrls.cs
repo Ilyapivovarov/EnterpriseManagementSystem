@@ -121,7 +121,7 @@ public static class ServiceUrls
                 return BaseUrl;
             }
             
-            public static string DeleteTask(string taskId)
+            public static string DeleteTask(int taskId)
             {
                 return $"{BaseUrl}/{taskId}";
             }

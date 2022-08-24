@@ -1,7 +1,7 @@
 namespace ApiGateway.Controllers.TaskService;
 
 [ApiController]
-[Route("[controller]/{taskId}")]
+[Route("[controller]")]
 public sealed class TaskController : ControllerBase
 {
     private readonly ITaskServiceHttpClient _taskServiceHttpClient;
@@ -10,6 +10,8 @@ public sealed class TaskController : ControllerBase
     {
         _taskServiceHttpClient = taskServiceHttpClient;
     }
+
+    #region GET
 
     /// <summary>
     ///     Geting tasks by page
@@ -22,6 +24,34 @@ public sealed class TaskController : ControllerBase
     {
         return await _taskServiceHttpClient.GetTasksByPage(pageNumber, pageSize);
     }
+    
+    /// <summary>
+    ///     Getting by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("{id:int}")]
+    public async Task<IActionResult> GetTaskById(string id)
+    {
+        return await _taskServiceHttpClient.GetTaskByIdAsync(id);
+    }
+
+    /// <summary>
+    ///     Getting task by guid
+    /// </summary>
+    /// <param name="guid"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("{guid:guid}")]
+    public async Task<IActionResult> GetTaskByGuid(string guid)
+    {
+        return await _taskServiceHttpClient.GetTaskByGuidAsync(guid);
+    }
+
+    #endregion
+    
+    #region PUT
 
     /// <summary>
     ///     Update task status
@@ -69,7 +99,11 @@ public sealed class TaskController : ControllerBase
     {
         return await _taskServiceHttpClient.UpdateTaskAsync(updatedTaskDto);
     }
-    
+
+    #endregion
+
+    #region POST
+
     /// <summary>
     ///     Create task
     /// </summary>
@@ -79,16 +113,22 @@ public sealed class TaskController : ControllerBase
     {
         return await _taskServiceHttpClient.CreateTask(taskInfo);
     }
+    
+    #endregion
+
+    #region DELETE
 
     /// <summary>
     ///     Delete task
     /// </summary>
     /// <param name="taskId"></param>
     /// <returns></returns>
-    [HttpPost]
+    [HttpDelete]
     [Route("{taskId:int}")]
-    public async Task<IActionResult> DeleteTask(string taskId)
+    public async Task<IActionResult> DeleteTask(int taskId)
     {
         return await _taskServiceHttpClient.DeleteTask(taskId);
     }
+
+    #endregion
 }

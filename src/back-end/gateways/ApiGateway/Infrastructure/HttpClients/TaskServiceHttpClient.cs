@@ -74,7 +74,7 @@ public sealed class TaskServiceHttpClient : HttpClientBase, ITaskServiceHttpClie
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
-    public async Task<IActionResult> DeleteTask(string taskId)
+    public async Task<IActionResult> DeleteTask(int taskId)
     {
         var response = await _client.DeleteAsync(ServiceUrls.TaskApi.TaskController.DeleteTask(taskId));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
