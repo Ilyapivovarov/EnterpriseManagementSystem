@@ -3,7 +3,8 @@ import {InputLabel, TextField, Typography} from '@mui/material';
 
 interface EditableTextFieldProps {
   id: string,
-  variant: 'standard' | 'outlined'
+  variant: 'standard' | 'outlined',
+  onChange?: (value? : string) => void
   lable?: string,
   multiline: boolean,
   fullWidth: boolean,
@@ -14,16 +15,20 @@ interface EditableTextFieldProps {
 
 const EditableTextField: React.FC<EditableTextFieldProps> = ({isEditable,
   value, id, lable,
-  fullWidth, multiline, variant, placeholder}) => {
+  fullWidth, multiline, variant, placeholder, onChange}) => {
   const [newValue, setNewValue] = React.useState<string>(value ? value : '');
 
   React.useEffect(() => {
     setNewValue(value ? value : '');
   }, [isEditable]);
 
-  const onChange = (e : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const onChangeHandler = (e : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.preventDefault();
-    setNewValue(e.target.value);
+    const value = e.target.value;
+    setNewValue(value);
+    if (onChange) {
+      onChange(value);
+    }
   };
 
   return (
@@ -33,7 +38,7 @@ const EditableTextField: React.FC<EditableTextFieldProps> = ({isEditable,
           style={{marginLeft: '10px'}}
           id={id}
           label={lable}
-          onChange={onChange}
+          onChange={onChangeHandler}
           multiline={multiline}
           value={newValue}
           minRows={5}

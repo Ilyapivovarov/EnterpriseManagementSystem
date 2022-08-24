@@ -6,29 +6,54 @@ import SaveIcon from '@mui/icons-material/Save';
 import EditableTextField from '../../components/EditableTextField/EditableTextField';
 import TaskUserSelector from '../../components/TaskUserSelector/TaskUserSelector';
 import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelector';
-import {useAppDispatch} from '../../hooks';
-import {TaskStatusDto, UserDto} from '../../types/taskTypes';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {CreateTaskDto, TaskStatusDto, UserDto} from '../../types/taskTypes';
+import {useCreateTaskMutation} from '../../api/taskApi';
 
 interface CreateTaskPageProps {
+}
+
+interface CreateTaskModel {
+  name?: string,
+  description?: string,
+  authorGuid: string,
+  statusId?: number,
+  executorId?: number,
+  inspectorId?: number,
 }
 
 const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
   const dispatch = useAppDispatch();
 
+  const [createTask] = useCreateTaskMutation();
+  const {currentSession} = useAppSelector((x) => x.authReducer);
+
+
+  const [task, setTask] = React.useState<CreateTaskModel>({authorGuid: currentSession!.userGuid, statusId: 1});
+
   const onSaveHandler = () => {
-    console.log('save task');
+    if (task.name && task.statusId) {
+      createTask({
+        authorGuid: task.authorGuid,
+        name: task.name,
+        inspectorId: task.inspectorId,
+        description: task.description,
+        statusId: task.statusId,
+        executorId: task.executorId,
+      });
+    }
   };
 
   const onExecutorChanged = (executor: UserDto | null) => {
-    console.log(executor);
+    setTask({...task, executorId: executor?.id});
   };
 
   const onStatusChanged = (status: TaskStatusDto) => {
-    console.log(status);
+    setTask({...task, statusId: status?.id});
   };
 
   const onInspectorChanged = (inspector: UserDto | null) => {
-    console.log(inspector);
+    setTask({...task, inspectorId: inspector?.id});
   };
 
   return (
@@ -70,6 +95,7 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
                 <EditableTextField
                   id={'task-name'}
                   lable={'Name'}
+                  onChange={(value) => setTask({...task, name: value}) }
                   isEditable={true}
                   fullWidth={false}
                   multiline={false}
@@ -90,7 +116,6 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
                   />
                   <TaskStatusSelector
                     onChange={onStatusChanged}
-
                   />
                 </Box>
                 <Box>
@@ -111,6 +136,7 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
               <EditableTextField
                 id={'task-description'}
                 lable={'Description'}
+                onChange={(value) => setTask({...task, description: value}) }
                 isEditable={true}
                 fullWidth={true}
                 multiline={true}

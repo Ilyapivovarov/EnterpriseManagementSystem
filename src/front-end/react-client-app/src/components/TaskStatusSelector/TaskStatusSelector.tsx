@@ -11,11 +11,7 @@ interface TaskStatusSelectorProps {
 
 const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({status, onChange}) => {
   const {isLoading, data, isSuccess, error} = useGetTaskStatusesQuery();
-  const [selectedValue, setSelectedValue] = useState<number | undefined>(status?.id);
-
-  React.useEffect(() => {
-    setSelectedValue(status?.id);
-  }, [status]);
+  const [selectedValue, setSelectedValue] = useState<number>(status ? status.id : 1);
 
   const onClickHandle = (value: TaskStatusDto) => {
     if (value.id != selectedValue) {

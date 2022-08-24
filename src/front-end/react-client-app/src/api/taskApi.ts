@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {TaskDto} from '../types/taskTypes';
+import {CreateTaskDto, TaskDto} from '../types/taskTypes';
 import {RootState, store} from '../store';
 import {resetAuthState} from '../store/AuthReducer/AuthActionCreators';
 import {BaseUrl} from '../helpers/Constants';
@@ -26,13 +26,19 @@ export const taskApi = createApi({
       providesTags: ['task'],
     }),
     getTasksByPage: build.query<TaskDto[], { pageNumber: number, pageSize: number }>({
-      query: ({pageNumber, pageSize}) => ({
+      query: ({
+        pageNumber,
+        pageSize,
+      }) => ({
         url: `/task?pageNumber=${pageNumber}&pageSize=${pageSize}`,
       }),
       providesTags: ['task'],
     }),
-    updateTaskStatus: build.mutation<void, {taskId: number, statusId: number}>({
-      query: ({taskId, statusId}) => ({
+    updateTaskStatus: build.mutation<void, { taskId: number, statusId: number }>({
+      query: ({
+        taskId,
+        statusId,
+      }) => ({
         url: `/task/status`,
         method: 'PUT',
         body: {
@@ -42,8 +48,11 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
-    updateTaskExecutor: build.mutation<void, {taskId: number, executorId?: number}>({
-      query: ({taskId, executorId}) => ({
+    updateTaskExecutor: build.mutation<void, { taskId: number, executorId?: number }>({
+      query: ({
+        taskId,
+        executorId,
+      }) => ({
         url: `/task/executor`,
         method: 'PUT',
         body: {
@@ -53,8 +62,11 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
-    setInspector: build.mutation<void, {taskId: number, inspectorId?: number}>({
-      query: ({taskId, inspectorId}) => ({
+    setInspector: build.mutation<void, { taskId: number, inspectorId?: number }>({
+      query: ({
+        taskId,
+        inspectorId,
+      }) => ({
         url: `/task/inspector`,
         method: 'PUT',
         body: {
@@ -64,7 +76,7 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
-    updateTask: build.mutation<void, {id: number, guid: string, name: string, description?: string}>({
+    updateTask: build.mutation<void, { id: number, guid: string, name: string, description?: string }>({
       query: (arg) => ({
         url: `/task/`,
         method: 'PUT',
@@ -74,7 +86,17 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
-    removeTask: build.mutation<void, {id: number}>({
+    createTask: build.mutation<void, CreateTaskDto>({
+      query: (arg) => ({
+        url: `/task/`,
+        method: 'POST',
+        body: {
+          ...arg,
+        },
+      }),
+      invalidatesTags: ['task'],
+    }),
+    removeTask: build.mutation<void, { id: number }>({
       query: (arg) => ({
         url: `/task/`,
         method: 'DELETE',
@@ -87,9 +109,12 @@ export const taskApi = createApi({
   }),
 });
 
-export const {useGetTaskByIdQuery,
+export const {
+  useGetTaskByIdQuery,
   useGetTasksByPageQuery,
   useUpdateTaskStatusMutation,
   useUpdateTaskExecutorMutation,
   useUpdateTaskMutation,
-  useSetInspectorMutation} = taskApi;
+  useSetInspectorMutation,
+  useCreateTaskMutation,
+} = taskApi;
