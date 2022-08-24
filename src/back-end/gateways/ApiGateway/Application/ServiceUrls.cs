@@ -120,6 +120,11 @@ public static class ServiceUrls
             {
                 return BaseUrl;
             }
+            
+            public static string DeleteTask(string taskId)
+            {
+                return $"{BaseUrl}/{taskId}";
+            }
         }
 
         public static class TaskStatusesController

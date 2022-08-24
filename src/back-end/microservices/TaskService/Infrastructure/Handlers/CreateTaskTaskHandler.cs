@@ -26,9 +26,9 @@ public sealed class CreateTaskTaskHandler : RequestHandlerBase<CreateTaskDtoRequ
     {
         try
         { 
-            var (name, description, authorId, statusId, executorId, inspectorId) = request.CreateTaskDto;
+            var (name, description, authorGuid, statusId, executorId, inspectorId) = request.CreateTaskDto;
             
-            var author = await _userRepository.GetUserById(authorId);
+            var author = await _userRepository.GetUserByIdentityGuid(authorGuid);
             if (author == null)
                 return NotFound("Not found author");
 

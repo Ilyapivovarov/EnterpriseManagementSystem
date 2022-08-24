@@ -23,4 +23,5 @@ public interface ITaskServiceHttpClient
     public Task<IActionResult> SetInpector(SetInspectorDto setInspectorDto);
 
     public Task<IActionResult> CreateTask(CreateTaskDto createTaskDto);
+    public Task<IActionResult> DeleteTask(string taskId);
 }

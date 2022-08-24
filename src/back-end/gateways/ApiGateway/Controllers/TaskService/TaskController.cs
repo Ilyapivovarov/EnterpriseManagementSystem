@@ -1,7 +1,7 @@
 namespace ApiGateway.Controllers.TaskService;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/{taskId}")]
 public sealed class TaskController : ControllerBase
 {
     private readonly ITaskServiceHttpClient _taskServiceHttpClient;
@@ -12,7 +12,7 @@ public sealed class TaskController : ControllerBase
     }
 
     /// <summary>
-    ///     Geting task by guid
+    ///     Geting tasks by page
     /// </summary>
     /// <param name="pageNumber"></param>
     /// <param name="pageSize"></param>
@@ -78,5 +78,17 @@ public sealed class TaskController : ControllerBase
     public async Task<IActionResult> CreateTask(CreateTaskDto taskInfo)
     {
         return await _taskServiceHttpClient.CreateTask(taskInfo);
+    }
+
+    /// <summary>
+    ///     Delete task
+    /// </summary>
+    /// <param name="taskId"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [Route("{taskId:int}")]
+    public async Task<IActionResult> DeleteTask(string taskId)
+    {
+        return await _taskServiceHttpClient.DeleteTask(taskId);
     }
 }

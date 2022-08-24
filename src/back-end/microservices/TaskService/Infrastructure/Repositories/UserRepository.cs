@@ -18,6 +18,11 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
         return await LoadDataAsync(db => db.Users.FirstOrDefault(x => x.Guid == guid));
     }
 
+    public async Task<UserDbEntity?> GetUserByIdentityGuid(Guid guid)
+    {
+        return await LoadDataAsync(db => db.Users.FirstOrDefault(x => x.IdentityGuid == guid));
+    }
+
     public async Task<UserDbEntity?> GetUserById(int? id)
     {
         return await LoadDataAsync(db => db.Users.FirstOrDefault(x => x.Id == id));

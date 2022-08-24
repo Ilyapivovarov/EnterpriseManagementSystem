@@ -9,6 +9,7 @@ import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSe
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {CreateTaskDto, TaskStatusDto, UserDto} from '../../types/taskTypes';
 import {useCreateTaskMutation} from '../../api/taskApi';
+import {useNavigate} from 'react-router-dom';
 
 interface CreateTaskPageProps {
 }
@@ -23,11 +24,10 @@ interface CreateTaskModel {
 }
 
 const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [createTask] = useCreateTaskMutation();
   const {currentSession} = useAppSelector((x) => x.authReducer);
-
 
   const [task, setTask] = React.useState<CreateTaskModel>({authorGuid: currentSession!.userGuid, statusId: 1});
 
@@ -40,7 +40,9 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
         description: task.description,
         statusId: task.statusId,
         executorId: task.executorId,
-      });
+      })
+          .unwrap()
+          .then((x) => navigate(`/tasks/${x}`));
     }
   };
 

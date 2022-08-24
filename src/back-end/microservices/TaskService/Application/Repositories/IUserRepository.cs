@@ -12,6 +12,7 @@ public interface IUserRepository
     #region Read methods
 
     public Task<UserDbEntity?> GetUserByGuid(Guid guid);
+    public Task<UserDbEntity?> GetUserByIdentityGuid(Guid guid);
 
     public Task<UserDbEntity?> GetUserById(int? id);
 
