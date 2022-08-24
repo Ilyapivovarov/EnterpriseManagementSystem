@@ -30,7 +30,7 @@ const TaskStatusSelector: FC<TaskStatusSelectorProps> = ({status, onChange}) => 
   if (isSuccess) {
     return (
       <Box p={1} sx={{minWidth: 120}}>
-        <FormControl variant="standard" >
+        <FormControl fullWidth variant="standard" >
           <InputLabel id="task-status-select">Status</InputLabel>
           <Tooltip title={'Change status'} placement="top">
             <Select
