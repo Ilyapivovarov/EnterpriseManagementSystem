@@ -5,7 +5,7 @@ import {useLazyGetUsersByPageQuery} from '../../api/taskUserApi';
 
 interface TaskUserSelectorProps {
   current?: UserDto,
-  onChange: (executor: UserDto) => void;
+  onChange: (executor: UserDto | null) => void;
   fullWidth?: boolean,
   lable: string,
 }
@@ -26,7 +26,7 @@ const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, l
   const [page, setPage] = React.useState(1);
   const [executors, setExecutors] = React.useState<UserDto[]>(current ? [current] : []);
 
-  const [executorId, setExecutorId] = React.useState<number | undefined>(current?.id);
+  const [executorId, setExecutorId] = React.useState<number>(current ? current.id : 0);
   const [hasExecutorsFlag, setHasExecutorsFlag] = React.useState(true);
 
   const fetchExecutors = () => {
@@ -48,9 +48,9 @@ const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, l
     fetchExecutors();
   }, [page]);
 
-  const handleChange = (value : UserDto) => {
-    if (executorId != value.id) {
-      setExecutorId(value.id);
+  const handleChange = (value : UserDto | null) => {
+    if (executorId != value?.id) {
+      setExecutorId(value ? value.id : 0);
       onChange(value);
     }
   };
@@ -70,7 +70,7 @@ const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, l
           variant="standard"
           id="task-executor-selector"
           multiline
-          value={executorId ? executorId : ''}
+          value={executorId}
           MenuProps={
             {style: {maxHeight: 150, width: 250},
               PaperProps: {
@@ -78,6 +78,14 @@ const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, l
               }}
           }
         >
+          <MenuItem
+            key={'empty'}
+            value={0}
+            disabled={executorId == 0}
+            onClick={() => handleChange(null)}
+          >
+            Nobody
+          </MenuItem>
           {executors.map((x, key) => (
             <MenuItem
               key={key}

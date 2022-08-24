@@ -5,7 +5,7 @@ import PageWrapper from '../../components/PageWrapper/PageWrapper';
 import SaveIcon from '@mui/icons-material/Save';
 import EditableTextField from '../../components/EditableTextField/EditableTextField';
 import TaskUserSelector from '../../components/TaskUserSelector/TaskUserSelector';
-import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelect';
+import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelector';
 import {useAppDispatch} from '../../hooks';
 import {TaskStatusDto, UserDto} from '../../types/taskTypes';
 
@@ -19,12 +19,16 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
     console.log('save task');
   };
 
-  const onExecutorChanged = (executor: UserDto) => {
+  const onExecutorChanged = (executor: UserDto | null) => {
     console.log(executor);
   };
 
   const onStatusChanged = (status: TaskStatusDto) => {
     console.log(status);
+  };
+
+  const onInspectorChanged = (inspector: UserDto | null) => {
+    console.log(inspector);
   };
 
   return (
@@ -73,9 +77,29 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
                 />
 
               </Typography>
-              <Box display={'flex'} justifyContent={'space-between'}>
-                <TaskUserSelector lable={'Executor'} onChange={onExecutorChanged}/>
-                <TaskStatusSelector onChange={onStatusChanged}/>
+              <Box
+                display={'flex'}
+                flexDirection={'column'}
+                borderLeft={'solid 1px'}
+                borderColor={'lightgray'}
+              >
+                <Box display={'flex'}>
+                  <TaskUserSelector
+                    onChange={onExecutorChanged}
+                    lable={'Executor'}
+                  />
+                  <TaskStatusSelector
+                    onChange={onStatusChanged}
+
+                  />
+                </Box>
+                <Box>
+                  <TaskUserSelector
+                    onChange={onInspectorChanged}
+                    lable={'Inspector'}
+                    fullWidth
+                  />
+                </Box>
               </Box>
             </Box>
             <Typography

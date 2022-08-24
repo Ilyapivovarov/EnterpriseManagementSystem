@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  useSetInspectorMutation,
-  useUpdateTaskExecutorMutation,
-  useUpdateTaskMutation,
-  useUpdateTaskStatusMutation,
-} from '../../api/taskApi';
+import {useSetInspectorMutation, useUpdateTaskExecutorMutation, useUpdateTaskMutation, useUpdateTaskStatusMutation} from '../../api/taskApi';
 import {TaskDto, TaskStatusDto, UserDto} from '../../types/taskTypes';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
@@ -17,7 +12,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import EditableTextField from '../EditableTextField/EditableTextField';
 import TaskUserSelector from '../TaskUserSelector/TaskUserSelector';
-import TaskStatusSelector from '../TaskStatusSelector/TaskStatusSelect';
+import TaskStatusSelector from '../TaskStatusSelector/TaskStatusSelector';
 
 interface TaskPageContentProps {
   task: TaskDto,
@@ -33,8 +28,8 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
 
   const [editMode, setEditMode] = React.useState(false);
 
-  const onExecutorChanged = (executor: UserDto) => {
-    updateTaskExecutor({taskId: task.id, executorId: executor.id})
+  const onExecutorChanged = (executor: UserDto | null) => {
+    updateTaskExecutor({taskId: task.id, executorId: executor?.id})
         .unwrap()
         .then(() => dispatch(showNotification({message: 'Executor has been changed', type: 'success'})))
         .catch(() => dispatch(showNotification({message: 'Error while change executor', type: 'error'})));
@@ -47,8 +42,9 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
         .catch(() => dispatch(showNotification( {message: 'Error while change task status', type: 'error'})));
   };
 
-  const onInspectorChanged = (inspector: UserDto) => {
-    setInspector({taskId: task.id, inspectorId: inspector.id}).unwrap()
+  const onInspectorChanged = (inspector: UserDto | null) => {
+    setInspector({taskId: task.id, inspectorId: inspector?.id})
+        .unwrap()
         .then(() => dispatch(showNotification( {message: 'Inspector has been changed', type: 'success'})))
         .catch(() => dispatch(showNotification( {message: 'Error while change inspector', type: 'error'})));
   };

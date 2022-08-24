@@ -42,7 +42,7 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
-    updateTaskExecutor: build.mutation<void, {taskId: number, executorId: number}>({
+    updateTaskExecutor: build.mutation<void, {taskId: number, executorId?: number}>({
       query: ({taskId, executorId}) => ({
         url: `/task/executor`,
         method: 'PUT',
@@ -53,7 +53,7 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
-    setInspector: build.mutation<void, {taskId: number, inspectorId: number}>({
+    setInspector: build.mutation<void, {taskId: number, inspectorId?: number}>({
       query: ({taskId, inspectorId}) => ({
         url: `/task/inspector`,
         method: 'PUT',
