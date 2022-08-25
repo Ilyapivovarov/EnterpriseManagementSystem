@@ -96,13 +96,10 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
-    removeTask: build.mutation<void, { id: number }>({
+    removeTask: build.mutation<void, number>({
       query: (arg) => ({
-        url: `/task/`,
+        url: `/task/${arg}`,
         method: 'DELETE',
-        body: {
-          ...arg,
-        },
       }),
       invalidatesTags: ['task'],
     }),
@@ -117,4 +114,5 @@ export const {
   useUpdateTaskMutation,
   useSetInspectorMutation,
   useCreateTaskMutation,
+  useRemoveTaskMutation,
 } = taskApi;

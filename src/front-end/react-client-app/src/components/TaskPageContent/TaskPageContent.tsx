@@ -1,5 +1,11 @@
 import React from 'react';
-import {useSetInspectorMutation, useUpdateTaskExecutorMutation, useUpdateTaskMutation, useUpdateTaskStatusMutation} from '../../api/taskApi';
+import {
+  useRemoveTaskMutation,
+  useSetInspectorMutation,
+  useUpdateTaskExecutorMutation,
+  useUpdateTaskMutation,
+  useUpdateTaskStatusMutation,
+} from '../../api/taskApi';
 import {TaskDto, TaskStatusDto, UserDto} from '../../types/taskTypes';
 import {useAppDispatch} from '../../hooks';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
@@ -13,6 +19,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditableTextField from '../EditableTextField/EditableTextField';
 import TaskUserSelector from '../TaskUserSelector/TaskUserSelector';
 import TaskStatusSelector from '../TaskStatusSelector/TaskStatusSelector';
+import {useNavigate} from 'react-router-dom';
 
 interface TaskPageContentProps {
   task: TaskDto,
@@ -20,9 +27,11 @@ interface TaskPageContentProps {
 
 const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [updateTaskExecutor] = useUpdateTaskExecutorMutation();
   const [updateTaskStatus] = useUpdateTaskStatusMutation();
+  const [removeTask] = useRemoveTaskMutation();
   const [setInspector] = useSetInspectorMutation();
   const [updateTask] = useUpdateTaskMutation();
 
@@ -69,7 +78,9 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
   };
 
   const onDeleteHandler = () => {
-    console.log('delete task');
+    removeTask(task.id)
+        .unwrap()
+        .then(() => navigate('/tasks'));
   };
 
   return (
