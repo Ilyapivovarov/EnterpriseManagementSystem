@@ -1,4 +1,4 @@
-namespace TaskService.Infrastructure.Handlers;
+namespace TaskService.Infrastructure.Handlers.TaskStatusController;
 
 public sealed class GetAllStatusesHandler : RequestHandlerBase<GetAllTaskStatusesRequest>
 {

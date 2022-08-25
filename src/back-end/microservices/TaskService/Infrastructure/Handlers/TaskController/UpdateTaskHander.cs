@@ -1,6 +1,4 @@
-using TaskService.Core.DbEntities.Builders;
-
-namespace TaskService.Infrastructure.Handlers;
+namespace TaskService.Infrastructure.Handlers.TaskController;
 
 public sealed class UpdateTaskHander : RequestHandlerBase<UpdateTaskRequest>
 {

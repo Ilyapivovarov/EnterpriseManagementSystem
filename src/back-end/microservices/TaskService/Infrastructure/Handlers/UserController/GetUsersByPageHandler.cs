@@ -1,4 +1,4 @@
-namespace TaskService.Infrastructure.Handlers;
+namespace TaskService.Infrastructure.Handlers.UserController;
 
 public sealed class GetUsersByPageHandler : RequestHandlerBase<GetUsersByPageRequest>
 {

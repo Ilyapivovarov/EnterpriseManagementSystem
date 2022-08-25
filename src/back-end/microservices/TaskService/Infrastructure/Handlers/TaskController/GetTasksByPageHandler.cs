@@ -1,6 +1,4 @@
-using ILogger = Castle.Core.Logging.ILogger;
-
-namespace TaskService.Infrastructure.Handlers;
+namespace TaskService.Infrastructure.Handlers.TaskController;
 
 public sealed class GetTasksByPageHandler : RequestHandlerBase<GetTasksByPageRequest>
 {

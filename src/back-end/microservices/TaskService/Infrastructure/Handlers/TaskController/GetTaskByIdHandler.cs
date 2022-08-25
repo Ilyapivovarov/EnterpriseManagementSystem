@@ -1,4 +1,4 @@
-namespace TaskService.Infrastructure.Handlers;
+namespace TaskService.Infrastructure.Handlers.TaskController;
 
 public sealed class GetTaskByIdHandler : RequestHandlerBase<GetTaskByIdRequest>
 {
