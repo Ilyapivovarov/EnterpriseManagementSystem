@@ -39,4 +39,9 @@ public sealed class TaskRepository : RepositoryBase, ITaskRepository
     {
         return await WriteDataAsync(db => db.Tasks.Add(taskDbEntity));
     }
+
+    public async Task<bool> DeleteAsync(TaskDbEntity task)
+    {
+        return await WriteDataAsync(db => db.Tasks.Remove(task));
+    }
 }

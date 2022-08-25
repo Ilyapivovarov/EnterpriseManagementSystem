@@ -104,4 +104,20 @@ public sealed class TaskController : ControllerBase
     {
         return await _mediator.Send(new CreateTaskDtoRequest(taskInfo));
     }
+    
+    #region DELETE
+
+    /// <summary>
+    ///     Delete task
+    /// </summary>
+    /// <param name="taskId"></param>
+    /// <returns></returns>
+    [HttpDelete]
+    [Route("{taskId:int}")]
+    public async Task<IActionResult> DeleteTask(int taskId)
+    {
+        return await _mediator.Send(new DeleteTaskRequest(taskId));
+    }
+
+    #endregion
 }

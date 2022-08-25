@@ -6,6 +6,10 @@ public sealed class TaskController : ControllerBase
 {
     private readonly ITaskServiceHttpClient _taskServiceHttpClient;
 
+    /// <summary>
+    /// Consructor
+    /// </summary>
+    /// <param name="taskServiceHttpClient"></param>
     public TaskController(ITaskServiceHttpClient taskServiceHttpClient)
     {
         _taskServiceHttpClient = taskServiceHttpClient;

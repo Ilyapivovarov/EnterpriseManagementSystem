@@ -46,5 +46,7 @@ public interface ITaskRepository
     /// <returns></returns>
     public Task<bool> SaveTaskAsync(TaskDbEntity taskDbEntity);
 
+    public Task<bool> DeleteAsync(TaskDbEntity task);
+
     #endregion
 }
