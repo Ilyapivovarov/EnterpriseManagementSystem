@@ -11,20 +11,9 @@ import {TaskStatusDto, UserDto} from '../../types/taskTypes';
 import {useCreateTaskMutation} from '../../api/taskApi';
 import {useNavigate} from 'react-router-dom';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
+import {CreateTaskModel} from './types';
 
-interface CreateTaskPageProps {
-}
-
-export interface CreateTaskModel {
-  name?: string,
-  description?: string,
-  authorGuid: string,
-  statusId?: number,
-  executorId?: number,
-  inspectorId?: number,
-}
-
-const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
+const CreateTaskPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

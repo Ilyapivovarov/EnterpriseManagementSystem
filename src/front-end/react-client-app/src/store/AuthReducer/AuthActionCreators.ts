@@ -21,14 +21,11 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
       }
 
       console.log('Trying update token');
-      const controller = new AbortController();
-
       const response = await fetch(`${baseUrl}/auth/refresh/${session.refreshToken}`, {
         method: 'PUT',
         headers: {
           'content-type': 'application/json;charset=UTF-8',
         },
-        signal: controller.signal,
       });
 
       if (!response.ok) {
