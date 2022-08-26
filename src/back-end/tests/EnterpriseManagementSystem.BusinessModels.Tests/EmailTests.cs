@@ -9,18 +9,18 @@ public class EmailTests
     [Test]
     public void TryParse_SuccessScenario()
     {
-        Assert.DoesNotThrow(() => Email.TryParse("admin@google.com"));
+        Assert.DoesNotThrow(() => EmailAddress.TryParse("admin@google.com"));
     }
     
     [Test]
     public void TryParse_ArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => Email.TryParse(null));
+        Assert.Throws<ArgumentNullException>(() => EmailAddress.TryParse(null));
     }
     
     [Test]
     public void TryParse_ArgumentException()
     {
-        Assert.Throws<ArgumentException>(() => Email.TryParse("adm$in@goo$gle.com"));
+        Assert.Throws<ArgumentException>(() => EmailAddress.TryParse("adm$in@goo$gle.com"));
     }
 }
