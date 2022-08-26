@@ -4,6 +4,8 @@ import {Box, Button, Card, CardActionArea, CardContent, FormControl, InputLabel,
 import {useNavigate} from 'react-router-dom';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
+import './TaskList.css';
+
 interface TaskListProps {
     tasks: TaskDto[]
 }
@@ -82,8 +84,8 @@ const TaskList: React.FC<TaskListProps> = ({tasks}) => {
                         task.description}
                     </Typography>
                   </Box>
-                  <Box style={{height: '50px'}}>
-                    <Typography variant="h6" component="div">
+                  <Box >
+                    <Typography className={`task-status ${task.status.name.toLowerCase()}-status`} variant="h6" component="div">
                       {task.status.name}
                     </Typography>
                   </Box>
