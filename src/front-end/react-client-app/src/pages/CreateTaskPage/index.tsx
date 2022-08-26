@@ -7,14 +7,15 @@ import EditableTextField from '../../components/EditableTextField/EditableTextFi
 import TaskUserSelector from '../../components/TaskUserSelector/TaskUserSelector';
 import TaskStatusSelector from '../../components/TaskStatusSelector/TaskStatusSelector';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {CreateTaskDto, TaskStatusDto, UserDto} from '../../types/taskTypes';
+import {TaskStatusDto, UserDto} from '../../types/taskTypes';
 import {useCreateTaskMutation} from '../../api/taskApi';
 import {useNavigate} from 'react-router-dom';
+import {showNotification} from '../../store/NotificationReduser/notificationReduser';
 
 interface CreateTaskPageProps {
 }
 
-interface CreateTaskModel {
+export interface CreateTaskModel {
   name?: string,
   description?: string,
   authorGuid: string,
@@ -24,12 +25,17 @@ interface CreateTaskModel {
 }
 
 const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [createTask] = useCreateTaskMutation();
   const {currentSession} = useAppSelector((x) => x.authReducer);
 
-  const [task, setTask] = React.useState<CreateTaskModel>({authorGuid: currentSession!.userGuid, statusId: 1});
+  const [isError, setErrorText] = React.useState({isError: false, errorMessage: ''});
+  const [task, setTask] = React.useState<CreateTaskModel>({
+    authorGuid: currentSession!.userGuid,
+    statusId: 1,
+  });
 
   const onSaveHandler = () => {
     if (task.name && task.statusId) {
@@ -43,6 +49,9 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
       })
           .unwrap()
           .then((x) => navigate(`/tasks/${x}`));
+    } else {
+      setErrorText({isError: true, errorMessage: 'Please, enter name'});
+      dispatch(showNotification({type: 'error', message: 'Please fill in the required fields '}));
     }
   };
 
@@ -95,9 +104,19 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = (props) => {
                 paddingLeft={1}
               >
                 <EditableTextField
+                  required
+                  error={isError.isError}
+                  errorMessage={isError.errorMessage}
                   id={'task-name'}
                   lable={'Name'}
-                  onChange={(value) => setTask({...task, name: value}) }
+                  onChange={(value) => {
+                    if (!value) {
+                      setErrorText({isError: true, errorMessage: 'Please, enter name'});
+                    } else {
+                      setErrorText({isError: false, errorMessage: ''});
+                    }
+                    setTask({...task, name: value});
+                  }}
                   isEditable={true}
                   fullWidth={false}
                   multiline={false}

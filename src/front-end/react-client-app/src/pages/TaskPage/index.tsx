@@ -13,7 +13,7 @@ const TaskPage: React.FC = () => {
     return <Loader/>;
   }
   if (isSuccess) {
-    return (<TaskPageContent task={data}/>);
+    return (<TaskPageContent taskDto={data}/>);
   }
 
   return <>{JSON.parse(JSON.stringify(error)).data}</>;

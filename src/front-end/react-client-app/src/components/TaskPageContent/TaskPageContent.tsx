@@ -22,10 +22,10 @@ import TaskStatusSelector from '../TaskStatusSelector/TaskStatusSelector';
 import {useNavigate} from 'react-router-dom';
 
 interface TaskPageContentProps {
-  task: TaskDto,
+  taskDto: TaskDto,
 }
 
-const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
+const TaskPageContent: React.FC<TaskPageContentProps> = ({taskDto}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -35,6 +35,8 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
   const [setInspector] = useSetInspectorMutation();
   const [updateTask] = useUpdateTaskMutation();
 
+  const [task, setTask] = React.useState(taskDto);
+  const [isError, setErrorText] = React.useState({isError: false, errorMessage: ''});
   const [editMode, setEditMode] = React.useState(false);
 
   const onExecutorChanged = (executor: UserDto | null) => {
@@ -59,22 +61,23 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
   };
 
   const onSaveHandler = () => {
-    const taskNameElem = document.getElementById('task-name') as HTMLInputElement;
-    const taskDescriptionElem = document.getElementById('task-description') as HTMLInputElement;
-
-    if (taskNameElem.value != task.name || taskDescriptionElem.value != task.description) {
+    if ((task.name != taskDto.name ||
+        task.description != taskDto.description) &&
+      (task.name != '')) {
       updateTask({
         id: task.id, guid: task.guid,
-        name: taskNameElem.value, description: taskDescriptionElem.value,
+        name: task.name, description: task.description,
       })
           .unwrap()
           .then(() => {
             dispatch(showNotification({message: 'Task has been updated', type: 'success'}));
+            setEditMode(false);
+            setErrorText({isError: false, errorMessage: ''});
           })
           .catch(() => dispatch(showNotification({message: 'Error while update task', type: 'error'})));
+    } else {
+      setErrorText({isError: true, errorMessage: 'Please, enter name'});
     }
-
-    setEditMode(false);
   };
 
   const onDeleteHandler = () => {
@@ -150,8 +153,18 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
                 <EditableTextField
                   id={'task-name'}
                   lable={'Name'}
+                  errorMessage={isError.errorMessage}
+                  error={isError.isError}
                   isEditable={editMode}
                   value={task.name}
+                  onChange={(value) => {
+                    if (!value) {
+                      setErrorText({isError: true, errorMessage: 'Please, enter name'});
+                    } else {
+                      setErrorText({isError: false, errorMessage: ''});
+                    }
+                    setTask({...task, name: value ? value : ''});
+                  }}
                   fullWidth={false}
                   multiline={false}
                   variant={'outlined'}
@@ -196,6 +209,9 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({task}) => {
                 lable={'Description'}
                 isEditable={editMode}
                 value={task.description}
+                onChange={(value) => {
+                  setTask({...task, description: value ? value : ''});
+                }}
                 fullWidth={true}
                 multiline={true}
                 placeholder={'This task has no description'}

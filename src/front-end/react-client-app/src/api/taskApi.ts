@@ -6,7 +6,7 @@ import {BaseUrl} from '../helpers/Constants';
 
 export const taskApi = createApi({
   reducerPath: 'taskApi',
-  tagTypes: ['task'],
+  tagTypes: ['task', 'taskDelete'],
   baseQuery: fetchBaseQuery({
     baseUrl: `${BaseUrl}`,
     prepareHeaders: async (headers, {getState}) => {
@@ -32,7 +32,7 @@ export const taskApi = createApi({
       }) => ({
         url: `/task?pageNumber=${pageNumber}&pageSize=${pageSize}`,
       }),
-      providesTags: ['task'],
+      providesTags: ['task', 'taskDelete'],
     }),
     updateTaskStatus: build.mutation<void, { taskId: number, statusId: number }>({
       query: ({
@@ -101,7 +101,7 @@ export const taskApi = createApi({
         url: `/task/${arg}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['task'],
+      invalidatesTags: ['taskDelete'],
     }),
   }),
 });
