@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
-using System.Text.Json;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.JwtAuthorization;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
-using TaskService.Application.DbContexts;
+using TaskService.Application.Repositories;
 using TaskService.Core.DbEntities;
 using TaskService.Infrastructure.DbContexts;
 
@@ -21,31 +20,17 @@ namespace TaskService.FunctionalTests.Base;
 
 public abstract class TestBase
 {
-    private ITaskDbContext? _taskContext;
-
     protected TestBase()
     {
         Server = CreateTestServer();
-        JsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
+        HttpClient = Server.CreateClient();
     }
 
-    protected TestServer Server { get; set; }
+    protected virtual string Environment => "Testing";
 
-    protected ITaskDbContext TaskDbContext
-        => _taskContext ??= Server.Services.GetRequiredService<ITaskDbContext>();
+    protected HttpClient HttpClient { get; }
 
-    protected JsonSerializerOptions JsonSerializerOptions { get; }
-
-    protected UserDbEntity DefaultUser { get; private set; } = null!;
-
-    protected string? AccessToken { get; private set; }
-
-    protected void RefreshServer()
-    {
-        Server = CreateTestServer();
-        DefaultUser = TaskDbContext.Users.First();
-        AccessToken = GenerateAccessToken(DefaultUser);
-    }
+    protected TestServer Server { get; }
 
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
@@ -53,8 +38,21 @@ public abstract class TestBase
         await Server.Services.GetRequiredService<TaskDbContext>().Database.EnsureDeletedAsync();
     }
 
-    private string GenerateAccessToken(UserDbEntity user)
+    protected async Task<UserDbEntity> GetDefaultUser()
     {
+        var user = await Server.Services.GetRequiredService<IUserRepository>()
+            .GetUserById(1);
+
+        if (user == null)
+            throw new NullReferenceException();
+
+        return user;
+    }
+
+    private async Task<string> GenerateAccessToken()
+    {
+        var user = await GetDefaultUser();
+
         var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
         var authParams = authOption.Value;
 
@@ -77,13 +75,13 @@ public abstract class TestBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    private static TestServer CreateTestServer()
+    private TestServer CreateTestServer()
     {
         var hostBuilder = new WebHostBuilder()
             .ConfigureAppConfiguration(
-                configuration => configuration.AddJsonFile("appsettings.Testing.json"))
+                configuration => configuration.AddJsonFile($"appsettings.{Environment}.json"))
             .UseStartup<Startup>()
-            .UseEnvironment("Testing");
+            .UseEnvironment(Environment);
 
         return new TestServer(hostBuilder);
     }

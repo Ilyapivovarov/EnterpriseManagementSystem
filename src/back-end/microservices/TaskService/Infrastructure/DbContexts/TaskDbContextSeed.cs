@@ -12,7 +12,6 @@ public class TaskDbContextSeed
             await taskService.GetOrCreateTaskByName("Active");
             await taskService.GetOrCreateTaskByName("Completed");
 
-
             var taskRepository = services.GetRequiredService<ITaskRepository>();
             var tasksCount = await taskRepository.GetTasksCount();
 
@@ -40,8 +39,6 @@ public class TaskDbContextSeed
                             Status = registeredStatus.Value
                         });
             }
-
-
         }
         catch (Exception e)
         {
