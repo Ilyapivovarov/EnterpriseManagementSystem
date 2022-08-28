@@ -13,7 +13,7 @@ public sealed class EmployeeController
 
     [HttpGet]
     [Route("{guid:guid}")]
-    public async Task<IActionResult> GetEmployeeByGuid(string guid)
+    public async Task<IActionResult> GetEmployeeByGuid(Guid guid)
     {
         return await _userServiceHttpClient.GetEmployeeByIdentityGuidAsync(guid);
     }

@@ -15,7 +15,7 @@ public sealed class UserServiceHttpClient : HttpClientBase, IUserServiceHttpClie
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
-    public async Task<IActionResult> GetEmployeeByIdentityGuidAsync(string guid)
+    public async Task<IActionResult> GetEmployeeByIdentityGuidAsync(Guid guid)
     {
         var response = await _client.GetAsync(ServiceUrls.UserServiceApi.Employee.GetByIdentityGuid(guid));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);

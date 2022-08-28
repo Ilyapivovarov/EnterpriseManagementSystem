@@ -1,4 +1,5 @@
 using System;
+using EnterpriseManagementSystem.BusinessModels;
 using EnterpriseManagementSystem.Contracts.Common;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using EnterpriseManagementSystem.Contracts.WebContracts.Extensions;
@@ -19,12 +20,12 @@ public sealed class Tests
         var executorGuid = Guid.NewGuid();
 
         var data = new TaskInfo(taskGuid, "Update test name", "Update test desc", "Registred",
-            new Account(executorGuid, "admin", "admin", "admin"),
-            Observers: new RecordsCollection<Account>(new Account(executorGuid, "admin", "admin", "admin")));
+            new Account(executorGuid, EmailAddress.Parse("admin@admin.com"), "admin", "admin"),
+            Observers: new RecordsCollection<Account>(new Account(executorGuid, EmailAddress.Parse("admin@admin.com"), "admin", "admin")));
 
         var data2 = new TaskInfo(taskGuid, "Update test name", "Update test desc", "Registred",
-            new Account(executorGuid, "admin", "admin", "admin"),
-            Observers: new RecordsCollection<Account>(new Account(executorGuid, "admin", "admin", "admin")));
+            new Account(executorGuid, EmailAddress.Parse("admin@admin.com"), "admin", "admin"),
+            Observers: new RecordsCollection<Account>(new Account(executorGuid, EmailAddress.Parse("admin@admin.com"), "admin", "admin")));
 
 
         Assert.AreEqual(data, data2);
@@ -37,8 +38,8 @@ public sealed class Tests
         var executorGuid = Guid.NewGuid();
 
         var data = new TaskInfo(taskGuid, "Update test name", "Update test desc", "Registred",
-            new Account(executorGuid, "admin", "admin", "admin"),
-            Observers: new RecordsCollection<Account>(new Account(executorGuid, "admin", "admin", "admin")));
+            new Account(executorGuid, EmailAddress.Parse("admin@admin.com"), "admin", "admin"),
+            Observers: new RecordsCollection<Account>(new Account(executorGuid, EmailAddress.Parse("admin@admin.com"), "admin", "admin")));
 
 
         Assert.Pass(data.ToJson());

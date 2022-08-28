@@ -154,7 +154,7 @@ public static class ServiceUrls
         {
             private const string BaseUrl = "employee";
 
-            public static string GetByIdentityGuid(string guid)
+            public static string GetByIdentityGuid(Guid guid)
             {
                 return $"{BaseUrl}/{guid}";
             }
