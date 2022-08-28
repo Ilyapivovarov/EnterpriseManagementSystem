@@ -11,7 +11,7 @@ public class TaskDbContextSeed
             var registeredStatus = await taskService.GetOrCreateTaskByName("Registered");
             if (registeredStatus.Value == null)
                 throw new NullReferenceException();
-            
+
             await taskService.GetOrCreateTaskByName("Active");
             await taskService.GetOrCreateTaskByName("Completed");
 
@@ -30,8 +30,8 @@ public class TaskDbContextSeed
 
                     tryCount++;
                 }
-                
-                var user = firstUsers?.FirstOrDefault() ?? new UserDbEntity()
+
+                var user = firstUsers?.FirstOrDefault() ?? new UserDbEntity
                 {
                     EmailAddress = EmailAddress.Parse("admin@admin.com"),
                     FirstName = "Admin",
