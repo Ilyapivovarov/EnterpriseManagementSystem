@@ -25,7 +25,7 @@ public sealed class UpdatePasswordHandler : IRequestHandler<UpdatePasswordReques
         {
             var updatePasswordInfo = request.NewPasswordInfo;
 
-            var userDbEntity = await _userRepository.GetUserByEmailAsync(EmailAddress.TryParse(updatePasswordInfo.Email));
+            var userDbEntity = await _userRepository.GetUserByEmailAsync(EmailAddress.Parse(updatePasswordInfo.Email));
             if (userDbEntity == null)
                 return new NotFoundObjectResult($"Not found user with email {updatePasswordInfo.Email}");
 

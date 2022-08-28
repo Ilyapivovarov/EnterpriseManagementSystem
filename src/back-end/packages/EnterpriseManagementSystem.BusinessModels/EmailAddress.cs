@@ -2,26 +2,38 @@
 
 namespace EnterpriseManagementSystem.BusinessModels;
 
-public class EmailAddress
+public record struct EmailAddress
 {
-    public static EmailAddress TryParse(string? value)
+    public static EmailAddress Parse(string? value) => new(value);
+
+    public static bool TryParse(string? value, out EmailAddress emailAddress)
     {
-        return new(value);
+        try
+        {
+            emailAddress = Parse(value);
+            return true;
+        }
+        catch
+        {
+            emailAddress = default;
+            return false;
+        }
     }
 
     private EmailAddress(string? value)
     {
-        Value = ValidateOrException(value);
+        Value = ValidateValueOrException(value);
     }
 
     public string Value { get; }
 
-    private string ValidateOrException(string? value)
+    private static string ValidateValueOrException(string? value)
     {
         if (value == null)
             throw new ArgumentNullException(value);
 
-        var mask = new Regex(@"^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$");
+        var mask = new Regex(
+            @"^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$");
         var isSucces = mask.IsMatch(value);
 
         if (!isSucces)

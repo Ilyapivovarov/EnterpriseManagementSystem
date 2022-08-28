@@ -25,6 +25,6 @@ public sealed class IdentityDbContext : DbContext, IIdentityDbContext
             .Property(entity => entity.Address)
             .HasConversion(
                 property => property.Value,
-                value => EmailAddress.TryParse(value));
+                value => EmailAddress.Parse(value));
     }
 }

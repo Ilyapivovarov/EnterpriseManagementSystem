@@ -20,11 +20,11 @@ public sealed class UpdateEmailHandler : IRequestHandler<UpdateEmailRequest, IAc
         {
             var updateEmailInfo = request.UpdateEmailInfo;
 
-            var userDbEntity = await _userRepository.GetUserByEmailAsync(EmailAddress.TryParse(updateEmailInfo.Email));
+            var userDbEntity = await _userRepository.GetUserByEmailAsync(EmailAddress.Parse(updateEmailInfo.Email));
             if (userDbEntity == null)
                 return new NotFoundObjectResult("Not found user with this email");
 
-            var serviceResult = _userService.ChangeEmail(userDbEntity, EmailAddress.TryParse(updateEmailInfo.NewEmail));
+            var serviceResult = _userService.ChangeEmail(userDbEntity, EmailAddress.Parse(updateEmailInfo.NewEmail));
             if (serviceResult.HasError)
                 return new BadRequestObjectResult(serviceResult.Error);
 
