@@ -39,4 +39,13 @@ public class EmailTests
         
         Assert.That(parseResult, Is.False, result.Value);
     }
+    
+    [Test]
+    public void TryParse_EqualTests()
+    {
+        var email1 = EmailAddress.Parse("admin@google.com");
+        var email2 = EmailAddress.Parse("admin@google.com");
+        
+        Assert.That(email1, Is.EqualTo(email2));
+    }
 }
