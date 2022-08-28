@@ -1,3 +1,5 @@
 namespace EnterpriseManagementSystem.Contracts.WebContracts;
 
-public sealed record SignIn(string Email, string Password) : ContractBase;
+public sealed record SignIn([property: JsonConverter(typeof(EmailAddressJsonConverter))] EmailAddress Email, string Password) 
+    : ContractBase;
+
