@@ -1,12 +1,12 @@
 namespace TaskService.Infrastructure.Handlers.TaskController;
 
-public sealed class UpdateTaskHander : RequestHandlerBase<UpdateTaskRequest>
+public sealed class UpdateTaskHandler : RequestHandlerBase<UpdateTaskRequest>
 {
-    private readonly ILogger<UpdateTaskHander> _logger;
+    private readonly ILogger<UpdateTaskHandler> _logger;
     private readonly ITaskRepository _taskRepository;
     private readonly ITaskService _taskService;
 
-    public UpdateTaskHander(ILogger<UpdateTaskHander> logger, ITaskRepository taskRepository,
+    public UpdateTaskHandler(ILogger<UpdateTaskHandler> logger, ITaskRepository taskRepository,
         ITaskService taskService)
     {
         _logger = logger;
