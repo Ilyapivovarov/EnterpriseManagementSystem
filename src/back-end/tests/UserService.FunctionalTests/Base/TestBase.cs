@@ -13,6 +13,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -93,6 +94,8 @@ public abstract class TestBase
     private TestServer CreateTestServer()
     {
         var hostBuilder = WebHost.CreateDefaultBuilder()
+            .ConfigureAppConfiguration(
+                configuration => configuration.AddJsonFile($"appsettings.{UseEnvironment}.json"))
             .UseStartup<Startup>()
             .UseEnvironment(UseEnvironment);
 

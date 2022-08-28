@@ -11,6 +11,8 @@ namespace UserService.FunctionalTests.Controllers.EmployeeController;
 
 public sealed class GetEmployeeByGuidTest : TestBase
 {
+    protected override string UseEnvironment => "Development";
+
     [SetUp]
     public void Setup()
     {
@@ -24,7 +26,7 @@ public sealed class GetEmployeeByGuidTest : TestBase
 
         var content = await result.Content.ReadFromJsonAsync<EmployeeDataResponse>();
 
-        Assert.IsNotNull(content);
+        Assert.IsNotNull(content); 
         Assert.AreEqual(content, DefaultEmployee.ToDto());
     }
 
