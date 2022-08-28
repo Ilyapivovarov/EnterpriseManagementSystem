@@ -5,4 +5,4 @@ public sealed record TaskDto(int Id, Guid Guid, string Name, string? Description
 
 public sealed record TaskStatusDto(int Id, Guid Guid, string Name);
 
-public sealed record UserDto(int Id, Guid Guid, string FirstName, string LastName, string EmailAddress);
+public sealed record UserDto(int Id, Guid Guid, string FirstName, string LastName, [property: JsonConverter(typeof(EmailAddressJsonConverter))] EmailAddress EmailAddress);

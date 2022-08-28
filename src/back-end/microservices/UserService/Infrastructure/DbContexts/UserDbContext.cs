@@ -20,6 +20,13 @@ public sealed class UserDbContext : DbContext, IUserDbContext
         modelBuilder.Entity<UserDbEntity>().HasQueryFilter(entity => !entity.IsDeleted);
         modelBuilder.Entity<EmployeeDbEntity>().HasQueryFilter(entity => !entity.IsDeleted);
         modelBuilder.Entity<PositionDbEntity>().HasQueryFilter(entity => !entity.IsDeleted);
+        
+        modelBuilder
+            .Entity<UserDbEntity>()
+            .Property(entity => entity.EmailAddress)
+            .HasConversion(
+                property => property.Value,
+                value => EmailAddress.Parse(value));
         base.OnModelCreating(modelBuilder);
     }
 

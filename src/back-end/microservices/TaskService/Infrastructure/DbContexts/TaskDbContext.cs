@@ -16,6 +16,16 @@ public sealed class TaskDbContext : DbContext, ITaskDbContext
 
     public DbSet<AttachmentDbEntity> Attachments => Set<AttachmentDbEntity>();
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder
+            .Entity<UserDbEntity>()
+            .Property(entity => entity.EmailAddress)
+            .HasConversion(
+                property => property.Value,
+                value => EmailAddress.Parse(value));
+    }
+    
     public async Task<int> SaveChagesAsync(CancellationToken cancellationToken = default)
     {
         return await SaveChangesAsync(cancellationToken);

@@ -63,7 +63,7 @@ public abstract class TestBase
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Email, user.EmailAddress),
+            new(ClaimTypes.Email, user.EmailAddress.Value),
             new(ClaimTypes.UserData, user.Guid.ToString())
         };
 

@@ -1,6 +1,7 @@
 // Global using directives
 
 global using AutoMapper;
+global using EnterpriseManagementSystem.BusinessModels;
 global using MassTransit;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;

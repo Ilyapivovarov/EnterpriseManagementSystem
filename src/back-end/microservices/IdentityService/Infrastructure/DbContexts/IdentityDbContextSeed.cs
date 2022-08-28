@@ -28,7 +28,7 @@ public sealed class IdentityDbContextSeed
                     throw new Exception("Error while save default user");
 
                 var @event = new SignUpUserIntegrationEvent(new UserDataResponse(defaultUser.Guid, "Admin", "Admin",
-                    defaultUser.Email.Address.Value, DateTime.Now));
+                    defaultUser.Email.Address, DateTime.Now));
 
                 var bus = services.GetRequiredService<IBus>();
                 var endPoint = await bus.GetPublishSendEndpoint<SignUpUserIntegrationEvent>();

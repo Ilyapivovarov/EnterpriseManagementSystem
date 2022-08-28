@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EnterpriseManagementSystem.BusinessModels;
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 using MassTransit;
@@ -20,7 +21,7 @@ public sealed class TaskDbContextSeedTests : TestBase
         using var services = Server.Services.CreateScope();
 
         var @event = new SignUpUserIntegrationEvent(new UserDataResponse(Guid.NewGuid(), "Admin", "Admin",
-            "admin@admin.com", DateTime.Now));
+            EmailAddress.Parse("admin@admin.com"), DateTime.Now));
 
         var bus = services.ServiceProvider.GetRequiredService<IBus>();
         var endPoint = await bus.GetPublishSendEndpoint<SignUpUserIntegrationEvent>();

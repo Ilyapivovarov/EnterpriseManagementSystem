@@ -8,7 +8,7 @@ public interface IUserRepository
 
     public Task<UserDbEntity?> GetByGuidAsync(Guid guid);
 
-    public Task<UserDbEntity?> GetByEmailAddressAsync(string emailAddress);
+    public Task<UserDbEntity?> GetByEmailAddressAsync(EmailAddress emailAddress);
 
     public Task<ICollection<UserDbEntity>?> GetUsersByRange(int rangeStart, int rangeEnd);
 

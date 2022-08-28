@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EnterpriseManagementSystem.BusinessModels;
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 using MassTransit;
@@ -25,7 +26,7 @@ public sealed class SaveNewUserConsumerScenarioTest : TestBase
     {
         using var services = ServiceScope;
         var bus = services.ServiceProvider.GetRequiredService<IBus>();
-        var userData = new UserDataResponse(Guid.NewGuid(), "Test", "Test", "Test@address.com", DateTime.Today);
+        var userData = new UserDataResponse(Guid.NewGuid(), "Test", "Test", EmailAddress.Parse("admin@admin.com"), DateTime.Today);
 
         var @event = new SignUpUserIntegrationEvent(userData);
         await bus.Publish(@event);

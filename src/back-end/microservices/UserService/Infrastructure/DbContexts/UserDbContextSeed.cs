@@ -14,7 +14,7 @@ public class UserDbContextSeed
                 {
                     UserDbEntity = new UserDbEntity
                     {
-                        EmailAddress = "admin@admin.com",
+                        EmailAddress = EmailAddress.Parse("admin@admin.com"),
                         IdentityGuid = Guid.NewGuid(),
                         FirstName = "Admin",
                         LastName = "Admin"

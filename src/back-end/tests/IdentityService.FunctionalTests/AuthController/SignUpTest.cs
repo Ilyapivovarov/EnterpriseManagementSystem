@@ -22,15 +22,15 @@ public sealed class SignUpTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        var data = new SignUpDtoDto("Test", "Test", "test@email.com", "test1234", "test1234");
+        var data = new SignUpDtoDto("Test", "Test", EmailAddress.Parse("test@email.com"), "test1234", "test1234");
         var content = GetStringContent(data);
 
         var result = await Client.PostAsync("auth/sign-up", content);
 
         var newUser = await Service
-            .GetRequiredService<IUserRepository>().GetUserByEmailAsync(EmailAddress.Parse(data.Email));
+            .GetRequiredService<IUserRepository>().GetUserByEmailAsync(data.Email);
 
-        Assert.IsTrue(result.IsSuccessStatusCode && newUser?.Email.Address == EmailAddress.Parse(data.Email),
+        Assert.IsTrue(result.IsSuccessStatusCode && newUser?.Email.Address == data.Email,
             await result.Content.ReadAsStringAsync());
     }
 

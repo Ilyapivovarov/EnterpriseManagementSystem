@@ -6,7 +6,7 @@ public class UserDbEntity : DbEntityBase
 
     public string LastName { get; set; } = null!;
 
-    public string EmailAddress { get; set; } = null!;
+    public EmailAddress EmailAddress { get; set; }
 
     public Guid IdentityGuid { get; set; }
 }

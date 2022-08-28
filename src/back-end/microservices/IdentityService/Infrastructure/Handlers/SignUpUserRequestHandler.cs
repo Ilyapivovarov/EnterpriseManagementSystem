@@ -35,7 +35,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
             if (!password.Equals(confirmPassword, StringComparison.Ordinal))
                 return new BadRequestObjectResult("Passwords is not same");
 
-            var userServiceResult = await _userService.TryCreateUser(EmailAddress.Parse(email), password);
+            var userServiceResult = await _userService.TryCreateUser(email, password);
             if (userServiceResult.Value == null)
                 return new BadRequestObjectResult(userServiceResult.Error);
 

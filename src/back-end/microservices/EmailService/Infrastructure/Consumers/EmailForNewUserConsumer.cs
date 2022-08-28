@@ -19,7 +19,7 @@ public sealed class EmailForNewUserConsumer : IConsumer<SignUpUserIntegrationEve
                        nameof(SignUpUserIntegrationEvent)))
             {
                 var userData = context.Message.UserDataResponse;
-                var mail = new MailMessage("ems.test.dev@gmail.com", userData.EmailAddress, "Welcome",
+                var mail = new MailMessage("ems.test.dev@gmail.com", userData.EmailAddress.Value, "Welcome",
                     $"Welcome {userData.FirstName} {userData.LastName}");
 
                 await _emailService.SendEmailAsync(mail);

@@ -4,7 +4,7 @@ namespace EnterpriseManagementSystem.Contracts.JsonConverters;
 
 public sealed class EmailAddressJsonConverter : JsonConverter<EmailAddress>
 {
-    public override EmailAddress? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override EmailAddress Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         => EmailAddress.Parse(reader.GetString());
 
     public override void Write(Utf8JsonWriter writer, EmailAddress value, JsonSerializerOptions options)

@@ -4,7 +4,7 @@ public sealed class UserDbEntityToAccountConverter : ITypeConverter<UserDbEntity
 {
     public UserDataResponse Convert(UserDbEntity source, UserDataResponse destination, ResolutionContext context)
     {
-        return new UserDataResponse(source.IdentityGuid, source.FirstName, source.LastName, source.EmailAddress,
+        return new UserDataResponse(source.IdentityGuid, source.FirstName, source.LastName, source.EmailAddress, 
             source.DateBrith);
     }
 }
