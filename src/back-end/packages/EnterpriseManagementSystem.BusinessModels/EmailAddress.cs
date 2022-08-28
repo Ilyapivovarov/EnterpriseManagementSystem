@@ -32,13 +32,17 @@ public record struct EmailAddress
         if (value == null)
             throw new ArgumentNullException(value);
 
+        var normalizeValue = NormalizeValue(value);
+        
         var mask = new Regex(
             @"^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$");
-        var isSucces = mask.IsMatch(value);
+        var isSucces = mask.IsMatch(normalizeValue);
 
         if (!isSucces)
             throw new ArgumentException(value);
 
-        return value;
+        return normalizeValue;
     }
+
+    private static string NormalizeValue(string value) => value.ToLower();
 }
