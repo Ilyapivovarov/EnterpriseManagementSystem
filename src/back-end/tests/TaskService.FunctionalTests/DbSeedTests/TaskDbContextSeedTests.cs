@@ -9,27 +9,25 @@ using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using TaskService.Application.DbContexts;
+using TaskService.Application.Repositories;
 using TaskService.FunctionalTests.Base;
 
 namespace TaskService.FunctionalTests.DbSeedTests;
 
 public sealed class TaskDbContextSeedTests : TestBase
 {
+    protected override string Environment => "Testing";
+
+    
     [Test]
     public async Task SeedDefatulDatatTest()
     {
-        using var services = Server.Services.CreateScope();
-
-        var @event = new SignUpUserIntegrationEvent(new UserDataResponse(Guid.NewGuid(), "Admin", "Admin",
-            EmailAddress.Parse("admin@admin.com"), DateTime.Now));
-
-        var bus = services.ServiceProvider.GetRequiredService<IBus>();
-        var endPoint = await bus.GetPublishSendEndpoint<SignUpUserIntegrationEvent>();
-        await endPoint.Send(@event);
-
-        Thread.Sleep(10000);
-
-        Assert.NotZero(services.ServiceProvider.GetRequiredService<ITaskDbContext>().TaskStatuses.Count());
-        Assert.NotZero(services.ServiceProvider.GetRequiredService<ITaskDbContext>().Tasks.Count());
+        var tasks = await Services.ServiceProvider.GetRequiredService<ITaskRepository>()
+            .GetTasksByPage(1, 2);
+        var users = await Services.ServiceProvider.GetRequiredService<IUserRepository>()
+            .GetUsersByPage(0, 1);
+        
+        Assert.That(tasks, Is.Not.Empty);
+        Assert.That(users, Is.Not.Empty);
     }
 }

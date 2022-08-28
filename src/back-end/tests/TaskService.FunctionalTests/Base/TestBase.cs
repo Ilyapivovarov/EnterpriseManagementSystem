@@ -2,10 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 using EnterpriseManagementSystem.JwtAuthorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,22 +21,30 @@ using NUnit.Framework;
 using TaskService.Application.Repositories;
 using TaskService.Core.DbEntities;
 using TaskService.Infrastructure.DbContexts;
+using TaskService.Infrastructure.Mapper;
 
 namespace TaskService.FunctionalTests.Base;
 
-public abstract class TestBase
+public abstract class TestBase : IDisposable
 {
     protected TestBase()
     {
         Server = CreateTestServer();
-        HttpClient = Server.CreateClient();
+        Services = Server.Services.CreateScope();
     }
 
-    protected virtual string Environment => "Testing";
+    public IServiceScope Services { get; set; }
 
-    protected HttpClient HttpClient { get; }
+    protected abstract string Environment { get; }
 
     protected TestServer Server { get; }
+
+    [OneTimeSetUp]
+    public async Task OneTimeSetUp()
+    {
+        using var services = Server.Services.CreateScope();
+        await TaskDbContextSeed.InitData(services.ServiceProvider);
+    }
 
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
@@ -38,9 +52,21 @@ public abstract class TestBase
         await Server.Services.GetRequiredService<TaskDbContext>().Database.EnsureDeletedAsync();
     }
 
+    protected async Task<HttpClient> GetHttpClient()
+    {
+        var httpClient = Server.CreateClient();
+        var accessToken = await GenerateAccessToken();
+        httpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken);
+
+        return httpClient;
+    }
+
     protected async Task<UserDbEntity> GetDefaultUser()
     {
-        var user = await Server.Services.GetRequiredService<IUserRepository>()
+        using var services = Server.Services.CreateScope();
+               
+        var user = await services.ServiceProvider.GetRequiredService<IUserRepository>()
             .GetUserById(1);
 
         if (user == null)
@@ -49,6 +75,24 @@ public abstract class TestBase
         return user;
     }
 
+    protected async Task<TaskDto> GetDefaultTask()
+    {
+        using var services = Server.Services.CreateScope();
+               
+        var task = await services.ServiceProvider.GetRequiredService<ITaskRepository>()
+            .GetTaskByIdAsync(1);
+
+        if (task == null)
+            throw new NullReferenceException();
+
+        return task.ToDto();
+    }
+
+    protected StringContent GetStringContent(string content)
+    {
+        return new StringContent(content, Encoding.UTF8, MediaTypeNames.Application.Json);
+    }
+    
     private async Task<string> GenerateAccessToken()
     {
         var user = await GetDefaultUser();
@@ -83,6 +127,14 @@ public abstract class TestBase
             .UseStartup<Startup>()
             .UseEnvironment(Environment);
 
-        return new TestServer(hostBuilder);
+        var testServer = new TestServer(hostBuilder);
+
+        return testServer;
+    }
+
+    public virtual void Dispose()
+    {
+        Services.Dispose();
+        Server.Dispose();
     }
 }

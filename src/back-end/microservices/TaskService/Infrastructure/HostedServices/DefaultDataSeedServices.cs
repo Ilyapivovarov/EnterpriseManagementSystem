@@ -16,7 +16,9 @@ public sealed class DefaultDataSeedServices : IHostedService
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        _hostApplicationLifetime.ApplicationStarted.Register(OnStarted);
+        if (!_webHostEnvironment.IsEnvironment("Testing"))
+            _hostApplicationLifetime.ApplicationStarted.Register(OnStarted);
+        
         return Task.CompletedTask;
     }
 
