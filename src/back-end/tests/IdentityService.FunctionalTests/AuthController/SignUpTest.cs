@@ -22,7 +22,7 @@ public sealed class SignUpTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        var data = new SignUpDtoDto("Test", "Test", EmailAddress.Parse("test@email.com"), "test1234", "test1234");
+        var data = new SignUpDtoDto("Test", "Test", EmailAddress.Parse("test@email.com"), Password.Parse("test1234"), Password.Parse("test1234"));
         var content = GetStringContent(data);
 
         var result = await Client.PostAsync("auth/sign-up", content);

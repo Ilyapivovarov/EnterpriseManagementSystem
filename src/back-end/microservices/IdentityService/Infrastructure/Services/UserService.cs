@@ -16,7 +16,7 @@ public sealed class UserService : IUserService
         _userRoleRepository = userRoleRepository;
     }
 
-    public UserDbEntity Create(EmailAddress email, string password, UserRoleDbEntity userRoleDbEntity)
+    public UserDbEntity Create(EmailAddress email, Password password, UserRoleDbEntity userRoleDbEntity)
     {
         return new UserDbEntity
         {
@@ -25,16 +25,16 @@ public sealed class UserService : IUserService
                 Address = email,
                 IsVerified = false
             },
-            Password = _securityService.EncryptPasswordOrException(password),
+            Password = Password.Parse(_securityService.EncryptPasswordOrException(password.Value)),
             Role = userRoleDbEntity
         };
     }
     
-    public ServiceActionResult<UserDbEntity> ChangePassword(UserDbEntity userDbEntity, string newPassword)
+    public ServiceActionResult<UserDbEntity> ChangePassword(UserDbEntity userDbEntity, Password newPassword)
     {
         try
         {
-            userDbEntity.Password = _securityService.EncryptPasswordOrException(newPassword);
+            userDbEntity.Password = Password.Parse(_securityService.EncryptPasswordOrException(newPassword.Value));
             return new ServiceActionResult<UserDbEntity>(userDbEntity);
         }
         catch (Exception e)
@@ -60,7 +60,7 @@ public sealed class UserService : IUserService
         }
     }
 
-    public async Task<ServiceActionResult<UserDbEntity>> TryCreateUser(EmailAddress email, string password)
+    public async Task<ServiceActionResult<UserDbEntity>> TryCreateUser(EmailAddress email, Password password)
     {
         var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
         if (userWithSameEmail != null)
@@ -77,7 +77,7 @@ public sealed class UserService : IUserService
                 Address = email,
                 IsVerified = false
             },
-            Password = _securityService.EncryptPasswordOrException(password),
+            Password = Password.Parse(_securityService.EncryptPasswordOrException(password.Value)),
             Role = readerRole
         };
 

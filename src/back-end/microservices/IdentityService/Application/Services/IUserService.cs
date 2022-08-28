@@ -9,7 +9,7 @@ public interface IUserService
     /// <param name="password"></param>
     /// <param name="userRoleDbEntity"></param>
     /// <returns></returns>
-    public UserDbEntity Create(EmailAddress email, string password, UserRoleDbEntity userRoleDbEntity);
+    public UserDbEntity Create(EmailAddress email, Password password, UserRoleDbEntity userRoleDbEntity);
 
     /// <summary>
     ///     Change password for user
@@ -17,7 +17,7 @@ public interface IUserService
     /// <param name="userDbEntity"></param>
     /// <param name="newPassword"></param>
     /// <returns></returns>
-    public ServiceActionResult<UserDbEntity> ChangePassword(UserDbEntity userDbEntity, string newPassword);
+    public ServiceActionResult<UserDbEntity> ChangePassword(UserDbEntity userDbEntity, Password newPassword);
 
     /// <summary>
     ///     Change user email
@@ -33,5 +33,5 @@ public interface IUserService
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public Task<ServiceActionResult<UserDbEntity>> TryCreateUser(EmailAddress email, string password);
+    public Task<ServiceActionResult<UserDbEntity>> TryCreateUser(EmailAddress email, Password password);
 }

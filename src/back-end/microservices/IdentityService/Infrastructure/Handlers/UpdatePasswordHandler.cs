@@ -32,7 +32,7 @@ public sealed class UpdatePasswordHandler : IRequestHandler<UpdatePasswordReques
             if (!updatePasswordInfo.NewPassword.Equals(updatePasswordInfo.ConfirmNewPassword, StringComparison.Ordinal))
                 return new BadRequestObjectResult("Passwords in not same");
 
-            var serviceResult = _userService.ChangePassword(userDbEntity, updatePasswordInfo.NewPassword);
+            var serviceResult = _userService.ChangePassword(userDbEntity, Password.Parse(updatePasswordInfo.NewPassword));
             if (serviceResult.HasError)
                 return new BadRequestObjectResult(serviceResult.Error);
 

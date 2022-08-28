@@ -1,5 +1,3 @@
-using System.Text.Json;
-
 namespace EnterpriseManagementSystem.Contracts.WebContracts.Base;
 
 public abstract record ContractBase

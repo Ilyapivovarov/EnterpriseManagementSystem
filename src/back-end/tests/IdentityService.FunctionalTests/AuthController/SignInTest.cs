@@ -21,7 +21,7 @@ public sealed class SignInTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        var data = new SignInDto(EmailAddress.Parse("admin@admin.com"), "admin");
+        var data = new SignInDto(EmailAddress.Parse("admin@admin.com"), Password.Parse("admin"));
         
         var result = await Client.PostAsync("auth/sign-in", GetStringContent(data));
 
@@ -32,7 +32,7 @@ public sealed class SignInTest : TestBase
     public async Task IncrrectEmailOrPasswordScenario()
     {
 
-        var data = new SignInDto(EmailAddress.Parse("admin@admin.com"), "asdasfa");
+        var data = new SignInDto(EmailAddress.Parse("admin@admin.com"), Password.Parse("asfasfas"));
 
         var result = await Client.PostAsync("auth/sign-in", GetStringContent(data));
 

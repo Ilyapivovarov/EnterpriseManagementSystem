@@ -17,13 +17,13 @@ public sealed class UserRepository : RepositoryBase, IUserRepository
         return await Task.Run(() => { return GetUserById(id); });
     }
 
-    public UserDbEntity? GetUserByEmailAndPassword(EmailAddress email, string password)
+    public UserDbEntity? GetUserByEmailAndPassword(EmailAddress email, Password password)
     {
         return LoadData(db => db.Users.FirstOrDefault(x => x.Email.Address == email && x.Password == password),
             $"Error while searching user with email {email} and password");
     }
 
-    public async Task<UserDbEntity?> GetUserByEmailAndPasswordAsync(EmailAddress email, string password)
+    public async Task<UserDbEntity?> GetUserByEmailAndPasswordAsync(EmailAddress email, Password password)
     {
         return await Task.Run(() => GetUserByEmailAndPassword(email, password));
     }

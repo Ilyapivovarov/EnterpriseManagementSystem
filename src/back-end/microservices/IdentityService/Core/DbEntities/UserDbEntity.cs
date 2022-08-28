@@ -4,7 +4,7 @@ namespace IdentityService.Core.DbEntities;
 
 public class UserDbEntity : DbEntityBase
 {
-    public string Password { get; set; } = null!;
+    public Password Password { get; set; }
 
     [ForeignKey("EmailId")]
     public virtual EmailDbEntity Email { get; set; } = null!;
