@@ -22,7 +22,7 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
     {
         try
         {
-            var signInDto = signInRequest.SignIn;
+            var signInDto = signInRequest.SignInDto;
 
             var hashPassword = _securityService.EncryptPasswordOrException(signInDto.Password);
             var user = await _userRepository.GetUserByEmailAndPasswordAsync(signInDto.Email, hashPassword);

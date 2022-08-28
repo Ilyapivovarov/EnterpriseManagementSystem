@@ -1,4 +1,4 @@
-namespace EnterpriseManagementSystem.Contracts.WebContracts;
+namespace EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 
-public sealed record SignUp
+public sealed record SignUpDtoDto
     (string FirstName, string LastName, string Email, string Password, string ConfirmPassword) : ContractBase;

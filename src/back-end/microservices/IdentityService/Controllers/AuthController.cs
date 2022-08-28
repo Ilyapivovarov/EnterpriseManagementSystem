@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityService.Controllers;
@@ -18,13 +19,13 @@ public sealed class AuthController : ControllerBase
     /// <summary>
     ///     User authentication
     /// </summary>
-    /// <param name="signIn">Authentication data</param>
+    /// <param name="signInDto">Authentication data</param>
     /// <returns></returns>
     [HttpPost]
     [Route("sign-in")]
-    public async Task<IActionResult> SignInUser([FromBody] SignIn signIn)
+    public async Task<IActionResult> SignInUser([FromBody] SignInDto signInDto)
     {
-        return await _mediator.Send(new SignInRequest(signIn));
+        return await _mediator.Send(new SignInRequest(signInDto));
     }
 
     /// <summary>
@@ -34,7 +35,7 @@ public sealed class AuthController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [Route("sign-up")]
-    public async Task<IActionResult> SignUpUser([FromBody] SignUp signUp)
+    public async Task<IActionResult> SignUpUser([FromBody] SignUpDtoDto signUp)
     {
         return await _mediator.Send(new SignUpRequest(signUp));
     }

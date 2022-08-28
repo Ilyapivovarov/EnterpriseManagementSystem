@@ -1,3 +1,4 @@
+using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ApiGateway.Controllers;
@@ -16,15 +17,15 @@ public class AuthController : ControllerBase
     [HttpPost]
     [AllowAnonymous]
     [Route("sign-in")]
-    public async Task<IActionResult> SingInUser([FromBody] SignIn signInDto)
+    public async Task<IActionResult> SingInUser([FromBody] SignInDto signInDtoDto)
     {
-        return await _identityServiceHttpClient.SignInAsync(signInDto);
+        return await _identityServiceHttpClient.SignInAsync(signInDtoDto);
     }
 
     [HttpPost]
     [AllowAnonymous]
     [Route("sign-up")]
-    public async Task<IActionResult> SingInUser([FromBody] SignUp signUp)
+    public async Task<IActionResult> SingInUser([FromBody] SignUpDtoDto signUp)
     {
         return await _identityServiceHttpClient.SignUpAsync(signUp);
     }

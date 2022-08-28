@@ -1,11 +1,13 @@
+using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
+
 namespace IdentityService.Infrastructure.Requests;
 
 public sealed class SignUpRequest : IRequest<IActionResult>
 {
-    public SignUpRequest(SignUp signUp)
+    public SignUpRequest(SignUpDtoDto signUp)
     {
         SignUp = signUp;
     }
 
-    public SignUp SignUp { get; }
+    public SignUpDtoDto SignUp { get; }
 }

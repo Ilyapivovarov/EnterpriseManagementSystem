@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.BusinessModels;
+using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.Application.Repositories;
 using IdentityService.FunctionalTests.Base;
@@ -21,7 +22,7 @@ public sealed class SignUpTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        var data = new SignUp("Test", "Test", "test@email.com", "test1234", "test1234");
+        var data = new SignUpDtoDto("Test", "Test", "test@email.com", "test1234", "test1234");
         var content = GetStringContent(data);
 
         var result = await Client.PostAsync("auth/sign-up", content);

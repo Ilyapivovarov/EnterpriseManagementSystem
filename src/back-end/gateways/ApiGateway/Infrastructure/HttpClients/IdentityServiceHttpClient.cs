@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
+
 namespace ApiGateway.Infrastructure.HttpClients;
 
 public sealed class IdentityServiceHttpClient : HttpClientBase, IIdentityServiceHttpClient
@@ -9,14 +11,14 @@ public sealed class IdentityServiceHttpClient : HttpClientBase, IIdentityService
         _httpClient = httpClient;
     }
 
-    public async Task<IActionResult> SignInAsync(SignIn signIn)
+    public async Task<IActionResult> SignInAsync(SignInDto signInDto)
     {
         var response = await _httpClient.PostAsync(ServiceUrls.IdentityApi.AuthController.SignIn(),
-            GetStringContent(signIn.ToJson()));
+            GetStringContent(signInDto.ToJson()));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
-    public async Task<IActionResult> SignUpAsync(SignUp signUp)
+    public async Task<IActionResult> SignUpAsync(SignUpDtoDto signUp)
     {
         var response = await _httpClient.PostAsync(ServiceUrls.IdentityApi.AuthController.SignUp(),
             GetStringContent(signUp.ToJson()));

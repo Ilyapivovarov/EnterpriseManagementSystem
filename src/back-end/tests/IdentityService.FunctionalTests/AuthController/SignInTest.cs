@@ -1,6 +1,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.BusinessModels;
+using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.FunctionalTests.Base;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ public sealed class SignInTest : TestBase
     [Test]
     public async Task SuccessScenario()
     {
-        var data = new SignIn(EmailAddress.Parse("admin@admin.com"), "admin");
+        var data = new SignInDto(EmailAddress.Parse("admin@admin.com"), "admin");
         
         var result = await Client.PostAsync("auth/sign-in", GetStringContent(data));
 
@@ -31,7 +32,7 @@ public sealed class SignInTest : TestBase
     public async Task IncrrectEmailOrPasswordScenario()
     {
 
-        var data = new SignIn(EmailAddress.Parse("admin@admin.com"), "asdasfa");
+        var data = new SignInDto(EmailAddress.Parse("admin@admin.com"), "asdasfa");
 
         var result = await Client.PostAsync("auth/sign-in", GetStringContent(data));
 
