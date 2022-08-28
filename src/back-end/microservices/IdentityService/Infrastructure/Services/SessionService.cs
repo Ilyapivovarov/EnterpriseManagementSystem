@@ -71,10 +71,8 @@ public sealed class SessionService : ISessionService
             session.RefreshToken = Guid.NewGuid();
 
             var saveResult = await _sessionRepository.Update(session);
-            if (saveResult)
-                return new ServiceActionResult<SessionDbEntity?>(session);
+            return saveResult ? new ServiceActionResult<SessionDbEntity?>(session) : new ServiceActionResult<SessionDbEntity?>("Error");
 
-            return new ServiceActionResult<SessionDbEntity?>("Error");
         }
         catch (Exception e)
         {
@@ -92,7 +90,7 @@ public sealed class SessionService : ISessionService
 
         var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Email, user.Email.Address),
+            new(JwtRegisteredClaimNames.Email, user.Email.Address.Value),
             new(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
             new("role", user.Role.Name)
         };

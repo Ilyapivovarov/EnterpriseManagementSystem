@@ -21,14 +21,14 @@ public sealed class IdentityDbContextSeed
                     throw new Exception("Default role is null");
 
                 var userService = services.GetRequiredService<IUserService>();
-                var defaultUser = userService.Create("admin@admin.com", "admin", adminRole);
+                var defaultUser = userService.Create(EmailAddress.TryParse("admin@admin.com"), "admin", adminRole);
                 var saveUserResult = await services.GetRequiredService<IUserRepository>()
                     .SaveUserAsync(defaultUser);
                 if (!saveUserResult)
                     throw new Exception("Error while save default user");
 
                 var @event = new SignUpUserIntegrationEvent(new UserDataResponse(defaultUser.Guid, "Admin", "Admin",
-                    defaultUser.Email.Address, DateTime.Now));
+                    defaultUser.Email.Address.Value, DateTime.Now));
 
                 var bus = services.GetRequiredService<IBus>();
                 var endPoint = await bus.GetPublishSendEndpoint<SignUpUserIntegrationEvent>();

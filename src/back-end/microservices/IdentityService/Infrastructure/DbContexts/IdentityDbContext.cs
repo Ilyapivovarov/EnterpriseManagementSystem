@@ -17,5 +17,14 @@ public sealed class IdentityDbContext : DbContext, IIdentityDbContext
     public DbSet<EmailDbEntity> EmailAddresses => Set<EmailDbEntity>();
 
     public DbSet<UserRoleDbEntity> UserRoles => Set<UserRoleDbEntity>();
-    
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder
+            .Entity<EmailDbEntity>()
+            .Property(entity => entity.Address)
+            .HasConversion(
+                property => property.Value,
+                value => EmailAddress.TryParse(value));
+    }
 }

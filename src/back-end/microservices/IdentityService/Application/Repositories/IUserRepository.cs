@@ -22,7 +22,7 @@ public interface IUserRepository
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public UserDbEntity? GetUserByEmailAndPassword(string email, string password);
+    public UserDbEntity? GetUserByEmailAndPassword(EmailAddress email, string password);
 
     /// <summary>
     ///     Getting user from database by email
@@ -30,27 +30,27 @@ public interface IUserRepository
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public Task<UserDbEntity?> GetUserByEmailAndPasswordAsync(string email, string password);
+    public Task<UserDbEntity?> GetUserByEmailAndPasswordAsync(EmailAddress email, string password);
 
     /// <summary>
     ///     Checks if the email exists
     /// </summary>
     /// <param name="email"></param>
     /// <returns></returns>
-    public bool IsEmailExist(string email);
+    public bool IsEmailExist(EmailAddress email);
 
     /// <summary>
     ///     Getting user by email
     /// </summary>
     /// <param name="email"></param>
     /// <returns></returns>
-    public UserDbEntity? GetUserByEmail(string email);
+    public UserDbEntity? GetUserByEmail(EmailAddress email);
 
     /// <summary>
     ///     Getting user by email async
     /// </summary>
     /// <param name="email"></param>
-    public Task<UserDbEntity?> GetUserByEmailAsync(string email);
+    public Task<UserDbEntity?> GetUserByEmailAsync(EmailAddress email);
 
     public UserDbEntity? GetUserByGuid(Guid guid);
 

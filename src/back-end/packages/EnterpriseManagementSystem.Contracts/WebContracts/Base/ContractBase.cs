@@ -1,3 +1,17 @@
+using System.Text.Json;
+
 namespace EnterpriseManagementSystem.Contracts.WebContracts.Base;
 
-public record ContractBase;
+public abstract record ContractBase
+{
+    protected readonly static JsonSerializerOptions JsonOpt = new()
+    {
+        WriteIndented = true
+    };
+    
+    
+    public virtual string ToJson()
+    {
+        return JsonSerializer.Serialize<object>(this, JsonOpt);
+    }   
+}

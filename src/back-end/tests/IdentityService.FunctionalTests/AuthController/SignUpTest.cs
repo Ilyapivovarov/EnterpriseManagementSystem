@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using EnterpriseManagementSystem.BusinessModels;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.Application.Repositories;
 using IdentityService.FunctionalTests.Base;
@@ -26,9 +27,9 @@ public sealed class SignUpTest : TestBase
         var result = await Client.PostAsync("auth/sign-up", content);
 
         var newUser = await Service
-            .GetRequiredService<IUserRepository>().GetUserByEmailAsync(data.Email);
+            .GetRequiredService<IUserRepository>().GetUserByEmailAsync(EmailAddress.TryParse(data.Email));
 
-        Assert.IsTrue(result.IsSuccessStatusCode && newUser?.Email.Address == data.Email,
+        Assert.IsTrue(result.IsSuccessStatusCode && newUser?.Email.Address == EmailAddress.TryParse(data.Email),
             await result.Content.ReadAsStringAsync());
     }
 

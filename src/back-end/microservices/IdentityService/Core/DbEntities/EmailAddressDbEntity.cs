@@ -8,7 +8,7 @@ namespace IdentityService.Core.DbEntities;
 public class EmailDbEntity : DbEntityBase
 {
     [EmailAddress]
-    public string Address { get; set; } = null!;
+    public EmailAddress Address { get; set; } = null!;
 
     public bool IsVerified { get; set; }
 }

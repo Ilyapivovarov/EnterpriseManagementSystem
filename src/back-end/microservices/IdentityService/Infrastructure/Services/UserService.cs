@@ -16,13 +16,13 @@ public sealed class UserService : IUserService
         _userRoleRepository = userRoleRepository;
     }
 
-    public UserDbEntity Create(string email, string password, UserRoleDbEntity userRoleDbEntity)
+    public UserDbEntity Create(EmailAddress email, string password, UserRoleDbEntity userRoleDbEntity)
     {
         return new UserDbEntity
         {
             Email = new EmailDbEntity
             {
-                Address = email.ToLower(),
+                Address = email,
                 IsVerified = false
             },
             Password = _securityService.EncryptPasswordOrException(password),
@@ -44,7 +44,7 @@ public sealed class UserService : IUserService
         }
     }
 
-    public ServiceActionResult<UserDbEntity> ChangeEmail(UserDbEntity userDbEntity, string newEmail)
+    public ServiceActionResult<UserDbEntity> ChangeEmail(UserDbEntity userDbEntity, EmailAddress newEmail)
     {
         try
         {
@@ -60,7 +60,7 @@ public sealed class UserService : IUserService
         }
     }
 
-    public async Task<ServiceActionResult<UserDbEntity>> TryCreateUser(string email, string password)
+    public async Task<ServiceActionResult<UserDbEntity>> TryCreateUser(EmailAddress email, string password)
     {
         var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
         if (userWithSameEmail != null)
@@ -74,7 +74,7 @@ public sealed class UserService : IUserService
         {
             Email = new EmailDbEntity
             {
-                Address = email.ToLower(),
+                Address = email,
                 IsVerified = false
             },
             Password = _securityService.EncryptPasswordOrException(password),
