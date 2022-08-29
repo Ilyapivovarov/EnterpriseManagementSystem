@@ -11,6 +11,7 @@ import Layout from './components/Layout/Layout';
 import TaskListPage from './pages/TaskListPage/';
 import Notification from './components/Notification/Notification';
 import CreateTaskPage from './pages/CreateTaskPage';
+import EmployeePage from './pages/EmployeePage';
 
 const App: React.FC = () => {
   return (
@@ -20,7 +21,7 @@ const App: React.FC = () => {
         <Route path={'/'} element={<RequireAuth><Layout/></RequireAuth>}>
           <Route index element={<HomePage/>}/>
           <Route path={'users/'} element={<UserListPage/>}/>
-          <Route path={'users/:guid'} element={<UserPage/>}/>
+          <Route path={'users/:id'} element={<EmployeePage/>}/>
           <Route path={'tasks/'} element={<TaskListPage/>}/>
           <Route path={'tasks/:id'} element={<TaskPage/>}/>
           <Route path={'tasks/new'} element={<CreateTaskPage/>}/>
@@ -44,8 +45,4 @@ const NotFoundPage: React.FC = () => (
 
 const UserListPage: React.FC = () => (
   <h1>There will be user list page</h1>
-);
-
-const UserPage: React.FC = () => (
-  <h1>There will be user page</h1>
 );

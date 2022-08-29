@@ -24,7 +24,12 @@ export const employeeApi = createApi({
         url: `/${guid}`,
       }),
     }),
+    getEmployeeById: build.query<EmployeeDataResponse, string>({
+      query: (id) => ({
+        url: `/${id}`,
+      }),
+    }),
   }),
 });
 
-export const {useGetEmployeeByGuidQuery} = employeeApi;
+export const {useGetEmployeeByGuidQuery, useGetEmployeeByIdQuery} = employeeApi;

@@ -7,11 +7,7 @@ import PageWrapper from '../../components/PageWrapper/PageWrapper';
 
 const HomePage: React.FC = () => {
   const {currentSession} = useAppSelector((x) => x.authReducer);
-  const {
-    data,
-    isLoading,
-    isSuccess,
-  } = useGetEmployeeByGuidQuery(currentSession!.userGuid);
+  const {data, isLoading, isSuccess} = useGetEmployeeByGuidQuery(currentSession!.userGuid);
   return (
     <PageWrapper>
       {isLoading && <Box sx={{display: 'flex'}}>
