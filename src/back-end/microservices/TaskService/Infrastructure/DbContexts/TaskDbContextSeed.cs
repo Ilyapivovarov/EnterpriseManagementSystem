@@ -21,28 +21,23 @@ public class TaskDbContextSeed
             if (tasksCount == 0)
             {
                 var taskDbContext = services.GetRequiredService<IUserRepository>();
-                var firstUsers = await taskDbContext.GetUsersByPage(1, 1);
+                var firstUser = await taskDbContext.GetUserById(1);
                 var tryCount = 1;
-                while (tryCount < 5 && firstUsers?.Length == 0)
+                while (tryCount < 5 && firstUser == null)
                 {
-                    Thread.Sleep(100);
-                    firstUsers = await taskDbContext.GetUsersByPage(0, 1);
+                    Thread.Sleep(1000);
+                    firstUser = await taskDbContext.GetUserById(1);
 
                     tryCount++;
                 }
 
-                var user = firstUsers?.FirstOrDefault() ?? new UserDbEntity
-                {
-                    EmailAddress = EmailAddress.Parse("admin@admin.com"),
-                    FirstName = "Admin",
-                    LastName = "Admin",
-                    IdentityGuid = Guid.NewGuid()
-                };
+                if (firstUser == null)
+                    throw new ArgumentNullException(nameof(firstUser));
 
                 await taskRepository.SaveTaskAsync(new TaskDbEntity
                 {
-                    Author = user,
-                    Executor = user,
+                    Author = firstUser,
+                    Executor = firstUser,
                     Name = "Test task",
                     Created = DateTime.Now,
                     Status = registeredStatus.Value
