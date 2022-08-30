@@ -5,9 +5,24 @@ import {Breadcrumbs, Paper, Typography} from '@mui/material';
 import Link from '../../components/Link/Link';
 import PageWrapper from '../../components/PageWrapper/PageWrapper';
 import EmployeeListPageContent from '../../components/EmployeeListPageContent/EmployeeListPageContent';
+import ErrorView from '../../components/ErrorView/ErrorView';
+import {EmployeeDataResponse} from '../../types/accountTypes';
 
 const EmployeeListPage: React.FC = () => {
-  const {isLoading, isSuccess, data, error, isError} = useGetEmployeesByPageQuery({pageNumber: 1, pageSize: 100});
+  const {isLoading, isSuccess} = useGetEmployeesByPageQuery({pageNumber: 1, pageSize: 100});
+  const data : EmployeeDataResponse[] = [
+    {
+      guid: 'asfasfasf',
+      user: {
+
+        firstName: 'admin',
+        emailAddress: 'asfasf',
+        lastName: 'asfasfas',
+        IdentityGuid: 'asfasfsaf',
+      },
+    },
+  ];
+
   return (
     <>
       <Paper
@@ -26,8 +41,9 @@ const EmployeeListPage: React.FC = () => {
       <PageWrapper>
         <>
           {isLoading ?? <Loader/>}
-          {isSuccess ?? <EmployeeListPageContent data={data} />}
-          {isError ?? <Typography>{error}</Typography>}
+          {data ?
+            <EmployeeListPageContent data={data} /> :
+            <ErrorView errorMessage={'Error while fetching employees'}/>}
         </>
       </PageWrapper>
     </>
