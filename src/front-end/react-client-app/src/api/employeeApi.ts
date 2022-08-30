@@ -7,7 +7,7 @@ import {BaseUrl} from '../helpers/Constants';
 export const employeeApi = createApi({
   reducerPath: 'employeeApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${BaseUrl}/employee`,
+    baseUrl: `${BaseUrl}/`,
     prepareHeaders: (headers, {getState}) => {
       store.dispatch(resetAuthState());
       const accessToken = (getState() as RootState).authReducer.currentSession?.accessToken;
@@ -21,15 +21,23 @@ export const employeeApi = createApi({
   endpoints: (build) => ({
     getEmployeeByGuid: build.query<EmployeeDataResponse, string>({
       query: (guid) => ({
-        url: `/${guid}`,
+        url: `/employee/${guid}`,
       }),
     }),
     getEmployeeById: build.query<EmployeeDataResponse, string>({
       query: (id) => ({
-        url: `/${id}`,
+        url: `/employee/${id}`,
+      }),
+    }),
+    getEmployeesByPage: build.query<EmployeeDataResponse[], {pageNumber: number, pageSize: number}>({
+      query: ({pageNumber, pageSize}) => ({
+        url: '/employee',
+        params: {
+          pageNumber, pageSize,
+        },
       }),
     }),
   }),
 });
 
-export const {useGetEmployeeByGuidQuery, useGetEmployeeByIdQuery} = employeeApi;
+export const {useGetEmployeeByGuidQuery, useGetEmployeeByIdQuery, useGetEmployeesByPageQuery} = employeeApi;

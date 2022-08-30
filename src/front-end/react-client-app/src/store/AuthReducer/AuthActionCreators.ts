@@ -7,6 +7,7 @@ const baseUrl = process.env.REACT_APP_API_KEY;
 export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: string }>(
     'authSlice/reset-auth-state',
     async (_, {rejectWithValue}) => {
+      console.log('resetAuthState');
       const session = JSON.parse(localStorage.getItem('session')!) as Session | null;
       if (!session) {
         console.log('Error while updating token');
@@ -21,29 +22,34 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
       }
 
       console.log('Trying update token');
-      const response = await fetch(`${baseUrl}/auth/refresh/${session.refreshToken}`, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json;charset=UTF-8',
-        },
-      });
+      try {
+        const response = await fetch(`${baseUrl}/auth/refresh/${session.refreshToken}`, {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+          },
+        });
 
-      if (!response.ok) {
-        console.log('Error while updating token');
-        localStorage.clear();
-        return rejectWithValue('Error');
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Token successfully updated');
+          localStorage.setItem('session', JSON.stringify(result));
+          return result;
+        }
+      } catch (e) {
+        console.log(e);
       }
 
-      const result = await response.json();
-      console.log('Token successfully updated');
-      localStorage.setItem('session', JSON.stringify(result));
-      return result;
+      console.log('Error while updating token');
+      localStorage.clear();
+      return rejectWithValue('Error');
     },
 );
 
 export const firstResetAuthState = createAsyncThunk<Session, void, { rejectValue: string }>(
     'authSlice/first-reset-auth-state',
     async (_, {rejectWithValue}) => {
+      console.log('firstResetAuthState');
       const session = JSON.parse(localStorage.getItem('session')!) as Session | null;
       if (!session) {
         console.log('Error while updating token');
@@ -58,23 +64,27 @@ export const firstResetAuthState = createAsyncThunk<Session, void, { rejectValue
       }
 
       console.log('Trying update token');
-      const response = await fetch(`${baseUrl}/auth/refresh/${session.refreshToken}`, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json;charset=UTF-8',
-        },
-      });
+      try {
+        const response = await fetch(`${baseUrl}/auth/refresh/${session.refreshToken}`, {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+          },
+        });
 
-      if (!response.ok) {
-        console.log('Error while updating token');
-        localStorage.clear();
-        return rejectWithValue('Error');
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Token successfully updated');
+          localStorage.setItem('session', JSON.stringify(result));
+          return result;
+        }
+      } catch (e) {
+        console.log(e);
       }
 
-      const result = await response.json();
-      console.log('Token successfully updated');
-      localStorage.setItem('session', JSON.stringify(result));
-      return result;
+      console.log('Error while updating token');
+      localStorage.clear();
+      return rejectWithValue('Error');
     },
 );
 

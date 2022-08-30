@@ -109,7 +109,7 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({taskDto}) => {
           <Box padding={1} display={'flex'} justifyContent={'space-between'}>
             <Typography fontSize={14} paddingLeft={1}>
               <b>EMS-{task.id}</b> created by{' '}
-              <Link to={`/users/${task.author.guid}`}>
+              <Link to={`/employees/${task.author.guid}`}>
                 {task.author.firstName} {task.author.lastName}{' '}
               </Link>
               on {new Date(task.created).toLocaleDateString()} {new Date(task.created).toLocaleTimeString()}
