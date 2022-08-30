@@ -7,16 +7,7 @@ import PageWrapper from '../../components/PageWrapper/PageWrapper';
 import EmployeeListPageContent from '../../components/EmployeeListPageContent/EmployeeListPageContent';
 
 const EmployeeListPage: React.FC = () => {
-  const {isLoading, isSuccess, data, error} = useGetEmployeesByPageQuery({pageNumber: 1, pageSize: 100});
-
-  if (isLoading) {
-    return <Loader/>;
-  }
-
-  if (!isSuccess) {
-    return <>Error</>;
-  }
-
+  const {isLoading, isSuccess, data, error, isError} = useGetEmployeesByPageQuery({pageNumber: 1, pageSize: 100});
   return (
     <>
       <Paper
@@ -33,7 +24,11 @@ const EmployeeListPage: React.FC = () => {
         </Breadcrumbs>
       </Paper>
       <PageWrapper>
-        <EmployeeListPageContent data={data} />
+        <>
+          {isLoading ?? <Loader/>}
+          {isSuccess ?? <EmployeeListPageContent data={data} />}
+          {isError ?? <Typography>{error}</Typography>}
+        </>
       </PageWrapper>
     </>
   );

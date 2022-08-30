@@ -1,5 +1,6 @@
 import React from 'react';
 import {EmployeeDataResponse} from '../../types/accountTypes';
+import {Container} from '@mui/material';
 
 interface EmployeeListPageContentProps {
 data: EmployeeDataResponse[]
@@ -7,9 +8,9 @@ data: EmployeeDataResponse[]
 
 const EmployeeListPageContent: React.FC<EmployeeListPageContentProps> = ({data}) => {
   return (
-    <div>
+    <Container>
 
-    </div>
+    </Container>
   );
 };
 

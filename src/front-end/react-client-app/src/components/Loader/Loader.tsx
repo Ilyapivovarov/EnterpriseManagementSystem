@@ -3,9 +3,7 @@ import {LinearProgress} from '@mui/material';
 
 const Loader: React.FC = () => {
   return (
-    <div>
-      <LinearProgress/>
-    </div>
+    <LinearProgress/>
   );
 };
 
