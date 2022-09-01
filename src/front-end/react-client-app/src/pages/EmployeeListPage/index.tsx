@@ -12,9 +12,9 @@ const EmployeeListPage: React.FC = () => {
   const {isLoading, isSuccess} = useGetEmployeesByPageQuery({pageNumber: 1, pageSize: 100});
   const data : EmployeeDataResponse[] = [
     {
+      id: 1,
       guid: 'asfasfasf',
       user: {
-
         firstName: 'admin',
         emailAddress: 'asfasf',
         lastName: 'asfasfas',
@@ -26,10 +26,7 @@ const EmployeeListPage: React.FC = () => {
   return (
     <>
       <Paper
-        sx={{
-          p: 2,
-          marginTop: '10px',
-        }}
+        sx={{p: 2, marginTop: '10px'}}
         elevation={1}>
         <Breadcrumbs aria-label="breadcrumb">
           <Link to={'/'}>

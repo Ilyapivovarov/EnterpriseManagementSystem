@@ -5,6 +5,7 @@ export interface Account {
 }
 
 export interface EmployeeDataResponse {
+    id: number
     guid: string,
     user: UserDataResponse,
     position?: PositionDataResponse
