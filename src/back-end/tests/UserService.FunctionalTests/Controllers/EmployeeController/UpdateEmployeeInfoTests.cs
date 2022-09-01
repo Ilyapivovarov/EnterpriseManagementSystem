@@ -20,7 +20,7 @@ public sealed class UpdateEmployeeInfoTests : TestBase
     {
         var employeeBeforeUpdating = DefaultEmployee;
 
-        var data = new UpdateEmployeeRequest(employeeBeforeUpdating.Guid,
+        var data = new UpdateEmployeeRequest(employeeBeforeUpdating.Id,
             new UserDataReqeust(employeeBeforeUpdating.UserDbEntity.IdentityGuid, "UpdateName", "UpdateLastName",
                 DateTime.Today));
         var result = await HttpClient.PutAsync("employee", GetStringContent(data));

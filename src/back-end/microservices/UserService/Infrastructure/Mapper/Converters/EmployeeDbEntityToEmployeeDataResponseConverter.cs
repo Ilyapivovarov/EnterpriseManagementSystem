@@ -6,6 +6,6 @@ public sealed class
     public EmployeeDataResponse Convert(EmployeeDbEntity source, EmployeeDataResponse destination,
         ResolutionContext context)
     {
-        return new EmployeeDataResponse(source.Guid, source.UserDbEntity.ToDto(), source.Position?.ToDto());
+        return new EmployeeDataResponse(source.Id, source.UserDbEntity.ToDto(), source.Position?.ToDto());
     }
 }

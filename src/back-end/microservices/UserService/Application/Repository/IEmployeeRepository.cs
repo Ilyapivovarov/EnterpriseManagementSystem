@@ -6,8 +6,6 @@ public interface IEmployeeRepository
 
     public Task<EmployeeDbEntity?> GetByIdAsync(int id);
 
-    public Task<EmployeeDbEntity?> GetByGuidAsync(Guid guid);
-
     public Task<EmployeeDbEntity?> GetByUserIdentityGuidAsync(Guid identityGuid);
 
     public Task<EmployeeDbEntity[]?> GetEmployeesByRange(Range range);

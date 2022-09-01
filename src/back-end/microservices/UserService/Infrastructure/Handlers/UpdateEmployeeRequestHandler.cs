@@ -23,7 +23,7 @@ public sealed class UpdateEmployeeRequestHandler : HandlerBase<UpdateEmployeeMed
         {
             var employeeRequest = request.EmployeeRequest;
 
-            var employeeDbEntity = await _employeeRepository.GetByGuidAsync(employeeRequest.Guid);
+            var employeeDbEntity = await _employeeRepository.GetByIdAsync(employeeRequest.Id);
             if (employeeDbEntity == null)
                 return NotFoud("Not found employee");
 

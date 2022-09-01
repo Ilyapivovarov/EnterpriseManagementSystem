@@ -10,12 +10,7 @@ public sealed class EmployeeRepository : RepositoryBase, IEmployeeRepository
 
     public async Task<EmployeeDbEntity?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
-    }
-
-    public async Task<EmployeeDbEntity?> GetByGuidAsync(Guid guid)
-    {
-        return await LoadDataAsync(db => db.Eployees.FirstOrDefault(x => x.Guid == guid));
+      return await LoadDataAsync(db => db.Eployees.FirstOrDefault(x => x.Id == id));
     }
 
     public async Task<EmployeeDbEntity?> GetByUserIdentityGuidAsync(Guid identityGuid)

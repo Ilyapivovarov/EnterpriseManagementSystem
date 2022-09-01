@@ -78,7 +78,7 @@ public abstract class TestBase
         var claims = new List<Claim>
         {
             new(ClaimTypes.Email, user.EmailAddress.Value),
-            new(ClaimTypes.UserData, user.Guid.ToString())
+            new(ClaimTypes.UserData, user.IdentityGuid.ToString())
         };
 
         var token = new JwtSecurityToken(

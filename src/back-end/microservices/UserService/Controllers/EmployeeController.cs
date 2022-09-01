@@ -17,7 +17,11 @@ public sealed class EmployeeController : ControllerBase
         return await _mediator.Send(new GetEmployeesByPageRequest(pageNumber));
     }
 
-
+    /// <summary>
+    /// Getting user by guid
+    /// </summary>
+    /// <param name="guid"></param>
+    /// <returns></returns>
     [HttpGet]
     [Route("{guid:guid}")]
     public async Task<IActionResult> GetEmployeeByGuid(Guid guid)
