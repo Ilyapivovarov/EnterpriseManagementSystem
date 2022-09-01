@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts.Response;
@@ -11,23 +12,26 @@ namespace UserService.FunctionalTests.Controllers.EmployeeController;
 
 public sealed class GetEmployeeByGuidTest : TestBase
 {
-    protected override string UseEnvironment => "Development";
+    protected override string Environment => "Testing";
+
+    private HttpClient HttpClient { get; set; } = null!;
 
     [SetUp]
-    public void Setup()
+    public async Task SetUp()
     {
-        RefreshServer();
+        HttpClient = await GetHttpClient();
     }
 
     [Test]
     public async Task SuccessScenario()
     {
-        var result = await HttpClient.GetAsync($"employee/{DefaultEmployee.UserDbEntity.IdentityGuid}");
+        var defaultEmployee = await GetDefaultEmployee();
+        var result = await HttpClient.GetAsync($"employee/{defaultEmployee.User.IdentityGuid}");
 
         var content = await result.Content.ReadFromJsonAsync<EmployeeDataResponse>();
 
         Assert.IsNotNull(content); 
-        Assert.AreEqual(content, DefaultEmployee.ToDto());
+        Assert.AreEqual(content, defaultEmployee);
     }
 
     [Test]

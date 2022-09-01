@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UserService.Core.DbEntities.Base;
 
-[Index(nameof(Guid), IsUnique = true)]
 public abstract class DbEntityBase
 {
     [Key]

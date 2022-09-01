@@ -1,3 +1,4 @@
+using EnterpriseManagementSystem.Contracts.Common;
 using UserService.Infrastructure.Mapper.Converters;
 
 namespace UserService.Infrastructure.Mapper;
@@ -14,14 +15,14 @@ public static class MapperExtensions
         return mapper.Map<UserDbEntity, UserDataResponse>(userDbEntity);
     }
 
-    public static ICollection<UserDataResponse> ToDto(this ICollection<UserDbEntity> userDbEntity)
+    public static RecordsCollection<UserDataResponse> ToDto(this ICollection<UserDbEntity> userDbEntity)
     {
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<UserDbEntity, UserDataResponse>()
                 .ConvertUsing<UserDbEntityToAccountConverter>());
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<ICollection<UserDbEntity>, ICollection<UserDataResponse>>(userDbEntity);
+        return mapper.Map<ICollection<UserDbEntity>, RecordsCollection<UserDataResponse>>(userDbEntity);
     }
 
     public static PositionDataResponse ToDto(this PositionDbEntity positionDbEntity)
@@ -49,13 +50,13 @@ public static class MapperExtensions
         return mapper.Map<EmployeeDbEntity, EmployeeDataResponse>(employeeDbEntity);
     }
 
-    public static ICollection<EmployeeDataResponse>? ToDto(this ICollection<EmployeeDbEntity> employeeDbEntities)
+    public static RecordsCollection<EmployeeDataResponse>? ToDto(this ICollection<EmployeeDbEntity> employeeDbEntities)
     {
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<EmployeeDbEntity, EmployeeDataResponse>()
                 .ConvertUsing<EmployeeDbEntityToEmployeeDataResponseConverter>());
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<ICollection<EmployeeDbEntity>, ICollection<EmployeeDataResponse>>(employeeDbEntities);
+        return mapper.Map<ICollection<EmployeeDbEntity>, RecordsCollection<EmployeeDataResponse>>(employeeDbEntities);
     }
 }

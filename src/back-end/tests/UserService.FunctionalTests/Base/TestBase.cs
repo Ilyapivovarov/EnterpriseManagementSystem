@@ -8,6 +8,9 @@ using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
+using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 using EnterpriseManagementSystem.JwtAuthorization;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,56 +22,85 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
 using UserService.Application.DbContexts;
+using UserService.Application.Repository;
 using UserService.Core.DbEntities;
+using UserService.Infrastructure.DbContexts;
+using UserService.Infrastructure.Mapper;
 
 namespace UserService.FunctionalTests.Base;
 
-public abstract class TestBase
+public abstract class TestBase : IDisposable
 {
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
-
-    protected TestBase()
-    {
-        _jsonSerializerOptions = new JsonSerializerOptions
-            {PropertyNameCaseInsensitive = true};
-    }
-
-    protected virtual string UseEnvironment => "Testing";
-
-    protected TestServer Server { get; set; } = null!;
-
-    protected IServiceScope ServiceScope => Server.Services.CreateScope();
-
-    protected IUserDbContext UserDbContext => ServiceScope.ServiceProvider.GetRequiredService<IUserDbContext>();
-
-    protected EmployeeDbEntity DefaultEmployee => UserDbContext.Eployees.First();
-
-    protected HttpClient HttpClient { get; private set; } = null!;
-
-    [OneTimeTearDown]
-    public void OneTimeTearDown()
-    {
-        ServiceScope.Dispose();
-        Server.Dispose();
-    }
-
-    protected void RefreshServer()
+     protected TestBase()
     {
         Server = CreateTestServer();
-        HttpClient = Server.CreateClient();
-        var accessToken = GenerateAccessToken(DefaultEmployee.UserDbEntity);
-        HttpClient.DefaultRequestHeaders.Authorization =
+        Services = Server.Services.CreateScope();
+    }
+
+    public IServiceScope Services { get; set; }
+
+    protected abstract string Environment { get; }
+
+    protected TestServer Server { get; }
+
+    [OneTimeSetUp]
+    public async Task OneTimeSetUp()
+    {
+        using var services = Server.Services.CreateScope();
+        await UserDbContextSeed.InitDataAsync(services.ServiceProvider);
+    }
+
+    [OneTimeTearDown]
+    public async Task OneTimeTearDown()
+    {
+        await Server.Services.GetRequiredService<UserDbContext>().Database.EnsureDeletedAsync();
+    }
+
+    protected async Task<HttpClient> GetHttpClient()
+    {
+        var httpClient = Server.CreateClient();
+        var accessToken = await GenerateAccessToken();
+        httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken);
+
+        return httpClient;
     }
 
-    protected StringContent GetStringContent(object obj)
+    protected async Task<UserDbEntity> GetDefaultUser()
     {
-        return new StringContent(
-            JsonSerializer.Serialize(obj, _jsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
+        using var services = Server.Services.CreateScope();
+               
+        var user = await services.ServiceProvider.GetRequiredService<IUserRepository>()
+            .GetByIdAsync(1);
+
+        if (user == null)
+            throw new NullReferenceException();
+
+        return user;
     }
 
-    private string GenerateAccessToken(UserDbEntity user)
+    protected async Task<EmployeeDataResponse> GetDefaultEmployee()
     {
+        using var services = Server.Services.CreateScope();
+               
+        var employee = await services.ServiceProvider.GetRequiredService<IEmployeeRepository>()
+            .GetByIdAsync(1);
+
+        if (employee == null)
+            throw new NullReferenceException();
+
+        return employee.ToDto();
+    }
+
+    protected StringContent GetStringContent(string content)
+    {
+        return new StringContent(content, Encoding.UTF8, MediaTypeNames.Application.Json);
+    }
+    
+    private async Task<string> GenerateAccessToken()
+    {
+        var user = await GetDefaultUser();
+
         var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
         var authParams = authOption.Value;
 
@@ -93,12 +125,20 @@ public abstract class TestBase
 
     private TestServer CreateTestServer()
     {
-        var hostBuilder = WebHost.CreateDefaultBuilder()
+        var hostBuilder = new WebHostBuilder()
             .ConfigureAppConfiguration(
-                configuration => configuration.AddJsonFile($"appsettings.{UseEnvironment}.json"))
+                configuration => configuration.AddJsonFile($"appsettings.{Environment}.json"))
             .UseStartup<Startup>()
-            .UseEnvironment(UseEnvironment);
+            .UseEnvironment(Environment);
 
-        return new TestServer(hostBuilder);
+        var testServer = new TestServer(hostBuilder);
+
+        return testServer;
+    }
+
+    public virtual void Dispose()
+    {
+        Services.Dispose();
+        Server.Dispose();
     }
 }

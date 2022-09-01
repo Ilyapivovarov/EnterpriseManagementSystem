@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.WebContracts.Request;
 using NUnit.Framework;
@@ -9,25 +10,28 @@ namespace UserService.FunctionalTests.Controllers.EmployeeController;
 
 public sealed class UpdateEmployeeInfoTests : TestBase
 {
-    [SetUp]
-    public void Setup()
-    {
-        RefreshServer();
-    }
+    protected override string Environment => "Testing";
 
+    private HttpClient HttpClient { get; set; } = null!;
+
+    [SetUp]
+    public async Task SetUp()
+    {
+        HttpClient = await GetHttpClient();
+    }
     [Test]
     public async Task SeccessScenario()
     {
-        var employeeBeforeUpdating = DefaultEmployee;
+        var employeeBeforeUpdate = await GetDefaultEmployee();
 
-        var data = new UpdateEmployeeRequest(employeeBeforeUpdating.Id,
-            new UserDataReqeust(employeeBeforeUpdating.UserDbEntity.IdentityGuid, "UpdateName", "UpdateLastName",
+        var data = new UpdateEmployeeRequest(employeeBeforeUpdate.Id,
+            new UserDataReqeust(employeeBeforeUpdate.User.IdentityGuid, "UpdateName", "UpdateLastName",
                 DateTime.Today));
-        var result = await HttpClient.PutAsync("employee", GetStringContent(data));
+        var result = await HttpClient.PutAsync("employee", GetStringContent(data.ToJson()));
 
-        await Task.Delay(1000);
+        var employeeAfterUpdate = await GetDefaultEmployee();
         
-        Assert.IsTrue(result.IsSuccessStatusCode);
-        Assert.AreNotEqual(employeeBeforeUpdating.ToDto(), DefaultEmployee);
+        Assert.That(result.IsSuccessStatusCode, Is.True);
+        Assert.That(employeeBeforeUpdate == employeeAfterUpdate, Is.False);
     }
 }

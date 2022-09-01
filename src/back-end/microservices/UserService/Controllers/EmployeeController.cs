@@ -12,9 +12,9 @@ public sealed class EmployeeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetEmployeesByPage(int pageNumber)
+    public async Task<IActionResult> GetEmployeesByPage(int pageNumber, int pageSize)
     {
-        return await _mediator.Send(new GetEmployeesByPageRequest(pageNumber));
+        return await _mediator.Send(new GetEmployeesByPageRequest(pageNumber, pageSize));
     }
 
     /// <summary>

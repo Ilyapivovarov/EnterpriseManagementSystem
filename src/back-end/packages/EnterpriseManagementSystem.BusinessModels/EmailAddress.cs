@@ -2,7 +2,7 @@
 
 namespace EnterpriseManagementSystem.BusinessModels;
 
-public record struct EmailAddress
+public readonly record struct EmailAddress 
 {
     public static EmailAddress Parse(string? value) => new(value);
 

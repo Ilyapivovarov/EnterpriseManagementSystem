@@ -17,7 +17,7 @@ public sealed class SeedDefaultDataHostedService : IHostedService
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        if (!_webHostEnvironment.IsEnvironment("Testing"))
+        if (_webHostEnvironment.IsProduction())
             return Task.CompletedTask;
         
         _applicationLifetime.ApplicationStarted.Register(InitDefaultData);
@@ -33,6 +33,6 @@ public sealed class SeedDefaultDataHostedService : IHostedService
     private async void InitDefaultData()
     {
         using var services = _serviceScopeFactory.CreateScope();
-        await UserDbContextSeed.InitDataAsync(services.ServiceProvider);
+        await UserDbContextSeed.InitDevDataAsync(services.ServiceProvider);
     }
 }

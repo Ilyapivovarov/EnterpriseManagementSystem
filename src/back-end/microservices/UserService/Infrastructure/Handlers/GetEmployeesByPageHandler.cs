@@ -18,15 +18,7 @@ public sealed class GetEmployeesByPageHandler : HandlerBase<GetEmployeesByPageRe
     {
         try
         {
-            var pageNumber = request.PageNumber;
-
-            if (pageNumber == 0)
-                return Error("Page number can not be zero");
-
-            var rangeEnd = pageNumber * 10 - 1;
-            var rangeStart = rangeEnd - 9;
-
-            var users = await _employeeRepository.GetEmployeesByRange(new Range(rangeStart, rangeEnd));
+            var users = await _employeeRepository.GetEmployeesByRange(new Range(request.PageSize * request.PageNumber - request.PageSize, request.PageSize));
             return Ok(users?.ToDto());
         }
         catch (Exception e)
