@@ -47,7 +47,7 @@ public abstract class TestBase : IDisposable
     public async Task OneTimeSetUp()
     {
         using var services = Server.Services.CreateScope();
-        await UserDbContextSeed.InitDataAsync(services.ServiceProvider);
+        await UserDbContextSeed.InitDevDataAsync(services.ServiceProvider);
     }
 
     [OneTimeTearDown]
