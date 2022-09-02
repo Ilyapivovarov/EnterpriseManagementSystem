@@ -54,9 +54,7 @@ public static class InfrastructureDependencyInjection
 
         services.AddMassTransit(configurator =>
         {
-            if (environment.IsEnvironment("Testing"))
-                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
-            else
+            if (environment.IsProduction())
                 configurator.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
@@ -66,6 +64,9 @@ public static class InfrastructureDependencyInjection
                     });
                     cfg.ConfigureEndpoints(context);
                 });
+            else
+                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+
         });
 
         #endregion

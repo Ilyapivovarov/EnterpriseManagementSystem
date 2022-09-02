@@ -1,6 +1,6 @@
 namespace EnterpriseManagementSystem.BusinessModels;
 
-public record struct Password
+public readonly record struct Password
 {
     private Password(string? value)
     {
