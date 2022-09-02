@@ -44,5 +44,5 @@ public readonly record struct EmailAddress
         return normalizeValue;
     }
 
-    private static string NormalizeValue(string value) => value.ToLower();
+    private static string NormalizeValue(string value) => value.ToLower().Trim();
 }

@@ -25,7 +25,7 @@ public sealed class UserService : IUserService
                 Address = email,
                 IsVerified = false
             },
-            Password = Password.Parse(_securityService.EncryptPasswordOrException(password.Value)),
+            Password = password,
             Role = userRoleDbEntity
         };
     }
