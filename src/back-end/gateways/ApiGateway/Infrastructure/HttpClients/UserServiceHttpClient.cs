@@ -9,9 +9,9 @@ public sealed class UserServiceHttpClient : HttpClientBase, IUserServiceHttpClie
         _client = client;
     }
 
-    public async Task<IActionResult> GetUsersByPageAsync(string pageNumber)
+    public async Task<IActionResult> GetEmployeesByPage(int pageNumber, int pageSize)
     {
-        var response = await _client.GetAsync(ServiceUrls.UserServiceApi.User.GetUserByPage(pageNumber));
+        var response = await _client.GetAsync(ServiceUrls.UserServiceApi.Employee.GetByPage(pageNumber, pageSize));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 

@@ -158,6 +158,11 @@ public static class ServiceUrls
             {
                 return $"{BaseUrl}/{guid}";
             }
+            
+            public static string GetByPage(int pageNumber, int pageSize)
+            {
+                return $"{BaseUrl}?pageNumber={pageNumber}&pageSize={pageSize}";
+            }
         }
 
         public static class User

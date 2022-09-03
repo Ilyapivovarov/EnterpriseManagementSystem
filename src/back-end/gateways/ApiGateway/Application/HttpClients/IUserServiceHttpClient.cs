@@ -2,7 +2,7 @@ namespace ApiGateway.Application.HttpClients;
 
 public interface IUserServiceHttpClient
 {
-    public Task<IActionResult> GetUsersByPageAsync(string pageNumber);
+    public Task<IActionResult> GetEmployeesByPage(int pageNumber, int pageSize);
 
     public Task<IActionResult> GetEmployeeByIdentityGuidAsync(Guid guid);
 
