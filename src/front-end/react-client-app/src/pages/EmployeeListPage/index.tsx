@@ -6,23 +6,9 @@ import Link from '../../components/Link/Link';
 import PageWrapper from '../../components/PageWrapper/PageWrapper';
 import EmployeeListPageContent from '../../components/EmployeeListPageContent/EmployeeListPageContent';
 import ErrorView from '../../components/ErrorView/ErrorView';
-import {EmployeeDataResponse} from '../../types/accountTypes';
 
 const EmployeeListPage: React.FC = () => {
-  const {isLoading, isSuccess} = useGetEmployeesByPageQuery({pageNumber: 1, pageSize: 100});
-  const data : EmployeeDataResponse[] = [
-    {
-      id: 1,
-      guid: 'asfasfasf',
-      user: {
-        firstName: 'admin',
-        emailAddress: 'asfasf',
-        lastName: 'asfasfas',
-        IdentityGuid: 'asfasfsaf',
-      },
-    },
-  ];
-
+  const {isLoading, data} = useGetEmployeesByPageQuery({pageNumber: 1, pageSize: 100});
   return (
     <>
       <Paper
