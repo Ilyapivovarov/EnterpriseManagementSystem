@@ -10,17 +10,32 @@ interface EmployeeListPageContentProps {
 
 const EmployeeListPageContent: React.FC<EmployeeListPageContentProps> = ({data}) => {
   const navigate = useNavigate();
+  const [filteredEmployees, setFilteredEmployees] = React.useState(data);
+
+  const onChangeFilterHandler = (e : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    e.preventDefault();
+    const value = e.target.value;
+    if (value.length > 3) {
+      setFilteredEmployees(data.filter((x) =>
+        (x.user.firstName.includes(value.trim()) || x.user.lastName.includes(value.trim()) ||
+         x.user.emailAddress.includes(value))));
+    }
+    if (value.length == 0) {
+      setFilteredEmployees(data);
+    }
+  };
 
   return (
     <Box>
       <Box p={'5px'}>
         <TextField
-          label={'Fullname filter'}
+          onChange={onChangeFilterHandler}
+          label={'Search employee'}
           size={'small'}
         />
       </Box>
       <Box p={'5px'}>
-        {data.map((x) =>
+        {filteredEmployees.map((x) =>
           <Card key={x.id}
             style={{display: 'flex', justifyContent: 'space-between'}}>
             <CardContent>
