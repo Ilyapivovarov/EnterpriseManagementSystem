@@ -27,17 +27,28 @@ const EmployeeListPageContent: React.FC<EmployeeListPageContentProps> = ({data})
 
   return (
     <Box>
-      <Box p={'5px'}>
+      <Box p={'10px'}>
         <TextField
           onChange={onChangeFilterHandler}
           label={'Search employee'}
           size={'small'}
         />
       </Box>
-      <Box p={'5px'}>
-        {filteredEmployees.map((x) =>
+      <Box
+        p={'5px'}
+        m={'10px'}
+        border={'solid 1px #eeeeee'}
+        minHeight={'75vh'}
+        borderRadius={'5px'}
+      >
+        {filteredEmployees.length == 0 &&
+          <Box textAlign={'center'} paddingTop={'90px'}>
+            <Typography fontSize={60} color={'gray'}>Not found employee</Typography>
+          </Box>}
+        {filteredEmployees.length > 0 && filteredEmployees.map((x) =>
           <Card key={x.id}
-            style={{display: 'flex', justifyContent: 'space-between'}}>
+            style={{display: 'flex', justifyContent: 'space-between'}}
+          >
             <CardContent>
               <Typography variant="h5" component="div">
                 {x.user.firstName} {x.user.lastName}
@@ -53,7 +64,7 @@ const EmployeeListPageContent: React.FC<EmployeeListPageContentProps> = ({data})
               <Button
                 size="medium"
                 endIcon={<ArrowForwardIcon/>}
-                onClick={() => navigate(`/employees/${x.id}`)}
+                onClick={() => navigate(`/employees/${x.user.identityGuid}`)}
               >
                 Go to profile
               </Button>

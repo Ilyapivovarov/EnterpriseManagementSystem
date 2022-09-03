@@ -12,7 +12,7 @@ export interface EmployeeDataResponse {
 }
 
 interface UserDataResponse {
-    IdentityGuid: string,
+    identityGuid: string,
     firstName: string,
     lastName: string,
     emailAddress: string,

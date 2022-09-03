@@ -8,7 +8,7 @@ import EmployeeListPageContent from '../../components/EmployeeListPageContent/Em
 import ErrorView from '../../components/ErrorView/ErrorView';
 
 const EmployeeListPage: React.FC = () => {
-  const {isLoading, data} = useGetEmployeesByPageQuery({pageNumber: 1, pageSize: 100});
+  const {isLoading, isSuccess, data} = useGetEmployeesByPageQuery({pageNumber: 1, pageSize: 100});
   return (
     <>
       <Paper
@@ -24,7 +24,7 @@ const EmployeeListPage: React.FC = () => {
       <PageWrapper>
         <>
           {isLoading ?? <Loader/>}
-          {data ?
+          {isSuccess ?
             <EmployeeListPageContent data={data} /> :
             <ErrorView errorMessage={'Error while fetching employees'}/>}
         </>
