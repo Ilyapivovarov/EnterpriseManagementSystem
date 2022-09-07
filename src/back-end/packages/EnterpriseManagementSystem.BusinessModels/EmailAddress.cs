@@ -2,7 +2,7 @@
 
 namespace EnterpriseManagementSystem.BusinessModels;
 
-public readonly record struct EmailAddress 
+public readonly record struct EmailAddress : IComparable<EmailAddress>
 {
     public static EmailAddress Parse(string? value) => new(value);
 
@@ -33,7 +33,7 @@ public readonly record struct EmailAddress
             throw new ArgumentNullException(value);
 
         var normalizeValue = NormalizeValue(value);
-        
+
         var mask = new Regex(
             @"^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$");
         var isSucces = mask.IsMatch(normalizeValue);
@@ -45,4 +45,9 @@ public readonly record struct EmailAddress
     }
 
     private static string NormalizeValue(string value) => value.ToLower().Trim();
+
+    public int CompareTo(EmailAddress other)
+    {
+        return string.Compare(Value, other.Value, StringComparison.Ordinal);
+    }
 }
