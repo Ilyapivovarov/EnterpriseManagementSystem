@@ -3,6 +3,7 @@ using IdentityService.Infrastructure.HostedServices;
 using IdentityService.Infrastructure.Repositories;
 using IdentityService.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace IdentityService.Infrastructure;
 
@@ -23,6 +24,14 @@ public static class InfrastructureDependencyInjection
         });
 
         services.AddScoped<IIdentityDbContext, IdentityDbContext>();
+
+        #endregion
+        
+        #region Register Redis
+        
+        services.AddSingleton<IConnectionMultiplexer>(_
+            => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
+        services.AddSingleton<ICacheService, RedisCacheSerivce>();
 
         #endregion
 
@@ -76,5 +85,7 @@ public static class InfrastructureDependencyInjection
         services.AddHostedService<DefaultDataSeedHostedServices>();
 
         #endregion
+
+        
     }
 }

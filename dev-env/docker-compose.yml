@@ -6,7 +6,7 @@ networks:
       config:
         - subnet: 10.20.10.0/24
 
-services:
+services:  
   db:
     image: "mcr.microsoft.com/mssql/server"
     hostname: "db"
@@ -47,3 +47,16 @@ services:
       - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_URL: mongodb://10.20.10.7:27017/
+      
+  redis:
+    image: "redis"
+    hostname: "redis"
+    environment:
+      ALLOW_EMPTY_PASSWROD: yes
+      REDIS_REPLICATION_MODE: master
+    networks:
+      emsnetwork:
+        ipv4_address: 10.20.10.9
+    restart: always
+    ports:
+      - '6379:6379'

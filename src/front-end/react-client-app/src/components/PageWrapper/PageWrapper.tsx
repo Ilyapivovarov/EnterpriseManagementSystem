@@ -10,9 +10,8 @@ const PageWrapper: React.FC = ({children}) => {
         marginTop: '10px',
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
         width: '100%',
-        minHeight: '75vh',
+        minHeight: '70vh',
       }}
     >
       {children}

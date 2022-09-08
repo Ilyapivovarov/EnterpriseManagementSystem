@@ -27,7 +27,10 @@ const EmployeeListPageContent: React.FC<EmployeeListPageContentProps> = ({data})
 
   return (
     <Box>
-      <Box p={'10px'}>
+      <Box
+        p={'5px'}
+        m={'10px'}
+      >
         <TextField
           onChange={onChangeFilterHandler}
           label={'Search employee'}
@@ -37,9 +40,6 @@ const EmployeeListPageContent: React.FC<EmployeeListPageContentProps> = ({data})
       <Box
         p={'5px'}
         m={'10px'}
-        border={'solid 1px #eeeeee'}
-        minHeight={'75vh'}
-        borderRadius={'5px'}
       >
         {filteredEmployees.length == 0 &&
           <Box textAlign={'center'} paddingTop={'90px'}>
