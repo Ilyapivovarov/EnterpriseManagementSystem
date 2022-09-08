@@ -2,7 +2,7 @@ using UserService.Core;
 
 namespace IdentityService.Infrastructure.Repositories;
 
-public class UserRoleRepository : RepositoryBase, IUserRoleRepository
+public class UserRoleRepository : SqlRepositoryBase, IUserRoleRepository
 {
     public UserRoleRepository(IIdentityDbContext dbContext, ILogger<UserRoleRepository> logger)
         : base(dbContext, logger)
