@@ -1,11 +1,11 @@
 namespace TaskService.Infrastructure.Repositories.Base;
 
-public abstract class RepositoryBase
+public abstract class SqlRepositoryBase
 {
-    private readonly ILogger<RepositoryBase> _logger;
+    private readonly ILogger<SqlRepositoryBase> _logger;
     private readonly ITaskDbContext _taskDbContext;
 
-    protected RepositoryBase(ITaskDbContext taskDbContext, ILogger<RepositoryBase> logger)
+    protected SqlRepositoryBase(ITaskDbContext taskDbContext, ILogger<SqlRepositoryBase> logger)
     {
         _taskDbContext = taskDbContext;
         _logger = logger;

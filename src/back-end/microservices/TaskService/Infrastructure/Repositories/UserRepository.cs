@@ -2,7 +2,7 @@ using TaskService.Infrastructure.Repositories.Base;
 
 namespace TaskService.Infrastructure.Repositories;
 
-public sealed class UserRepository : RepositoryBase, IUserRepository
+public sealed class UserRepository : SqlRepositoryBase, IUserRepository
 {
     public UserRepository(ITaskDbContext taskDbContext, ILogger<UserRepository> logger)
         : base(taskDbContext, logger)
