@@ -3,11 +3,13 @@ namespace IdentityService.Infrastructure.Handlers;
 public sealed class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, IActionResult>
 {
     private readonly ILogger<RefreshTokenRequestHandler> _logger;
+    private readonly ISessionRepository _sessionRepository;
     private readonly ISessionService _sessionService;
 
-    public RefreshTokenRequestHandler(ILogger<RefreshTokenRequestHandler> logger, ISessionService sessionService)
+    public RefreshTokenRequestHandler(ILogger<RefreshTokenRequestHandler> logger, ISessionRepository sessionRepository, ISessionService sessionService)
     {
         _logger = logger;
+        _sessionRepository = sessionRepository;
         _sessionService = sessionService;
     }
 
@@ -15,11 +17,13 @@ public sealed class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenReq
     {
         try
         {
-            var result = await _sessionService.RefreshToken(request.RefreshToken);
-            if (result.HasError)
-                return new BadRequestObjectResult(result.Error);
+            var session = await _sessionRepository.GetAsync(request.UserGuid);
+            if (session == null)
+                return new NotFoundObjectResult("Not found sessin");
 
-            return new OkObjectResult(result.Value?.ToDto());
+            var newSession = _sessionService.Refresh(session);
+            
+            return new OkObjectResult(newSession.ToDto);
         }
         catch (Exception e)
         {

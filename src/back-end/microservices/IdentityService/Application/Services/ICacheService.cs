@@ -2,7 +2,11 @@ namespace IdentityService.Application.Services;
 
 public interface ICacheService
 {
-    Task<string> GetAsync(string key);
+    Task<object?> GetAsync(string key);
 
-    Task SetAsync(string key, string value);
+    Task<T?> TryGetAsync<T>(string key);
+
+    Task SetAsync(string key, object value);
+    
+    Task SetAsync<T>(string key, T value);
 }

@@ -8,77 +8,58 @@ namespace IdentityService.Infrastructure.Services;
 public sealed class SessionService : ISessionService
 {
     private readonly IOptions<AuthOption> _authOptions;
-    private readonly ILogger<SessionService> _logger;
-    private readonly ISessionRepository _sessionRepository;
-    private readonly IUserRepository _userRepository;
 
-    public SessionService(ILogger<SessionService> logger, IOptions<AuthOption> authOptions,
-        ISessionRepository sessionRepository, IUserRepository userRepository)
+    public SessionService(IOptions<AuthOption> authOptions)
     {
-        _logger = logger;
+        
         _authOptions = authOptions;
-        _sessionRepository = sessionRepository;
-        _userRepository = userRepository;
+        
     }
 
-    public SessionDbEntity CreateSession(UserDbEntity user)
+    public Session CreateSession(UserDbEntity user)
     {
         var accessToken = GenerateAccessToken(user);
+        var refreshToken = GenerateRefreshToken(user);
 
-        var session = new SessionDbEntity
+        var session = new Session
         {
             User = user,
-            AccessToken = accessToken
+            AccessToken = accessToken,
+            RefreshToken = refreshToken,
         };
 
         return session;
     }
 
-    public SessionDbEntity CreateOrUpdateSession(UserDbEntity user, SessionDbEntity? session)
+    public Session CreateOrUpdateSession(UserDbEntity user, Session? session)
     {
         var accessToken = GenerateAccessToken(user);
+        var refreshToken = GenerateRefreshToken(user);
         if (session == null)
         {
-            var newSession = new SessionDbEntity
+            var newSession = new Session
             {
                 User = user,
                 AccessToken = accessToken,
-                RefreshToken = Guid.NewGuid()
+                RefreshToken = refreshToken
             };
 
             return newSession;
         }
 
         session.AccessToken = accessToken;
-        session.RefreshToken = Guid.NewGuid();
+        session.RefreshToken = refreshToken;
         return session;
     }
 
-    public async Task<ServiceActionResult<SessionDbEntity?>> RefreshToken(string refreshToken)
+    public Session Refresh(Session session)
     {
-        try
+        return new Session
         {
-            var session = await _sessionRepository.GetByRefreshToken(Guid.Parse(refreshToken));
-
-            if (session == null)
-                return new ServiceActionResult<SessionDbEntity?>("Not found");
-
-            var user = await _userRepository.GetUserByGuidAsync(session.User.Guid);
-            if (user == null)
-                return new ServiceActionResult<SessionDbEntity?>("Not found user");
-
-            session.AccessToken = GenerateAccessToken(user);
-            session.RefreshToken = Guid.NewGuid();
-
-            var saveResult = await _sessionRepository.Update(session);
-            return saveResult ? new ServiceActionResult<SessionDbEntity?>(session) : new ServiceActionResult<SessionDbEntity?>("Error");
-
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e.Message);
-            throw;
-        }
+            User = session.User,
+            AccessToken = GenerateAccessToken(session.User),
+            RefreshToken = GenerateRefreshToken(session.User)
+        };
     }
 
     private string GenerateAccessToken(UserDbEntity user)
@@ -103,5 +84,28 @@ public sealed class SessionService : ISessionService
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+    
+    private string GenerateRefreshToken(UserDbEntity user)
+    {
+        var authParams = _authOptions.Value;
+
+        var securityKey = authParams.GetSymmetricSecurityKey();
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+        var claims = new List<Claim>
+        {
+            new(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
+        };
+
+        var token = new JwtSecurityToken(
+            authParams.Issuer,
+            authParams.Audience,
+            claims,
+            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
+            signingCredentials: credentials);
+
+        return new JwtSecurityTokenHandler()
+            .WriteToken(token);
     }
 }

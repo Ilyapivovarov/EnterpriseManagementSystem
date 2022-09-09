@@ -40,7 +40,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
                 return new BadRequestObjectResult(userServiceResult.Error);
 
             var session = _sessionBlService.CreateSession(userServiceResult.Value);
-            await _sessionRepository.SaveOrUpdateSessionAsync(session);
+            await _sessionRepository.SaveAsync(session);
 
             var @event = new SignUpUserIntegrationEvent(new UserDataResponse(userServiceResult.Value.Guid, fristName,
                 lastName, signUpDto.Email, null));

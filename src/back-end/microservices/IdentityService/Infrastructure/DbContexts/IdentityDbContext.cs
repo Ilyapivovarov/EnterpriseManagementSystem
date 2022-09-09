@@ -11,9 +11,7 @@ public sealed class IdentityDbContext : DbContext, IIdentityDbContext
     }
 
     public DbSet<UserDbEntity> Users => Set<UserDbEntity>();
-
-    public DbSet<SessionDbEntity> Sessions => Set<SessionDbEntity>();
-
+    
     public DbSet<EmailDbEntity> EmailAddresses => Set<EmailDbEntity>();
 
     public DbSet<UserRoleDbEntity> UserRoles => Set<UserRoleDbEntity>();

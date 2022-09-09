@@ -1,3 +1,4 @@
+using System.Text.Json;
 using StackExchange.Redis;
 
 namespace IdentityService.Infrastructure.Services;
@@ -11,15 +12,31 @@ public sealed class RedisCacheSerivce : ICacheService
         _connectionMultiplexer = connectionMultiplexer;
     }
 
-    public async Task<string> GetAsync(string key)
+    public async Task<object?> GetAsync(string key)
     {
         var db = _connectionMultiplexer.GetDatabase();
-        return await db.StringGetAsync(key);
+        var value = await db.StringGetAsync(key);
+
+        return JsonSerializer.Deserialize<object>(value);
     }
 
-    public async Task SetAsync(string key, string value)
+    public async Task<T?> TryGetAsync<T>(string key)
     {
         var db = _connectionMultiplexer.GetDatabase();
-        await db.StringSetAsync(key, value);
+        var value = await db.StringGetAsync(key);
+
+        return JsonSerializer.Deserialize<T>(value);
+    }
+
+    public async Task SetAsync(string key, object value)
+    {
+        var db = _connectionMultiplexer.GetDatabase();
+        await db.StringSetAsync(key, JsonSerializer.Serialize(value));
+    }
+
+    public async Task SetAsync<T>(string key, T value)
+    {
+        var db = _connectionMultiplexer.GetDatabase();
+        await db.StringSetAsync(key, JsonSerializer.Serialize(value));
     }
 }

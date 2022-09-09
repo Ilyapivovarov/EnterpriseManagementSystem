@@ -15,13 +15,13 @@ public sealed class SignOutRequestHandler : IRequestHandler<SignOutRequest, IAct
     {
         try
         {
-            var userGuid = signOutRequest.Guid;
-            var session = await _sessionRepository.GetSessionByUserGuid(userGuid);
-            if (session == null)
-                return new BadRequestResult();
+            // var userGuid = signOutRequest.Guid;
+            // var session = await _sessionRepository.GetAsync(userGuid);
+            // if (session == null)
+            //     return new BadRequestResult();
 
-            if (!await _sessionRepository.RemoveSession(session))
-                return new BadRequestResult();
+            // if (!await _sessionRepository.RemoveSession(session))
+            //     return new BadRequestResult();
 
             return new OkResult();
         }

@@ -14,16 +14,16 @@ public sealed class MapperTests
     [Test]
     public void MappingSessionDbEntityToSessionTest()
     {
-        var sessionDbEntity = new SessionDbEntity
+        var session = new Session
         {
             User = new UserDbEntity(),
             AccessToken = Guid.NewGuid().ToString(),
-            RefreshToken = Guid.NewGuid()
+            RefreshToken = Guid.NewGuid().ToString()
         };
 
-        var session = sessionDbEntity.ToDto();
-        Assert.IsTrue(session.AccessToken == sessionDbEntity.AccessToken
-                      && session.RefreshToken == sessionDbEntity.RefreshToken
-                      && session.UserGuid == sessionDbEntity.User.Guid);
+        var sessionDto = session.ToDto();
+        Assert.IsTrue(sessionDto.AccessToken == session.AccessToken
+                      && sessionDto.RefreshToken == session.RefreshToken
+                      && sessionDto.UserGuid == session.User.Guid);
     }
 }

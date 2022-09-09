@@ -29,10 +29,10 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
             if (user == null)
                 return new NotFoundObjectResult("Incrrect email or password");
 
-            var session = await _sessionRepository.GetSessionByUserIdAsync(user.Id);
+            var session = await _sessionRepository.GetAsync(user.Guid.ToString());
             var updatedSession = _sessionBlService.CreateOrUpdateSession(user, session);
 
-            await _sessionRepository.SaveOrUpdateSessionAsync(updatedSession);
+            await _sessionRepository.SaveAsync(updatedSession);
 
             return new OkObjectResult(updatedSession.ToDto());
         }
