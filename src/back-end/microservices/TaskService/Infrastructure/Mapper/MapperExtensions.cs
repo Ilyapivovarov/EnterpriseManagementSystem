@@ -20,7 +20,7 @@ public static class MapperExtensions
     public static RecordsCollection<TaskDto> ToDto(this ICollection<TaskDbEntity>? taskDbEntity)
     {
         if (taskDbEntity == null)
-            return new RecordsCollection<TaskDto>();
+            return RecordsCollection<TaskDto>.Empty;
 
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<TaskDbEntity, TaskDto>()
@@ -45,7 +45,7 @@ public static class MapperExtensions
     public static RecordsCollection<UserDto> ToDto(this ICollection<UserDbEntity>? userDbEntities)
     {
         if (userDbEntities == null)
-            return new RecordsCollection<UserDto>();
+            return RecordsCollection<UserDto>.Empty;
 
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<UserDbEntity, UserDto>()
@@ -68,7 +68,7 @@ public static class MapperExtensions
     public static RecordsCollection<TaskStatusDto> ToDto(this ICollection<TaskStatusDbEntity>? taskStatusDbEntities)
     {
         if (taskStatusDbEntities == null)
-            return new RecordsCollection<TaskStatusDto>();
+            return RecordsCollection<TaskStatusDto>.Empty;
 
         var cfg = new MapperConfiguration(cfg =>
             cfg.CreateMap<TaskStatusDbEntity, TaskStatusDto>()

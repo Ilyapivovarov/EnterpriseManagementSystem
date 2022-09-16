@@ -1,9 +1,12 @@
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.BusinessModels;
 using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 using EnterpriseManagementSystem.Contracts.WebContracts;
 using IdentityService.Application.Repositories;
 using IdentityService.FunctionalTests.Base;
+using IdentityService.Infrastructure.Mapper;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
@@ -11,54 +14,31 @@ namespace IdentityService.FunctionalTests.AuthController;
 
 public sealed class SignUpTest : TestBase
 {
-    protected override string EnvironmentName => "Development";
+    protected override string Environment => "Testing";
+
+    private HttpClient HttpClient { get; set; } = null!;
 
     [SetUp]
-    public async Task Setup()
+    public async Task SetUp()
     {
-        await RefreshServer();
+        HttpClient = await GetHttpClient();
     }
 
     [Test]
     public async Task SuccessScenario()
     {
-        var data = new SignUpDtoDto("Test", "Test", EmailAddress.Parse("test@email.com"), Password.Parse("test1234"), Password.Parse("test1234"));
-        var content = GetStringContent(data);
-
-        var result = await Client.PostAsync("auth/sign-up", content);
-
-        var newUser = await Service
-            .GetRequiredService<IUserRepository>().GetUserByEmailAsync(data.Email);
-
-        Assert.IsTrue(result.IsSuccessStatusCode && newUser?.Email.Address == data.Email,
-            await result.Content.ReadAsStringAsync());
+        var data = new SignUpDtoDto("Test", "Test", EmailAddress.Parse("signup@email.com"), Password.Parse("test1234"), Password.Parse("test1234"));
+        var result = await HttpClient.PostAsync("auth/sign-up", GetStringContent(data.ToJson()));
+        
+        Assert.That(result.IsSuccessStatusCode, Is.True);
     }
-
-    // [Test]
-    // public async Task EmailAlreadyExistScenario()
-    // {
-    //     var userCountBefore = IdentityDbContext.Users.Count();
-    //     var data = new SignUp("Test", "Test", DefaultUser.Email.Address, "test1234", "test1234");
-    //     var content = GetStringContent(data);
-    //
-    //     var result = await Client.PostAsync("auth/sign-up", content);
-    //
-    //     Assert.IsFalse(result.IsSuccessStatusCode);
-    //     Assert.IsTrue(userCountBefore == IdentityDbContext.Users.Count());
-    //     Assert.Pass(await result.Content.ReadAsStringAsync());
-    // }
-    //
-    // [Test]
-    // public async Task PasswordIsNotSameExistScenario()
-    // {
-    //     var userCountBefore = IdentityDbContext.Users.Count();
-    //     var data = new SignUp("Test", "Test", DefaultUser.Email.Address, "test1234", "test11234");
-    //     var content = GetStringContent(data);
-    //
-    //     var result = await Client.PostAsync("auth/sign-up", content);
-    //
-    //     Assert.IsFalse(result.IsSuccessStatusCode);
-    //     Assert.IsTrue(userCountBefore == IdentityDbContext.Users.Count());
-    //     Assert.Pass(await result.Content.ReadAsStringAsync());
-    // }
+    
+    [Test]
+    public async Task EmailAlreadyExitScenario()
+    {
+        var data = new SignUpDtoDto("Test", "Test", EmailAddress.Parse("admin@ems.com"), Password.Parse("test1234"), Password.Parse("test1234"));
+        var result = await HttpClient.PostAsync("auth/sign-up", GetStringContent(data.ToJson()));
+        
+        Assert.That(result.StatusCode == HttpStatusCode.BadRequest, Is.True);
+    }
 }

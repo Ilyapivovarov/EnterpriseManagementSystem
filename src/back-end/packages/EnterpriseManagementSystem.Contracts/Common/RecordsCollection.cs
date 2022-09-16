@@ -2,6 +2,8 @@ namespace EnterpriseManagementSystem.Contracts.Common;
 
 public sealed class RecordsCollection<T> : List<T>
 {
+    public readonly static RecordsCollection<T> Empty = new();
+
     public RecordsCollection()
         : base(ArraySegment<T>.Empty)
     { }

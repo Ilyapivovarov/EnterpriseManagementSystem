@@ -1,68 +1,128 @@
 using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mime;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
+using EnterpriseManagementSystem.Contracts.Dto.TaskService;
+using EnterpriseManagementSystem.JwtAuthorization;
+using IdentityService.Application.Repositories;
+using IdentityService.Core.DbEntities;
 using IdentityService.Infrastructure.DbContexts;
+using IdentityService.Infrastructure.Mapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
 
 namespace IdentityService.FunctionalTests.Base;
 
-public abstract class TestBase
+public abstract class TestBase: IDisposable
 {
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private IServiceProvider? _service;
-    private IServiceScope? _serviceScoped;
-
     protected TestBase()
     {
-        _jsonSerializerOptions = new JsonSerializerOptions
-            {PropertyNameCaseInsensitive = true};
+        Server = CreateTestServer();
+        Services = Server.Services.CreateScope();
     }
 
-    protected abstract string EnvironmentName { get; }
+    public IServiceScope Services { get; set; }
 
-    protected IServiceProvider Service => _service ??= ServiceScope.ServiceProvider;
+    protected abstract string Environment { get; }
 
-    protected HttpClient Client { get; set; }
+    protected TestServer Server { get; }
 
-    private IServiceScope ServiceScope => _serviceScoped ??= Server.Services.CreateScope();
-
-    private TestServer Server { get; set; }
+    [OneTimeSetUp]
+    public async Task OneTimeSetUp()
+    {
+        using var services = Server.Services.CreateScope();
+        await IdentityDbContextSeed.InitDevDataAsync(services.ServiceProvider);
+    }
 
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
     {
-        await Service.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
-        ServiceScope.Dispose();
+        await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
     }
 
-    protected async Task RefreshServer()
+    protected async Task<HttpClient> GetHttpClient()
     {
-        Server = CreateTestServer();
-        Client = Server.CreateClient();
-        await Task.Delay(2000);
+        var httpClient = Server.CreateClient();
+        var accessToken = await GenerateAccessToken();
+        httpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken);
+
+        return httpClient;
     }
 
-    protected StringContent GetStringContent(object obj)
+    protected async Task<IdentityUserDto> GetDefaultUser()
     {
-        return new StringContent(
-            JsonSerializer.Serialize(obj, _jsonSerializerOptions), Encoding.UTF8, MediaTypeNames.Application.Json);
+        using var services = Server.Services.CreateScope();
+               
+        var user = await services.ServiceProvider.GetRequiredService<IUserRepository>()
+            .GetUserByIdAsync(1);
+
+        if (user == null)
+            throw new NullReferenceException();
+
+        return user.ToDto();
+    }
+
+    protected StringContent GetStringContent(string content)
+    {
+        return new StringContent(content, Encoding.UTF8, MediaTypeNames.Application.Json);
+    }
+    
+    private async Task<string> GenerateAccessToken()
+    {
+        var user = await GetDefaultUser();
+
+        var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
+        var authParams = authOption.Value;
+
+        var securityKey = authParams.GetSymmetricSecurityKey();
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Email, user.EmailAddress.Value),
+            new(ClaimTypes.UserData, user.Guid.ToString())
+        };
+
+        var token = new JwtSecurityToken(
+            authParams.Issuer,
+            authParams.Audience,
+            claims,
+            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
+            signingCredentials: credentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     private TestServer CreateTestServer()
     {
         var hostBuilder = new WebHostBuilder()
             .ConfigureAppConfiguration(
-                configuration => configuration.AddJsonFile($"appsettings.{EnvironmentName}.json"))
+                configuration => configuration.AddJsonFile($"appsettings.{Environment}.json"))
             .UseStartup<Startup>()
-            .UseEnvironment(EnvironmentName);
+            .UseEnvironment(Environment);
 
-        return new TestServer(hostBuilder);
+        var testServer = new TestServer(hostBuilder);
+
+        return testServer;
+    }
+
+    public virtual void Dispose()
+    {
+        Services.Dispose();
+        Server.Dispose();
     }
 }

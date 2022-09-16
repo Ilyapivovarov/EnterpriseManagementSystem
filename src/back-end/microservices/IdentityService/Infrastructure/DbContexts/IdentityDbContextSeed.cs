@@ -1,4 +1,3 @@
-using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 using UserService.Core;
 
 namespace IdentityService.Infrastructure.DbContexts;

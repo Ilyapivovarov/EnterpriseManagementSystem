@@ -1,5 +1,3 @@
-using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
-
 namespace IdentityService.Infrastructure.Requests;
 
 public sealed class SignInRequest : IRequest<IActionResult>

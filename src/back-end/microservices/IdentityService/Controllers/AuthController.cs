@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityService.Controllers;
