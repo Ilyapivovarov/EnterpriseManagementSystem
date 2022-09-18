@@ -14,6 +14,6 @@ public sealed class SessionRepository : CacheRepositoryBase, ISessionRepository
 
     public async Task<bool> SaveAsync(Session session)
     {
-        return await WriteAsync<Session?>(session.User.Guid.ToString(), session);
+        return await WriteAsync<Session?>(session.RefreshToken, session);
     }
 }

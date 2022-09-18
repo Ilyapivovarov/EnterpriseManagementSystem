@@ -1,7 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Text.Json;
-using StackExchange.Redis;
-
 namespace IdentityService.Infrastructure.Repositories.Base;
 
 public abstract class CacheRepositoryBase

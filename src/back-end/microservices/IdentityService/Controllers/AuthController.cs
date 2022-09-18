@@ -53,10 +53,10 @@ public sealed class AuthController : ControllerBase
     }
 
     [HttpPut]
-    [Route("refresh/{refreshToken}")]
-    public async Task<IActionResult> RefreshToken(string refreshToken)
+    [Route("refresh/")]
+    public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
     {
         var guidStr = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
-        return await _mediator.Send(new RefreshTokenRequest(refreshToken, guidStr));
+        return await _mediator.Send(request);
     }
 }

@@ -2,6 +2,7 @@ using IdentityService.Infrastructure.DbContexts;
 using IdentityService.Infrastructure.HostedServices;
 using IdentityService.Infrastructure.Repositories;
 using IdentityService.Infrastructure.Services;
+using IdentityService.Infrastructure.Services.CacheServices;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
@@ -28,11 +29,17 @@ public static class InfrastructureDependencyInjection
         #endregion
         
         #region Register Redis
-        
-        services.AddSingleton<IConnectionMultiplexer>(_
-            => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
-        services.AddSingleton<ICacheService, RedisCacheSerivce>();
 
+        if (environment.IsTesting())
+        {
+            services.AddSingleton<ICacheService, TestCacheService>();
+        }
+        else
+        {
+            services.AddSingleton<IConnectionMultiplexer>(_
+                => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
+            services.AddSingleton<ICacheService, RedisCacheSerivce>();
+        }
         #endregion
 
         #region Register repositories

@@ -17,9 +17,9 @@ public sealed class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenReq
     {
         try
         {
-            var session = await _sessionRepository.GetAsync(request.UserGuid);
+            var session = await _sessionRepository.GetAsync(request.RefreshToken);
             if (session == null)
-                return new NotFoundObjectResult("Not found sessin");
+                return new NotFoundObjectResult("Not found session");
 
             var newSession = _sessionService.Refresh(session);
             
