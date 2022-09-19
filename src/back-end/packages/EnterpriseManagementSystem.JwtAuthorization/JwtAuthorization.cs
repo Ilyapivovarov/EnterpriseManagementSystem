@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using EnterpriseManagementSystem.JwtAuthorization.Infrasturcture;
+using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -7,12 +9,12 @@ namespace EnterpriseManagementSystem.JwtAuthorization;
 
 public static class JwtAuthorization
 {
-    public static void AddJwtAuthorization(this IServiceCollection serviceProvider, IConfiguration configuration)
+    public static void AddJwtAuthorization(this IServiceCollection services, IConfiguration configuration)
     {
         var section = configuration.GetSection("JwtBearer");
-        serviceProvider.Configure<AuthOption>(section);
+        services.Configure<AuthOption>(section);
         var authOpt = section.Get<AuthOption>();
-        serviceProvider.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
@@ -29,5 +31,8 @@ public static class JwtAuthorization
                     ValidateIssuerSigningKey = true
                 };
             });
+
+
+        services.AddTransient<IJwtSessionService, JwtSessionService>();
     }
 }

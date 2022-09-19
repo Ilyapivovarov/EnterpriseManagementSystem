@@ -1,10 +1,8 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 
 namespace IdentityService.Core.DbEntities;
 
-public class Session
+public sealed class Session : IJwtSession
 {
     public string AccessToken { get; set; } = null!;
 

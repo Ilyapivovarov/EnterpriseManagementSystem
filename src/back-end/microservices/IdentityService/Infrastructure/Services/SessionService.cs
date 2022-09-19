@@ -1,25 +1,23 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 
 namespace IdentityService.Infrastructure.Services;
 
 public sealed class SessionService : ISessionService
 {
-    private readonly IOptions<AuthOption> _authOptions;
+    private readonly IJwtSessionService _jwtSessionService;
 
-    public SessionService(IOptions<AuthOption> authOptions)
+    public SessionService(IJwtSessionService jwtSessionService)
     {
-        
-        _authOptions = authOptions;
-        
+        _jwtSessionService = jwtSessionService;
     }
 
     public Session CreateSession(UserDbEntity user)
     {
-        var accessToken = GenerateAccessToken(user);
-        var refreshToken = GenerateRefreshToken(user);
+        var claims = CreateClaims(user);
+        var accessToken = _jwtSessionService.CreateAccessToken(claims);
+        var refreshToken = _jwtSessionService.CreateRefreshToken(claims);
 
         var session = new Session
         {
@@ -33,8 +31,9 @@ public sealed class SessionService : ISessionService
 
     public Session CreateOrUpdateSession(UserDbEntity user, Session? session)
     {
-        var accessToken = GenerateAccessToken(user);
-        var refreshToken = GenerateRefreshToken(user);
+        var claims = CreateClaims(user);
+        var accessToken = _jwtSessionService.CreateAccessToken(claims);
+        var refreshToken = _jwtSessionService.CreateRefreshToken(claims);
         if (session == null)
         {
             var newSession = new Session
@@ -54,58 +53,22 @@ public sealed class SessionService : ISessionService
 
     public Session Refresh(Session session)
     {
+        var cliams = CreateClaims(session.User);
         return new Session
         {
             User = session.User,
-            AccessToken = GenerateAccessToken(session.User),
-            RefreshToken = GenerateRefreshToken(session.User)
+            AccessToken = _jwtSessionService.CreateAccessToken(cliams),
+            RefreshToken = _jwtSessionService.CreateRefreshToken(cliams)
         };
     }
 
-    private string GenerateAccessToken(UserDbEntity user)
+    private static ICollection<Claim> CreateClaims(UserDbEntity user)
     {
-        var authParams = _authOptions.Value;
-
-        var securityKey = authParams.GetSymmetricSecurityKey();
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        var claims = new List<Claim>
+        return new List<Claim>
         {
             new(JwtRegisteredClaimNames.Email, user.Email.Address.Value),
             new(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
             new("role", user.Role.Name)
         };
-
-        var token = new JwtSecurityToken(
-            authParams.Issuer,
-            authParams.Audience,
-            claims,
-            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
-            signingCredentials: credentials);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
-    }
-    
-    private string GenerateRefreshToken(UserDbEntity user)
-    {
-        var authParams = _authOptions.Value;
-
-        var securityKey = authParams.GetSymmetricSecurityKey();
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        var claims = new List<Claim>
-        {
-            new(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
-        };
-
-        var token = new JwtSecurityToken(
-            authParams.Issuer,
-            authParams.Audience,
-            claims,
-            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
-            signingCredentials: credentials);
-
-        return new JwtSecurityTokenHandler()
-            .WriteToken(token);
     }
 }
