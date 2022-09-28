@@ -22,7 +22,7 @@ public static class MapperExtensions
             cfg.CreateMap<Session, SessionDto>()
                 .ForMember(dto => dto.UserGuid,
                     source
-                        => source.MapFrom(c => c.User.Guid)));
+                        => source.MapFrom(c => c.UserGuid)));
 
         var mapper = new AutoMapper.Mapper(cfg);
         return mapper.Map<Session, SessionDto>(session);

@@ -8,5 +8,5 @@ public sealed class Session : IJwtSession
 
     public string RefreshToken { get; set; } = null!;
 
-    public UserDbEntity User { get; set; } = null!;
+    public Guid UserGuid { get; set; }
 }

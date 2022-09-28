@@ -16,7 +16,7 @@ public sealed class MapperTests
     {
         var session = new Session
         {
-            User = new UserDbEntity(),
+            UserGuid = Guid.NewGuid(),
             AccessToken = Guid.NewGuid().ToString(),
             RefreshToken = Guid.NewGuid().ToString()
         };
@@ -24,6 +24,6 @@ public sealed class MapperTests
         var sessionDto = session.ToDto();
         Assert.IsTrue(sessionDto.AccessToken == session.AccessToken
                       && sessionDto.RefreshToken == session.RefreshToken
-                      && sessionDto.UserGuid == session.User.Guid);
+                      && sessionDto.UserGuid == session.UserGuid);
     }
 }

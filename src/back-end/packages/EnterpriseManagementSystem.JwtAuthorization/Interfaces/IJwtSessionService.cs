@@ -7,4 +7,6 @@ public interface IJwtSessionService
     public string CreateAccessToken(ICollection<Claim> claims);
     
     public string CreateRefreshToken(ICollection<Claim> claims);
+
+    public IJwtSession CreateJwtSession(ICollection<Claim> claims);
 }

@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 using EnterpriseManagementSystem.JwtAuthorization;
+using EnterpriseManagementSystem.JwtAuthorization.Infrasturcture;
+using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -55,7 +57,15 @@ public abstract class TestBase : IDisposable
     protected async Task<HttpClient> GetHttpClient()
     {
         var httpClient = Server.CreateClient();
-        var accessToken = await GenerateAccessToken();
+        using var services = Server.Services.CreateScope();
+        var user = await GetDefaultUser();
+        var claims = new List<Claim>
+        {
+            new(JwtRegisteredClaimNames.Email, user.EmailAddress.Value),
+            new(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
+            new("role", "admin")
+        };
+        var accessToken = services.ServiceProvider.GetRequiredService<JwtSessionService>().CreateAccessToken(claims);
         httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken);
 

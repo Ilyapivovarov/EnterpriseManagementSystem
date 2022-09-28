@@ -54,9 +54,8 @@ public sealed class AuthController : ControllerBase
 
     [HttpPut]
     [Route("refresh/")]
-    public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
+    public async Task<IActionResult> RefreshToken(RefreshTokenDto refreshTokenDto)
     {
-        var guidStr = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
-        return await _mediator.Send(request);
+        return await _mediator.Send(new RefreshTokenRequest(refreshTokenDto.RefreshToken));
     }
 }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 using EnterpriseManagementSystem.JwtAuthorization;
+using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using IdentityService.Application.Repositories;
 using IdentityService.Core.DbEntities;
 using IdentityService.Infrastructure.DbContexts;
@@ -34,17 +35,20 @@ public abstract class TestBase: IDisposable
         Services = Server.Services.CreateScope();
     }
 
-    public IServiceScope Services { get; set; }
-
     protected abstract string Environment { get; }
 
-    protected TestServer Server { get; }
+    private TestServer Server { get; }
+    
+    private IServiceScope Services { get; set; }
+    
+    protected HttpClient Client { get; private set; }
 
     [OneTimeSetUp]
     public async Task OneTimeSetUp()
     {
         using var services = Server.Services.CreateScope();
         await IdentityDbContextSeed.InitDevDataAsync(services.ServiceProvider);
+        Client = await GetHttpClient();
     }
 
     [OneTimeTearDown]
@@ -85,26 +89,15 @@ public abstract class TestBase: IDisposable
     {
         var user = await GetDefaultUser();
 
-        var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
-        var authParams = authOption.Value;
-
-        var securityKey = authParams.GetSymmetricSecurityKey();
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
         var claims = new List<Claim>
         {
             new(ClaimTypes.Email, user.EmailAddress.Value),
             new(ClaimTypes.UserData, user.Guid.ToString())
         };
+        var session = Server.Services.GetRequiredService<IJwtSessionService>()
+            .CreateJwtSession(claims);
 
-        var token = new JwtSecurityToken(
-            authParams.Issuer,
-            authParams.Audience,
-            claims,
-            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
-            signingCredentials: credentials);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return session.AccessToken;
     }
 
     private TestServer CreateTestServer()

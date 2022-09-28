@@ -16,47 +16,34 @@ public sealed class SessionService : ISessionService
     public Session CreateSession(UserDbEntity user)
     {
         var claims = CreateClaims(user);
-        var accessToken = _jwtSessionService.CreateAccessToken(claims);
-        var refreshToken = _jwtSessionService.CreateRefreshToken(claims);
+        var session = _jwtSessionService.CreateJwtSession(claims);
 
-        var session = new Session
-        {
-            User = user,
-            AccessToken = accessToken,
-            RefreshToken = refreshToken,
-        };
-
-        return session;
-    }
-
-    public Session CreateOrUpdateSession(UserDbEntity user, Session? session)
-    {
-        var claims = CreateClaims(user);
-        var accessToken = _jwtSessionService.CreateAccessToken(claims);
-        var refreshToken = _jwtSessionService.CreateRefreshToken(claims);
-        if (session == null)
-        {
-            var newSession = new Session
-            {
-                User = user,
-                AccessToken = accessToken,
-                RefreshToken = refreshToken
-            };
-
-            return newSession;
-        }
-
-        session.AccessToken = accessToken;
-        session.RefreshToken = refreshToken;
-        return session;
-    }
-
-    public Session Refresh(Session session)
-    {
-        var cliams = CreateClaims(session.User);
         return new Session
         {
-            User = session.User,
+            AccessToken = session.AccessToken,
+            RefreshToken = session.RefreshToken,
+            UserGuid = user.Guid
+        };
+    }
+
+    public Session CreateOrUpdateSession(UserDbEntity user)
+    {
+        var session = _jwtSessionService.CreateJwtSession(CreateClaims(user));
+
+        return new Session
+        {
+            AccessToken = session.AccessToken,
+            RefreshToken = session.RefreshToken,
+            UserGuid = user.Guid
+        };
+    }
+
+    public Session Refresh(UserDbEntity user)
+    {
+        var cliams = CreateClaims(user);
+        return new Session
+        {
+            UserGuid = user.Guid,
             AccessToken = _jwtSessionService.CreateAccessToken(cliams),
             RefreshToken = _jwtSessionService.CreateRefreshToken(cliams)
         };

@@ -1,6 +1,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
+using EnterpriseManagementSystem.JwtAuthorization.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,6 +15,12 @@ public sealed class JwtSessionService : IJwtSessionService
     public JwtSessionService(IOptions<AuthOption> authOptions)
     {
         _authOptions = authOptions;
+    }
+
+    public IJwtSession CreateJwtSession(ICollection<Claim> claims)
+    {
+        var jwtSession = new JwtSession(CreateAccessToken(claims), CreateRefreshToken(claims));
+        return jwtSession;
     }
     
     public string CreateAccessToken(ICollection<Claim> claims)

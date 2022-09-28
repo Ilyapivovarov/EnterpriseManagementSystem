@@ -23,18 +23,17 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
         try
         {
             var signInDto = signInRequest.SignInDto;
-
             var hashPassword = _securityService.EncryptPasswordOrException(signInDto.Password.Value);
+            
             var user = await _userRepository.GetUserByEmailAndPasswordAsync(signInDto.Email, Password.Parse(hashPassword));
             if (user == null)
-                return new NotFoundObjectResult("Incrrect email or password");
+                return new NotFoundObjectResult("Incorrect email or password");
 
-            var session = await _sessionRepository.GetAsync(user.Guid.ToString());
-            var updatedSession = _sessionBlService.CreateOrUpdateSession(user, session);
+            var session = _sessionBlService.CreateSession(user);
 
-            await _sessionRepository.SaveAsync(updatedSession);
+            await _sessionRepository.SaveAsync(session);
 
-            return new OkObjectResult(updatedSession.ToDto());
+            return new OkObjectResult(session.ToDto());
         }
         catch (Exception e)
         {

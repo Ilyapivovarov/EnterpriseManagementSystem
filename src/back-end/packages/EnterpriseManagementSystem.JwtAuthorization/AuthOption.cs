@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EnterpriseManagementSystem.JwtAuthorization;
 
-public class AuthOption
+public sealed class AuthOption
 {
     public string Issuer { get; set; } = null!;
 
