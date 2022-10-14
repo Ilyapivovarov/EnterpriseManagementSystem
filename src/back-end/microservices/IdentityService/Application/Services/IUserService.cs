@@ -26,12 +26,4 @@ public interface IUserService
     /// <param name="newEmail"></param>
     /// <returns></returns>
     public ServiceActionResult<UserDbEntity> ChangeEmail(UserDbEntity userDbEntity, EmailAddress newEmail);
-
-    /// <summary>
-    ///     Creating user
-    /// </summary>
-    /// <param name="email"></param>
-    /// <param name="password"></param>
-    /// <returns></returns>
-    public Task<ServiceActionResult<UserDbEntity>> TryCreateUser(EmailAddress email, Password password);
 }

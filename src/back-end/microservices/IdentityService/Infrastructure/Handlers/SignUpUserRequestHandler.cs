@@ -35,14 +35,23 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
             if (password != confirmPassword)
                 return new BadRequestObjectResult("Passwords is not same");
 
-            var userServiceResult = await _userService.TryCreateUser(email, password);
-            if (userServiceResult.Value == null)
-                return new BadRequestObjectResult(userServiceResult.Error);
+            var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
+            if (userWithSameEmail != null)
+                return new BadRequestObjectResult("Email already exist");
 
-            var session = _sessionBlService.CreateSession(userServiceResult.Value);
+            var userRole = await _userRoleRepository.GetReaderRole();
+            if (userRole == null)
+                return new BadRequestObjectResult("Reader role not found");
+
+            var newUser = _userService.Create(email, password, userRole);
+            var saveResult = await _userRepository.SaveUserAsync(newUser);
+            if (!saveResult)
+                return new BadRequestObjectResult("Error while save user");
+
+            var session = _sessionBlService.CreateSession(newUser);
             await _sessionRepository.SaveAsync(session);
 
-            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(userServiceResult.Value.Guid, fristName,
+            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(newUser.Guid, fristName,
                 lastName, signUpDto.Email, null));
             await _bus.Publish(@event, cancellationToken);
 
