@@ -1,0 +1,9 @@
+#nav-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#nav-link {
+    color: cornflowerblue;
+    text-decoration: none;
+}
