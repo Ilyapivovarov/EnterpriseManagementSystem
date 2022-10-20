@@ -1,7 +1,6 @@
-using IdentityService.Application.Services;
 using IdentityService.IntegrationTests.Base;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using StackExchange.Redis;
 
@@ -9,27 +8,24 @@ namespace IdentityService.IntegrationTests;
 
 public sealed class IdentityServiceIntegrationTests : TestBase
 {
-    [SetUp]
-    public void Setup()
-    { }
+    protected override string Environment => "Development";
 
     [Test]
     public void TestDevConnectionToDb()
     {
-        // var testServer = GetTestServer();
-        // var context = testServer.Services.GetRequiredService<IdentityDbContext>();
+        var connectionString = new SqlConnectionStringBuilder(Configuration.GetConnectionString("RelationalDb"))
+        {
+            InitialCatalog = "master"
+        };
 
-        Assert.Warn("Not implement");
+        using var sqlConnections = new SqlConnection(connectionString.ToString());
+        Assert.DoesNotThrow(sqlConnections.Open);
     }
 
     [Test]
     public void TestConnectionToRedis()
     {
-        var ts = GetTestServer();
-
-        using var serivces = ts.Services.CreateScope();
-        var cm = serivces.ServiceProvider.GetRequiredService<IConnectionMultiplexer>();
-        
+        var cm = ConnectionMultiplexer.Connect(Configuration.GetConnectionString("Redis"));
         Assert.That(cm.IsConnected, Is.True);
     }
 }
