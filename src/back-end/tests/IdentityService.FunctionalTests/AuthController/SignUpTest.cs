@@ -16,29 +16,21 @@ public sealed class SignUpTest : TestBase
 {
     protected override string Environment => "Testing";
 
-    private HttpClient HttpClient { get; set; } = null!;
-
-    [SetUp]
-    public async Task SetUp()
-    {
-        HttpClient = await GetHttpClient();
-    }
-
     [Test]
     public async Task SuccessScenario()
     {
         var data = new SignUpDtoDto("Test", "Test", EmailAddress.Parse("signup@email.com"), Password.Parse("test1234"), Password.Parse("test1234"));
         var result = await HttpClient.PostAsync("auth/sign-up", GetStringContent(data.ToJson()));
-        
+
         Assert.That(result.IsSuccessStatusCode, Is.True);
     }
-    
+
     [Test]
     public async Task EmailAlreadyExitScenario()
     {
         var data = new SignUpDtoDto("Test", "Test", EmailAddress.Parse("admin@ems.com"), Password.Parse("test1234"), Password.Parse("test1234"));
         var result = await HttpClient.PostAsync("auth/sign-up", GetStringContent(data.ToJson()));
-        
+
         Assert.That(result.StatusCode == HttpStatusCode.BadRequest, Is.True);
     }
 }

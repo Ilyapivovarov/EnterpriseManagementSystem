@@ -12,14 +12,6 @@ public sealed class SignInTest : TestBase
 {
     protected override string Environment => "Testing";
 
-    private HttpClient HttpClient { get; set; } = null!;
-
-    [SetUp]
-    public async Task SetUp()
-    {
-        HttpClient = await GetHttpClient();
-    }
-    
     [Test]
     public async Task SuccessScenario()
     {

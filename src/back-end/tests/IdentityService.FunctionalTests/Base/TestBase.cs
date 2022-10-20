@@ -1,19 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
-using EnterpriseManagementSystem.Contracts.Dto.TaskService;
-using EnterpriseManagementSystem.JwtAuthorization;
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using IdentityService.Application.Repositories;
-using IdentityService.Core.DbEntities;
 using IdentityService.Infrastructure.DbContexts;
 using IdentityService.Infrastructure.Mapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -21,8 +16,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
 
 namespace IdentityService.FunctionalTests.Base;
@@ -37,40 +30,26 @@ public abstract class TestBase: IDisposable
 
     protected abstract string Environment { get; }
 
+    protected HttpClient HttpClient { get; private set; } = null!;
+
     private TestServer Server { get; }
-    
+
     private IServiceScope Services { get; set; }
-    
-    protected HttpClient Client { get; private set; }
 
-    [OneTimeSetUp]
-    public async Task OneTimeSetUp()
+    #region IDisposable implementation
+
+    public virtual void Dispose()
     {
-        using var services = Server.Services.CreateScope();
-        await IdentityDbContextSeed.InitDevDataAsync(services.ServiceProvider);
-        Client = await GetHttpClient();
+        Services.Dispose();
+        Server.Dispose();
     }
 
-    [OneTimeTearDown]
-    public async Task OneTimeTearDown()
-    {
-        await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
-    }
-
-    protected async Task<HttpClient> GetHttpClient()
-    {
-        var httpClient = Server.CreateClient();
-        var accessToken = await GenerateAccessToken();
-        httpClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken);
-
-        return httpClient;
-    }
+    #endregion
 
     protected async Task<IdentityUserDto> GetDefaultUser()
     {
         using var services = Server.Services.CreateScope();
-               
+
         var user = await services.ServiceProvider.GetRequiredService<IUserRepository>()
             .GetUserByIdAsync(1);
 
@@ -84,7 +63,31 @@ public abstract class TestBase: IDisposable
     {
         return new StringContent(content, Encoding.UTF8, MediaTypeNames.Application.Json);
     }
-    
+
+    [OneTimeSetUp]
+    public async Task OneTimeSetUp()
+    {
+        using var services = Server.Services.CreateScope();
+        await IdentityDbContextSeed.InitDevDataAsync(services.ServiceProvider);
+        HttpClient = await GetHttpClient();
+    }
+
+    [OneTimeTearDown]
+    private async Task OneTimeTearDown()
+    {
+        await Server.Services.GetRequiredService<IdentityDbContext>().Database.EnsureDeletedAsync();
+    }
+
+    private async Task<HttpClient> GetHttpClient()
+    {
+        var httpClient = Server.CreateClient();
+        var accessToken = await GenerateAccessToken();
+        httpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken);
+
+        return httpClient;
+    }
+
     private async Task<string> GenerateAccessToken()
     {
         var user = await GetDefaultUser();
@@ -111,11 +114,5 @@ public abstract class TestBase: IDisposable
         var testServer = new TestServer(hostBuilder);
 
         return testServer;
-    }
-
-    public virtual void Dispose()
-    {
-        Services.Dispose();
-        Server.Dispose();
     }
 }
