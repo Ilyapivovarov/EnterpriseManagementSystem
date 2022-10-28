@@ -57,9 +57,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.BusinessModels.Tests", "src\back-end\tests\EnterpriseManagementSystem.BusinessModels.Tests\EnterpriseManagementSystem.BusinessModels.Tests.csproj", "{D0924D9A-2842-4476-921B-56D3ACA65F4A}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactapp", "src\front-end\ReactApp\reactapp.esproj", "{6D9A50F1-B8B2-42C0-B8B3-D1DADD6E3856}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "front-end", "front-end", "{89010619-BD5C-4108-92FF-B1012D8DF6A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactClientApp", "src\front-end\ReactClientApp\ReactClientApp.csproj", "{F8FF4A24-A557-4CB0-9ABD-739523F79A9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,12 +135,10 @@ Global
 		{D0924D9A-2842-4476-921B-56D3ACA65F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0924D9A-2842-4476-921B-56D3ACA65F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0924D9A-2842-4476-921B-56D3ACA65F4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D9A50F1-B8B2-42C0-B8B3-D1DADD6E3856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D9A50F1-B8B2-42C0-B8B3-D1DADD6E3856}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D9A50F1-B8B2-42C0-B8B3-D1DADD6E3856}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{6D9A50F1-B8B2-42C0-B8B3-D1DADD6E3856}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D9A50F1-B8B2-42C0-B8B3-D1DADD6E3856}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D9A50F1-B8B2-42C0-B8B3-D1DADD6E3856}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F8FF4A24-A557-4CB0-9ABD-739523F79A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8FF4A24-A557-4CB0-9ABD-739523F79A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8FF4A24-A557-4CB0-9ABD-739523F79A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8FF4A24-A557-4CB0-9ABD-739523F79A9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,7 +170,7 @@ Global
 		{7AA2F3C6-3216-402B-B6D8-0BEA282C4C0C} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
 		{D0924D9A-2842-4476-921B-56D3ACA65F4A} = {85964933-9048-4BA2-933A-DD75FEFF0B53}
 		{89010619-BD5C-4108-92FF-B1012D8DF6A6} = {2C855623-C735-4A5F-92F2-471E2DB49458}
-		{6D9A50F1-B8B2-42C0-B8B3-D1DADD6E3856} = {89010619-BD5C-4108-92FF-B1012D8DF6A6}
+		{F8FF4A24-A557-4CB0-9ABD-739523F79A9F} = {89010619-BD5C-4108-92FF-B1012D8DF6A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6CFA357-8DFC-4CC6-A57E-D1E92BBC71A6}
