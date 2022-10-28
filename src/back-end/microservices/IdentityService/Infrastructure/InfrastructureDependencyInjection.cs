@@ -13,6 +13,12 @@ public static class InfrastructureDependencyInjection
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment)
     {
+        #region Register Loggin
+
+        services.AddLogging();
+
+        #endregion
+
         #region Register context
 
         services.AddDbContext<IdentityDbContext>(builder =>
@@ -27,7 +33,7 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<IIdentityDbContext, IdentityDbContext>();
 
         #endregion
-        
+
         #region Register Redis
 
         if (environment.IsTesting())
@@ -93,6 +99,6 @@ public static class InfrastructureDependencyInjection
 
         #endregion
 
-        
+
     }
 }
