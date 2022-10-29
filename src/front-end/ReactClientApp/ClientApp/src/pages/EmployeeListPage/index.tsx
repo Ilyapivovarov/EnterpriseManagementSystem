@@ -15,9 +15,7 @@ const EmployeeListPage: React.FC = () => {
         sx={{p: 2, marginTop: '10px'}}
         elevation={1}>
         <Breadcrumbs aria-label="breadcrumb">
-          <Link to={'/'}>
-                        Home
-          </Link>
+          <Link to={'/'}>Home</Link>
           <Typography color="text.primary">Employees</Typography>
         </Breadcrumbs>
       </Paper>
