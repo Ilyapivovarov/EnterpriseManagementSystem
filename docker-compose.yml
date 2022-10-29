@@ -1,70 +1,51 @@
 version: '3.9'
 
 networks:
-  dev-env_emsnetwork:
+  ems-network:
     external: true
 
 services:
-  react-app:
-    build:
-      context: src/front-end/react-client-app
-      dockerfile: Dockerfile
-    networks:
-      dev-env_emsnetwork:
-        ipv4_address: 10.20.10.200
-    ports:
-      - "3001:80"
-  
-  apigateway:
-    image: ${DOCKER_REGISTRY-}apigateway
+  api-gateway:
+    image: ${DOCKER_REGISTRY-}api-gateway
+    hostname: api-gateway
     build:
       context: .
       dockerfile: src/back-end/gateways/ApiGateway/Dockerfile
     ports:
       - "8080:80"
     depends_on:
-      - identityservice
+      - identity-service
     networks:
-      dev-env_emsnetwork:
+      ems-network:
         ipv4_address: 10.20.10.100
-  
-  identityservice:
-    image: ${DOCKER_REGISTRY-}identityservice
+
+  identity-service:
+    image: ${DOCKER_REGISTRY-}identity-service
+    hostname: identity-service
     build:
       context: .
       dockerfile: src/back-end/microservices/IdentityService/Dockerfile
     depends_on:
-      - userservice
-      - taskservice
+      - users-service
+      - tasks-service
     networks:
-      dev-env_emsnetwork:
+      ems-network:
         ipv4_address: 10.20.10.101
-  
-  #  emailservice:
-  #    image: ${DOCKER_REGISTRY-}emailservice
-  #    build:
-  #      context: .
-  #      dockerfile: src/back-end/microservices/EmailService/Dockerfile
-  #    depends_on:
-  #      - identityservice
-  #    networks:
-  #      dev-env_emsnetwork:
-  #        ipv4_address: 10.20.10.102
 
-  taskservice:
-    image: ${DOCKER_REGISTRY-}taskservice
+  tasks-service:
+    image: ${DOCKER_REGISTRY-}tasks-service
     build:
       context: .
       dockerfile: src/back-end/microservices/TaskService/Dockerfile
     networks:
-      dev-env_emsnetwork:
+      ems-network:
         ipv4_address: 10.20.10.103
-  
-  userservice:
-    image: ${DOCKER_REGISTRY-}userservice
+
+  users-service:
+    image: ${DOCKER_REGISTRY-}users-service
     build:
       context: .
       dockerfile: src/back-end/microservices/UserService/Dockerfile
     networks:
-      dev-env_emsnetwork:
+      ems-network:
         ipv4_address: 10.20.10.104
