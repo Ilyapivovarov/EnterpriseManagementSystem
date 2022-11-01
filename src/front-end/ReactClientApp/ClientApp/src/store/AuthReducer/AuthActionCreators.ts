@@ -10,9 +10,8 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
       console.log('resetAuthState');
       const session = JSON.parse(localStorage.getItem('session')!) as Session | null;
       if (!session) {
-        console.log('Error while updating token');
-        localStorage.clear();
-        return rejectWithValue('Error while updating token');
+        console.log('Not found token in localstorage');
+        return rejectWithValue('Not found token in localstorage');
       }
 
       const decodeToken = jwtDecode<DecodeToken>(session.accessToken);
@@ -23,8 +22,9 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
 
       console.log('Trying update token');
       try {
-        const response = await fetch(`${baseUrl}/auth/refresh/${session.refreshToken}`, {
+        const response = await fetch(`${baseUrl}/auth/refresh`, {
           method: 'PUT',
+          body: JSON.stringify({refreshToken: session.refreshToken}),
           headers: {
             'content-type': 'application/json;charset=UTF-8',
           },
@@ -40,9 +40,9 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
         console.log(e);
       }
 
-      console.log('Error while updating token');
-      localStorage.clear();
-      return rejectWithValue('Error');
+      console.log('Error while updating token. Remove item from localstorage by key "session"');
+      localStorage.removeItem('session');
+      return rejectWithValue('Error while updating token');
     },
 );
 

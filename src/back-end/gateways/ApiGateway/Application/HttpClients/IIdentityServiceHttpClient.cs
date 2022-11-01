@@ -1,5 +1,3 @@
-using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
-
 namespace ApiGateway.Application.HttpClients;
 
 public interface IIdentityServiceHttpClient
@@ -10,5 +8,5 @@ public interface IIdentityServiceHttpClient
 
     public Task<IActionResult> SignOutUser();
 
-    public Task<IActionResult> RefreshToken(string refreshToken);
+    public Task<IActionResult> RefreshToken(RefreshTokenDto refreshTokenDto);
 }

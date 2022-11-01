@@ -1,5 +1,3 @@
-using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
-
 namespace ApiGateway.Infrastructure.HttpClients;
 
 public sealed class IdentityServiceHttpClient : HttpClientBase, IIdentityServiceHttpClient
@@ -31,10 +29,11 @@ public sealed class IdentityServiceHttpClient : HttpClientBase, IIdentityService
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 
-    public async Task<IActionResult> RefreshToken(string refreshToken)
+    public async Task<IActionResult> RefreshToken(RefreshTokenDto refreshTokenDto)
     {
         var response =
-            await _httpClient.PutAsync(ServiceUrls.IdentityApi.AuthController.RefreshToken(refreshToken), null);
+            await _httpClient.PutAsync(ServiceUrls.IdentityApi.AuthController.RefreshToken(),
+                GetStringContent(refreshTokenDto.ToJson()));
         return GetObjectActionResult(await response.Content.ReadAsStringAsync(), response.StatusCode);
     }
 }

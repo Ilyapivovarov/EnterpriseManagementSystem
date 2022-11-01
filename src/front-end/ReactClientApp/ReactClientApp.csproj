@@ -25,6 +25,11 @@
         <Folder Include="ClientApp\src\pages\TaskListPageContent"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="ClientApp\build\asset-manifest.json"/>
+        <_ContentIncludedByDefault Remove="ClientApp\build\manifest.json"/>
+    </ItemGroup>
+
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
         <Exec Command="node --version" ContinueOnError="true">

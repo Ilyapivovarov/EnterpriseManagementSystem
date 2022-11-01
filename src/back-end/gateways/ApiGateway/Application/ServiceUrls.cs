@@ -30,9 +30,9 @@ public static class ServiceUrls
                 return "auth/sign-out";
             }
 
-            public static string RefreshToken(string refreshToken)
+            public static string RefreshToken()
             {
-                return $"auth/refresh/{refreshToken}";
+                return "auth/refresh";
             }
         }
 
@@ -99,12 +99,12 @@ public static class ServiceUrls
             {
                 return $"{BaseUrl}/status";
             }
-            
+
             public static string SetExecutor()
             {
                 return $"{BaseUrl}/executor";
             }
-            
+
             public static string SetInspector()
             {
                 return $"{BaseUrl}/inspector";
@@ -115,12 +115,12 @@ public static class ServiceUrls
             {
                 return BaseUrl;
             }
-            
+
             public static string CreateTask()
             {
                 return BaseUrl;
             }
-            
+
             public static string DeleteTask(int taskId)
             {
                 return $"{BaseUrl}/{taskId}";
@@ -158,7 +158,7 @@ public static class ServiceUrls
             {
                 return $"{BaseUrl}/{guid}";
             }
-            
+
             public static string GetByPage(int pageNumber, int pageSize)
             {
                 return $"{BaseUrl}?pageNumber={pageNumber}&pageSize={pageSize}";

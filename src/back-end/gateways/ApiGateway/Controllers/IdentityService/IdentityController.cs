@@ -1,7 +1,6 @@
-using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
 using Microsoft.AspNetCore.Authorization;
 
-namespace ApiGateway.Controllers;
+namespace ApiGateway.Controllers.IdentityService;
 
 [ApiController]
 [Route("[controller]")]
@@ -39,9 +38,9 @@ public class AuthController : ControllerBase
 
     [HttpPut]
     [AllowAnonymous]
-    [Route("refresh/{refreshToken}")]
-    public async Task<IActionResult> RefreshToken(string refreshToken)
+    [Route("refresh")]
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
     {
-        return await _identityServiceHttpClient.RefreshToken(refreshToken);
+        return await _identityServiceHttpClient.RefreshToken(refreshTokenDto);
     }
 }
