@@ -52,6 +52,11 @@ public sealed class AuthController : ControllerBase
         return await _mediator.Send(new SignOutRequest(Guid.Parse(guidStr)));
     }
 
+    /// <summary>
+    ///     Referesh token
+    /// </summary>
+    /// <param name="refreshTokenDto"></param>
+    /// <returns></returns>
     [HttpPut]
     [Route("refresh/")]
     public async Task<IActionResult> RefreshToken(RefreshTokenDto refreshTokenDto)

@@ -11,6 +11,11 @@ public sealed class SecurityController : ControllerBase
         _mediator = mediator;
     }
 
+    /// <summary>
+    ///     Change password
+    /// </summary>
+    /// <param name="newPasswordInfo"></param>
+    /// <returns></returns>
     [HttpPut]
     [Route("password")]
     public async Task<IActionResult> UpdatePassword(UpdatePasswordInfo newPasswordInfo)
@@ -18,6 +23,11 @@ public sealed class SecurityController : ControllerBase
         return await _mediator.Send(new UpdatePasswordRequest(newPasswordInfo));
     }
 
+    /// <summary>
+    ///     Change email address
+    /// </summary>
+    /// <param name="updateEmailInfo"></param>
+    /// <returns></returns>
     [HttpPut]
     [Route("email")]
     public async Task<IActionResult> UpdateEmail(UpdateEmailInfo updateEmailInfo)
