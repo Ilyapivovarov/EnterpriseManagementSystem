@@ -5,13 +5,11 @@ namespace EnterpriseManagementSystem.JwtAuthorization;
 
 public sealed class AuthOption
 {
-    public string Issuer { get; set; } = null!;
+    public string Issuer => "https://localhost:7104;http://localhost:5104";
 
-    public string Audience { get; set; } = null!;
+    public int TokenLifetime => 900000;
 
-    public string Secret { get; set; } = null!;
-
-    public int TokenLifetime { get; set; }
+    private string Secret => "secretKey1234567890-";
 
     public SymmetricSecurityKey GetSymmetricSecurityKey()
     {

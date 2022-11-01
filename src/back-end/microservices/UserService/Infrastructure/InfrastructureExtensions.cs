@@ -20,7 +20,7 @@ public static class InfrastructureExtensions
         services.AddScoped<IUserDbContext, UserDbContext>();
 
         #endregion
-        
+
         #region Register HostedServices
 
         services.AddHostedService<SeedDefaultDataHostedService>();
@@ -29,7 +29,7 @@ public static class InfrastructureExtensions
 
         #region Register JWT
 
-        services.AddJwtAuthorization(configuration);
+        services.AddJwtAuthorization();
 
         #endregion
 

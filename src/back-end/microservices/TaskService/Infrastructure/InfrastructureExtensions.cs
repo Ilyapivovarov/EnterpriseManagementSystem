@@ -31,7 +31,7 @@ public static class InfrastructureExtensions
 
         #region Register JWT
 
-        services.AddJwtAuthorization(configuration);
+        services.AddJwtAuthorization();
 
         #endregion
 

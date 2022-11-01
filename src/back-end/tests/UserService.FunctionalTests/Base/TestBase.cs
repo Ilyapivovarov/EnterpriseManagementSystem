@@ -1,18 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
-using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 using EnterpriseManagementSystem.Contracts.WebContracts.Response;
 using EnterpriseManagementSystem.JwtAuthorization;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -21,7 +17,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
-using UserService.Application.DbContexts;
 using UserService.Application.Repository;
 using UserService.Core.DbEntities;
 using UserService.Infrastructure.DbContexts;
@@ -69,7 +64,7 @@ public abstract class TestBase : IDisposable
     protected async Task<UserDbEntity> GetDefaultUser()
     {
         using var services = Server.Services.CreateScope();
-               
+
         var user = await services.ServiceProvider.GetRequiredService<IUserRepository>()
             .GetByIdAsync(1);
 
@@ -82,7 +77,7 @@ public abstract class TestBase : IDisposable
     protected async Task<EmployeeDataResponse> GetDefaultEmployee()
     {
         using var services = Server.Services.CreateScope();
-               
+
         var employee = await services.ServiceProvider.GetRequiredService<IEmployeeRepository>()
             .GetByIdAsync(1);
 
@@ -96,7 +91,7 @@ public abstract class TestBase : IDisposable
     {
         return new StringContent(content, Encoding.UTF8, MediaTypeNames.Application.Json);
     }
-    
+
     private async Task<string> GenerateAccessToken()
     {
         var user = await GetDefaultUser();
@@ -115,8 +110,7 @@ public abstract class TestBase : IDisposable
 
         var token = new JwtSecurityToken(
             authParams.Issuer,
-            authParams.Audience,
-            claims,
+            claims: claims,
             expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
             signingCredentials: credentials);
 

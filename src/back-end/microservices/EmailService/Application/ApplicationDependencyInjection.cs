@@ -11,6 +11,6 @@ public static class ApplicationDependencyInjection
     {
         services.AddMediatR(Assembly.GetExecutingAssembly());
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
-        services.AddJwtAuthorization(configuration);
+        services.AddJwtAuthorization();
     }
 }

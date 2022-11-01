@@ -1,7 +1,6 @@
 ﻿using EnterpriseManagementSystem.JwtAuthorization.Infrasturcture;
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
@@ -9,11 +8,10 @@ namespace EnterpriseManagementSystem.JwtAuthorization;
 
 public static class JwtAuthorization
 {
-    public static void AddJwtAuthorization(this IServiceCollection services, IConfiguration configuration)
+    public static void AddJwtAuthorization(this IServiceCollection services)
     {
-        var section = configuration.GetSection("JwtBearer");
-        services.Configure<AuthOption>(section);
-        var authOpt = section.Get<AuthOption>();
+        services.AddOptions<AuthOption>();
+        var authOpt = new AuthOption();
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -22,9 +20,9 @@ public static class JwtAuthorization
                 {
                     ValidateIssuer = true,
                     ValidIssuer = authOpt.Issuer,
-                    
+
                     ValidateAudience = false,
-                    
+
                     ValidateLifetime = true,
 
                     IssuerSigningKey = authOpt.GetSymmetricSecurityKey(),

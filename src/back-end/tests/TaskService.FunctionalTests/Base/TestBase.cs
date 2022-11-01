@@ -10,10 +10,8 @@ using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 using EnterpriseManagementSystem.JwtAuthorization;
 using EnterpriseManagementSystem.JwtAuthorization.Infrasturcture;
-using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -75,7 +73,7 @@ public abstract class TestBase : IDisposable
     protected async Task<UserDbEntity> GetDefaultUser()
     {
         using var services = Server.Services.CreateScope();
-               
+
         var user = await services.ServiceProvider.GetRequiredService<IUserRepository>()
             .GetUserById(1);
 
@@ -88,7 +86,7 @@ public abstract class TestBase : IDisposable
     protected async Task<TaskDto> GetDefaultTask()
     {
         using var services = Server.Services.CreateScope();
-               
+
         var task = await services.ServiceProvider.GetRequiredService<ITaskRepository>()
             .GetTaskByIdAsync(1);
 
@@ -102,7 +100,7 @@ public abstract class TestBase : IDisposable
     {
         return new StringContent(content, Encoding.UTF8, MediaTypeNames.Application.Json);
     }
-    
+
     private async Task<string> GenerateAccessToken()
     {
         var user = await GetDefaultUser();
@@ -121,8 +119,7 @@ public abstract class TestBase : IDisposable
 
         var token = new JwtSecurityToken(
             authParams.Issuer,
-            authParams.Audience,
-            claims,
+            claims: claims,
             expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
             signingCredentials: credentials);
 

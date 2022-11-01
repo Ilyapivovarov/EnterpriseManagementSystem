@@ -28,7 +28,7 @@ public static class InfrastructureDependencyInjection
 
         #region Register Jwt auth
 
-        services.AddJwtAuthorization(configuration);
+        services.AddJwtAuthorization();
 
         #endregion
     }
