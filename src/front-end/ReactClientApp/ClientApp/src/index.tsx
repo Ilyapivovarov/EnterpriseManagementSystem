@@ -8,7 +8,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
-
+console.log(process.env.NODE_ENV);
 store.dispatch(firstResetAuthState());
 root.render(
     <Provider store={store}>

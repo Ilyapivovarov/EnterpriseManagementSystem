@@ -5,6 +5,18 @@ networks:
     external: true
 
 services:
+  react-app:
+    image: ${DOCKER_REGISTRY-}react-app
+    hostname: react-app
+    build:
+      context: .
+      dockerfile: src/front-end/ReactClientApp/Dockerfile
+    ports:
+      - "3001:80"
+    networks:
+      ems-network:
+        ipv4_address: 10.20.10.50
+
   api-gateway:
     image: ${DOCKER_REGISTRY-}api-gateway
     hostname: api-gateway

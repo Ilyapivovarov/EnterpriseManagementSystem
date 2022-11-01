@@ -4,38 +4,39 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ReactClientApp;
-
-public sealed class Startup
+namespace ReactClientApp
 {
-    public void ConfigureServices(IServiceCollection services)
+    public sealed class Startup
     {
-        services.AddSpaStaticFiles(
-            configuration => configuration.RootPath = "ClientApp/build");
-    }
-
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-        if (env.IsDevelopment())
+        public void ConfigureServices(IServiceCollection services)
         {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            app.UseExceptionHandler("/Error");
-            app.UseHsts();
+            services.AddSpaStaticFiles(
+                configuration => configuration.RootPath = "ClientApp/build");
         }
 
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-        app.UseSpaStaticFiles();
-
-        app.UseSpa(spa =>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            spa.Options.SourcePath = "ClientApp";
-
             if (env.IsDevelopment())
-                spa.UseReactDevelopmentServer("start");
-        });
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                    spa.UseReactDevelopmentServer("start");
+            });
+        }
     }
 }
