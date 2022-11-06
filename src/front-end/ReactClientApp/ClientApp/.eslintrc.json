@@ -22,6 +22,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "linebreak-style": 0,
     "no-unused-vars": "warn",
     "no-unused-expressions": "warn",
     "no-unused-labels": "warn",
