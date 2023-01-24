@@ -29,7 +29,7 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
             if (user == null)
                 return new NotFoundObjectResult("Incorrect email or password");
 
-            var session = _sessionBlService.CreateSession(user);
+            var session = _sessionBlService.CreateSession(user.Email.Address, user.Guid, user.Role.Name);
 
             await _sessionRepository.SaveAsync(session);
 

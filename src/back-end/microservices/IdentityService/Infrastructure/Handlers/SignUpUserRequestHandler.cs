@@ -31,27 +31,27 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
         {
             var signUpDto = authRequest.SignUp;
 
-            var (fristName, lastName, email, password, confirmPassword) = signUpDto;
+            var (firstName, lastName, email, password, confirmPassword) = signUpDto;
             if (password != confirmPassword)
-                return new BadRequestObjectResult("Passwords is not same");
+                return new NotFoundObjectResult("Passwords is not same");
 
             var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
             if (userWithSameEmail != null)
-                return new BadRequestObjectResult("Email already exist");
+                return new NotFoundObjectResult("Email already exist");
 
             var userRole = await _userRoleRepository.GetReaderRole();
             if (userRole == null)
-                return new BadRequestObjectResult("Reader role not found");
+                return new NotFoundObjectResult("Reader role not found");
 
             var newUser = _userService.Create(email, password, userRole);
             var saveResult = await _userRepository.SaveUserAsync(newUser);
             if (!saveResult)
-                return new BadRequestObjectResult("Error while save user");
+                return new NotFoundObjectResult("Error while save user");
 
-            var session = _sessionBlService.CreateSession(newUser);
+            var session = _sessionBlService.CreateSession(newUser.Email.Address, newUser.Guid, newUser.Role.Name);
             await _sessionRepository.SaveAsync(session);
 
-            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(newUser.Guid, fristName,
+            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(newUser.Guid, firstName,
                 lastName, signUpDto.Email, null));
             await _bus.Publish(@event, cancellationToken);
 

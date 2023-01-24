@@ -13,49 +13,41 @@ public sealed class SessionService : ISessionService
         _jwtSessionService = jwtSessionService;
     }
 
-    public Session CreateSession(UserDbEntity user)
+    public Session CreateSession(EmailAddress emailAddress, Guid guid, string role)
     {
-        var claims = CreateClaims(user);
+        var claims = CreateClaims(emailAddress, guid, role);
         var session = _jwtSessionService.CreateJwtSession(claims);
 
         return new Session
         {
             AccessToken = session.AccessToken,
             RefreshToken = session.RefreshToken,
-            UserGuid = user.Guid
+            UserGuid = guid,
+            EmailAddress = emailAddress,
+            Role = role,
         };
     }
 
-    public Session CreateOrUpdateSession(UserDbEntity user)
+    public Session Refresh(EmailAddress emailAddress, Guid guid, string role)
     {
-        var session = _jwtSessionService.CreateJwtSession(CreateClaims(user));
-
+        var claims = CreateClaims(emailAddress, guid, role);
         return new Session
         {
-            AccessToken = session.AccessToken,
-            RefreshToken = session.RefreshToken,
-            UserGuid = user.Guid
+            UserGuid = guid,
+            EmailAddress = emailAddress,
+            Role = role,
+            AccessToken = _jwtSessionService.CreateAccessToken(claims),
+            RefreshToken = _jwtSessionService.CreateRefreshToken(claims)
         };
     }
 
-    public Session Refresh(UserDbEntity user)
-    {
-        var cliams = CreateClaims(user);
-        return new Session
-        {
-            UserGuid = user.Guid,
-            AccessToken = _jwtSessionService.CreateAccessToken(cliams),
-            RefreshToken = _jwtSessionService.CreateRefreshToken(cliams)
-        };
-    }
-
-    private static ICollection<Claim> CreateClaims(UserDbEntity user)
+    private static ICollection<Claim> CreateClaims(EmailAddress emailAddress, Guid guid, string role)
     {
         return new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Email, user.Email.Address.Value),
-            new(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
-            new("role", user.Role.Name)
+            new(JwtRegisteredClaimNames.Email, emailAddress.Value),
+            new(JwtRegisteredClaimNames.Sub, guid.ToString()),
+            new("role", role)
         };
     }
 }

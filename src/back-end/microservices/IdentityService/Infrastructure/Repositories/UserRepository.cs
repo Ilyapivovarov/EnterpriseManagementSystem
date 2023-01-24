@@ -48,7 +48,7 @@ public sealed class UserRepository : SqlRepositoryBase, IUserRepository
     public UserDbEntity? GetUserByGuid(Guid guid)
     {
         return LoadData(db => db.Users.FirstOrDefault(x => x.Guid == guid),
-            $"Error while searchin user with guid {guid}");
+            $"Error while search in user with guid {guid}");
     }
 
     public async Task<UserDbEntity?> GetUserByGuidAsync(Guid guid)
