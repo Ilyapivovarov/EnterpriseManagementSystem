@@ -40,9 +40,9 @@ public sealed class RedisCacheService : ICacheService
         await db.StringSetAsync(key, JsonSerializer.Serialize(value));
     }
     
-    public async Task SetAsync<T>(string key, T value, TimeSpan expiry)
+    public async Task SetAsync<T>(string key, T value, DateTime expiry)
     {
         var db = _connectionMultiplexer.GetDatabase();
-        await db.StringSetAsync(key, JsonSerializer.Serialize(value), expiry);
+        await db.StringSetAsync(key, JsonSerializer.Serialize(value), expiry - DateTime.Now);
     }
 }

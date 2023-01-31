@@ -10,5 +10,5 @@ public interface ICacheService
     
     Task SetAsync<T>(string key, T value);
 
-    Task SetAsync<T>(string key, T value, TimeSpan expiry);
+    Task SetAsync<T>(string key, T value, DateTime expiry);
 }

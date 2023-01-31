@@ -53,7 +53,7 @@ public sealed class TestCacheService : ICacheService
         });
     }
 
-    public Task SetAsync<T>(string key, T value, TimeSpan expiry)
+    public Task SetAsync<T>(string key, T value, DateTime expiry)
     {
         throw new NotImplementedException();
     }

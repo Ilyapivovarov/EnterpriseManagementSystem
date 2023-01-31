@@ -39,4 +39,18 @@ public abstract class CacheRepositoryBase
         }
     }
     
+    protected async Task<bool> WriteWithExpiryAsync<T>(string key, T value, DateTime expiry)
+    {
+        try
+        {
+            await _cacheService.SetAsync(key, value, expiry);
+            return true;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return false;
+        }
+    }
+    
 }
