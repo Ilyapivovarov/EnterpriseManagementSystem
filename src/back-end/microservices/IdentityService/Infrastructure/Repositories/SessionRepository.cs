@@ -7,13 +7,13 @@ public sealed class SessionRepository : CacheRepositoryBase, ISessionRepository
     { }
 
 
-    public async Task<Session?> GetAsync(string guid)
+    public async Task<string?> GetAsync(string refreshToken)
     {
-        return await LoadDataAsync<Session?>(guid);
+        return await LoadDataAsync<string?>(refreshToken);
     }
 
     public async Task<bool> SaveAsync(Session session)
     {
-        return await WriteAsync<Session?>(session.RefreshToken, session);
+        return await WriteAsync(session.RefreshToken.WriteToken(), session.AccessToken.WriteToken());
     }
 }

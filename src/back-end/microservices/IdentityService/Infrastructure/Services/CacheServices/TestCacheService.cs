@@ -52,4 +52,9 @@ public sealed class TestCacheService : ICacheService
             _cache.TryAdd(key, JsonSerializer.Serialize(value));
         });
     }
+
+    public Task SetAsync<T>(string key, T value, TimeSpan expiry)
+    {
+        throw new NotImplementedException();
+    }
 }

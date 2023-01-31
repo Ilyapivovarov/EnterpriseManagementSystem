@@ -1,6 +1,6 @@
 namespace IdentityService.Infrastructure.Extensions;
 
-public static class IWebHostEnvironmentExtensions
+public static class WebHostEnvironmentExtensions
 {
     public static bool IsTesting(this IWebHostEnvironment environment)
     {

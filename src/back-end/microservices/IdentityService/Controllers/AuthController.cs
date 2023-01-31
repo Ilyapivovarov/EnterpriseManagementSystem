@@ -58,7 +58,7 @@ public sealed class AuthController : ControllerBase
     /// <param name="refreshTokenDto"></param>
     /// <returns></returns>
     [HttpPut]
-    [Route("refresh/")]
+    [Route("refresh")]
     public async Task<IActionResult> RefreshToken(RefreshTokenDto refreshTokenDto)
     {
         return await _mediator.Send(new RefreshTokenRequest(refreshTokenDto.RefreshToken));

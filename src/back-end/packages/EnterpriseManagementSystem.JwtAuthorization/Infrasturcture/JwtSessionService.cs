@@ -22,36 +22,25 @@ public sealed class JwtSessionService : IJwtSessionService
         return jwtSession;
     }
 
-    public string CreateAccessToken(ICollection<Claim> claims)
+    public JwtToken CreateAccessToken(IEnumerable<Claim> claims)
     {
         var authParams = _authOptions.Value;
 
         var securityKey = authParams.GetSymmetricSecurityKey();
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        var token = new JwtSecurityToken(
-            authParams.Issuer,
-            claims: claims,
-            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
-            signingCredentials: credentials);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return new JwtToken(
+            authParams.Issuer, DateTime.Now.AddSeconds(authParams.TokenLifetime), claims, credentials);
     }
 
-    public string CreateRefreshToken(ICollection<Claim> claims)
+    public JwtToken CreateRefreshToken(IEnumerable<Claim> claims)
     {
         var authParams = _authOptions.Value;
 
         var securityKey = authParams.GetSymmetricSecurityKey();
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        var token = new JwtSecurityToken(
-            authParams.Issuer,
-            claims: claims,
-            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
-            signingCredentials: credentials);
-
-        return new JwtSecurityTokenHandler()
-            .WriteToken(token);
+        return new JwtToken(authParams.Issuer,DateTime.Now.AddSeconds(authParams.TokenLifetime), 
+            claims, credentials);
     }
 }

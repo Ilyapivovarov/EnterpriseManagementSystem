@@ -35,7 +35,8 @@
       "commandName": "Docker",
       "launchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "publishAllPorts": true,
-      "useSSL": false
+      "useSSL": false,
+      "remoteDebugEnabled": true
     }
   }
 }

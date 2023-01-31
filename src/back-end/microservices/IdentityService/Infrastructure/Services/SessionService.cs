@@ -21,21 +21,14 @@ public sealed class SessionService : ISessionService
         return new Session
         {
             AccessToken = session.AccessToken,
-            RefreshToken = session.RefreshToken,
-            UserGuid = guid,
-            EmailAddress = emailAddress,
-            Role = role,
+            RefreshToken = session.RefreshToken
         };
     }
 
-    public Session Refresh(EmailAddress emailAddress, Guid guid, string role)
+    public Session Refresh(ICollection<Claim> claims)
     {
-        var claims = CreateClaims(emailAddress, guid, role);
         return new Session
         {
-            UserGuid = guid,
-            EmailAddress = emailAddress,
-            Role = role,
             AccessToken = _jwtSessionService.CreateAccessToken(claims),
             RefreshToken = _jwtSessionService.CreateRefreshToken(claims)
         };

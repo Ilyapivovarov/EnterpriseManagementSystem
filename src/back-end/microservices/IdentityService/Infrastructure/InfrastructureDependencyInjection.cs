@@ -44,7 +44,7 @@ public static class InfrastructureDependencyInjection
         {
             services.AddSingleton<IConnectionMultiplexer>(_
                 => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
-            services.AddSingleton<ICacheService, RedisCacheSerivce>();
+            services.AddSingleton<ICacheService, RedisCacheService>();
         }
         #endregion
 

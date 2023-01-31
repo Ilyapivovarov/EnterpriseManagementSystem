@@ -37,7 +37,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
 
             var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
             if (userWithSameEmail != null)
-                return new NotFoundObjectResult("Email already exist");
+                return new BadRequestObjectResult("Email already exist");
 
             var userRole = await _userRoleRepository.GetReaderRole();
             if (userRole == null)

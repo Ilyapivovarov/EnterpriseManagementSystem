@@ -3,11 +3,11 @@ using StackExchange.Redis;
 
 namespace IdentityService.Infrastructure.Services.CacheServices;
 
-public sealed class RedisCacheSerivce : ICacheService
+public sealed class RedisCacheService : ICacheService
 {
     private readonly IConnectionMultiplexer _connectionMultiplexer;
 
-    public RedisCacheSerivce(IConnectionMultiplexer connectionMultiplexer)
+    public RedisCacheService(IConnectionMultiplexer connectionMultiplexer)
     {
         _connectionMultiplexer = connectionMultiplexer;
     }
@@ -38,5 +38,11 @@ public sealed class RedisCacheSerivce : ICacheService
     {
         var db = _connectionMultiplexer.GetDatabase();
         await db.StringSetAsync(key, JsonSerializer.Serialize(value));
+    }
+    
+    public async Task SetAsync<T>(string key, T value, TimeSpan expiry)
+    {
+        var db = _connectionMultiplexer.GetDatabase();
+        await db.StringSetAsync(key, JsonSerializer.Serialize(value), expiry);
     }
 }

@@ -65,7 +65,7 @@ public abstract class TestBase : IDisposable
         };
         var accessToken = services.ServiceProvider.GetRequiredService<JwtSessionService>().CreateAccessToken(claims);
         httpClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken);
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken.WriteToken());
 
         return httpClient;
     }

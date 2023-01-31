@@ -4,13 +4,13 @@ namespace EnterpriseManagementSystem.JwtAuthorization.Models;
 
 internal sealed class JwtSession : IJwtSession
 {
-    public JwtSession(string accessToken, string refreshToken)
+    public JwtSession(JwtToken accessToken, JwtToken refreshToken)
     {
         AccessToken = accessToken;
         RefreshToken = refreshToken;
     }
 
-    public string AccessToken { get; set; }
+    public JwtToken AccessToken { get; set; }
 
-    public string RefreshToken { get; set; }
+    public JwtToken RefreshToken { get; set; }
 }
