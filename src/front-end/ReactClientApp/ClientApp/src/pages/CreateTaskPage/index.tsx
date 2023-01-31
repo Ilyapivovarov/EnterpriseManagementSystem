@@ -12,17 +12,21 @@ import {useCreateTaskMutation} from '../../api/taskApi';
 import {useNavigate} from 'react-router-dom';
 import {showNotification} from '../../store/NotificationReduser/notificationReduser';
 import {CreateTaskModel} from './types';
+import jwtDecode from "jwt-decode";
+import {DecodeToken} from "../../types/authTypes";
+import {useGetEmployeeByGuidQuery} from "../../api/employeeApi";
 
 const CreateTaskPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  
   const [createTask] = useCreateTaskMutation();
   const {currentSession} = useAppSelector((x) => x.authReducer);
-
+  const decodeToken = jwtDecode<DecodeToken>(currentSession!.accessToken);
+  
   const [isError, setErrorText] = React.useState({isError: false, errorMessage: ''});
   const [task, setTask] = React.useState<CreateTaskModel>({
-    authorGuid: currentSession!.userGuid,
+    authorGuid: decodeToken.sub,
     statusId: 1,
   });
 

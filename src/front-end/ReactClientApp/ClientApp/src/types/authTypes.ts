@@ -1,7 +1,6 @@
 export interface Session {
     accessToken: string,
-    refreshToken: string,
-    userGuid: string
+    refreshToken: string
 }
 
 export interface SignIn {
