@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 using EnterpriseManagementSystem.JwtAuthorization;
 using EnterpriseManagementSystem.JwtAuthorization.Infrasturcture;
+using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -63,7 +64,7 @@ public abstract class TestBase : IDisposable
             new(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
             new("role", "admin")
         };
-        var accessToken = services.ServiceProvider.GetRequiredService<JwtSessionService>().CreateAccessToken(claims);
+        var accessToken = services.ServiceProvider.GetRequiredService<IJwtSessionService>().CreateAccessToken(claims);
         httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken.WriteToken());
 
@@ -99,31 +100,6 @@ public abstract class TestBase : IDisposable
     protected StringContent GetStringContent(string content)
     {
         return new StringContent(content, Encoding.UTF8, MediaTypeNames.Application.Json);
-    }
-
-    private async Task<string> GenerateAccessToken()
-    {
-        var user = await GetDefaultUser();
-
-        var authOption = Server.Services.GetRequiredService<IOptions<AuthOption>>();
-        var authParams = authOption.Value;
-
-        var securityKey = authParams.GetSymmetricSecurityKey();
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        var claims = new List<Claim>
-        {
-            new(ClaimTypes.Email, user.EmailAddress.Value),
-            new(ClaimTypes.UserData, user.Guid.ToString())
-        };
-
-        var token = new JwtSecurityToken(
-            authParams.Issuer,
-            claims: claims,
-            expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
-            signingCredentials: credentials);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     private TestServer CreateTestServer()

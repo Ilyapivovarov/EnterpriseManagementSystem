@@ -53,8 +53,11 @@ public sealed class TestCacheService : ICacheService
         });
     }
 
-    public Task SetAsync<T>(string key, T value, DateTime expiry)
+    public async Task SetAsync<T>(string key, T value, DateTime expiry)
     {
-        throw new NotImplementedException();
+        await Task.Run(() =>
+        {
+            _cache.TryAdd(key, JsonSerializer.Serialize(value));
+        });
     }
 }
