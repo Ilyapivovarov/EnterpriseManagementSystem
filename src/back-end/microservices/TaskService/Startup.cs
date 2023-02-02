@@ -17,8 +17,7 @@ public sealed class Startup
         services.AddApplication(Configuration, Environment);
         services.AddInfrastructure(Configuration, Environment);
 
-        services.AddRouting(options =>
-            options.LowercaseUrls = true);
+        services.AddRouting(options => options.LowercaseUrls = true);
 
         services.AddControllers();
     }

@@ -105,8 +105,6 @@ public sealed class TaskController : ControllerBase
         return await _mediator.Send(new CreateTaskDtoRequest(taskInfo));
     }
     
-    #region DELETE
-
     /// <summary>
     ///     Delete task
     /// </summary>
@@ -118,6 +116,4 @@ public sealed class TaskController : ControllerBase
     {
         return await _mediator.Send(new DeleteTaskRequest(taskId));
     }
-
-    #endregion
 }

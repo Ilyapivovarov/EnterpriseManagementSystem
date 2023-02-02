@@ -15,8 +15,7 @@ public static class InfrastructureExtensions
 
             builder.UseLazyLoadingProxies();
         });
-
-
+        
         services.AddScoped<IUserDbContext, UserDbContext>();
 
         #endregion

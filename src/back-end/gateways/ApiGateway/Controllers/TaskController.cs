@@ -10,6 +10,4 @@ public sealed class TaskController
     {
         _taskServiceHttpClient = taskServiceHttpClient;
     }
-
-   
 }
