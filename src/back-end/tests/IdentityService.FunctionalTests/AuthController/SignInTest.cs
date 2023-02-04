@@ -23,7 +23,7 @@ public sealed class SignInTest : TestBase
     }
 
     [Test]
-    public async Task IncrrectEmailOrPasswordScenario()
+    public async Task IncorrectEmailOrPasswordScenario()
     {
 
         var data = new SignInDto(EmailAddress.Parse("admin@ems.com"), Password.Parse("asfasfas"));
@@ -31,6 +31,5 @@ public sealed class SignInTest : TestBase
         var result = await HttpClient.PostAsync("auth/sign-in", GetStringContent(data.ToJson()));
 
         Assert.IsTrue(result.StatusCode == HttpStatusCode.NotFound, await result.Content.ReadAsStringAsync());
-        Assert.Pass();
     }
 }

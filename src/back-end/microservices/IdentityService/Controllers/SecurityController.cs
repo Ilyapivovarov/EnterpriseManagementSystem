@@ -12,7 +12,7 @@ public sealed class SecurityController : ControllerBase
     }
 
     /// <summary>
-    ///     Change password
+    ///     Change password.
     /// </summary>
     /// <param name="newPasswordInfo"></param>
     /// <returns></returns>

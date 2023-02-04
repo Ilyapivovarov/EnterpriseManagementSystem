@@ -1,19 +1,19 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using EnterpriseManagementSystem.JwtAuthorization.Models;
+using EnterpriseManagementSystem.JwtAuthorization.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace EnterpriseManagementSystem.JwtAuthorization.Infrasturcture;
+namespace EnterpriseManagementSystem.JwtAuthorization.Infrastructure;
 
 public sealed class JwtSessionService : IJwtSessionService
 {
-    private readonly IOptions<AuthOption> _authOptions;
+    private readonly JwtOptions _jwtOptions;
 
-    public JwtSessionService(IOptions<AuthOption> authOptions)
+    public JwtSessionService(IOptions<JwtOptions> jwtOptions)
     {
-        _authOptions = authOptions;
+        _jwtOptions = jwtOptions.Value;
     }
 
     public IJwtSession CreateJwtSession(ICollection<Claim> claims)
@@ -24,23 +24,19 @@ public sealed class JwtSessionService : IJwtSessionService
 
     public JwtToken CreateAccessToken(IEnumerable<Claim> claims)
     {
-        var authParams = _authOptions.Value;
-
-        var securityKey = authParams.GetSymmetricSecurityKey();
+        var securityKey = _jwtOptions.GetSymmetricSecurityKey();
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         return new JwtToken(
-            authParams.Issuer, DateTime.Now.AddSeconds(authParams.TokenLifetime), claims, credentials);
+            _jwtOptions.Issuer, DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), claims, credentials);
     }
 
     public JwtToken CreateRefreshToken(IEnumerable<Claim> claims)
     {
-        var authParams = _authOptions.Value;
-
-        var securityKey = authParams.GetSymmetricSecurityKey();
+        var securityKey = _jwtOptions.GetSymmetricSecurityKey();
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        return new JwtToken(authParams.Issuer,DateTime.Now.AddSeconds(authParams.TokenLifetime), 
+        return new JwtToken(_jwtOptions.Issuer,DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), 
             claims, credentials);
     }
 }

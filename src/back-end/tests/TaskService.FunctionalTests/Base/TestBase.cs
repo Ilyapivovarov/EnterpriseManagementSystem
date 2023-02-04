@@ -8,16 +8,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using EnterpriseManagementSystem.Contracts.Dto.TaskService;
-using EnterpriseManagementSystem.JwtAuthorization;
-using EnterpriseManagementSystem.JwtAuthorization.Infrasturcture;
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
 using TaskService.Application.Repositories;
 using TaskService.Core.DbEntities;
@@ -61,8 +57,7 @@ public abstract class TestBase : IDisposable
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Email, user.EmailAddress.Value),
-            new(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
-            new("role", "admin")
+            new(JwtRegisteredClaimNames.Sub, user.Guid.ToString())
         };
         var accessToken = services.ServiceProvider.GetRequiredService<IJwtSessionService>().CreateAccessToken(claims);
         httpClient.DefaultRequestHeaders.Authorization =
