@@ -13,6 +13,6 @@ public sealed class JwtOptions
 
     public SymmetricSecurityKey GetSymmetricSecurityKey()
     {
-        return new SymmetricSecurityKey(Encoding.UTF8 .GetBytes(SecretKey));
+        return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
     }
 }

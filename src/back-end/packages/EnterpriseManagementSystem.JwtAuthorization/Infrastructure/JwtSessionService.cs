@@ -28,7 +28,7 @@ public sealed class JwtSessionService : IJwtSessionService
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         return new JwtToken(
-            _jwtOptions.Issuer, DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), claims, credentials);
+            _jwtOptions.Issuer, DateTime.Now.AddSeconds(_jwtOptions.TokenLifetime), claims, credentials);
     }
 
     public JwtToken CreateRefreshToken(IEnumerable<Claim> claims)
@@ -36,7 +36,7 @@ public sealed class JwtSessionService : IJwtSessionService
         var securityKey = _jwtOptions.GetSymmetricSecurityKey();
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        return new JwtToken(_jwtOptions.Issuer,DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), 
+        return new JwtToken(_jwtOptions.Issuer, DateTime.Now.AddSeconds(_jwtOptions.TokenLifetime),
             claims, credentials);
     }
 }

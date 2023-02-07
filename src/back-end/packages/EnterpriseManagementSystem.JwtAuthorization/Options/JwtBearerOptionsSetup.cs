@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 
 namespace EnterpriseManagementSystem.JwtAuthorization.Options;
 
-public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
+public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
 {
     private readonly JwtOptions _options;
 
@@ -15,7 +14,7 @@ public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
     
     public void Configure(JwtBearerOptions options)
     {
-        options.TokenValidationParameters = new TokenValidationParameters
+        options.TokenValidationParameters = new()
         {
             ValidateIssuer = true,
             ValidIssuer = _options.Issuer,
@@ -27,5 +26,10 @@ public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
             IssuerSigningKey = _options.GetSymmetricSecurityKey(),
             ValidateIssuerSigningKey = true
         };
+    }
+
+    public void Configure(string? name, JwtBearerOptions options)
+    {
+        Configure(options);
     }
 }

@@ -10,12 +10,12 @@ public static class JwtAuthorization
 {
     public static void AddJwtAuthorization(this IServiceCollection services)
     {
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer();
- 
+        services.AddAuthorization()
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+        
         services.ConfigureOptions<JwtOptionsSetup>();
         services.ConfigureOptions<JwtBearerOptionsSetup>();
-            
+        
         services.AddTransient<IJwtSessionService, JwtSessionService>();
     }
 }

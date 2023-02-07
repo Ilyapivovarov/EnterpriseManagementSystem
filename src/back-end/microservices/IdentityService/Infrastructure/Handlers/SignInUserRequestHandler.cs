@@ -24,7 +24,6 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
         {
             var signInDto = signInRequest.SignInDto;
             var hashPassword = _securityService.EncryptPasswordOrException(signInDto.Password.Value);
-            
             var user = await _userRepository.GetUserByEmailAndPasswordAsync(signInDto.Email, Password.Parse(hashPassword));
             if (user == null)
                 return new NotFoundObjectResult("Incorrect email or password");
