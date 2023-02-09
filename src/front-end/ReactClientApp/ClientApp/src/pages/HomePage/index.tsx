@@ -11,6 +11,7 @@ const HomePage: React.FC = () => {
   const {currentSession} = useAppSelector((x) => x.authReducer);
   const decodeToken = jwtDecode<DecodeToken>(currentSession!.accessToken);
   const {data, isLoading, isSuccess} = useGetEmployeeByGuidQuery(decodeToken.sub);
+
   return (
     <PageWrapper>
       {isLoading && <Box sx={{display: 'flex'}}>

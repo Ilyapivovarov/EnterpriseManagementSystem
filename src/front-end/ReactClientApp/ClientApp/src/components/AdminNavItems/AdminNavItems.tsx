@@ -7,10 +7,13 @@ import {NavLink} from 'react-router-dom';
 import {useAppSelector} from '../../hooks';
 import jwtDecode from 'jwt-decode';
 import {DecodeToken} from '../../types/authTypes';
+import {useTranslation} from 'react-i18next';
+import {TranslationKeys} from '../../i18n';
 
 const AdminNavItems: React.FC = () => {
   const {currentSession} = useAppSelector((x) => x.authReducer);
   const decodeToken = jwtDecode<DecodeToken>(currentSession!.accessToken);
+  const {t} = useTranslation();
 
   if (decodeToken.role == 'Admin') {
     return (
@@ -18,7 +21,7 @@ const AdminNavItems: React.FC = () => {
         <ListItemIcon>
           <SettingsIcon/>
         </ListItemIcon>
-        <ListItemText primary="Settings"/>
+        <ListItemText primary={t(TranslationKeys.navMenu.settings)}/>
       </ListItemButton>
     );
   }
