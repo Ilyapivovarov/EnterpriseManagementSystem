@@ -36,7 +36,7 @@ public sealed class JwtSessionService : IJwtSessionService
         var securityKey = _jwtOptions.GetSymmetricSecurityKey();
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        return new JwtToken(_jwtOptions.Issuer, DateTime.Now.AddSeconds(_jwtOptions.TokenLifetime),
+        return new JwtToken(_jwtOptions.Issuer, DateTime.Now.AddDays(30),
             claims, credentials);
     }
 }
