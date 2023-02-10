@@ -10,7 +10,7 @@ services:
     hostname: react-app
     build:
       context: .
-      dockerfile: src/front-end/ReactClientApp/Dockerfile
+      dockerfile: src/front-end/ReactApp/Dockerfile
     ports:
       - "3001:80"
     networks:

@@ -4,7 +4,6 @@ import {BrowserRouter} from 'react-router-dom';
 import {store} from './store';
 import App from './App';
 import {firstResetAuthState} from './store/AuthReducer/AuthActionCreators';
-import registerServiceWorker from './registerServiceWorker';
 import './i18n';
 
 
@@ -22,4 +21,4 @@ root.render(
     </Provider>,
 );
 
-registerServiceWorker();
+
