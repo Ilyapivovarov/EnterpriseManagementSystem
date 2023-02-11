@@ -16,7 +16,7 @@ public sealed class JwtSessionService : IJwtSessionService
         _jwtOptions = jwtOptions.Value;
     }
 
-    public IJwtSession CreateJwtSession(ICollection<Claim> claims)
+    public IJwtSession CreateJwtSession(IEnumerable<Claim> claims)
     {
         var jwtSession = new JwtSession(CreateAccessToken(claims), CreateRefreshToken());
         return jwtSession;
