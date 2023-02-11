@@ -8,12 +8,12 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
     private readonly IUserRepository _userRepository;
     private readonly ISessionService _sessionBlService;
     private readonly IUserRoleRepository _userRoleRepository;
-    private readonly ISessionRepository _sessionRepository;
+    private readonly ICacheService _cacheService;
 
 
     public SignUpUserRequestHandler(ILogger<SignUpUserRequestHandler> logger, IBus bus, IUserService userService,
         IUserRepository userRepository, ISessionService sessionBlService, IUserRoleRepository userRoleRepository,
-        ISessionRepository sessionRepository)
+        ICacheService cacheService)
     {
         _logger = logger;
         _bus = bus;
@@ -21,8 +21,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
         _userRepository = userRepository;
         _sessionBlService = sessionBlService;
         _userRoleRepository = userRoleRepository;
-        _sessionRepository = sessionRepository;
-
+        _cacheService = cacheService;
     }
 
     public async Task<IActionResult> Handle(SignUpRequest authRequest, CancellationToken cancellationToken)
@@ -49,7 +48,8 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
                 return new NotFoundObjectResult("Error while save user");
 
             var session = _sessionBlService.CreateSession(newUser.Email.Address, newUser.Guid, newUser.Role.Name);
-            await _sessionRepository.SaveAsync(session);
+            await _cacheService.SetAsync(session.RefreshToken, session.AccessToken, 
+                session.RefreshToken.GetExpirationTime());
 
             var @event = new SignUpUserIntegrationEvent(new UserDataResponse(newUser.Guid, firstName,
                 lastName, signUpDto.Email, null));

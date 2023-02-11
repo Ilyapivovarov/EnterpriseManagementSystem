@@ -18,20 +18,13 @@ public sealed class SessionService : ISessionService
         var claims = CreateClaims(emailAddress, guid, role);
         var session = _jwtSessionService.CreateJwtSession(claims);
 
-        return new Session
-        {
-            AccessToken = session.AccessToken,
-            RefreshToken = session.RefreshToken
-        };
+        return new Session(session.AccessToken, session.RefreshToken);
     }
 
     public Session Refresh(ICollection<Claim> claims)
     {
-        return new Session
-        {
-            AccessToken = _jwtSessionService.CreateAccessToken(claims),
-            RefreshToken = _jwtSessionService.CreateRefreshToken(claims)
-        };
+        var session = _jwtSessionService.CreateJwtSession(claims);
+        return new Session(session.AccessToken, session.RefreshToken);
     }
 
     private static ICollection<Claim> CreateClaims(EmailAddress emailAddress, Guid guid, string role)

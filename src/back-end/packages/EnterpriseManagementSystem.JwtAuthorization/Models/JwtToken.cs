@@ -7,12 +7,12 @@ namespace EnterpriseManagementSystem.JwtAuthorization.Models;
 public class JwtToken
 {
     #region Fields
-    
+
     private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler;
     private readonly JwtSecurityToken _jwtSecurityToken;
-    
+
     #endregion
-    
+
     public JwtToken(string issuer, DateTime expiry, IEnumerable<Claim> claims, SigningCredentials credentials)
     {
         Issuer = issuer;
@@ -22,17 +22,17 @@ public class JwtToken
             issuer,
             claims: claims,
             expires: expiry,
-            signingCredentials: credentials);;
+            signingCredentials: credentials);
     }
 
     public string Issuer { get; }
-    
+
     public DateTime Expiry { get; }
 
-    public string WriteToken() => _jwtSecurityTokenHandler.WriteToken(_jwtSecurityToken);
+    public TimeSpan GetExpirationTime() => Expiry - DateTime.Now;
 
     public override string ToString()
     {
-        return WriteToken();
+        return _jwtSecurityTokenHandler.WriteToken(_jwtSecurityToken);
     }
 }

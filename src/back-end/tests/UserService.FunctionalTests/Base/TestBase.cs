@@ -99,8 +99,8 @@ public abstract class TestBase : IDisposable
             new(ClaimTypes.UserData, user.IdentityGuid.ToString())
         };
         
-        var accessToken = Services.ServiceProvider.GetRequiredService<IJwtSessionService>().CreateAccessToken(claims);
-        return accessToken.WriteToken();
+        var jwtSession = Services.ServiceProvider.GetRequiredService<IJwtSessionService>().CreateJwtSession(claims);
+        return jwtSession.AccessToken.ToString();
     }
 
     private TestServer CreateTestServer()

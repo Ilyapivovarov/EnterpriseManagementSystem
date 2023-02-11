@@ -18,11 +18,11 @@ public sealed class JwtSessionService : IJwtSessionService
 
     public IJwtSession CreateJwtSession(ICollection<Claim> claims)
     {
-        var jwtSession = new JwtSession(CreateAccessToken(claims), CreateRefreshToken(claims));
+        var jwtSession = new JwtSession(CreateAccessToken(claims), CreateRefreshToken());
         return jwtSession;
     }
 
-    public JwtToken CreateAccessToken(IEnumerable<Claim> claims)
+    private JwtToken CreateAccessToken(IEnumerable<Claim> claims)
     {
         var securityKey = _jwtOptions.GetSymmetricSecurityKey();
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -31,12 +31,12 @@ public sealed class JwtSessionService : IJwtSessionService
             _jwtOptions.Issuer, DateTime.Now.AddSeconds(_jwtOptions.TokenLifetime), claims, credentials);
     }
 
-    public JwtToken CreateRefreshToken(IEnumerable<Claim> claims)
+    private JwtToken CreateRefreshToken()
     {
         var securityKey = _jwtOptions.GetSymmetricSecurityKey();
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         return new JwtToken(_jwtOptions.Issuer, DateTime.Now.AddDays(30),
-            claims, credentials);
+            Array.Empty<Claim>(), credentials);
     }
 }

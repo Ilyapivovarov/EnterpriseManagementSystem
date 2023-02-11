@@ -10,7 +10,7 @@ namespace IdentityService.FunctionalTests.AuthController;
 
 public sealed class RefreshTokenTest : TestBase
 {
-    protected override string Environment => "Testing";
+    protected override string Environment => "Development";
 
     private SessionDto Session { get; set; } = null!;
 
@@ -22,7 +22,7 @@ public sealed class RefreshTokenTest : TestBase
         var result = await HttpClient.PostAsync("auth/sign-in", GetStringContent(content));
 
         var session = await result.Content.ReadFromJsonAsync<SessionDto>();
-        Session = session ?? throw new Exception("Error while sgining in");
+        Session = session ?? throw new Exception("Error while signing in");
     }
 
     [Test]

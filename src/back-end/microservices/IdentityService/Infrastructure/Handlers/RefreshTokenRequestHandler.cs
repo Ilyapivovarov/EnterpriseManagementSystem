@@ -5,15 +5,13 @@ namespace IdentityService.Infrastructure.Handlers;
 public sealed class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, IActionResult>
 {
     private readonly ILogger<RefreshTokenRequestHandler> _logger;
-    private readonly ISessionRepository _sessionRepository;
     private readonly ISessionService _sessionService;
     private readonly ICacheService _cacheService;
 
-    public RefreshTokenRequestHandler(ILogger<RefreshTokenRequestHandler> logger, ISessionRepository sessionRepository, 
+    public RefreshTokenRequestHandler(ILogger<RefreshTokenRequestHandler> logger, 
         ISessionService sessionService, ICacheService cacheService)
     {
         _logger = logger;
-        _sessionRepository = sessionRepository;
         _sessionService = sessionService;
         _cacheService = cacheService;
     }
@@ -22,7 +20,7 @@ public sealed class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenReq
     {
         try
         {
-            var accessToken = await _sessionRepository.GetAsync(request.RefreshToken);
+            var accessToken = await _cacheService.GetStringAsync(request.RefreshToken);
             if (accessToken == null)
                 return new NotFoundObjectResult("Not found session");
             
@@ -30,7 +28,8 @@ public sealed class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenReq
             var jsonToken = handler.ReadJwtToken(accessToken);
             var newSession = _sessionService.Refresh(jsonToken.Claims.ToArray());
 
-            await _sessionRepository.SaveAsync(newSession);
+            await _cacheService.SetAsync(newSession.RefreshToken.ToString(),
+                newSession.AccessToken.ToString(), newSession.RefreshToken.GetExpirationTime());
             
             return new OkObjectResult(newSession.ToDto());
         }

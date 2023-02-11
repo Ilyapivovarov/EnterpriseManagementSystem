@@ -5,7 +5,7 @@ import Loader from '../components/Loader/Loader';
 
 const RequireAuth: React.FC = (props) => {
   const navigate = useNavigate();
-  const {currentSession, isLoading, isAuth} = useAppSelector((x) => x.authReducer);
+  const {currentSession, isLoading, isAuth, error} = useAppSelector((x) => x.authReducer);
 
   React.useEffect(() => {
     if (!isAuth && !isLoading) {
@@ -25,7 +25,7 @@ const RequireAuth: React.FC = (props) => {
     );
   }
 
-  return <>Error</>;
+  return <>{error} asfasf</>;
 };
 
 export default RequireAuth;

@@ -2,13 +2,13 @@ namespace IdentityService.Application.Services;
 
 public interface ICacheService
 {
-    Task<object?> GetAsync(string key);
+    Task SetAsync(string key, string value);
 
-    Task<T?> TryGetAsync<T>(string key);
+    Task SetAsync(string key, string value, TimeSpan expiry);
 
-    Task SetAsync(string key, object value);
-    
-    Task SetAsync<T>(string key, T value);
+    Task SetAsync<TKey, TValue>(TKey key, TValue value, TimeSpan expiry)
+        where TKey : notnull
+        where TValue : notnull;
 
-    Task SetAsync<T>(string key, T value, DateTime expiry);
+    Task<string?> GetStringAsync(string key);
 }

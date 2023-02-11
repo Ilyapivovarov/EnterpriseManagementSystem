@@ -59,9 +59,9 @@ public abstract class TestBase : IDisposable
             new(JwtRegisteredClaimNames.Email, user.EmailAddress.Value),
             new(JwtRegisteredClaimNames.Sub, user.Guid.ToString())
         };
-        var accessToken = services.ServiceProvider.GetRequiredService<IJwtSessionService>().CreateAccessToken(claims);
+        var jwtSession = services.ServiceProvider.GetRequiredService<IJwtSessionService>().CreateJwtSession(claims);
         httpClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, accessToken.WriteToken());
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, jwtSession.AccessToken.ToString());
 
         return httpClient;
     }

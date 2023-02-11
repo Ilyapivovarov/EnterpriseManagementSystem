@@ -1,5 +1,4 @@
 using System.Collections.Concurrent;
-using System.Text.Json;
 
 namespace IdentityService.Infrastructure.Services.CacheServices;
 
@@ -11,53 +10,29 @@ public sealed class TestCacheService : ICacheService
     {
         if (!webHostEnvironment.IsTesting())
             throw new Exception($"{nameof(TestCacheService)} can use only in test environment");
-        
+
         _cache = new ConcurrentDictionary<string, string>();
     }
-    
-    public async Task<object?> GetAsync(string key)
-    {
-        return await Task.Run(() =>
-        {
-            if (!_cache.TryGetValue(key, out var value))
-                return default;
 
-            return JsonSerializer.Deserialize<object>(value);
-        });
+    public async Task SetAsync(string key, string value)
+    {
+        await Task.Run(() => _cache.TryAdd(key, value));
     }
 
-    public async Task<T?> TryGetAsync<T>(string key)
+    public async Task SetAsync(string key, string value, TimeSpan expiry)
     {
-        return await Task.Run(() =>
-        {
-            if (!_cache.TryGetValue(key, out var value))
-                return default;
-
-            return JsonSerializer.Deserialize<T>(value);
-        });
+        await Task.Run(() => _cache.TryAdd(key, value));
     }
 
-    public async Task SetAsync(string key, object value)
+    public async Task SetAsync<TKey, TValue>(TKey key, TValue value, TimeSpan expiry)
+        where TKey : notnull
+        where TValue : notnull
     {
-        await Task.Run(() =>
-        {
-            _cache.TryAdd(key, JsonSerializer.Serialize(value));
-        });
+        await Task.Run(() => _cache.TryAdd(key.ToString()!, value.ToString()!));
     }
 
-    public async Task SetAsync<T>(string key, T value)
+    public async Task<string?> GetStringAsync(string key)
     {
-        await Task.Run(() =>
-        {
-            _cache.TryAdd(key, JsonSerializer.Serialize(value));
-        });
-    }
-
-    public async Task SetAsync<T>(string key, T value, DateTime expiry)
-    {
-        await Task.Run(() =>
-        {
-            _cache.TryAdd(key, JsonSerializer.Serialize(value));
-        });
+        return await Task.Run(() => _cache.GetValueOrDefault(key));
     }
 }

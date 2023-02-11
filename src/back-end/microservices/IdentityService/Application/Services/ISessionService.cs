@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 
 namespace IdentityService.Application.Services;
 

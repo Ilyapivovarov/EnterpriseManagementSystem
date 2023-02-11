@@ -5,7 +5,14 @@ namespace IdentityService.Core.DbEntities;
 
 public sealed class Session : IJwtSession
 {
-    public JwtToken AccessToken { get; set; } = null!;
 
-    public JwtToken RefreshToken { get; set; } = null!;
+    public Session(JwtToken accessToken, JwtToken refreshToken)
+    {
+        AccessToken = accessToken;
+        RefreshToken = refreshToken;
+    }
+    
+    public JwtToken AccessToken { get; set; }
+
+    public JwtToken RefreshToken { get; set; }
 }

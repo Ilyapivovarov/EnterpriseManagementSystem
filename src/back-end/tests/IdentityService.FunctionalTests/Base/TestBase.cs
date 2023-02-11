@@ -100,7 +100,7 @@ public abstract class TestBase: IDisposable
         var session = Server.Services.GetRequiredService<IJwtSessionService>()
             .CreateJwtSession(claims);
 
-        return session.AccessToken.WriteToken();
+        return session.AccessToken.ToString();
     }
 
     private TestServer CreateTestServer()

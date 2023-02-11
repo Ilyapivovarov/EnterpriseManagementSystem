@@ -24,7 +24,7 @@ public static class InfrastructureDependencyInjection
         services.AddDbContext<IdentityDbContext>(builder =>
         {
             builder = environment.IsEnvironment("Testing")
-                ? builder.UseInMemoryDatabase(configuration.GetConnectionString("RelationalDb"))
+                ? builder.UseInMemoryDatabase(configuration.GetConnectionString("RelationalDb")!)
                 : builder.UseSqlServer(configuration.GetConnectionString("RelationalDb"));
 
             builder.UseLazyLoadingProxies();
@@ -49,10 +49,8 @@ public static class InfrastructureDependencyInjection
         #endregion
 
         #region Register repositories
-
-        services.AddTransient<ISessionRepository, SessionRepository>();
+        
         services.AddTransient<IUserRepository, UserRepository>();
-        services.AddTransient<ISessionRepository, SessionRepository>();
         services.AddTransient<IUserRoleRepository, UserRoleRepository>();
 
         #endregion

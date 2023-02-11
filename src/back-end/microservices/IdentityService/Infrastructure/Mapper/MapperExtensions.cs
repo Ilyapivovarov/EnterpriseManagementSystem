@@ -1,4 +1,3 @@
-using EnterpriseManagementSystem.Contracts.Dto.TaskService;
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using IdentityService.Infrastructure.Mapper.Converters;
 
@@ -17,16 +16,16 @@ public static class MapperExtensions
         return mapper.Map<UserDbEntity, IdentityUserDto>(user);
     }
     
-    public static SessionDto ToDto(this Session session)
+    public static SessionDto ToDto(this IJwtSession session)
     {
         var cfg = new MapperConfiguration(cfg =>
-            cfg.CreateMap<Session, SessionDto>()
+            cfg.CreateMap<IJwtSession, SessionDto>()
                 .ForMember(dto => dto.RefreshToken,
-                    source => source.MapFrom(x => x.RefreshToken.WriteToken()))
+                    source => source.MapFrom(x => x.RefreshToken.ToString()))
                 .ForMember(dto => dto.AccessToken, 
-                    source => source.MapFrom(x => x.AccessToken.WriteToken())));
+                    source => source.MapFrom(x => x.AccessToken.ToString())));
 
         var mapper = new AutoMapper.Mapper(cfg);
-        return mapper.Map<Session, SessionDto>(session);
+        return mapper.Map<IJwtSession, SessionDto>(session);
     }
 }

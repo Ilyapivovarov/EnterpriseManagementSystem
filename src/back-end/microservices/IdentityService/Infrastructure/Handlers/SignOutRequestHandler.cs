@@ -3,12 +3,12 @@ namespace IdentityService.Infrastructure.Handlers;
 public sealed class SignOutRequestHandler : IRequestHandler<SignOutRequest, IActionResult>
 {
     private readonly ILogger<SignOutRequestHandler> _logger;
-    private readonly ISessionRepository _sessionRepository;
+    private readonly ICacheService _cacheService;
 
-    public SignOutRequestHandler(ILogger<SignOutRequestHandler> logger, ISessionRepository sessionRepository)
+    public SignOutRequestHandler(ILogger<SignOutRequestHandler> logger, ICacheService cacheService)
     {
         _logger = logger;
-        _sessionRepository = sessionRepository;
+        _cacheService = cacheService;
     }
 
     public async Task<IActionResult> Handle(SignOutRequest signOutRequest, CancellationToken cancellationToken)

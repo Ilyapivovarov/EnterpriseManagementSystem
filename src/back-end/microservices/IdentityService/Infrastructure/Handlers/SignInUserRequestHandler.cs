@@ -3,19 +3,19 @@ namespace IdentityService.Infrastructure.Handlers;
 public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IActionResult>
 {
     private readonly ILogger<SignInUserRequestHandler> _logger;
-    private readonly ISessionService _sessionBlService;
+    private readonly ISessionService _sessionService;
     private readonly ISecurityService _securityService;
-    private readonly ISessionRepository _sessionRepository;
+    private readonly ICacheService _cacheService;
     private readonly IUserRepository _userRepository;
 
     public SignInUserRequestHandler(ILogger<SignInUserRequestHandler> logger, IUserRepository userRepository,
-        ISessionRepository sessionRepository, ISessionService sessionBlService, ISecurityService securityService)
+        ISessionService sessionService, ISecurityService securityService, ICacheService cacheService)
     {
         _logger = logger;
         _userRepository = userRepository;
-        _sessionRepository = sessionRepository;
-        _sessionBlService = sessionBlService;
+        _sessionService = sessionService;
         _securityService = securityService;
+        _cacheService = cacheService;
     }
 
     public async Task<IActionResult> Handle(SignInRequest signInRequest, CancellationToken cancellationToken)
@@ -28,9 +28,10 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
             if (user == null)
                 return new NotFoundObjectResult("Incorrect email or password");
 
-            var session = _sessionBlService.CreateSession(user.Email.Address, user.Guid, user.Role.Name);
+            var session = _sessionService.CreateSession(user.Email.Address, user.Guid, user.Role.Name);
 
-            await _sessionRepository.SaveAsync(session);
+            await _cacheService.SetAsync(session.RefreshToken.ToString(), session.AccessToken.ToString(),
+                session.RefreshToken.GetExpirationTime());
 
             return new OkObjectResult(session.ToDto());
         }
