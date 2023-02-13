@@ -11,4 +11,6 @@ public interface ICacheService
         where TValue : notnull;
 
     Task<string?> GetStringAsync(string key);
+
+    public bool CanConnect();
 }

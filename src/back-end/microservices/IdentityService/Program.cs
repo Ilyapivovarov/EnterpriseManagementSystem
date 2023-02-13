@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore;
-
-var host = WebHost.CreateDefaultBuilder(args)
-    .UseStartup<Startup>()
+var host = Host.CreateDefaultBuilder(args)
+    .ConfigureWebHostDefaults(
+        webBuilder => webBuilder.UseStartup<Startup>())
     .Build();
 
 await host.RunAsync();

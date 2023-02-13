@@ -15,6 +15,7 @@ global using IdentityService.Core.DbEntities;
 global using IdentityService.Core.DbEntities.Base;
 global using IdentityService.Core.ReturnedValue;
 global using IdentityService.Infrastructure;
+global using IdentityService.Infrastructure.DbContexts;
 global using IdentityService.Infrastructure.Extensions;
 global using IdentityService.Infrastructure.Mapper;
 global using IdentityService.Infrastructure.Repositories.Base;

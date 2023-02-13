@@ -23,8 +23,11 @@ public sealed class Startup
         services.AddControllers();
     }
 
-    public void Configure(IApplicationBuilder app)
+    public void Configure(IApplicationBuilder app, IdentityDbContext identityDbContext,
+        ICacheService cacheService)
     {
+        ValidateEnv(identityDbContext, cacheService);
+        
         if (Environment.IsDevelopment())
             app.UseDeveloperExceptionPage();
 
@@ -35,5 +38,11 @@ public sealed class Startup
         
         app.UseEndpoints(endpoints => endpoints.MapControllers()
             .RequireAuthorization());
+    }
+
+    private static void ValidateEnv(IdentityDbContext identityDbContext, ICacheService cacheService)
+    {
+        EnvHandler.ValidateDbBeforeStartApp(identityDbContext);
+        EnvHandler.ValidateCacheBeforeStartApp(cacheService);
     }
 }

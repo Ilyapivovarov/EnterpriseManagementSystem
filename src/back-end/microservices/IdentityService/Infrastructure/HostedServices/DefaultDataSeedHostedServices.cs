@@ -1,5 +1,3 @@
-using IdentityService.Infrastructure.DbContexts;
-
 namespace IdentityService.Infrastructure.HostedServices;
 
 public sealed class DefaultDataSeedHostedServices : IHostedService
