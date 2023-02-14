@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import {store} from './store';
 import App from './App';
-import {firstResetAuthState} from './store/AuthReducer/AuthActionCreators';
+import {resetAuthState} from './store/AuthReducer/AuthActionCreators';
 import './i18n';
 
 
@@ -12,7 +12,7 @@ const root = createRoot(container!);
 console.log(process.env.NODE_ENV);
 console.log(navigator.language);
 
-store.dispatch(firstResetAuthState());
+store.dispatch(resetAuthState());
 root.render(
     <Provider store={store}>
       <BrowserRouter>

@@ -21,70 +21,14 @@ export const resetAuthState = createAsyncThunk<Session, void, { rejectValue: str
       }
 
       console.log('Trying update token');
-      try {
-        const response = await fetch(`${baseUrl}/auth/refresh`, {
-          method: 'PUT',
-          body: JSON.stringify({refreshToken: session.refreshToken}),
-          headers: {
-            'content-type': 'application/json;charset=UTF-8',
-          },
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          console.log('Token successfully updated');
-          localStorage.setItem('session', JSON.stringify(result));
-          return result;
-        }
-      } catch (e) {
-        console.log(e);
+      const newSession = await tryUpdateToken(session);
+      if (newSession) {
+        return session;
       }
 
       console.log('Error while updating token. Remove item from localstorage by key "session"');
       localStorage.removeItem('session');
       return rejectWithValue('Error while updating token');
-    },
-);
-
-export const firstResetAuthState = createAsyncThunk<Session, void, { rejectValue: string }>(
-    'authSlice/first-reset-auth-state',
-    async (_, {rejectWithValue}) => {
-      console.log('firstResetAuthState');
-      const session = JSON.parse(localStorage.getItem('session')!) as Session | null;
-      if (!session) {
-        console.log('Error while updating token');
-        localStorage.clear();
-        return rejectWithValue('Error while updating token');
-      }
-
-      const decodeToken = jwtDecode<DecodeToken>(session.accessToken);
-      if (new Date(decodeToken.exp * 1000 - 20000) > new Date()) {
-        console.log('Token is valid');
-        return session;
-      }
-
-      console.log('Trying update token');
-      try {
-        const response = await fetch(`${baseUrl}/auth/refresh/${session.refreshToken}`, {
-          method: 'PUT',
-          headers: {
-            'content-type': 'application/json;charset=UTF-8',
-          },
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          console.log('Token successfully updated');
-          localStorage.setItem('session', JSON.stringify(result));
-          return result;
-        }
-      } catch (e) {
-        console.log(e);
-      }
-
-      console.log('Error while updating token');
-      localStorage.clear();
-      return rejectWithValue('Error');
     },
 );
 
@@ -96,7 +40,6 @@ export const signIn = createAsyncThunk<Session, SignIn, { rejectValue: string }>
         headers: {
           'content-type': 'application/json;charset=UTF-8',
         },
-
         body: JSON.stringify(authModel),
       });
       if (response.ok) {
@@ -143,3 +86,29 @@ export const signOut = createAsyncThunk<void, void>(
       localStorage.clear();
     },
 );
+
+
+async function tryUpdateToken(oldSession: Session ) : Promise<Session | null> {
+  try {
+    const response = await fetch(`${baseUrl}/auth/refresh/`, {
+      method: 'PUT',
+      body: JSON.stringify({refreshToken: oldSession.refreshToken}),
+      headers: {
+        'content-type': 'application/json;charset=UTF-8',
+      },
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Token successfully updated');
+      localStorage.setItem('session', JSON.stringify(result));
+      return result as Session;
+    }
+    return null;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+

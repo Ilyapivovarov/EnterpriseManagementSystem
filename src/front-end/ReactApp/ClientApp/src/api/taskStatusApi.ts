@@ -8,8 +8,8 @@ export const taskStatusApi = createApi({
   reducerPath: 'taskStatusApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${BaseUrl}/task-status`,
-    prepareHeaders: (headers, {getState}) => {
-      store.dispatch(resetAuthState());
+    prepareHeaders: async (headers, {getState}) => {
+      await store.dispatch(resetAuthState());
       const accessToken = (getState() as RootState).authReducer.currentSession?.accessToken;
       if (accessToken) {
         headers.set('authorization', `Bearer ${accessToken}`);
