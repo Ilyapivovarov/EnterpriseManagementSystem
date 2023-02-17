@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -32,64 +31,62 @@ const Layout: React.FC = () => {
   const navigate = useNavigate();
   const {isLoading} = useAppSelector((x) => x.authReducer);
 
-
   const logOutHandler = () => {
     dispatch(signOut())
         .unwrap()
         .finally(() => navigate('/sign-in'));
   };
 
-  return (
-    <Box sx={{display: 'flex'}}>
-      <CssBaseline />
-      <AppBar position="fixed" sx={{width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`}}>
-        <Toolbar sx={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
-          <ButtonGroup variant="text" size={'large'} aria-label="text button group" >
-            <Button color="inherit" sx={{marginRight: 2}}>
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon/>
-              </Badge>
-            </Button>
-            <Button color="inherit" onClick={logOutHandler}>
-              <Badge color="secondary">
-                <LogoutIcon/>
-              </Badge>
-            </Button>
-          </ButtonGroup>
-        </Toolbar>
-      </AppBar>
-      <Drawer sx={{
-        'width': drawerWidth,
-        'flexShrink': 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }} variant="permanent" anchor="left">
-        <Toolbar sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Typography component="h1" align={'center'} color="inherit" >
+  return <Box sx={{display: 'flex'}}>
+    <CssBaseline />
+    <AppBar position="fixed" sx={{width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`}}>
+      <Toolbar sx={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
+        <ButtonGroup variant="text" size={'large'} aria-label="text button group" >
+          <Button color="inherit" sx={{marginRight: 2}}>
+            <Badge badgeContent={4} color="secondary">
+              <NotificationsIcon/>
+            </Badge>
+          </Button>
+          <Button color="inherit" onClick={logOutHandler}>
+            <Badge color="secondary">
+              <LogoutIcon/>
+            </Badge>
+          </Button>
+        </ButtonGroup>
+      </Toolbar>
+    </AppBar>
+    <Drawer sx={{
+      'width': drawerWidth,
+      'flexShrink': 0,
+      '& .MuiDrawer-paper': {
+        width: drawerWidth,
+        boxSizing: 'border-box',
+      },
+    }} variant="permanent" anchor="left">
+      <Toolbar sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <Typography component="h1" align={'center'} color="inherit" >
             Enterprise{'\n'} Management System
-          </Typography>
-        </Toolbar>
-        <Divider/>
-        <List component="nav">
-          <ListItemButton component={NavLink} to={'/employees'}>
-            <ListItemIcon>
-              <PeopleIcon/>
-            </ListItemIcon>
-            <ListItemText primary={t(TranslationKeys.navMenu.employees)}/>
-          </ListItemButton>
-          <ListItemButton component={NavLink} to={'/tasks'}>
-            <ListItemIcon>
-              <ListAltIcon/>
-            </ListItemIcon>
-            <ListItemText primary={t(TranslationKeys.navMenu.tasks)}>
-            </ListItemText>
-          </ListItemButton>
-          <AdminNavItems/>
-        </List>
-      </Drawer>
-      {isLoading ?
+        </Typography>
+      </Toolbar>
+      <Divider/>
+      <List component="nav">
+        <ListItemButton component={NavLink} to={'/employees'}>
+          <ListItemIcon>
+            <PeopleIcon/>
+          </ListItemIcon>
+          <ListItemText primary={t(TranslationKeys.navMenu.employees)}/>
+        </ListItemButton>
+        <ListItemButton component={NavLink} to={'/tasks'}>
+          <ListItemIcon>
+            <ListAltIcon/>
+          </ListItemIcon>
+          <ListItemText primary={t(TranslationKeys.navMenu.tasks)}>
+          </ListItemText>
+        </ListItemButton>
+        <AdminNavItems/>
+      </List>
+    </Drawer>
+    {isLoading ?
             <Loader/> :
             <Box component="main" sx={{flexGrow: 1, height: '100vh', overflow: 'auto'}}>
               <Toolbar/>
@@ -97,9 +94,8 @@ const Layout: React.FC = () => {
                 <Outlet/>
               </Container>
             </Box>
-      }
-    </Box>
-  );
+    }
+  </Box>;
 };
 
 export default Layout;
