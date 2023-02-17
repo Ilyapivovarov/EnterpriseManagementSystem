@@ -2,6 +2,7 @@
 import {initReactI18next} from 'react-i18next';
 import ruTranslation from './ru/translation.json';
 import enTranslation from './en/translation.json';
+import {LocalizationKey} from '../helpers/Constants';
 
 export class TranslationKeys {
   static navMenu = {
@@ -20,8 +21,13 @@ const resources = {
   },
 };
 
+const currentLocalization = localStorage.getItem(LocalizationKey);
+if (!currentLocalization) {
+  localStorage.setItem(LocalizationKey, navigator.language);
+}
+
 i18n.use(initReactI18next).init({
-  lng: navigator.language,
+  lng: localStorage.getItem(LocalizationKey)!,
   resources,
 });
 

@@ -12,7 +12,6 @@ interface TaskUserSelectorProps {
 
 function unique(executors: UserDto[]) {
   const result: UserDto[] = [];
-
   for (const executor of executors) {
     if (result.filter((x) => x.id == executor.id).length == 0) {
       result.push(executor);
@@ -63,7 +62,7 @@ const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, l
 
   return (
     <Box p={1}>
-      <FormControl variant="standard" fullWidth={fullWidth} sx={{minWidth: 250}}>
+      <FormControl variant="standard" fullWidth={fullWidth} >
         <InputLabel id="task-executor-selector-lable">{lable}</InputLabel>
         <Select
           labelId={'task-executor-selector-lable'}
@@ -73,7 +72,7 @@ const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, l
           value={executorId}
           MenuProps={
             {
-              style: {maxHeight: 150, width: 250},
+              style: {maxHeight: 150},
               PaperProps: {
                 onScroll: onScroll,
               },
