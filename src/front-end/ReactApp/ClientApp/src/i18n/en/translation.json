@@ -3,5 +3,10 @@
     "employees": "Employees",
     "tasks": "Tasks",
     "settings": "Settings"
+  },
+  "pages": {
+    "home": "Home",
+    "tasks": "Tasks",
+    "employees": "Employees"
   }
 }

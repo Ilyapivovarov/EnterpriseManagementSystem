@@ -10,6 +10,11 @@ export class TranslationKeys {
     tasks: 'navMenu.tasks',
     settings: 'navMenu.settings',
   };
+  static pages ={
+    home: 'pages.home',
+    tasks: 'pages.tasks',
+    employees: 'pages.employees',
+  };
 }
 
 const resources = {

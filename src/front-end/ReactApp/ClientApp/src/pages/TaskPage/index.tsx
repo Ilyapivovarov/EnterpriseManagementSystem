@@ -5,8 +5,11 @@ import Loader from '../../components/Loader/Loader';
 import TaskPageContent from '../../components/TaskPageContent/TaskPageContent';
 import {Breadcrumbs, Paper} from '@mui/material';
 import Link from '../../components/Link/Link';
+import {useTranslation} from 'react-i18next';
+import {TranslationKeys} from '../../i18n';
 
 const TaskPage: React.FC = () => {
+  const {t} = useTranslation();
   const {id} = useParams();
   const taskId = Number.parseInt(id!);
   const {data, isLoading, isSuccess, error} = useGetTaskByIdQuery(taskId);
@@ -19,10 +22,10 @@ const TaskPage: React.FC = () => {
       <Paper sx={{p: 2, marginTop: '10px'}} elevation={1}>
         <Breadcrumbs aria-label="breadcrumb">
           <Link to={'/'}>
-            Home
+            {t(TranslationKeys.pages.home)}
           </Link>
           <Link to={'/tasks'}>
-            Tasks
+            {t(TranslationKeys.pages.tasks)}
           </Link>
           <Link to={'#'}>
            #{data.id}
