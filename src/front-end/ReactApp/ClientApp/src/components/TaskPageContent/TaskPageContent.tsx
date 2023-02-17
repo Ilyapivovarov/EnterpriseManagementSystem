@@ -88,27 +88,11 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({taskDto}) => {
 
   return (
     <>
-      <Paper
-        sx={{
-          p: 2,
-          marginTop: '10px',
-        }}
-        elevation={1}>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link to={'/'}>
-              Home
-          </Link>
-          <Link to={'/tasks'}>
-              Tasks
-          </Link>
-          <Typography color="text.primary">EMS-{task.id}</Typography>
-        </Breadcrumbs>
-      </Paper>
       <PageWrapper>
         <div>
           <Box padding={1} display={'flex'} justifyContent={'space-between'}>
             <Typography fontSize={14} paddingLeft={1}>
-              <b>EMS-{task.id}</b> created by{' '}
+              <b>#{task.id}</b> created by{' '}
               <Link to={`/employees/${task.author.guid}`}>
                 {task.author.firstName} {task.author.lastName}{' '}
               </Link>

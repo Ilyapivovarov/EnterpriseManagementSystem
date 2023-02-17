@@ -1,10 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace TaskService.Core.DbEntities;
 
 public class TaskDbEntity : DbEntityBase
 {
-    public string Name { get; set; } = null!;
+    public string Name { get; set; } = null!;   
 
     public string? Description { get; set; }
 
