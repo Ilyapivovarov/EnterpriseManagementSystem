@@ -15,7 +15,7 @@ public static class EnvHandler
 
         if (!canConnect)
         {
-            throw new ConnectionException("No connections");
+            throw new Exception("No connections");
         }
     }
 }

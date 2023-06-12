@@ -1,3 +1,4 @@
+using EnterpriseManagementSystem.MessageBroker;
 using IdentityService.Infrastructure.HostedServices;
 using IdentityService.Infrastructure.Repositories;
 using IdentityService.Infrastructure.Services;
@@ -45,10 +46,11 @@ public static class InfrastructureDependencyInjection
                 => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
             services.AddSingleton<ICacheService, RedisCacheService>();
         }
+
         #endregion
 
         #region Register repositories
-        
+
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<IUserRoleRepository, UserRoleRepository>();
 
@@ -71,22 +73,7 @@ public static class InfrastructureDependencyInjection
 
         #region Register event bus
 
-        services.AddMassTransit(configurator =>
-        {
-            if (environment.IsProduction())
-                configurator.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
-                    {
-                        h.Username("guest");
-                        h.Password("guest");
-                    });
-                    cfg.ConfigureEndpoints(context);
-                });
-            else
-                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
-
-        });
+        services.AddMessageBroker(configuration, environment);
 
         #endregion
 
@@ -95,7 +82,5 @@ public static class InfrastructureDependencyInjection
         services.AddHostedService<DefaultDataSeedHostedServices>();
 
         #endregion
-
-
     }
 }

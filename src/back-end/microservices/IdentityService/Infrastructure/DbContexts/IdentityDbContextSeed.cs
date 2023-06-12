@@ -1,3 +1,4 @@
+using EnterpriseManagementSystem.MessageBroker.Abstractions;
 using UserService.Core;
 
 namespace IdentityService.Infrastructure.DbContexts;
@@ -83,7 +84,6 @@ public sealed class IdentityDbContextSeed
             defaultUser.Email.Address, DateTime.Now));
 
         var bus = services.GetRequiredService<IBus>();
-        var endPoint = await bus.GetPublishSendEndpoint<SignUpUserIntegrationEvent>();
-        await endPoint.Send(@event);
+        await bus.PublishAsync(@event);
     }
 }

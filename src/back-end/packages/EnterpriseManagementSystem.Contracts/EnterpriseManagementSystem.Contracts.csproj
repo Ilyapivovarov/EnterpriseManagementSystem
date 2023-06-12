@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EnterpriseManagementSystem.BusinessModels\EnterpriseManagementSystem.BusinessModels.csproj" />
+      <ProjectReference Include="..\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj" />
     </ItemGroup>
 
 </Project>

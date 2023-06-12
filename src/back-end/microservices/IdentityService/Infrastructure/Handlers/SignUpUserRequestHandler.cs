@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.MessageBroker.Abstractions;
+
 namespace IdentityService.Infrastructure.Handlers;
 
 public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IActionResult>
@@ -53,7 +55,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
 
             var @event = new SignUpUserIntegrationEvent(new UserDataResponse(newUser.Guid, firstName,
                 lastName, signUpDto.Email, null));
-            await _bus.Publish(@event, cancellationToken);
+            await _bus.PublishAsync(@event);
 
             return new OkObjectResult(session.ToDto());
         }

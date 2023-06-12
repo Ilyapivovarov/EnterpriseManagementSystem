@@ -1,11 +1,8 @@
 using EnterpriseManagementSystem.Contracts.WebContracts.Response;
+using EnterpriseManagementSystem.MessageBroker;
 
 namespace EnterpriseManagementSystem.Contracts.IntegrationEvents;
 
-public sealed record SignUpUserIntegrationEvent(UserDataResponse UserDataResponse)
+public sealed record SignUpUserIntegrationEvent(UserDataResponse UserDataResponse) : IIntegrationsEvent
 {
-    public override string? ToString()
-    {
-        return base.ToString();
-    }
 }

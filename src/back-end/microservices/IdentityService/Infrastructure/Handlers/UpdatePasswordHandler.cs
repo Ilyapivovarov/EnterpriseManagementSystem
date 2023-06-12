@@ -1,4 +1,5 @@
 using EnterpriseManagementSystem.Contracts.IntegrationEvents.Notifications;
+using EnterpriseManagementSystem.MessageBroker.Abstractions;
 
 namespace IdentityService.Infrastructure.Handlers;
 
@@ -41,7 +42,7 @@ public sealed class UpdatePasswordHandler : IRequestHandler<UpdatePasswordReques
                 return new BadRequestObjectResult("Error while save new password");
 
             var @event = new SendSystemNotificationEvent(updatePasswordInfo.Email, "Password has been changed");
-            await _bus.Publish(@event, cancellationToken);
+            await _bus.PublishAsync(@event);
 
             return new OkResult();
         }

@@ -20,6 +20,5 @@ global using IdentityService.Infrastructure.Extensions;
 global using IdentityService.Infrastructure.Mapper;
 global using IdentityService.Infrastructure.Repositories.Base;
 global using IdentityService.Infrastructure.Requests;
-global using MassTransit;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
