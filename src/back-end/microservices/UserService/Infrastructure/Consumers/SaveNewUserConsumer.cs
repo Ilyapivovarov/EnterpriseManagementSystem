@@ -1,27 +1,27 @@
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
+using EnterpriseManagementSystem.MessageBroker.Abstractions;
+using MassTransit;
 
 namespace UserService.Infrastructure.Consumers;
 
-public sealed class SaveNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
+public sealed class SignUpUserEventHandler : EventHandlerBase<SignUpUserIntegrationEvent>
 {
-    private readonly ILogger<SaveNewUserConsumer> _logger;
-    private readonly IUserRepository _userRepository;
+    private readonly ILogger<SignUpUserEventHandler> _logger;
     private readonly IEmployeeRepository _employeeRepository;
 
-    public SaveNewUserConsumer(ILogger<SaveNewUserConsumer> logger, IUserRepository userRepository,
+    public SignUpUserEventHandler(ILogger<SignUpUserEventHandler> logger,
         IEmployeeRepository employeeRepository)
     {
         _logger = logger;
-        _userRepository = userRepository;
         _employeeRepository = employeeRepository;
 
     }
-
-    public async Task Consume(ConsumeContext<SignUpUserIntegrationEvent> context)
+    
+    public override async Task Handle(SignUpUserIntegrationEvent @event)
     {
         try
         {
-            var userDataResponse = context.Message.UserDataResponse;
+            var userDataResponse = @event.UserDataResponse;
             await _employeeRepository.SaveAsync(new EmployeeDbEntity
             {
                 UserDbEntity = new UserDbEntity

@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.MessageBroker.Abstractions;
+
 namespace TaskService.Infrastructure.Handlers.TaskController;
 
 public sealed class CreateTaskTaskHandler : RequestHandlerBase<CreateTaskDtoRequest>

@@ -1,6 +1,8 @@
+using EnterpriseManagementSystem.MessageBroker.Abstractions;
+
 namespace EmailService.Infrastructure.Consumers;
 
-public sealed class EmailForNewUserConsumer : IConsumer<SignUpUserIntegrationEvent>
+public sealed class EmailForNewUserConsumer : EventHandlerBase<SignUpUserIntegrationEvent>
 {
     private readonly IEmailService _emailService;
     private readonly ILogger<EmailForNewUserConsumer> _logger;
@@ -11,14 +13,12 @@ public sealed class EmailForNewUserConsumer : IConsumer<SignUpUserIntegrationEve
         _emailService = emailService;
     }
 
-    public async Task Consume(ConsumeContext<SignUpUserIntegrationEvent> context)
+    public override async Task Handle(SignUpUserIntegrationEvent @event)
     {
         try
         {
-            using (_logger.BeginScope("Start consume {SignUpNewUserIntegrationEvent}",
-                       nameof(SignUpUserIntegrationEvent)))
             {
-                var userData = context.Message.UserDataResponse;
+                var userData = @event.UserDataResponse;
                 var mail = new MailMessage("ems.test.dev@gmail.com", userData.EmailAddress.Value, "Welcome",
                     $"Welcome {userData.FirstName} {userData.LastName}");
 

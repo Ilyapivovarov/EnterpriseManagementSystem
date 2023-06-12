@@ -18,6 +18,8 @@ services:
         ipv4_address: 10.20.10.50
 
   api-gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     image: ${DOCKER_REGISTRY-}api-gateway
     hostname: api-gateway
     build:
@@ -32,6 +34,8 @@ services:
         ipv4_address: 10.20.10.100
 
   identity-service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     image: ${DOCKER_REGISTRY-}identity-service
     hostname: identity-service
     build:
@@ -45,6 +49,8 @@ services:
         ipv4_address: 10.20.10.101
 
   tasks-service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     image: ${DOCKER_REGISTRY-}tasks-service
     build:
       context: .
@@ -54,6 +60,8 @@ services:
         ipv4_address: 10.20.10.103
 
   users-service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     image: ${DOCKER_REGISTRY-}users-service
     build:
       context: .

@@ -1,6 +1,5 @@
 ﻿using EnterpriseManagementSystem.MessageBroker.Abstractions;
 using MassTransit;
-using MassTransit.Internals;
 
 namespace EnterpriseManagementSystem.MessageBroker.Implementations;
 
@@ -14,9 +13,9 @@ internal sealed class BusInitializer : IBusInitializer
     }
 
     public void Subscribe<TMessage, TMessageHandler>()
-        where TMessage : class, IMessage
+        where TMessage : class, ICustomConsumer
+        where TMessageHandler : class, IEventHandler<TMessage>
     {
-        _configurator.AddConsumer<TMessage>()
-            .Endpoint(x => x.Name = $"{typeof(TMessage).GetTypeName()}");
+        _configurator.AddConsumer<TMessageHandler>();
     }
 }

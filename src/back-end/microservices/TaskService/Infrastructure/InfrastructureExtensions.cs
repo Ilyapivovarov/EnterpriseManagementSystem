@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.MessageBroker;
+
 namespace TaskService.Infrastructure;
 
 public static class InfrastructureExtensions
@@ -49,25 +51,7 @@ public static class InfrastructureExtensions
 
         #region Register MassTransisist
 
-        services.AddMassTransit(configurator =>
-        {
-            configurator.AddConsumer<SaveNewUserConsumer>()
-                .Endpoint(x
-                    => x.Name = $"{nameof(TaskService)}_{nameof(SaveNewUserConsumer)}");
-            if (environment.IsEnvironment("Testing"))
-                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
-            else
-                configurator.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.Host(configuration.GetConnectionString("RabbitMq"), "/",
-                        h =>
-                        {
-                            h.Username("guest");
-                            h.Password("guest");
-                        });
-                    cfg.ConfigureEndpoints(context);
-                });
-        });
+        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"));
 
         #endregion
     }

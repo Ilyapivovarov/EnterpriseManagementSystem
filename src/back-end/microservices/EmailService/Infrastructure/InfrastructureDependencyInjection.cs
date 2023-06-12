@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.MessageBroker;
+
 namespace EmailService.Infrastructure;
 
 public static class InfrastructureDependencyInjection
@@ -22,19 +24,7 @@ public static class InfrastructureDependencyInjection
 
         #region Register MassTransisist
 
-        services.AddMassTransit(configurator =>
-        {
-            configurator.AddConsumer<EmailForNewUserConsumer>();
-            configurator.UsingRabbitMq((context, cfg) =>
-            {
-                cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
-                {
-                    h.Username("guest");
-                    h.Password("guest");
-                });
-                cfg.ConfigureEndpoints(context);
-            });
-        });
+        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"));
 
         #endregion
 

@@ -2,11 +2,17 @@
 
 namespace EnterpriseManagementSystem.MessageBroker;
 
-public interface IMessage : IConsumer
+public interface IMessage : ICustomConsumer
 {
+    
 }
 
-public interface IIntegrationsEvent : IConsumer
+public interface IIntegrationsEvent : ICustomConsumer
 {
    
+}
+
+public interface ICustomConsumer : IConsumer
+{
+    
 }

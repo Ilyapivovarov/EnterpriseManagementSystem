@@ -1,3 +1,6 @@
+using EnterpriseManagementSystem.Contracts.IntegrationEvents;
+using EnterpriseManagementSystem.MessageBroker;
+
 namespace UserService.Infrastructure;
 
 public static class InfrastructureExtensions
@@ -47,23 +50,9 @@ public static class InfrastructureExtensions
 
         #region Register MassTransit
 
-        services.AddMassTransit(configurator =>
+        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"), initializer =>
         {
-            configurator.SetKebabCaseEndpointNameFormatter();
-            configurator.AddConsumer<SaveNewUserConsumer>()
-                .Endpoint(x => x.Name = $"{nameof(UserService)}_{nameof(SaveNewUserConsumer)}");
-            if (environment.IsEnvironment("Testing"))
-                configurator.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
-            else
-                configurator.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.Host(configuration.GetConnectionString("RabbitMq"), "/", h =>
-                    {
-                        h.Username("guest");
-                        h.Password("guest");
-                    });
-                    cfg.ConfigureEndpoints(context);
-                });
+            initializer.Subscribe<SignUpUserIntegrationEvent, SignUpUserEventHandler>();
         });
 
         #endregion
