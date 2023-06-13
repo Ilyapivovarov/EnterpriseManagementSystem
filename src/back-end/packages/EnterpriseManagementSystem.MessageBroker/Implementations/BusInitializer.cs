@@ -13,7 +13,8 @@ internal sealed class BusInitializer : IBusInitializer
         where TMessage : class, IMessage 
         where TMessageHandler : class, IMessageHandler<TMessage>
     {
-        _configurator.AddConsumer<TMessageHandler>();
+        _configurator.AddConsumer<TMessageHandler>()
+            .Endpoint(x => x.Name = typeof(TMessage).Name);
     }
 
     public void SubscribeOnEvent<TIntegrationEvent, TIntegrationEventHandler>() 
