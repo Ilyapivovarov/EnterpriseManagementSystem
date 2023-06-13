@@ -3,6 +3,6 @@ using EnterpriseManagementSystem.MessageBroker;
 
 namespace EnterpriseManagementSystem.Contracts.IntegrationEvents;
 
-public sealed record SignUpUserIntegrationEvent(UserDataResponse UserDataResponse) : IIntegrationsEvent
+public sealed record SignUpUserIntegrationEvent(UserDataResponse UserDataResponse) : IIntegrationEvent
 {
 }

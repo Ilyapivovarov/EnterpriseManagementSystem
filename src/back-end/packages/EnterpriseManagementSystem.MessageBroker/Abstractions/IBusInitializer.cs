@@ -2,7 +2,11 @@
 
 public interface IBusInitializer
 {
-    public void Subscribe<TMessage, TMessageHandler>()
-        where TMessage : class, ICustomConsumer
-        where TMessageHandler : class, IEventHandler<TMessage>;
+    public void SubscribeOnMessage<TMessage, TMessageHandler>()
+        where TMessage : class, IMessage
+        where TMessageHandler : class, IMessageHandler<TMessage>;
+    
+    public void SubscribeOnEvent<TIntegrationEvent, TIntegrationEventHandler>()
+        where TIntegrationEvent : class, IIntegrationEvent
+        where TIntegrationEventHandler : class, IIntegrationEventHandler<TIntegrationEvent>;
 }

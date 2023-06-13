@@ -1,18 +1,9 @@
-﻿using MassTransit;
+﻿namespace EnterpriseManagementSystem.MessageBroker;
 
-namespace EnterpriseManagementSystem.MessageBroker;
-
+/// <summary>
+/// Message abstraction
+/// </summary>
 public interface IMessage : ICustomConsumer
-{
-    
-}
-
-public interface IIntegrationsEvent : ICustomConsumer
-{
-   
-}
-
-public interface ICustomConsumer : IConsumer
 {
     
 }

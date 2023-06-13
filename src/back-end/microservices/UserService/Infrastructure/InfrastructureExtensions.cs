@@ -52,7 +52,7 @@ public static class InfrastructureExtensions
 
         services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"), initializer =>
         {
-            initializer.Subscribe<SignUpUserIntegrationEvent, SignUpUserEventHandler>();
+            initializer.SubscribeOnEvent<SignUpUserIntegrationEvent, SignUpUserEventHandler>();
         });
 
         #endregion

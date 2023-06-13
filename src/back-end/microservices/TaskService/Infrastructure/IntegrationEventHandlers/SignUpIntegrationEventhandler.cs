@@ -3,7 +3,7 @@ using EnterpriseManagementSystem.MessageBroker.Abstractions;
 
 namespace TaskService.Infrastructure.IntegrationEventHandlers;
 
-public sealed class SignUpIntegrationEventHandler : EventHandlerBase<SignUpUserIntegrationEvent>
+public sealed class SignUpIntegrationEventHandler : IntegrationEventHandlerBase<SignUpUserIntegrationEvent>
 {
     private readonly ILogger<SignUpIntegrationEventHandler> _logger;
     private readonly IUserRepository _userRepository;

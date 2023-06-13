@@ -2,7 +2,7 @@ using EnterpriseManagementSystem.MessageBroker.Abstractions;
 
 namespace EmailService.Infrastructure.Consumers;
 
-public sealed class EmailForNewUserConsumer : EventHandlerBase<SignUpUserIntegrationEvent>
+public sealed class EmailForNewUserConsumer : IntegrationEventHandlerBase<SignUpUserIntegrationEvent>
 {
     private readonly IEmailService _emailService;
     private readonly ILogger<EmailForNewUserConsumer> _logger;

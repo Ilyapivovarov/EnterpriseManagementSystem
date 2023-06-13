@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace UserService.Infrastructure.Consumers;
 
-public sealed class SignUpUserEventHandler : EventHandlerBase<SignUpUserIntegrationEvent>
+public sealed class SignUpUserEventHandler : IntegrationEventHandlerBase<SignUpUserIntegrationEvent>
 {
     private readonly ILogger<SignUpUserEventHandler> _logger;
     private readonly IEmployeeRepository _employeeRepository;
