@@ -6,6 +6,8 @@ networks:
 
 services:
   react-app:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     image: ${DOCKER_REGISTRY-}react-app
     hostname: react-app
     build:

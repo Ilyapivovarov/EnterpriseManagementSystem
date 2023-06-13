@@ -1,4 +1,6 @@
+using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 using EnterpriseManagementSystem.MessageBroker;
+using TaskService.Infrastructure.IntegrationEventHandlers;
 
 namespace TaskService.Infrastructure;
 
@@ -51,7 +53,10 @@ public static class InfrastructureExtensions
 
         #region Register MassTransisist
 
-        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"));
+        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"), initializer =>
+        {
+            initializer.Subscribe<SignUpUserIntegrationEvent, SignUpIntegrationEventHandler>();
+        });
 
         #endregion
     }
