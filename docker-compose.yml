@@ -71,3 +71,14 @@ services:
     networks:
       ems-network:
         ipv4_address: 10.20.10.104
+        
+  log-service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    image: ${DOCKER_REGISTRY-}log-service
+    build:
+      context: .
+      dockerfile: src/back-end/microservices/LogWorkerService/Dockerfile
+    networks:
+      ems-network:
+        ipv4_address: 10.20.10.105

@@ -12,10 +12,11 @@ public abstract class MessageHandlerBase<TMessage> : IMessageHandler<TMessage>
     /// </summary>
     /// <param name="message"></param>
     /// <returns></returns>
-    public abstract Task Handle(IMessage message);
+    public abstract Task Handle(TMessage message);
 
-    public async Task Consume(ConsumeContext<IMessage> context)
+    public async Task Consume(ConsumeContext<TMessage> context)
     {
         await Handle(context.Message);
     }
+    
 }

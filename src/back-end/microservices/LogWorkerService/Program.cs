@@ -1,10 +1,9 @@
-using LogWorkerService;
+using EnterpriseManagementSystem.MessageBroker;
+using LogWorkerService.Infrastructure;
 
-IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
-    {
-        
-    })
-    .Build();
+var builder = Host.CreateApplicationBuilder(args);
 
-host.Run();
+builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
+var host = builder.Build();
+
+await host.RunAsync();
