@@ -1,4 +1,3 @@
-using EnterpriseManagementSystem.MessageBroker;
 using LogWorkerService.Infrastructure;
 
 var builder = Host.CreateApplicationBuilder(args);
