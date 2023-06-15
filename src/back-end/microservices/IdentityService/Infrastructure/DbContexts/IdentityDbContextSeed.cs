@@ -1,4 +1,3 @@
-using EnterpriseManagementSystem.MessageBroker.Abstractions;
 using UserService.Core;
 
 namespace IdentityService.Infrastructure.DbContexts;

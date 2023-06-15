@@ -1,6 +1,3 @@
-using EnterpriseManagementSystem.Contracts.Messages;
-using EnterpriseManagementSystem.MessageBroker.Abstractions;
-
 namespace IdentityService.Infrastructure.Handlers;
 
 public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IActionResult>

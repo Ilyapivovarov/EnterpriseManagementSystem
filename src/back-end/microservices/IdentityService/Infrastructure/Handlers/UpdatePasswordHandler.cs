@@ -1,5 +1,4 @@
 using EnterpriseManagementSystem.Contracts.IntegrationEvents.Notifications;
-using EnterpriseManagementSystem.MessageBroker.Abstractions;
 
 namespace IdentityService.Infrastructure.Handlers;
 

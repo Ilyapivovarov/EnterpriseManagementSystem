@@ -6,16 +6,18 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
     private readonly ISessionService _sessionService;
     private readonly ISecurityService _securityService;
     private readonly ICacheService _cacheService;
+    private readonly IBus _bus;
     private readonly IUserRepository _userRepository;
 
     public SignInUserRequestHandler(ILogger<SignInUserRequestHandler> logger, IUserRepository userRepository,
-        ISessionService sessionService, ISecurityService securityService, ICacheService cacheService)
+        ISessionService sessionService, ISecurityService securityService, ICacheService cacheService, IBus bus)
     {
         _logger = logger;
         _userRepository = userRepository;
         _sessionService = sessionService;
         _securityService = securityService;
         _cacheService = cacheService;
+        _bus = bus;
     }
 
     public async Task<IActionResult> Handle(SignInRequest signInRequest, CancellationToken cancellationToken)
@@ -33,6 +35,14 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
             await _cacheService.SetAsync(session.RefreshToken.ToString(), session.AccessToken.ToString(),
                 session.RefreshToken.GetExpirationTime());
 
+            await _bus.SendMessageAsync(new LogMessage
+            {
+                Log = LogLevel.Critical,
+                Message = "SignInUser",
+                Method = "SignIn",
+                DateTime = DateTime.Now,
+            });
+            
             return new OkObjectResult(session.ToDto());
         }
         catch (Exception e)
