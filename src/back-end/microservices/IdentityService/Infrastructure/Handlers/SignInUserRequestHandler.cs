@@ -37,7 +37,7 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
 
             await _bus.SendMessageAsync(new LogMessage
             {
-                Log = LogLevel.Critical,
+                Log = LogLevel.Critical.ToString(),
                 Message = "SignInUser",
                 Method = "SignIn",
                 DateTime = DateTime.Now,

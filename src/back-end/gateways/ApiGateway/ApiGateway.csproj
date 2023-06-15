@@ -20,4 +20,10 @@
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="appsettings.Development.json">
+        <DependentUpon>appsettings.json</DependentUpon>
+      </Content>
+    </ItemGroup>
+
 </Project>

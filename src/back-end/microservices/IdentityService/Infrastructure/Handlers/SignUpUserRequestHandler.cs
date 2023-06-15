@@ -57,7 +57,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
 
             await _bus.SendMessageAsync(new LogMessage()
             {
-                Log = LogLevel.Critical,
+                Log = LogLevel.Critical.ToString(),
                 Message = "Created new user",
                 Method = "SignUp",
                 DateTime = DateTime.Now,

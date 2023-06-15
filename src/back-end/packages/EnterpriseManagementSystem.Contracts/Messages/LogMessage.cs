@@ -7,7 +7,7 @@ public record LogMessage : IMessage
 {
     public required DateTime DateTime { get; init; }
     
-    public required LogLevel Log { get; init; }
+    public required string Log { get; init; }
 
     public required string Method { get;  init; }
 
