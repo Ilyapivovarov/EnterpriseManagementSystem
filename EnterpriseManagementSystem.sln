@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseManagementSystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogWorkerService", "src\back-end\microservices\LogWorkerService\LogWorkerService.csproj", "{962250B9-0B46-4E75-89FD-1335FF5255E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseManagementSystem.Logging", "src\back-end\packages\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj", "{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -157,6 +159,10 @@ Global
 		{962250B9-0B46-4E75-89FD-1335FF5255E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{962250B9-0B46-4E75-89FD-1335FF5255E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{962250B9-0B46-4E75-89FD-1335FF5255E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,6 +198,7 @@ Global
 		{0A75A451-8DBC-49D9-B36F-F7032B72900C} = {89010619-BD5C-4108-92FF-B1012D8DF6A6}
 		{85DD6067-2E88-485C-BAD5-3AA1805B58AD} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
 		{962250B9-0B46-4E75-89FD-1335FF5255E9} = {F4177BC2-70F0-4973-AE6F-222969594A2D}
+		{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6CFA357-8DFC-4CC6-A57E-D1E92BBC71A6}
