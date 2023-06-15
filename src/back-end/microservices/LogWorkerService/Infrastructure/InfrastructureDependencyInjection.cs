@@ -1,6 +1,8 @@
 ﻿using EnterpriseManagementSystem.MessageBroker;
+using LogWorkerService.Application.Repositories;
 using LogWorkerService.Infrastructure.DbContexts;
 using LogWorkerService.Infrastructure.MessageHandlers;
+using LogWorkerService.Infrastructure.Repositories;
 
 namespace LogWorkerService.Infrastructure;
 
@@ -17,10 +19,13 @@ public static class InfrastructureDependencyInjection
             
             builder.UseLazyLoadingProxies();
         });
+        services.AddScoped<ILogWorkerDbContext, LogWorkerDbContext>();
         
         services.AddMessageBroker(configuration.GetConnectionString("RabbitMq")!, initializer =>
         {
             initializer.SubscribeOnMessage<LogMessage, LogMessageHandler>();
         });
+
+        services.AddTransient<ILogRepository, LogRepository>();
     }
 }
