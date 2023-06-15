@@ -4,8 +4,16 @@ namespace LogWorkerService.Infrastructure.Repositories;
 
 public sealed class LogRepository : ILogRepository
 {
-    public Task Save(LogDbEntity logDbEntity)
+    private readonly ILogWorkerDbContext _logWorkerDbContext;
+
+    public LogRepository(ILogWorkerDbContext logWorkerDbContext)
     {
-        throw new NotImplementedException();
+        _logWorkerDbContext = logWorkerDbContext;
+    }
+
+    public async Task Save(LogDbEntity logDbEntity)
+    {
+        _logWorkerDbContext.Logs.Add(logDbEntity);
+        await _logWorkerDbContext.SaveChangesAsync();
     }
 }
