@@ -40,7 +40,7 @@
       "publishAllPorts": true,
       "useSSL": false,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Release"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     }
   }
