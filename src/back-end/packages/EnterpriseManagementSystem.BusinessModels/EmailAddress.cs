@@ -50,4 +50,6 @@ public readonly record struct EmailAddress : IComparable<EmailAddress>
     {
         return string.Compare(Value, other.Value, StringComparison.Ordinal);
     }
+
+    public override string ToString() => Value;
 }

@@ -11,9 +11,22 @@ namespace IdentityService.Infrastructure;
 
 public static class InfrastructureDependencyInjection
 {
-    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
+    public static void AddInfrastructure(this IServiceCollection services, 
+        IConfiguration configuration,
         IWebHostEnvironment environment)
     {
+        #region Register Loggin
+
+        services.AddLogging(builder => builder.AddDbLogger(options =>
+        {
+            configuration.GetSection("Logging")
+                .GetSection("DbLogger")
+                .GetSection("Options")
+                .Bind(options);
+        }));
+
+        #endregion
+        
         #region Register context
 
         services.AddDbContext<IdentityDbContext>(builder =>
@@ -69,15 +82,6 @@ public static class InfrastructureDependencyInjection
         #region Register event bus
 
         services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"));
-
-        #endregion
-        
-        #region Register Loggin
-
-        services.AddLogging(x =>
-        {
-            x.AddDbLogger();
-        });
 
         #endregion
 

@@ -17,6 +17,7 @@ namespace LogWorkerService.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    AppName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Log = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Method = table.Column<string>(type: "nvarchar(max)", nullable: false),

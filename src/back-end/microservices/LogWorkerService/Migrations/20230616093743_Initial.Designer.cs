@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogWorkerService.Migrations
 {
     [DbContext(typeof(LogWorkerDbContext))]
-    [Migration("20230615133759_Initial")]
+    [Migration("20230616093743_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -35,6 +35,10 @@ namespace LogWorkerService.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("AppName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");

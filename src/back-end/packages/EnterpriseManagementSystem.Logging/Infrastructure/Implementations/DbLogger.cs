@@ -17,10 +17,21 @@ public class DbLogger : ILogger
 
     public async void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
     {
+        if (!_categoryName.Contains(_loggerProvider.Options.AppName))
+        {
+            return;
+        }
+
+        if (!IsEnabled(logLevel))
+        {
+            return;
+        }
+        
         using var scopeServiceProvider = _loggerProvider.ServiceProvider.CreateScope();
         var bus = scopeServiceProvider.ServiceProvider.GetRequiredService<IBus>();
         var queueMessage = new LogMessage
         {
+            AppName = _loggerProvider.Options.AppName,
             Level = logLevel.ToString(),
             Message = formatter(state, exception),
             Method = _categoryName,

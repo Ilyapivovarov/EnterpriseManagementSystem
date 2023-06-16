@@ -17,6 +17,7 @@ public sealed class LogMessageHandler : MessageHandlerBase<LogMessage>
     {
         var logDbEntity = new LogDbEntity
         {
+            AppName = message.AppName,
             Log = message.Level,
             Message = message.Message,
             Method = message.Method,

@@ -3,6 +3,8 @@
 public class LogDbEntity
 {
     public long Id { get; set; }
+
+    public required string AppName { get; set; }
     
     public required DateTime DateTime { get; init; }
     

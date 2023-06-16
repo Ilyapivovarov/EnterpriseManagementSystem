@@ -1,32 +1,33 @@
 ﻿using EnterpriseManagementSystem.Logging.Infrastructure.Implementations;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Options;
 
 namespace EnterpriseManagementSystem.Logging;
 
 public static class LoggingExtensions
 {
-    public static ILoggingBuilder AddDbLogger(this ILoggingBuilder builder)
+    public static ILoggingBuilder AddDbLogger(this ILoggingBuilder builder,  Action<DbLoggerOptions> configure)
     {
         builder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
+        builder.Services.Configure(configure);
         return builder;
     }
 }
 
-[ProviderAlias("Database")]
+[ProviderAlias("DbLogger")]
 public class DbLoggerProvider : ILoggerProvider
 {
-    public DbLoggerProvider(IServiceProvider serviceProvider)
+    public DbLoggerProvider(IServiceProvider serviceProvider, IOptions<DbLoggerOptions> options)
     {
         ServiceProvider = serviceProvider;
+        Options = options.Value;
     }
-
+    
     public IServiceProvider ServiceProvider { get; }
 
-    /// <summary>
-    /// Creates a new instance of the db logger.
-    /// </summary>
-    /// <param name="categoryName"></param>
-    /// <returns></returns>
+    public DbLoggerOptions Options { get; set; }
+    
     public ILogger CreateLogger(string categoryName)
     {
         return new DbLogger(this, categoryName);
@@ -39,4 +40,7 @@ public class DbLoggerProvider : ILoggerProvider
 
 public class DbLoggerOptions
 {
+    public required string AppName { get; set; }
+
+    public required LogLevel LogLevel { get; set; }
 }
