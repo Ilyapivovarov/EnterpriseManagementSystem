@@ -1,84 +1,87 @@
-version: '3.9'
+version: '3.4'
 
 networks:
   ems-network:
     external: true
 
 services:
-  react-app:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    image: ${DOCKER_REGISTRY-}react-app
-    hostname: react-app
-    build:
-      context: .
-      dockerfile: src/front-end/ReactApp/Dockerfile
-    ports:
-      - "3001:80"
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.50
-
-  api-gateway:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    image: ${DOCKER_REGISTRY-}api-gateway
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
     hostname: api-gateway
     build:
       context: .
       dockerfile: src/back-end/gateways/ApiGateway/Dockerfile
     ports:
       - "8080:80"
-    depends_on:
-      - identity-service
     networks:
       ems-network:
         ipv4_address: 10.20.10.100
+    depends_on:
+      - identityservice
 
-  identity-service:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    image: ${DOCKER_REGISTRY-}identity-service
-    hostname: identity-service
+  emailservice:
+    image: ${DOCKER_REGISTRY-}emailservice
+    build:
+      context: .
+      dockerfile: src/back-end/microservices/EmailService/Dockerfile
+    networks:
+      ems-network:
+        ipv4_address: 10.20.10.102
+    depends_on:
+      - identityservice
+    
+  identityservice:
+    image: ${DOCKER_REGISTRY-}identityservice
     build:
       context: .
       dockerfile: src/back-end/microservices/IdentityService/Dockerfile
-    depends_on:
-      - users-service
-      - tasks-service
     networks:
       ems-network:
         ipv4_address: 10.20.10.101
 
-  tasks-service:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    image: ${DOCKER_REGISTRY-}tasks-service
+  taskservice:
+    image: ${DOCKER_REGISTRY-}taskservice
     build:
       context: .
       dockerfile: src/back-end/microservices/TaskService/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.103
+    depends_on:
+      - identityservice
 
-  users-service:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    image: ${DOCKER_REGISTRY-}users-service
+  userservice:
+    image: ${DOCKER_REGISTRY-}userservice
     build:
       context: .
       dockerfile: src/back-end/microservices/UserService/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.104
-        
-  log-service:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    image: ${DOCKER_REGISTRY-}log-service
+    depends_on:
+      - identityservice
+
+  logworkerservice:
+    image: ${DOCKER_REGISTRY-}logworkerservice
     build:
       context: .
       dockerfile: src/back-end/microservices/LogWorkerService/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.105
+    
+  adminblazorapp:
+    image: ${DOCKER_REGISTRY-}adminblazorapp
+    build:
+      context: .
+      dockerfile: src/front-end/AdminBlazorApp/Dockerfile
+
+  reactapp:
+    image: ${DOCKER_REGISTRY-}reactapp
+    build:
+      context: .
+      dockerfile: src/front-end/ReactApp/Dockerfile
+    depends_on:
+      - apigateway
+    ports:
+      - "3001:80"

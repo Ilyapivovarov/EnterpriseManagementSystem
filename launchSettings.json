@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "apigateway": "StartDebugging",
+        "emailservice": "StartDebugging",
+        "identityservice": "StartDebugging",
+        "taskservice": "StartDebugging",
+        "userservice": "StartDebugging",
+        "logworkerservice": "StartDebugging",
+        "adminblazorapp": "StartDebugging",
+        "reactapp": "StartDebugging"
+      }
+    }
+  }
+}
