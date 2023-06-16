@@ -27,6 +27,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
+        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj" />
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
     </ItemGroup>
 
@@ -34,7 +35,7 @@
       <Content Update="appsettings.Development.json">
         <DependentUpon>appsettings.json</DependentUpon>
       </Content>
-      <Content Update="appsettings.Testing.json">
+      <Content Update="appsettings.Staging.json">
         <DependentUpon>appsettings.json</DependentUpon>
       </Content>
     </ItemGroup>

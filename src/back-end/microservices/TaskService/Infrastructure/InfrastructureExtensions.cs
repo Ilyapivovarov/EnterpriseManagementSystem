@@ -1,4 +1,5 @@
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
+using EnterpriseManagementSystem.Helpers.Extensions;
 using EnterpriseManagementSystem.MessageBroker;
 using TaskService.Infrastructure.IntegrationEventHandlers;
 
@@ -13,8 +14,8 @@ public static class InfrastructureExtensions
 
         services.AddDbContext<TaskDbContext>(builder =>
         {
-            builder = environment.IsEnvironment("Testing")
-                ? builder.UseInMemoryDatabase(configuration.GetConnectionString("SqlServer"))
+            builder = environment.IsStaging()
+                ? builder.UseInMemoryDatabase(configuration.GetRequiredConnectionString("SqlServer"))
                 : builder.UseSqlServer(configuration.GetConnectionString("SqlServer"));
 
             builder.UseLazyLoadingProxies();

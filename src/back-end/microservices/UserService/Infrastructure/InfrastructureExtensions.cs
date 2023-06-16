@@ -1,4 +1,5 @@
 using EnterpriseManagementSystem.Contracts.IntegrationEvents;
+using EnterpriseManagementSystem.Helpers.Extensions;
 using EnterpriseManagementSystem.MessageBroker;
 
 namespace UserService.Infrastructure;
@@ -12,8 +13,8 @@ public static class InfrastructureExtensions
 
         services.AddDbContext<UserDbContext>(builder =>
         {
-            builder = environment.IsEnvironment("Testing")
-                ? builder.UseInMemoryDatabase(configuration.GetConnectionString("SqlServer"))
+            builder = environment.IsStaging()
+                ? builder.UseInMemoryDatabase(configuration.GetRequiredConnectionString("SqlServer"))
                 : builder.UseSqlServer(configuration.GetConnectionString("SqlServer"));
 
             builder.UseLazyLoadingProxies();
@@ -50,7 +51,7 @@ public static class InfrastructureExtensions
 
         #region Register MassTransit
 
-        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"), initializer =>
+        services.AddMessageBroker(configuration.GetRequiredConnectionString("RabbitMq"), initializer =>
         {
             initializer.SubscribeOnEvent<SignUpUserIntegrationEvent, SignUpUserEventHandler>();
         });
