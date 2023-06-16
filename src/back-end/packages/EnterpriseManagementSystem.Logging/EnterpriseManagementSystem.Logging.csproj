@@ -7,7 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Infrastructure\" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
+      <ProjectReference Include="..\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj" />
     </ItemGroup>
 
 </Project>

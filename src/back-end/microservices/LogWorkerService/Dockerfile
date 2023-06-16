@@ -4,6 +4,9 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["src/back-end/microservices/LogWorkerService/LogWorkerService.csproj", "src/back-end/microservices/LogWorkerService/"]
+COPY ["src/back-end/packages/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "src/back-end/packages/EnterpriseManagementSystem.Contracts/"]
+COPY ["src/back-end/packages/EnterpriseManagementSystem.Logging/EnterpriseManagementSystem.Logging.csproj", "src/back-end/packages/EnterpriseManagementSystem.Logging"]
+
 RUN dotnet restore "src/back-end/microservices/LogWorkerService/LogWorkerService.csproj"
 COPY . .
 WORKDIR "/src/src/back-end/microservices/LogWorkerService"

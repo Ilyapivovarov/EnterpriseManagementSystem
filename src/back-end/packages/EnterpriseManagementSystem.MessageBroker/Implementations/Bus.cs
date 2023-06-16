@@ -15,7 +15,13 @@ public class Bus : IBus
         var endpoint = await _bus.GetSendEndpoint(new Uri($"queue:{typeof(TMessage).Name}"));
         await endpoint.Send(message);
     }
-    
+
+    public async void SendMessage<TMessage>(TMessage message) where TMessage : IMessage
+    {
+        var endpoint = await _bus.GetSendEndpoint(new Uri($"queue:{typeof(TMessage).Name}"));
+        await endpoint.Send(message);
+    }
+
     public async Task PublishAsync<TIntegrationsEvent>(TIntegrationsEvent message)
         where TIntegrationsEvent : IIntegrationEvent
     {

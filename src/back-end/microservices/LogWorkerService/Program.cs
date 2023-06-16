@@ -7,6 +7,6 @@ builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
 
 var host = builder.Build();
 
-var logWorkerDbContext = host.Services.GetRequiredService<LogWorkerDbContext>();
-await logWorkerDbContext.Database.MigrateAsync();
+var logWorkerDbContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<ILogWorkerDbContext>();
+await logWorkerDbContext.MigrateAsync();
 await host.RunAsync();

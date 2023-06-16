@@ -35,14 +35,6 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
             await _cacheService.SetAsync(session.RefreshToken.ToString(), session.AccessToken.ToString(),
                 session.RefreshToken.GetExpirationTime());
 
-            await _bus.SendMessageAsync(new LogMessage
-            {
-                Log = LogLevel.Critical.ToString(),
-                Message = "SignInUser",
-                Method = "SignIn",
-                DateTime = DateTime.Now,
-            });
-            
             return new OkObjectResult(session.ToDto());
         }
         catch (Exception e)

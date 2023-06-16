@@ -35,6 +35,7 @@
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.BusinessModels\EnterpriseManagementSystem.BusinessModels.csproj" />
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
+        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj" />
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj" />
     </ItemGroup>
 

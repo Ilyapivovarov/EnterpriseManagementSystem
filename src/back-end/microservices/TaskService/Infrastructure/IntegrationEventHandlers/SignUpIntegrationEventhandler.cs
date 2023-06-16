@@ -13,25 +13,21 @@ public sealed class SignUpIntegrationEventHandler : IntegrationEventHandlerBase<
         _logger = logger;
         _userRepository = userRepository;
     }
-    
+
     public override async Task Handle(SignUpUserIntegrationEvent @event)
     {
         try
         {
-            using (_logger.BeginScope("Start consume {SignUpNewUserIntegrationEvent}",
-                       nameof(SignUpUserIntegrationEvent)))
+            var account = @event.UserDataResponse;
+            var user = new UserDbEntity
             {
-                var account = @event.UserDataResponse;
-                var user = new UserDbEntity
-                {
-                    EmailAddress = account.EmailAddress,
-                    FirstName = account.FirstName,
-                    LastName = account.LastName,
-                    IdentityGuid = account.IdentityGuid
-                };
+                EmailAddress = account.EmailAddress,
+                FirstName = account.FirstName,
+                LastName = account.LastName,
+                IdentityGuid = account.IdentityGuid
+            };
 
-                await _userRepository.SaveAsync(user);
-            }
+            await _userRepository.SaveAsync(user);
         }
         catch (Exception e)
         {

@@ -28,42 +28,37 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
     {
         try
         {
-            var signUpDto = authRequest.SignUp;
-
-            var (firstName, lastName, email, password, confirmPassword) = signUpDto;
-            if (password != confirmPassword)
-                return new NotFoundObjectResult("Passwords is not same");
-
-            var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
-            if (userWithSameEmail != null)
-                return new BadRequestObjectResult("Email already exist");
-
-            var userRole = await _userRoleRepository.GetReaderRole();
-            if (userRole == null)
-                return new NotFoundObjectResult("Reader role not found");
-
-            var newUser = _userService.Create(email, password, userRole);
-            var saveResult = await _userRepository.SaveUserAsync(newUser);
-            if (!saveResult)
-                return new NotFoundObjectResult("Error while save user");
-
-            var session = _sessionBlService.CreateSession(newUser.Email.Address, newUser.Guid, newUser.Role.Name);
-            await _cacheService.SetAsync(session.RefreshToken, session.AccessToken, 
-                session.RefreshToken.GetExpirationTime());
-
-            var @event = new SignUpUserIntegrationEvent(new UserDataResponse(newUser.Guid, firstName,
-                lastName, signUpDto.Email, null));
-            await _bus.PublishAsync(@event);
-
-            await _bus.SendMessageAsync(new LogMessage()
+            using (_logger.BeginScope(this))
             {
-                Log = LogLevel.Critical.ToString(),
-                Message = "Created new user",
-                Method = "SignUp",
-                DateTime = DateTime.Now,
-            });
+                var signUpDto = authRequest.SignUp;
 
-            return new OkObjectResult(session.ToDto());
+                var (firstName, lastName, email, password, confirmPassword) = signUpDto;
+                if (password != confirmPassword)
+                    return new NotFoundObjectResult("Passwords is not same");
+
+                var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
+                if (userWithSameEmail != null)
+                    return new BadRequestObjectResult("Email already exist");
+
+                var userRole = await _userRoleRepository.GetReaderRole();
+                if (userRole == null)
+                    return new NotFoundObjectResult("Reader role not found");
+
+                var newUser = _userService.Create(email, password, userRole);
+                var saveResult = await _userRepository.SaveUserAsync(newUser);
+                if (!saveResult)
+                    return new NotFoundObjectResult("Error while save user");
+
+                var session = _sessionBlService.CreateSession(newUser.Email.Address, newUser.Guid, newUser.Role.Name);
+                await _cacheService.SetAsync(session.RefreshToken, session.AccessToken, 
+                    session.RefreshToken.GetExpirationTime());
+
+                var @event = new SignUpUserIntegrationEvent(new UserDataResponse(newUser.Guid, firstName,
+                    lastName, signUpDto.Email, null));
+                await _bus.PublishAsync(@event);
+            
+                return new OkObjectResult(session.ToDto());
+            }
         }
         catch (Exception e)
         {

@@ -1,3 +1,4 @@
+using EnterpriseManagementSystem.Logging;
 using EnterpriseManagementSystem.MessageBroker;
 using IdentityService.Infrastructure.HostedServices;
 using IdentityService.Infrastructure.Repositories;
@@ -13,12 +14,6 @@ public static class InfrastructureDependencyInjection
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment)
     {
-        #region Register Loggin
-
-        services.AddLogging();
-
-        #endregion
-
         #region Register context
 
         services.AddDbContext<IdentityDbContext>(builder =>
@@ -74,6 +69,15 @@ public static class InfrastructureDependencyInjection
         #region Register event bus
 
         services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"));
+
+        #endregion
+        
+        #region Register Loggin
+
+        services.AddLogging(x =>
+        {
+            x.AddDbLogger();
+        });
 
         #endregion
 
