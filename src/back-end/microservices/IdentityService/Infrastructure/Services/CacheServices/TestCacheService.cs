@@ -6,10 +6,10 @@ public sealed class TestCacheService : ICacheService
 {
     private readonly ConcurrentDictionary<string, string> _cache;
 
-    public TestCacheService(IWebHostEnvironment webHostEnvironment)
+    public TestCacheService(IHostEnvironment hostEnvironment)
     {
-        if (!webHostEnvironment.IsTesting())
-            throw new Exception($"{nameof(TestCacheService)} can use only in test environment");
+        if (!hostEnvironment.IsStaging())
+            throw new Exception($"{nameof(TestCacheService)} can use only in {Environments.Staging} environment");
 
         _cache = new ConcurrentDictionary<string, string>();
     }

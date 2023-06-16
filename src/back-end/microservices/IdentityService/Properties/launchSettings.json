@@ -27,11 +27,11 @@
         "ASPNETCORE_ENVIRONMENT": "Production"
       }
     },
-    "Testing": {
+    "Staging": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Testing"
+        "ASPNETCORE_ENVIRONMENT": "Staging"
       }
     },
     "Docker": {

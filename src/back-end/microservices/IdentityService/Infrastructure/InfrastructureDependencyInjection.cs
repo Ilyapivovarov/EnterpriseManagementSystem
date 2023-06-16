@@ -1,3 +1,4 @@
+using EnterpriseManagementSystem.Helpers.Extensions;
 using EnterpriseManagementSystem.Logging;
 using EnterpriseManagementSystem.MessageBroker;
 using IdentityService.Infrastructure.HostedServices;
@@ -44,7 +45,7 @@ public static class InfrastructureDependencyInjection
 
         #region Register Redis
 
-        if (environment.IsTesting())
+        if (environment.IsStaging())
         {
             services.AddSingleton<ICacheService, TestCacheService>();
         }
@@ -80,8 +81,8 @@ public static class InfrastructureDependencyInjection
         #endregion
 
         #region Register event bus
-
-        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"));
+        
+        services.AddMessageBroker(configuration.GetRequiredConnectionString("RabbitMq"));
 
         #endregion
 

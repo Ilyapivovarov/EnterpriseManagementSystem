@@ -12,6 +12,7 @@ COPY ["src/back-end/packages/EnterpriseManagementSystem.Contracts/EnterpriseMana
 COPY ["src/back-end/packages/EnterpriseManagementSystem.JwtAuthorization/EnterpriseManagementSystem.JwtAuthorization.csproj", "src/back-end/packages/EnterpriseManagementSystem.JwtAuthorization/"]
 COPY ["src/back-end/packages/EnterpriseManagementSystem.MessageBroker/EnterpriseManagementSystem.MessageBroker.csproj", "src/back-end/packages/EnterpriseManagementSystem.MessageBroker/"]
 COPY ["src/back-end/packages/EnterpriseManagementSystem.Logging/EnterpriseManagementSystem.Logging.csproj", "src/back-end/packages/EnterpriseManagementSystem.Logging"]
+COPY ["src/back-end/packages/EnterpriseManagementSystem.Helpers/EnterpriseManagementSystem.Helpers.csproj", "src/back-end/packages/EnterpriseManagementSystem.Helpers"]
 
 RUN dotnet restore "src/back-end/microservices/IdentityService/IdentityService.csproj"
 COPY . .
