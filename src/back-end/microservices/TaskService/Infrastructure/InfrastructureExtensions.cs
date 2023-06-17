@@ -20,8 +20,7 @@ public static class InfrastructureExtensions
 
             builder.UseLazyLoadingProxies();
         });
-
-
+        
         services.AddScoped<ITaskDbContext, TaskDbContext>();
 
         #endregion
@@ -54,7 +53,7 @@ public static class InfrastructureExtensions
 
         #region Register MassTransisist
 
-        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"), initializer =>
+        services.AddMessageBroker(configuration.GetRequiredConnectionString("RabbitMq"), initializer =>
         {
             initializer.SubscribeOnEvent<SignUpUserIntegrationEvent, SignUpIntegrationEventHandler>();
         });

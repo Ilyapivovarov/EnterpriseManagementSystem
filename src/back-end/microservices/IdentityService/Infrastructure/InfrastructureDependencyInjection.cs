@@ -32,9 +32,10 @@ public static class InfrastructureDependencyInjection
 
         services.AddDbContext<IdentityDbContext>(builder =>
         {
+            var dbConnectionString = configuration.GetRequiredConnectionString("RelationalDb");
             builder = environment.IsEnvironment("Testing")
-                ? builder.UseInMemoryDatabase(configuration.GetConnectionString("RelationalDb")!)
-                : builder.UseSqlServer(configuration.GetConnectionString("RelationalDb"));
+                ? builder.UseInMemoryDatabase(dbConnectionString)
+                : builder.UseSqlServer(dbConnectionString);
 
             builder.UseLazyLoadingProxies();
         });
@@ -53,7 +54,7 @@ public static class InfrastructureDependencyInjection
         {
             services.AddSingleton<IConnectionMultiplexer>(_
                 => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
-            services.AddSingleton<ICacheService, RedisCacheService>();
+            services.AddTransient<ICacheService, RedisCacheService>();
         }
 
         #endregion
