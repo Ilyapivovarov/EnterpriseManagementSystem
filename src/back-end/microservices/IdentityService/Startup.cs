@@ -23,8 +23,7 @@ public sealed class Startup
         services.AddControllers();
     }
 
-    public void Configure(IApplicationBuilder app, IdentityDbContext identityDbContext,
-        ICacheService cacheService)
+    public void Configure(IApplicationBuilder app, IdentityDbContext identityDbContext)
     {
         if (Environment.IsDevelopment())
             app.UseDeveloperExceptionPage();
