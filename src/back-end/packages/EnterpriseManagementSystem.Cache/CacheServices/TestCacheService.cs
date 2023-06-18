@@ -1,7 +1,3 @@
-using System.Collections.Concurrent;
-using EnterpriseManagementSystem.Cache.Abstractions;
-using Microsoft.Extensions.Hosting;
-
 namespace EnterpriseManagementSystem.Cache.CacheServices;
 
 public sealed class TestCacheService : ICacheService

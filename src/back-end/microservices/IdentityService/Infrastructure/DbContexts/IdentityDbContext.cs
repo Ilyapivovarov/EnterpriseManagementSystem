@@ -16,11 +16,6 @@ public sealed class IdentityDbContext : DbContext, IIdentityDbContext
 
     public DbSet<UserRoleDbEntity> UserRoles => Set<UserRoleDbEntity>();
 
-    public async Task<bool> CanConnectAsync()
-    {
-        return await Database.CanConnectAsync();
-    }
-    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder

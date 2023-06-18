@@ -1,4 +1,3 @@
-using EnterpriseManagementSystem.Cache.Abstractions;
 using StackExchange.Redis;
 
 namespace EnterpriseManagementSystem.Cache.CacheServices;

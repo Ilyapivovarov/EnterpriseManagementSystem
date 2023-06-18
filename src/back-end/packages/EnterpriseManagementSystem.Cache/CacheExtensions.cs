@@ -1,8 +1,4 @@
-﻿using EnterpriseManagementSystem.Cache.Abstractions;
-using EnterpriseManagementSystem.Cache.Common;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace EnterpriseManagementSystem.Cache;
+﻿namespace EnterpriseManagementSystem.Cache;
 
 public static class CacheExtensions
 {
