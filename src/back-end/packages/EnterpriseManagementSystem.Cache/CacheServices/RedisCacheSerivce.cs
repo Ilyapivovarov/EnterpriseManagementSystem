@@ -38,9 +38,4 @@ public sealed class RedisCacheService : ICacheService
 
         return value.ToString();
     }
-
-    public bool CanConnect()
-    {
-        return _connectionMultiplexer.IsConnected;
-    }
 }

@@ -30,9 +30,4 @@ public sealed class TestCacheService : ICacheService
     {
         return await Task.Run(() => _cache.GetValueOrDefault(key));
     }
-
-    public bool CanConnect()
-    {
-        return true;
-    }
 }
