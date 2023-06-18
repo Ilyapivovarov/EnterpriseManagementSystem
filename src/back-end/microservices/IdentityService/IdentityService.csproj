@@ -28,12 +28,12 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.7" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.BusinessModels\EnterpriseManagementSystem.BusinessModels.csproj" />
+        <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Cache\EnterpriseManagementSystem.Cache.csproj" />
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj" />
         <ProjectReference Include="..\..\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />

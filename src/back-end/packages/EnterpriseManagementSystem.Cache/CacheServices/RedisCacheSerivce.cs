@@ -1,7 +1,7 @@
-using System.Text.Json;
+using EnterpriseManagementSystem.Cache.Abstractions;
 using StackExchange.Redis;
 
-namespace IdentityService.Infrastructure.Services.CacheServices;
+namespace EnterpriseManagementSystem.Cache.CacheServices;
 
 public sealed class RedisCacheService : ICacheService
 {

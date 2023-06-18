@@ -1,18 +1,17 @@
+using EnterpriseManagementSystem.Cache;
 using EnterpriseManagementSystem.Helpers.Extensions;
 using EnterpriseManagementSystem.Logging;
 using EnterpriseManagementSystem.MessageBroker;
 using IdentityService.Infrastructure.HostedServices;
 using IdentityService.Infrastructure.Repositories;
 using IdentityService.Infrastructure.Services;
-using IdentityService.Infrastructure.Services.CacheServices;
 using Microsoft.EntityFrameworkCore;
-using StackExchange.Redis;
 
 namespace IdentityService.Infrastructure;
 
 public static class InfrastructureDependencyInjection
 {
-    public static void AddInfrastructure(this IServiceCollection services, 
+    public static void AddInfrastructure(this IServiceCollection services,
         IConfiguration configuration,
         IWebHostEnvironment environment)
     {
@@ -27,7 +26,7 @@ public static class InfrastructureDependencyInjection
         }));
 
         #endregion
-        
+
         #region Register context
 
         services.AddDbContext<IdentityDbContext>(builder =>
@@ -41,21 +40,6 @@ public static class InfrastructureDependencyInjection
         });
 
         services.AddScoped<IIdentityDbContext, IdentityDbContext>();
-
-        #endregion
-
-        #region Register Redis
-
-        if (environment.IsStaging())
-        {
-            services.AddSingleton<ICacheService, TestCacheService>();
-        }
-        else
-        {
-            services.AddSingleton<IConnectionMultiplexer>(_
-                => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
-            services.AddTransient<ICacheService, RedisCacheService>();
-        }
 
         #endregion
 
@@ -82,7 +66,7 @@ public static class InfrastructureDependencyInjection
         #endregion
 
         #region Register event bus
-        
+
         services.AddMessageBroker(configuration.GetRequiredConnectionString("RabbitMq"));
 
         #endregion
@@ -90,6 +74,12 @@ public static class InfrastructureDependencyInjection
         #region Register HostedServices
 
         services.AddHostedService<DefaultDataSeedHostedServices>();
+
+        #endregion
+
+        #region Rgister cache
+
+        services.AddCache();
 
         #endregion
     }

@@ -1,16 +1,15 @@
 using System.Collections.Concurrent;
+using EnterpriseManagementSystem.Cache.Abstractions;
+using Microsoft.Extensions.Hosting;
 
-namespace IdentityService.Infrastructure.Services.CacheServices;
+namespace EnterpriseManagementSystem.Cache.CacheServices;
 
 public sealed class TestCacheService : ICacheService
 {
     private readonly ConcurrentDictionary<string, string> _cache;
 
-    public TestCacheService(IHostEnvironment hostEnvironment)
+    public TestCacheService()
     {
-        if (!hostEnvironment.IsStaging())
-            throw new Exception($"{nameof(TestCacheService)} can use only in {Environments.Staging} environment");
-
         _cache = new ConcurrentDictionary<string, string>();
     }
 

@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Cache.Abstractions;
+
 namespace IdentityService.Infrastructure.Handlers;
 
 public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IActionResult>

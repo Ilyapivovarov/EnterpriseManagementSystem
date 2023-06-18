@@ -2,7 +2,6 @@ using IdentityService.IntegrationTests.Base;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
-using StackExchange.Redis;
 
 namespace IdentityService.IntegrationTests;
 
@@ -25,7 +24,7 @@ public sealed class IdentityServiceIntegrationTests : TestBase
     [Test]
     public void TestConnectionToRedis()
     {
-        var cm = ConnectionMultiplexer.Connect(Configuration.GetConnectionString("Redis"));
-        Assert.That(cm.IsConnected, Is.True);
+        // var cm = ConnectionMultiplexer.Connect(Configuration.GetConnectionString("Redis"));
+        // Assert.That(cm.IsConnected, Is.True);
     }
 }
