@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "Src\BackEnd\G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Contracts", "Src\BackEnd\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj", "{AF53AE7E-1B17-4AC0-BA9F-230167D8E3E0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Oackages", "{1E5201C6-325F-42F9-82EE-77917772C1A4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{1E5201C6-325F-42F9-82EE-77917772C1A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{85964933-9048-4BA2-933A-DD75FEFF0B53}"
 EndProject
