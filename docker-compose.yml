@@ -10,7 +10,7 @@ services:
     hostname: api-gateway
     build:
       context: .
-      dockerfile: src/back-end/gateways/ApiGateway/Dockerfile
+      dockerfile: Src/BackEnd/Gateways/ApiGateway/Dockerfile
     ports:
       - "8080:80"
     networks:
@@ -23,7 +23,7 @@ services:
     image: ${DOCKER_REGISTRY-}emailservice
     build:
       context: .
-      dockerfile: src/back-end/microservices/EmailService/Dockerfile
+      dockerfile: Src/BackEnd/Microservices/EmailService/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.102
@@ -34,7 +34,7 @@ services:
     image: ${DOCKER_REGISTRY-}identityservice
     build:
       context: .
-      dockerfile: src/back-end/microservices/IdentityService/Dockerfile
+      dockerfile: Src/BackEnd/Microservices/IdentityService/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.101
@@ -43,7 +43,7 @@ services:
     image: ${DOCKER_REGISTRY-}taskservice
     build:
       context: .
-      dockerfile: src/back-end/microservices/TaskService/Dockerfile
+      dockerfile: Src/BackEnd/Microservices/TaskService/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.103
@@ -54,7 +54,7 @@ services:
     image: ${DOCKER_REGISTRY-}userservice
     build:
       context: .
-      dockerfile: src/back-end/microservices/UserService/Dockerfile
+      dockerfile: Src/BackEnd/Microservices/UserService/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.104
@@ -65,7 +65,7 @@ services:
     image: ${DOCKER_REGISTRY-}logworkerservice
     build:
       context: .
-      dockerfile: src/back-end/microservices/LogWorkerService/Dockerfile
+      dockerfile: Src/BackEnd/Microservices/LogWorkerService/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.105
@@ -74,13 +74,13 @@ services:
     image: ${DOCKER_REGISTRY-}adminblazorapp
     build:
       context: .
-      dockerfile: src/front-end/AdminBlazorApp/Dockerfile
+      dockerfile: Src/FrontEnd/AdminBlazorApp/Dockerfile
 
   reactapp:
     image: ${DOCKER_REGISTRY-}reactapp
     build:
       context: .
-      dockerfile: src/front-end/ReactApp/Dockerfile
+      dockerfile: Src/FrontEnd/ReactApp/Dockerfile
     depends_on:
       - apigateway
     ports:

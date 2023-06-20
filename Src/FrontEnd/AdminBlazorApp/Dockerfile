@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["src/front-end/AdminBlazorApp/AdminBlazorApp.csproj", "src/front-end/AdminBlazorApp/"]
-RUN dotnet restore "src/front-end/AdminBlazorApp/AdminBlazorApp.csproj"
+COPY ["Src/FrontEnd/AdminBlazorApp/AdminBlazorApp.csproj", "Src/FrontEnd/AdminBlazorApp/"]
+RUN dotnet restore "Src/FrontEnd/AdminBlazorApp/AdminBlazorApp.csproj"
 COPY . .
-WORKDIR "/src/src/front-end/AdminBlazorApp"
+WORKDIR "/src/Src/FrontEnd/AdminBlazorApp"
 RUN dotnet build "AdminBlazorApp.csproj" -c Release -o /app/build
 
 FROM build AS publish

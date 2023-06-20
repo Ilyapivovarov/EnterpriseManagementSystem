@@ -14,10 +14,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
-COPY ["src/front-end/ReactApp/ReactApp.csproj", "src/front-end/ReactApp/"]
-RUN dotnet restore "src/front-end/ReactApp/ReactApp.csproj"
+COPY ["Src/FrontEnd/ReactApp/ReactApp.csproj", "Src/FrontEnd/ReactApp/"]
+RUN dotnet restore "Src/FrontEnd/ReactApp/ReactApp.csproj"
 COPY . .
-WORKDIR "/src/src/front-end/ReactApp"
+WORKDIR "/src/Src/FrontEnd/ReactApp"
 RUN dotnet build "ReactApp.csproj" -c Release -o /app/build
 
 FROM build AS publish

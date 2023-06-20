@@ -3,79 +3,79 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2C855623-C735-4A5F-92F2-471E2DB49458}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{2C855623-C735-4A5F-92F2-471E2DB49458}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "back-end", "back-end", "{1A83A607-9ED5-4EE0-854C-05C0EA377FD2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEnd", "BackEnd", "{1A83A607-9ED5-4EE0-854C-05C0EA377FD2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "microservices", "microservices", "{F4177BC2-70F0-4973-AE6F-222969594A2D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{F4177BC2-70F0-4973-AE6F-222969594A2D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "src\back-end\microservices\IdentityService\IdentityService.csproj", "{6A9E09B4-C10B-4B3E-8809-E8FEF0BDB78B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "Src\BackEnd\Microservices\IdentityService\IdentityService.csproj", "{6A9E09B4-C10B-4B3E-8809-E8FEF0BDB78B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gateways", "gateways", "{C59F0C16-EA67-48C4-B4C2-8153C6E94AAE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{C59F0C16-EA67-48C4-B4C2-8153C6E94AAE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "src\back-end\gateways\ApiGateway\ApiGateway.csproj", "{C998567F-75DF-4585-85E1-12507DD3211D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "Src\BackEnd\Gateways\ApiGateway\ApiGateway.csproj", "{C998567F-75DF-4585-85E1-12507DD3211D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Contracts", "src\back-end\packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj", "{AF53AE7E-1B17-4AC0-BA9F-230167D8E3E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Contracts", "Src\BackEnd\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj", "{AF53AE7E-1B17-4AC0-BA9F-230167D8E3E0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{1E5201C6-325F-42F9-82EE-77917772C1A4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Oackages", "{1E5201C6-325F-42F9-82EE-77917772C1A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{85964933-9048-4BA2-933A-DD75FEFF0B53}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.UnitTests", "src\back-end\tests\IdentityService.UnitTests\IdentityService.UnitTests.csproj", "{30F5913C-5706-437C-A6DC-96200ABD7B5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.UnitTests", "Src\BackEnd\tests\IdentityService.UnitTests\IdentityService.UnitTests.csproj", "{30F5913C-5706-437C-A6DC-96200ABD7B5A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.IntegrationTests", "src\back-end\tests\IdentityService.IntegrationTests\IdentityService.IntegrationTests.csproj", "{CCBF76EC-477F-4DCB-8C65-25A150AE4B35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.IntegrationTests", "Src\BackEnd\tests\IdentityService.IntegrationTests\IdentityService.IntegrationTests.csproj", "{CCBF76EC-477F-4DCB-8C65-25A150AE4B35}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.FunctionalTests", "src\back-end\tests\IdentityService.FunctionalTests\IdentityService.FunctionalTests.csproj", "{0B8DA111-AA40-42DD-BA5C-43650EF9E11A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.FunctionalTests", "Src\BackEnd\tests\IdentityService.FunctionalTests\IdentityService.FunctionalTests.csproj", "{0B8DA111-AA40-42DD-BA5C-43650EF9E11A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.JwtAuthorization", "src\back-end\packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj", "{821A4D50-186F-48B8-94A2-28FCEC67D89B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.JwtAuthorization", "Src\BackEnd\Packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj", "{821A4D50-186F-48B8-94A2-28FCEC67D89B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{83A96D21-A873-499F-8C9C-239954605D5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "src\back-end\microservices\EmailService\EmailService.csproj", "{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "Src\BackEnd\Microservices\EmailService\EmailService.csproj", "{6E535350-FADA-4E32-BC8B-1FC2A55B2AAB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmailService", "EmailService", "{7F60AEA2-BE70-40B2-9D4D-818078392723}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService.FunctionalTests", "src\back-end\tests\EmailService.FunctionalTests\EmailService.FunctionalTests.csproj", "{33886405-462E-4B1B-95CA-E30F8DDDDEDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService.FunctionalTests", "Src\BackEnd\tests\EmailService.FunctionalTests\EmailService.FunctionalTests.csproj", "{33886405-462E-4B1B-95CA-E30F8DDDDEDD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService", "src\back-end\microservices\TaskService\TaskService.csproj", "{972043A5-77F0-4E80-A829-21155EEE39C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService", "Src\BackEnd\Microservices\TaskService\TaskService.csproj", "{972043A5-77F0-4E80-A829-21155EEE39C0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskService", "TaskService", "{FEA0D059-C079-4FF8-B507-51E246754CB1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.FunctionalTests", "src\back-end\tests\TaskService.FunctionalTests\TaskService.FunctionalTests.csproj", "{8A72BD0C-01F2-4A18-B245-2C9B75935908}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.FunctionalTests", "Src\BackEnd\tests\TaskService.FunctionalTests\TaskService.FunctionalTests.csproj", "{8A72BD0C-01F2-4A18-B245-2C9B75935908}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Contracts.Tests", "src\back-end\tests\EnterpriseManagementSystem.Contracts.Tests\EnterpriseManagementSystem.Contracts.Tests.csproj", "{CE9B9A08-B177-425E-862F-601F1ADE07D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Contracts.Tests", "Src\BackEnd\tests\EnterpriseManagementSystem.Contracts.Tests\EnterpriseManagementSystem.Contracts.Tests.csproj", "{CE9B9A08-B177-425E-862F-601F1ADE07D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService", "src\back-end\microservices\UserService\UserService.csproj", "{3868A32F-439C-489E-9DB9-4ED24EEDDC79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService", "Src\BackEnd\Microservices\UserService\UserService.csproj", "{3868A32F-439C-489E-9DB9-4ED24EEDDC79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserService", "UserService", "{633A409E-EDAB-4FD2-98AF-F749B8663328}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.FunctionalTests", "src\back-end\tests\UserService.FunctionalTests\UserService.FunctionalTests.csproj", "{42165D31-5D07-4A95-BE03-74E6819423BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.FunctionalTests", "Src\BackEnd\tests\UserService.FunctionalTests\UserService.FunctionalTests.csproj", "{42165D31-5D07-4A95-BE03-74E6819423BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.BusinessModels", "src\back-end\packages\EnterpriseManagementSystem.BusinessModels\EnterpriseManagementSystem.BusinessModels.csproj", "{7AA2F3C6-3216-402B-B6D8-0BEA282C4C0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.BusinessModels", "Src\BackEnd\Packages\EnterpriseManagementSystem.BusinessModels\EnterpriseManagementSystem.BusinessModels.csproj", "{7AA2F3C6-3216-402B-B6D8-0BEA282C4C0C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.BusinessModels.Tests", "src\back-end\tests\EnterpriseManagementSystem.BusinessModels.Tests\EnterpriseManagementSystem.BusinessModels.Tests.csproj", "{D0924D9A-2842-4476-921B-56D3ACA65F4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.BusinessModels.Tests", "Src\BackEnd\tests\EnterpriseManagementSystem.BusinessModels.Tests\EnterpriseManagementSystem.BusinessModels.Tests.csproj", "{D0924D9A-2842-4476-921B-56D3ACA65F4A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "front-end", "front-end", "{89010619-BD5C-4108-92FF-B1012D8DF6A6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{89010619-BD5C-4108-92FF-B1012D8DF6A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactApp", "src\front-end\ReactApp\ReactApp.csproj", "{F696A180-AD1E-471B-B5E3-9A1573F0836A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactApp", "Src\FrontEnd\ReactApp\ReactApp.csproj", "{F696A180-AD1E-471B-B5E3-9A1573F0836A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminBlazorApp", "src\front-end\AdminBlazorApp\AdminBlazorApp.csproj", "{0A75A451-8DBC-49D9-B36F-F7032B72900C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminBlazorApp", "Src\FrontEnd\AdminBlazorApp\AdminBlazorApp.csproj", "{0A75A451-8DBC-49D9-B36F-F7032B72900C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.MessageBroker", "src\back-end\packages\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj", "{85DD6067-2E88-485C-BAD5-3AA1805B58AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.MessageBroker", "Src\BackEnd\Packages\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj", "{85DD6067-2E88-485C-BAD5-3AA1805B58AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogWorkerService", "src\back-end\microservices\LogWorkerService\LogWorkerService.csproj", "{962250B9-0B46-4E75-89FD-1335FF5255E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogWorkerService", "Src\BackEnd\Microservices\LogWorkerService\LogWorkerService.csproj", "{962250B9-0B46-4E75-89FD-1335FF5255E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Logging", "src\back-end\packages\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj", "{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Logging", "Src\BackEnd\Packages\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj", "{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkerServices", "WorkerServices", "{156D488A-8F01-4D71-BB53-C138D60B9927}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2F46CD30-8B28-4D70-B6D7-9A054BB4D423}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Helpers", "src\back-end\packages\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj", "{EECF6F21-E188-4A98-8920-3C88AF83C3EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Helpers", "Src\BackEnd\Packages\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj", "{EECF6F21-E188-4A98-8920-3C88AF83C3EF}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{29510C00-489A-47FD-922A-85FD5A8F43F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseManagementSystem.Cache", "src\back-end\packages\EnterpriseManagementSystem.Cache\EnterpriseManagementSystem.Cache.csproj", "{34C996EE-E2C4-4929-A09A-896DAE13EF41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseManagementSystem.Cache", "Src\BackEnd\Packages\EnterpriseManagementSystem.Cache\EnterpriseManagementSystem.Cache.csproj", "{34C996EE-E2C4-4929-A09A-896DAE13EF41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
