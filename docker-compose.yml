@@ -34,7 +34,7 @@ services:
     image: ${DOCKER_REGISTRY-}identityservice
     build:
       context: .
-      dockerfile: Src/BackEnd/Microservices/IdentityService/Dockerfile
+      dockerfile: Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.WebApi/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.101

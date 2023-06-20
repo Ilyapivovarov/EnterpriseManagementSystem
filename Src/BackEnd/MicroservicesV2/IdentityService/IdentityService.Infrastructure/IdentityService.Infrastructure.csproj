@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="12.0.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+      <PackageReference Include="MediatR" Version="12.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.7" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.7">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.7" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.7" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.7" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.7">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Packages\EnterpriseManagementSystem.Cache\EnterpriseManagementSystem.Cache.csproj" />
+      <ProjectReference Include="..\..\..\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\Packages\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj" />
+      <ProjectReference Include="..\..\..\Packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
+      <ProjectReference Include="..\..\..\Packages\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj" />
+      <ProjectReference Include="..\IdentityService.Application\IdentityService.Application.csproj" />
+    </ItemGroup>
+
+</Project>
