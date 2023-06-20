@@ -31,7 +31,7 @@ public abstract class SqlRepositoryBase
         try
         {
             writeAction(_taskDbContext);
-            await _taskDbContext.SaveChagesAsync(cancellationToken);
+            await _taskDbContext.SaveChangesAsync(cancellationToken);
 
             return true;
         }

@@ -25,9 +25,4 @@ public sealed class TaskDbContext : DbContext, ITaskDbContext
                 property => property.Value,
                 value => EmailAddress.Parse(value));
     }
-    
-    public async Task<int> SaveChagesAsync(CancellationToken cancellationToken = default)
-    {
-        return await SaveChangesAsync(cancellationToken);
-    }
 }
