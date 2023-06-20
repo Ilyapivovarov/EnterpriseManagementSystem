@@ -27,10 +27,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Controllers" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Content Update="appsettings.Development.json">
         <DependentUpon>appsettings.json</DependentUpon>
       </Content>
