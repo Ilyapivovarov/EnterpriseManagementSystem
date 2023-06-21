@@ -1,5 +1,4 @@
 using IdentityService.Infrastructure.Mapper;
-using IdentityService.Infrastructure.Services;
 
 namespace IdentityService.Infrastructure.Handlers;
 

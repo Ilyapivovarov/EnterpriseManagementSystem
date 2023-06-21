@@ -2,7 +2,7 @@ using IdentityService.Application;
 using IdentityService.Infrastructure;
 using IdentityService.Infrastructure.DbContexts;
 
-namespace IdentityService;
+namespace IdentityService.WebApi;
 
 public sealed class Startup
 {

@@ -1,15 +1,3 @@
-using System.Reflection;
-using EnterpriseManagementSystem.Cache;
-using EnterpriseManagementSystem.Helpers.Extensions;
-using EnterpriseManagementSystem.JwtAuthorization;
-using EnterpriseManagementSystem.Logging;
-using EnterpriseManagementSystem.MessageBroker;
-using IdentityService.Infrastructure.HostedServices;
-using IdentityService.Infrastructure.Repositories;
-using IdentityService.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-
 namespace IdentityService.Infrastructure;
 
 public static class InfrastructureDependencyInjection
