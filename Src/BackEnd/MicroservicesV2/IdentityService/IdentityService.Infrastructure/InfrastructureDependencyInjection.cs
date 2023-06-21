@@ -23,13 +23,7 @@ public static class InfrastructureDependencyInjection
         
         #region Register Loggin
 
-        services.AddLogging(builder => builder.AddDbLogger(options =>
-        {
-            configuration.GetSection("Logging")
-                .GetSection("DbLogger")
-                .GetSection("Options")
-                .Bind(options);
-        }));
+        services.AddEmsLogger();
 
         #endregion
 
