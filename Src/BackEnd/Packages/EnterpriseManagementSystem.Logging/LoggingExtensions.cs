@@ -15,6 +15,7 @@ public static class LoggingExtensions
         {
             builder.ClearProviders();
             builder.AddDbLogger();
+            builder.AddConsole();
         });
     }
     
