@@ -1,4 +1,5 @@
 ﻿using EnterpriseManagementSystem.MessageBroker;
+using EnterpriseManagementSystem.MessageBroker.Abstractions;
 
 namespace EnterpriseManagementSystem.Contracts.Messages;
 

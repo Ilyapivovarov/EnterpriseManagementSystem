@@ -1,4 +1,4 @@
-﻿namespace EnterpriseManagementSystem.MessageBroker;
+﻿namespace EnterpriseManagementSystem.MessageBroker.Abstractions;
 
 /// <summary>
 /// Message abstraction

@@ -67,7 +67,7 @@ public static class InfrastructureDependencyInjection
 
         #region Register event bus
 
-        services.AddMessageBroker(configuration.GetRequiredConnectionString("RabbitMq"));
+        services.AddMessageBroker();
 
         #endregion
 

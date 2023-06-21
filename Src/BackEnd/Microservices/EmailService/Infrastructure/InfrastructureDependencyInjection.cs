@@ -24,7 +24,7 @@ public static class InfrastructureDependencyInjection
 
         #region Register MassTransisist
 
-        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq"));
+        services.AddMessageBroker();
 
         #endregion
 

@@ -21,7 +21,7 @@ public static class InfrastructureDependencyInjection
         });
         services.AddScoped<ILogWorkerDbContext, LogWorkerDbContext>();
         
-        services.AddMessageBroker(configuration.GetConnectionString("RabbitMq")!, initializer =>
+        services.AddMessageBroker(initializer =>
         {
             initializer.SubscribeOnMessage<LogMessage, LogMessageHandler>();
         });
