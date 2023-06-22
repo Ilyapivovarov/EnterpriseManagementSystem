@@ -41,7 +41,7 @@ public static class InfrastructureDependencyInjection
         #region Register services
 
         services.AddTransient<ISecurityService, SecurityService>();
-        services.AddTransient<IUserService, Services.UserService>();
+        services.AddTransient<IUserService, UserService>();
         services.AddTransient<ISessionService, SessionService>();
         services.AddTransient<IUserRoleService, UserRoleService>();
 

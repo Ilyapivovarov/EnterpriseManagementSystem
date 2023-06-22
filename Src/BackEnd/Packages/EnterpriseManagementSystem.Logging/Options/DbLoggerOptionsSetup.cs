@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-
-namespace EnterpriseManagementSystem.Logging.Options;
+﻿namespace EnterpriseManagementSystem.Logging.Options;
 
 public class DbLoggerOptionsSetup : IConfigureOptions<DbLoggerOptions>
 {

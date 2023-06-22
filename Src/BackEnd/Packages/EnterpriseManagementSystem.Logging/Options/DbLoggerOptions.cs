@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace EnterpriseManagementSystem.Logging.Options;
+﻿namespace EnterpriseManagementSystem.Logging.Options;
 
 public class DbLoggerOptions
 {

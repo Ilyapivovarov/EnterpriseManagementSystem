@@ -1,6 +1,5 @@
 ﻿using EnterpriseManagementSystem.Contracts.Messages;
 using EnterpriseManagementSystem.MessageBroker.Abstractions;
-using Microsoft.Extensions.Logging;
 
 namespace EnterpriseManagementSystem.Logging.Infrastructure.Implementations;
 

@@ -1,6 +1,5 @@
 using IdentityService.Application;
 using IdentityService.Infrastructure;
-using IdentityService.Infrastructure.DbContexts;
 
 namespace IdentityService.WebApi;
 

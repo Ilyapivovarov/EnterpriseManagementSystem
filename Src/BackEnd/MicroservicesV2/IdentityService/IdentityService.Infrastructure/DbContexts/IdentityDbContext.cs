@@ -4,9 +4,7 @@ public sealed class IdentityDbContext : DbContext, IIdentityDbContext
 {
     public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
         : base(options)
-    {
-        Database.Migrate();
-    }
+    { }
 
     public DbSet<UserDbEntity> Users => Set<UserDbEntity>();
 
