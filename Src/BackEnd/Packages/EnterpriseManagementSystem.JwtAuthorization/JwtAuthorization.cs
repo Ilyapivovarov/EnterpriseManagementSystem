@@ -1,4 +1,5 @@
-﻿using EnterpriseManagementSystem.JwtAuthorization.Infrastructure;
+﻿using EnterpriseManagementSystem.JwtAuthorization.Abstractions;
+using EnterpriseManagementSystem.JwtAuthorization.Infrastructure;
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using EnterpriseManagementSystem.JwtAuthorization.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,5 +19,7 @@ public static class JwtAuthorization
         services.ConfigureOptions<JwtBearerOptionsSetup>();
 
         services.AddTransient<IJwtSessionService, JwtSessionService>();
+        services.AddScoped<ICurrenSession, CurrenSession>();
+        
     }
 }

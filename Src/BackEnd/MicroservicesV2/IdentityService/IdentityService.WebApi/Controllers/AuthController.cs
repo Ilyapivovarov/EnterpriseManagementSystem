@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using EnterpriseManagementSystem.Contracts.Dto.IdentityServiceDto;
+using EnterpriseManagementSystem.JwtAuthorization.Abstractions;
 using IdentityService.Infrastructure.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -13,11 +14,13 @@ namespace IdentityService.WebApi.Controllers;
 public sealed class AuthController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly ICurrenSession _currenSession;
 
 
-    public AuthController(IMediator mediator)
+    public AuthController(IMediator mediator, ICurrenSession currenSession)
     {
         _mediator = mediator;
+        _currenSession = currenSession;
     }
 
     /// <summary>
@@ -67,5 +70,18 @@ public sealed class AuthController : ControllerBase
     public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
     {
         return await _mediator.Send(new RefreshTokenRequest(refreshTokenDto.RefreshToken));
+    }
+    
+    /// <summary>
+    ///     Referesh token
+    /// </summary>
+    /// <param name="refreshTokenDto"></param>
+    /// <returns></returns>
+    [HttpPut]
+    [Authorize]
+    [Route("test")]
+    public async Task<IActionResult> Test()
+    {
+        return Ok(_currenSession);
     }
 }

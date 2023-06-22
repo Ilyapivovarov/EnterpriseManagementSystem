@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.JwtAuthorization;
+using EnterpriseManagementSystem.JwtAuthorization.Middlewares;
 using IdentityService.Application;
 using IdentityService.Infrastructure;
 
@@ -26,15 +28,19 @@ public sealed class Startup
         services.AddControllers();
     }
 
-    public void Configure(IApplicationBuilder app, IdentityDbContext identityDbContext)
+    public void Configure(IApplicationBuilder app)
     {
         if (Environment.IsDevelopment())
+        {
             app.UseDeveloperExceptionPage();
+        }
 
         app.UseRouting();
         
         app.UseAuthentication();  
-        app.UseAuthorization();    
+        app.UseAuthorization();
+
+        app.UseMiddleware<JwtSessionMiddleware>();
         
         app.UseEndpoints(endpoints => endpoints.MapControllers()
             .RequireAuthorization());
