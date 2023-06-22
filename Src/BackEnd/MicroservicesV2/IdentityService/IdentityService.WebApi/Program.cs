@@ -6,7 +6,7 @@ var host = Host.CreateDefaultBuilder(args)
 using (var scope = host.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<IdentityDbContext>();
-    await db.Database.MigrateAsync();
+    db.Database.Migrate();
 }
 
 await host.RunAsync();

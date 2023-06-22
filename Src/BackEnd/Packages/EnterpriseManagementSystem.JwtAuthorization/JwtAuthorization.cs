@@ -2,7 +2,6 @@
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using EnterpriseManagementSystem.JwtAuthorization.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EnterpriseManagementSystem.JwtAuthorization;
