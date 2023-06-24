@@ -18,7 +18,7 @@ public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
         {
             ValidateIssuer = true,
             ValidIssuer = _options.Issuer,
-
+            
             ValidateAudience = false,
 
             ValidateLifetime = true,

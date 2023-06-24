@@ -30,6 +30,8 @@ public sealed class Startup
 
     public void Configure(IApplicationBuilder app)
     {
+        app.UseJwtAuthorizationMiddleware();
+
         if (Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
@@ -39,8 +41,6 @@ public sealed class Startup
         
         app.UseAuthentication();  
         app.UseAuthorization();
-
-        app.UseMiddleware<JwtSessionMiddleware>();
         
         app.UseEndpoints(endpoints => endpoints.MapControllers()
             .RequireAuthorization());

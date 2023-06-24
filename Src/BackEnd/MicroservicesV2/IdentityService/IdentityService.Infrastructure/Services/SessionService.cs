@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using EnterpriseManagementSystem.JwtAuthorization.Constants;
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using IdentityService.Infrastructure.Models;
 
@@ -38,9 +39,9 @@ public sealed class SessionService : ISessionService
     {
         return new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Email, emailAddress.Value),
-            new(JwtRegisteredClaimNames.Sub, guid.ToString()),
-            new("role", role)
+            new(EmsJwtClaimNames.Email, emailAddress.Value),
+            new(EmsJwtClaimNames.Guid, guid.ToString()),
+            new(EmsJwtClaimNames.Role, role)
         };
     }
 }
