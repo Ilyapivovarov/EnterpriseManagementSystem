@@ -1,4 +1,5 @@
-﻿using EnterpriseManagementSystem.JwtAuthorization.Abstractions;
+﻿using System.IdentityModel.Tokens.Jwt;
+using EnterpriseManagementSystem.JwtAuthorization.Abstractions;
 using EnterpriseManagementSystem.JwtAuthorization.Infrastructure;
 using EnterpriseManagementSystem.JwtAuthorization.Interfaces;
 using EnterpriseManagementSystem.JwtAuthorization.Middlewares;
@@ -6,6 +7,7 @@ using EnterpriseManagementSystem.JwtAuthorization.Options;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EnterpriseManagementSystem.JwtAuthorization;
@@ -14,6 +16,7 @@ public static class JwtAuthorization
 {
     public static void AddJwtAuthorization(this IServiceCollection services)
     {
+        
         services.AddAuthorization()
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer();

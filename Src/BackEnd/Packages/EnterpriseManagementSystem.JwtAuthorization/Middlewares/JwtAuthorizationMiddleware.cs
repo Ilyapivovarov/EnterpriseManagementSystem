@@ -14,10 +14,10 @@ public class JwtAuthorizationMiddleware : IMiddleware
         {
             var currenSession = context.RequestServices.GetRequiredService<ICurrenSession>();
             
-            var guid = Guid.Parse(context.User.Claims.Single(x => x.Properties.Values.Contains(EmsJwtClaimNames.Guid)).Value);
-            var role = context.User.Claims.Single(x =>  x.Properties.Values.Contains(EmsJwtClaimNames.Role)).Value;
-            var email = context.User.Claims.Single(x => x.Properties.Values.Contains(EmsJwtClaimNames.Email)).Value;
-
+            var guid = Guid.Parse(context.User.Claims.Single(x => x.Type == EmsJwtClaimNames.Guid).Value);
+            var role = context.User.Claims.Single(x =>  x.Type == EmsJwtClaimNames.Role).Value;
+            var email = context.User.Claims.Single(x => x.Type == EmsJwtClaimNames.Email).Value;
+        
             currenSession.CurrentUser = new CurrentUser(guid, role, email);
         }
         
