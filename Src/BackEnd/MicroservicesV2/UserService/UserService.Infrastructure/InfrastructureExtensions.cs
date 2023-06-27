@@ -1,3 +1,4 @@
+using System.Reflection;
 using EnterpriseManagementSystem.Helpers.Extensions;
 using EnterpriseManagementSystem.JwtAuthorization;
 using EnterpriseManagementSystem.MessageBroker;
@@ -16,6 +17,9 @@ public static class InfrastructureExtensions
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IHostEnvironment environment)
     {
+        services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        
         #region Register UserDbContext
 
         services.AddDbContext<UserDbContext>(builder =>

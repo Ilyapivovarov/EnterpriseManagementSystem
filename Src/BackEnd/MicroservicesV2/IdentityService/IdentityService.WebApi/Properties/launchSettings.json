@@ -36,7 +36,6 @@
     },
     "Docker": {
       "commandName": "Docker",
-      "launchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "publishAllPorts": true,
       "useSSL": false,
       "environmentVariables": {
