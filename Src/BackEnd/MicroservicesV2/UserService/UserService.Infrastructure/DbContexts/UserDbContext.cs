@@ -14,7 +14,7 @@ public sealed class UserDbContext : DbContext, IUserDbContext
 
     public DbSet<UserDbEntity> Users => Set<UserDbEntity>();
 
-    public DbSet<EmployeeDbEntity> Eployees => Set<EmployeeDbEntity>();
+    public DbSet<EmployeeDbEntity> Employees => Set<EmployeeDbEntity>();
 
     public DbSet<PositionDbEntity> Positions => Set<PositionDbEntity>();
 

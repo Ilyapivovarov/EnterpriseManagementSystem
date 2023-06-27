@@ -8,9 +8,9 @@ public class UserDbContextSeed
         try
         {
             var userDbContext = services.GetRequiredService<IUserDbContext>();
-            if (!userDbContext.Eployees.Any())
+            if (!userDbContext.Employees.Any())
             {
-                userDbContext.Eployees.Add(new EmployeeDbEntity
+                userDbContext.Employees.Add(new EmployeeDbEntity
                 {
                     UserDbEntity = new UserDbEntity
                     {
@@ -24,7 +24,7 @@ public class UserDbContextSeed
                 for (var i = 0; i < 10; i++)
                 {
                     var name = $"Test{i}";
-                    userDbContext.Eployees.Add(new EmployeeDbEntity
+                    userDbContext.Employees.Add(new EmployeeDbEntity
                     {
                         UserDbEntity = new UserDbEntity
                         {

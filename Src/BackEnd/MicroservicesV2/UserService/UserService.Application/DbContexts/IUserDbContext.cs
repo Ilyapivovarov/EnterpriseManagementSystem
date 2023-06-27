@@ -6,7 +6,7 @@ public interface IUserDbContext
 {
     public DbSet<UserDbEntity> Users { get; }
 
-    public DbSet<EmployeeDbEntity> Eployees { get; }
+    public DbSet<EmployeeDbEntity> Employees { get; }
 
     public DbSet<PositionDbEntity> Positions { get; }
 
