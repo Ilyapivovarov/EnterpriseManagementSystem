@@ -54,7 +54,7 @@ namespace UserService.Infrastructure.Migrations
 
                     b.HasIndex("UserDbEntityId");
 
-                    b.ToTable("Eployees");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("UserService.Core.DbEntities.PositionDbEntity", b =>

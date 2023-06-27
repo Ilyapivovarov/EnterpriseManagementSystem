@@ -8,7 +8,6 @@ public sealed class UserDbContext : DbContext, IUserDbContext
     public UserDbContext(DbContextOptions<UserDbContext> options)
         : base(options)
     {
-        Database.EnsureCreated();
         SavingChanges += UpdateState;
     }
 

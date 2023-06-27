@@ -1,7 +1,7 @@
 using UserService.Application;
 using UserService.Infrastructure;
 
-namespace UserService;
+namespace UserService.WebApi;
 
 public sealed class Startup
 {

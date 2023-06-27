@@ -12,7 +12,7 @@ using UserService.Infrastructure.DbContexts;
 namespace UserService.Infrastructure.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20230627145430_Initial")]
+    [Migration("20230627155736_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -57,7 +57,7 @@ namespace UserService.Infrastructure.Migrations
 
                     b.HasIndex("UserDbEntityId");
 
-                    b.ToTable("Eployees");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("UserService.Core.DbEntities.PositionDbEntity", b =>

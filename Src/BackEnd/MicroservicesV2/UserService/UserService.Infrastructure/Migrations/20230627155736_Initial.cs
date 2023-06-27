@@ -48,7 +48,7 @@ namespace UserService.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Eployees",
+                name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -61,14 +61,14 @@ namespace UserService.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Eployees", x => x.Id);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Eployees_Positions_PositionId",
+                        name: "FK_Employees_Positions_PositionId",
                         column: x => x.PositionId,
                         principalTable: "Positions",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Eployees_Users_UserDbEntityId",
+                        name: "FK_Employees_Users_UserDbEntityId",
                         column: x => x.UserDbEntityId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -76,13 +76,13 @@ namespace UserService.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Eployees_PositionId",
-                table: "Eployees",
+                name: "IX_Employees_PositionId",
+                table: "Employees",
                 column: "PositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Eployees_UserDbEntityId",
-                table: "Eployees",
+                name: "IX_Employees_UserDbEntityId",
+                table: "Employees",
                 column: "UserDbEntityId");
         }
 
@@ -90,7 +90,7 @@ namespace UserService.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Eployees");
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Positions");
