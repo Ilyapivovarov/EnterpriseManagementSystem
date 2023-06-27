@@ -78,11 +78,11 @@ public class LogScope<T> : IDisposable
     public LogScope(ILogger logger)
     {
         _logger = logger;
-        _logger.LogInformation("Entry to {0}", typeof(T));
+        _logger.LogInformation("Entry to {0}", typeof(T).ToString());
     }
 
     public void Dispose()
     {
-        _logger.LogInformation("Exit from {0}", typeof(T));
+        _logger.LogInformation("Exit from {0}", typeof(T).ToString());
     }
 }
