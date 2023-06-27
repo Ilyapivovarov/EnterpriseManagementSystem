@@ -2,7 +2,7 @@
 
 public class DbLoggerOptionsSetup : IConfigureOptions<DbLoggerOptions>
 {
-    private const string DbLoggerSectionName = "Logging:DbLogger:Options";
+    private const string DbLoggerSectionName = "Logging:DbLogger";
     
     private readonly IConfiguration _configuration;
 

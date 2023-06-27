@@ -14,18 +14,14 @@ public class DbLogger : ILogger
         _categoryName = categoryName;
     }
 
-    public async void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+    public async void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+        Func<TState, Exception?, string> formatter)
     {
-        if (!_categoryName.Contains(_loggerProvider.Options.AppName))
-        {
-            return;
-        }
-
         if (!IsEnabled(logLevel))
         {
             return;
         }
-        
+
         using var scopeServiceProvider = _loggerProvider.ServiceProvider.CreateScope();
         var bus = scopeServiceProvider.ServiceProvider.GetRequiredService<IBus>();
         var queueMessage = new LogMessage
@@ -41,12 +37,37 @@ public class DbLogger : ILogger
 
     public bool IsEnabled(LogLevel logLevel)
     {
-        return true;
+        if (!_loggerProvider.Options.LogLevel.TryGetValue("Default", out var defaultLogLevel))
+        {
+            defaultLogLevel = LogLevel.None;
+        }
+        
+        return GetLogLevelForCategory(_categoryName) <= logLevel && logLevel >= defaultLogLevel;
     }
 
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull
     {
         return new LogScope<TState>(this);
+    }
+    
+    private LogLevel GetLogLevelForCategory(string category)
+    {
+        var count = _loggerProvider.Options.LogLevel.Keys
+            .Count(x => x == category);
+
+        if (count is 1)
+        {
+            return _loggerProvider.Options.LogLevel[category];
+        }
+        
+        var lastIndex = category.LastIndexOf(".", StringComparison.Ordinal);
+        if (lastIndex == -1)
+        {
+            return LogLevel.None;
+        }
+            
+        var newCategory = _categoryName[..lastIndex];
+        return GetLogLevelForCategory(newCategory);
     }
 }
 
@@ -57,11 +78,11 @@ public class LogScope<T> : IDisposable
     public LogScope(ILogger logger)
     {
         _logger = logger;
-        _logger.LogInformation($"Entry to {typeof(T)}");
+        _logger.LogInformation("Entry to {0}", typeof(T));
     }
-    
+
     public void Dispose()
     {
-        _logger.LogInformation($"Exit from {typeof(T)}");
+        _logger.LogInformation("Exit from {0}", typeof(T));
     }
 }

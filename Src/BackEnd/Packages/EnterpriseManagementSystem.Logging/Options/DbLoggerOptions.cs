@@ -4,5 +4,5 @@ public class DbLoggerOptions
 {
     public required string AppName { get; set; }
 
-    public required LogLevel LogLevel { get; set; }
+    public required Dictionary<string, LogLevel> LogLevel { get; set; }
 }
