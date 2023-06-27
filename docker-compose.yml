@@ -54,7 +54,7 @@ services:
     image: ${DOCKER_REGISTRY-}userservice
     build:
       context: .
-      dockerfile: Src/BackEnd/Microservices/UserService/Dockerfile
+      dockerfile: Src/BackEnd/MicroservicesV2/UserService/UserService.WebApi/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.104

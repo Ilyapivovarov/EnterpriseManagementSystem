@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-
 namespace IdentityService.Infrastructure;
 
 public static class InfrastructureDependencyInjection
