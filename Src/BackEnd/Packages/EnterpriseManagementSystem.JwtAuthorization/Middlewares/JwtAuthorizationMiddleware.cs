@@ -10,7 +10,7 @@ public class JwtAuthorizationMiddleware : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        if (!context.Request.Headers.Authorization.IsNullOrEmpty())
+        if (context.User.Identity != null && context.User.Identity.IsAuthenticated)
         {
             var currenSession = context.RequestServices.GetRequiredService<ICurrenSession>();
             

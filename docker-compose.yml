@@ -50,13 +50,11 @@ services:
     depends_on:
       - identityservice
 
-  userservice:
-    image: ${DOCKER_REGISTRY-}userservice
+  userservice.webapi:
+    image: userservice.webapi
     build:
       context: .
       dockerfile: Src/BackEnd/MicroservicesV2/UserService/UserService.WebApi/Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
     networks:
       ems-network:
         ipv4_address: 10.20.10.104
@@ -87,3 +85,4 @@ services:
       - apigateway
     ports:
       - "3001:80"
+  

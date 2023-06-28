@@ -13,21 +13,20 @@ public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
     {
         _options = options.Value;
     }
-    
+
     public void Configure(JwtBearerOptions options)
     {
         options.TokenValidationParameters = new()
         {
             ValidateIssuer = true,
             ValidIssuer = _options.Issuer,
-            
+
             ValidateAudience = false,
 
             ValidateLifetime = true,
 
             IssuerSigningKey = _options.GetSymmetricSecurityKey(),
             ValidateIssuerSigningKey = true,
-         
         };
     }
 
