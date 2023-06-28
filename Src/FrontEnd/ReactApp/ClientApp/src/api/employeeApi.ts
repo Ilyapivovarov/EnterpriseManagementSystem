@@ -40,4 +40,9 @@ export const employeeApi = createApi({
   }),
 });
 
-export const {useGetEmployeeByGuidQuery, useGetEmployeeByIdQuery, useGetEmployeesByPageQuery} = employeeApi;
+export const {useGetEmployeeByGuidQuery,
+    useLazyGetEmployeeByGuidQuery,
+  useGetEmployeeByIdQuery,
+  useGetEmployeesByPageQuery,
+  useLazyGetEmployeesByPageQuery
+} = employeeApi;

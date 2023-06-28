@@ -20,6 +20,7 @@ import EditableTextField from '../EditableTextField/EditableTextField';
 import TaskUserSelector from '../TaskUserSelector/TaskUserSelector';
 import TaskStatusSelector from '../TaskStatusSelector/TaskStatusSelector';
 import {useNavigate} from 'react-router-dom';
+import {useGetEmployeeByGuidQuery, useGetEmployeeByIdQuery, useLazyGetEmployeeByGuidQuery} from "../../api/employeeApi";
 
 interface TaskPageContentProps {
   taskDto: TaskDto,
@@ -28,7 +29,8 @@ interface TaskPageContentProps {
 const TaskPageContent: React.FC<TaskPageContentProps> = ({taskDto}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  
+  const [useGetEmployeeByGuidQuery] = useLazyGetEmployeeByGuidQuery();
   const [updateTaskExecutor] = useUpdateTaskExecutorMutation();
   const [updateTaskStatus] = useUpdateTaskStatusMutation();
   const [removeTask] = useRemoveTaskMutation();
@@ -174,7 +176,7 @@ const TaskPageContent: React.FC<TaskPageContentProps> = ({taskDto}) => {
                 </Box>
                 <Box>
                   <TaskUserSelector
-                    current={task.inspector}
+                    current={}
                     onChange={onInspectorChanged}
                     lable={'Inspector'}
                     fullWidth

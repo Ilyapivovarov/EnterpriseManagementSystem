@@ -6,6 +6,6 @@ public sealed class TaskStatusToDtoConverter : ITypeConverter<TaskStatusDbEntity
 {
     public TaskStatusDto Convert(TaskStatusDbEntity source, TaskStatusDto destination, ResolutionContext context)
     {
-        return new TaskStatusDto(source.Id, source.Guid, source.Name);
+        return new TaskStatusDto(source.Id, source.PublicId, source.Name);
     }
 }

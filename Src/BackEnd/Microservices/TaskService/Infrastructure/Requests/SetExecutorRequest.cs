@@ -2,7 +2,7 @@ namespace TaskService.Infrastructure.Requests;
 
 public sealed class SetExecutorRequest : IRequest<IActionResult>
 {
-    public SetExecutorRequest(int taskId, int? executorId)
+    public SetExecutorRequest(int taskId, Guid? executorId)
     {
         TaskId = taskId;
         ExecutorId = executorId;
@@ -10,5 +10,5 @@ public sealed class SetExecutorRequest : IRequest<IActionResult>
 
     public int TaskId { get; }
 
-    public int? ExecutorId { get; }
+    public Guid? ExecutorId { get; }
 }

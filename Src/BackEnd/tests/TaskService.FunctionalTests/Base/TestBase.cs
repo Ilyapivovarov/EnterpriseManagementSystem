@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using TaskService.Application.Repositories;
 using TaskService.Core.DbEntities;
+using TaskService.Core.DbEntities.Base;
 using TaskService.Infrastructure.DbContexts;
 using TaskService.Infrastructure.Mapper;
 
@@ -57,7 +58,7 @@ public abstract class TestBase : IDisposable
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Email, user.EmailAddress.Value),
-            new(JwtRegisteredClaimNames.Sub, user.Guid.ToString())
+            new(JwtRegisteredClaimNames.Sub, ((DbEntityBase)user).PublicId.ToString())
         };
         var jwtSession = services.ServiceProvider.GetRequiredService<IJwtSessionService>().CreateJwtSession(claims);
         httpClient.DefaultRequestHeaders.Authorization =

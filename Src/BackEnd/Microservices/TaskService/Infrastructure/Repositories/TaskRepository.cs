@@ -20,7 +20,7 @@ public sealed class TaskRepository : SqlRepositoryBase, ITaskRepository
 
     public async Task<TaskDbEntity?> GetTaskByGuidAsync(Guid guid)
     {
-        return await LoadDataAsync(db => db.Tasks.FirstOrDefault(x => x.Guid == guid));
+        return await LoadDataAsync(db => db.Tasks.FirstOrDefault(x => x.PublicId == guid));
     }
 
     public async Task<TaskDbEntity[]?> GetTasksByPage(int pageNumber, int pageSize)

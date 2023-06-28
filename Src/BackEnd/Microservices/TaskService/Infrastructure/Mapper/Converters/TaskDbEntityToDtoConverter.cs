@@ -6,7 +6,7 @@ public sealed class TaskDbEntityToDtoConverter : ITypeConverter<TaskDbEntity, Ta
 {
     public TaskDto Convert(TaskDbEntity source, TaskDto destination, ResolutionContext context)
     {
-        return new TaskDto(source.Id, source.Guid, source.Name, source.Description, source.Created,
-            source.Author.ToDto(), source.Executor?.ToDto(), source.Inspector?.ToDto(), source.Status.ToDto());
+        return new TaskDto(source.Id, source.PublicId, source.Name, source.Description, source.Created,
+            source.Author, source.Executor, source.Inspector, source.Status.ToDto());
     }
 }

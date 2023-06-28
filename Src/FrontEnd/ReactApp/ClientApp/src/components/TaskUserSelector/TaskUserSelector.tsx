@@ -1,17 +1,17 @@
 import React from 'react';
 import {Box, FormControl, InputLabel, MenuItem, Select} from '@mui/material';
-import {UserDto} from '../../types/taskTypes';
-import {useLazyGetUsersByPageQuery} from '../../api/taskUserApi';
+import {useLazyGetEmployeesByPageQuery} from "../../api/employeeApi";
+import {EmployeeDataResponse} from "../../types/accountTypes";
 
 interface TaskUserSelectorProps {
-  current?: UserDto,
-  onChange: (executor: UserDto | null) => void;
+  current?: EmployeeDataResponse,
+  onChange: (executor: EmployeeDataResponse | null) => void;
   fullWidth?: boolean,
   lable: string,
 }
 
-function unique(executors: UserDto[]) {
-  const result: UserDto[] = [];
+function unique(executors: EmployeeDataResponse[]) {
+  const result: EmployeeDataResponse[] = [];
   for (const executor of executors) {
     if (result.filter((x) => x.id == executor.id).length == 0) {
       result.push(executor);
@@ -21,20 +21,19 @@ function unique(executors: UserDto[]) {
 }
 
 const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, lable, fullWidth}) => {
-  const [getExecutorsByPage] = useLazyGetUsersByPageQuery();
+  const [getEmployeesByPage] = useLazyGetEmployeesByPageQuery();
   const [page, setPage] = React.useState(1);
-  const [executors, setExecutors] = React.useState<UserDto[]>(current ? [current] : []);
+  const [executors, setExecutors] = React.useState<EmployeeDataResponse[]>(current ? [current] : []);
 
   const [executorId, setExecutorId] = React.useState<number>(current ? current.id : 0);
   const [hasExecutorsFlag, setHasExecutorsFlag] = React.useState(true);
 
   const fetchExecutors = () => {
     if (hasExecutorsFlag) {
-      getExecutorsByPage({page: page, count: 5})
+      getEmployeesByPage({pageNumber: page, pageSize: 5})
           .unwrap()
           .then((x) => {
-            setHasExecutorsFlag(x.total != executors.length);
-            setExecutors((s) => unique([...s, ...x.users]));
+            setExecutors((s) => unique([...s, ...x]));
           });
     }
   };
@@ -47,7 +46,7 @@ const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, l
     fetchExecutors();
   }, [page]);
 
-  const handleChange = (value: UserDto | null) => {
+  const handleChange = (value: EmployeeDataResponse | null) => {
     if (executorId != value?.id) {
       setExecutorId(value ? value.id : 0);
       onChange(value);
@@ -94,7 +93,7 @@ const TaskUserSelector: React.FC<TaskUserSelectorProps> = ({current, onChange, l
               disabled={executorId == x.id}
               onClick={() => handleChange(x)}
             >
-              {x.emailAddress}
+              {x.user.emailAddress}
             </MenuItem>
           ))}
         </Select>

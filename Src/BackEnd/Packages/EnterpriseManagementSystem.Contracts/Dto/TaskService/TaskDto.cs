@@ -1,7 +1,7 @@
 namespace EnterpriseManagementSystem.Contracts.Dto.TaskService;
 
-public sealed record TaskDto(int Id, Guid Guid, string Name, string? Description, DateTime Created, UserDto Author,
-    UserDto? Executor, UserDto? Inspector, TaskStatusDto Status);
+public sealed record TaskDto(int Id, Guid Guid, string Name, string? Description, DateTime Created, Guid Author,
+    Guid? Executor, Guid? Inspector, TaskStatusDto Status);
 
 public sealed record TaskStatusDto(int Id, Guid Guid, string Name);
 

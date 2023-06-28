@@ -3,17 +3,6 @@ namespace TaskService.Application.Services;
 public interface ITaskService
 {
     /// <summary>
-    ///     Get users involved in task
-    /// </summary>
-    /// <param name="authorGuid"></param>
-    /// <param name="executorGuid"></param>
-    /// <param name="inspectorGuid"></param>
-    /// <param name="observerGuids"></param>
-    /// <returns></returns>
-    public Task<UsersInvolvedInTask> GetUsersInvolvedInTask(Guid authorGuid, Guid? executorGuid = null,
-        Guid? inspectorGuid = null, ICollection<Guid>? observerGuids = null);
-
-    /// <summary>
     ///     Geting or creating task with name
     /// </summary>
     /// <param name="name"></param>
@@ -35,7 +24,7 @@ public interface ITaskService
     /// <param name="task"></param>
     /// <param name="newExecutor"></param>
     /// <returns></returns>
-    public ServiceResult<TaskDbEntity> SetExecutor(TaskDbEntity task, UserDbEntity? newExecutor);
+    public ServiceResult<TaskDbEntity> SetExecutor(TaskDbEntity task, Guid? newExecutor);
 
     /// <summary>
     /// Set inspector
@@ -43,7 +32,7 @@ public interface ITaskService
     /// <param name="inspector"></param>
     /// <param name="task"></param>
     /// <returns></returns>
-    public ServiceResult<TaskDbEntity> SetInspector(UserDbEntity? inspector, TaskDbEntity task);
+    public ServiceResult<TaskDbEntity> SetInspector(Guid? inspector, TaskDbEntity task);
     
     /// <summary>
     /// Update task and name for task
@@ -64,6 +53,6 @@ public interface ITaskService
     /// <param name="executor"></param>
     /// <param name="inspector"></param>
     /// <returns></returns>
-    public ServiceResult<TaskDbEntity> CreateTask(string name, string? description, UserDbEntity author,
-        TaskStatusDbEntity status, UserDbEntity? executor, UserDbEntity? inspector);
+    public ServiceResult<TaskDbEntity> CreateTask(string name, string? description, Guid author,
+        TaskStatusDbEntity status, Guid? executor, Guid? inspector);
 }

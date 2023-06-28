@@ -25,7 +25,6 @@ public static class InfrastructureExtensions
 
         #region Registre repositories
 
-        services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<ITaskRepository, TaskRepository>();
         services.AddTransient<ITaskStatusRepository, TaskStatusRepository>();
 

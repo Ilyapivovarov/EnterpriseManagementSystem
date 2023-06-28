@@ -6,15 +6,15 @@ public class TaskDbEntity : DbEntityBase
 
     public string? Description { get; set; }
 
-    public virtual UserDbEntity? Executor { get; set; }
+    public Guid? Executor { get; set; }
 
-    public virtual UserDbEntity? Inspector { get; set; }
+    public Guid? Inspector { get; set; }
 
-    public virtual UserDbEntity Author { get; set; } = null!;
+    public required Guid Author { get; set; }
 
     public virtual TaskStatusDbEntity Status { get; set; } = null!;
 
-    public DateTime Created { get; set; } = DateTime.Now;
+    public required DateTime Created { get; set; } = DateTime.Now;
 
     public virtual List<AttachmentDbEntity> Attachments { get; set; } = new();
 }

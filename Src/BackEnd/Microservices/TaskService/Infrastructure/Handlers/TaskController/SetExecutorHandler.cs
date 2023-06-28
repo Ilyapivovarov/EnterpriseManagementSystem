@@ -4,15 +4,13 @@ public sealed class SetExecutorHandler : RequestHandlerBase<SetExecutorRequest>
 {
     private readonly ILogger<SetExecutorHandler> _logger;
     private readonly ITaskRepository _taskRepository;
-    private readonly IUserRepository _userRepository;
     private readonly ITaskService _taskService;
 
     public SetExecutorHandler(ILogger<SetExecutorHandler> logger, ITaskRepository taskRepository,
-        IUserRepository userRepository, ITaskService taskService)
+       ITaskService taskService)
     {
         _logger = logger;
         _taskRepository = taskRepository;
-        _userRepository = userRepository;
         _taskService = taskService;
 
     }
@@ -25,9 +23,8 @@ public sealed class SetExecutorHandler : RequestHandlerBase<SetExecutorRequest>
             if (task == null)
                 return NotFound("Not found task");
             
-            var newExecutor = await _userRepository.GetUserById(request.ExecutorId);
 
-            var serviceResult = _taskService.SetExecutor(task,  newExecutor);
+            var serviceResult = _taskService.SetExecutor(task,  request.ExecutorId);
             if (serviceResult.Value == null)
                 return Error(serviceResult.Error);
 

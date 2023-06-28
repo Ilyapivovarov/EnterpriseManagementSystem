@@ -7,9 +7,7 @@ public sealed class TaskDbContext : DbContext, ITaskDbContext
     {
         Database.EnsureCreated();
     }
-
-    public DbSet<UserDbEntity> Users => Set<UserDbEntity>();
-
+    
     public DbSet<TaskDbEntity> Tasks => Set<TaskDbEntity>();
 
     public DbSet<TaskStatusDbEntity> TaskStatuses => Set<TaskStatusDbEntity>();
@@ -18,11 +16,6 @@ public sealed class TaskDbContext : DbContext, ITaskDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .Entity<UserDbEntity>()
-            .Property(entity => entity.EmailAddress)
-            .HasConversion(
-                property => property.Value,
-                value => EmailAddress.Parse(value));
+        
     }
 }

@@ -4,28 +4,12 @@ public sealed class TaskService : ITaskService
 {
     private readonly ITaskStatusRepository _taskRepository;
     private readonly ILogger<TaskService> _logger;
-    private readonly IUserRepository _userRepository;
 
-    public TaskService(ILogger<TaskService> logger, IUserRepository userRepository,
+    public TaskService(ILogger<TaskService> logger,
         ITaskStatusRepository taskStatusRepository)
     {
         _logger = logger;
-        _userRepository = userRepository;
         _taskRepository = taskStatusRepository;
-    }
-
-    public async Task<UsersInvolvedInTask> GetUsersInvolvedInTask(Guid authorGuid, Guid? executorGuid = null,
-        Guid? inspectorGuid = null,
-        ICollection<Guid>? observerGuids = null)
-    {
-        var user = await _userRepository.GetUserByGuid(authorGuid);
-
-        // TODO: Доделать
-
-        if (user == null)
-            throw new Exception("Not found user with guid");
-
-        return new UsersInvolvedInTask(user);
     }
 
     public async Task<ServiceResult<TaskStatusDbEntity>> GetOrCreateTaskByName(string name)
@@ -61,13 +45,13 @@ public sealed class TaskService : ITaskService
         }
     }
 
-    public ServiceResult<TaskDbEntity> SetExecutor(TaskDbEntity task, UserDbEntity? newExecutor)
+    public ServiceResult<TaskDbEntity> SetExecutor(TaskDbEntity task, Guid? newExecutor)
     {
         try
         {
-            if (task.Executor?.Id != newExecutor?.Id)
+            if (task.Executor != newExecutor)
                 task.Executor = newExecutor;
-            
+
             return new ServiceResult<TaskDbEntity>(task);
         }
         catch (Exception e)
@@ -77,13 +61,13 @@ public sealed class TaskService : ITaskService
         }
     }
 
-    public ServiceResult<TaskDbEntity> SetInspector(UserDbEntity? inspector, TaskDbEntity task)
+    public ServiceResult<TaskDbEntity> SetInspector(Guid? inspector, TaskDbEntity task)
     {
         try
         {
-            if (inspector?.Id != task.Inspector?.Id)
+            if (inspector != task.Inspector)
                 task.Inspector = inspector;
-            
+
             return new ServiceResult<TaskDbEntity>(task);
         }
         catch (Exception e)
@@ -108,8 +92,9 @@ public sealed class TaskService : ITaskService
         }
     }
 
-    public ServiceResult<TaskDbEntity> CreateTask(string name, string? description, UserDbEntity author, TaskStatusDbEntity status,
-        UserDbEntity? executor, UserDbEntity? inspector)
+    public ServiceResult<TaskDbEntity> CreateTask(string name, string? description, Guid author,
+        TaskStatusDbEntity status,
+        Guid? executor, Guid? inspector)
     {
         try
         {
@@ -123,7 +108,7 @@ public sealed class TaskService : ITaskService
                 Executor = executor,
                 Inspector = inspector,
             };
-            
+
             return new ServiceResult<TaskDbEntity>(task);
         }
         catch (Exception e)

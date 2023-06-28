@@ -5,21 +5,19 @@ namespace TaskService.Infrastructure.Handlers.TaskController;
 public sealed class CreateTaskTaskHandler : RequestHandlerBase<CreateTaskDtoRequest>
 {
     private readonly IBus _bus;
-    private readonly IUserRepository _userRepository;
     private readonly ILogger<CreateTaskTaskHandler> _logger;
     private readonly ITaskStatusRepository _statusRepository;
     private readonly ITaskRepository _taskRepository;
     private readonly ITaskService _taskService;
 
     public CreateTaskTaskHandler(ILogger<CreateTaskTaskHandler> logger, ITaskRepository taskRepository,
-        ITaskService taskService, ITaskStatusRepository statusRepository, IBus bus, IUserRepository userRepository)
+        ITaskService taskService, ITaskStatusRepository statusRepository, IBus bus)
     {
         _logger = logger;
         _taskRepository = taskRepository;
         _taskService = taskService;
         _statusRepository = statusRepository;
         _bus = bus;
-        _userRepository = userRepository;
     }
 
     public override async Task<IActionResult> Handle(CreateTaskDtoRequest request, CancellationToken cancellationToken)
@@ -27,19 +25,11 @@ public sealed class CreateTaskTaskHandler : RequestHandlerBase<CreateTaskDtoRequ
         try
         { 
             var (name, description, authorGuid, statusId, executorId, inspectorId) = request.CreateTaskDto;
-            
-            var author = await _userRepository.GetUserByIdentityGuid(authorGuid);
-            if (author == null)
-                return NotFound("Not found author");
 
             var status = await _statusRepository.GetById(statusId) 
                          ?? await _statusRepository.GetDefaultTaskStatus();
 
-            var executor = await _userRepository.GetUserById(executorId);
-            
-            var inspector = await _userRepository.GetUserById(inspectorId);
-
-            var serviceResult = _taskService.CreateTask(name, description, author, status, executor, inspector);
+            var serviceResult = _taskService.CreateTask(name, description, authorGuid, status, executorId, inspectorId);
             if (serviceResult.Value == null)
                 return Error(serviceResult.Error);
 

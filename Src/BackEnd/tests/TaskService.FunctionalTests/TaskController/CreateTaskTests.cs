@@ -25,7 +25,7 @@ public sealed class CreateTaskTests : TestBase
     {
         var defaultUser = await GetDefaultUser();
 
-        var dto = new CreateTaskDto("New task", "New description", defaultUser.IdentityGuid,
+        var dto = new CreateTaskDto("New task", "New description", defaultUser.PublicId,
             1, defaultUser.Id, null);
         var result = await HttpClient.PostAsync("task/",
             GetStringContent(dto.ToJson()));

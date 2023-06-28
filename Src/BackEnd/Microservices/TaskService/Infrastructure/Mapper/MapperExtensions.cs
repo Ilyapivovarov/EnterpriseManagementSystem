@@ -14,10 +14,7 @@ public static class MapperExtensions
 
         cfg.CreateMap<TaskDbEntity, TaskDto>()
             .ConvertUsing<TaskDbEntityToDtoConverter>();
-
-        cfg.CreateMap<UserDbEntity, UserDto>()
-            .ConvertUsing<UserDbEntityToDtoConverter>();
-
+        
         cfg.CreateMap<TaskStatusDbEntity, TaskStatusDto>()
             .ConvertUsing<TaskStatusToDtoConverter>();
 
@@ -33,14 +30,6 @@ public static class MapperExtensions
         => taskDbEntity == null
             ? RecordsCollection<TaskDto>.Empty
             : Mapper.Map<ICollection<TaskDbEntity>, RecordsCollection<TaskDto>>(taskDbEntity);
-
-    public static UserDto ToDto(this UserDbEntity userDbEntity) 
-        => Mapper.Map<UserDbEntity, UserDto>(userDbEntity);
-
-    public static RecordsCollection<UserDto> ToDto(this ICollection<UserDbEntity>? userDbEntities) 
-        => userDbEntities == null
-            ? RecordsCollection<UserDto>.Empty
-            : Mapper.Map<ICollection<UserDbEntity>, RecordsCollection<UserDto>>(userDbEntities);
 
     public static TaskStatusDto ToDto(this TaskStatusDbEntity taskStatusDbEntity) 
         => Mapper.Map<TaskStatusDbEntity, TaskStatusDto>(taskStatusDbEntity);

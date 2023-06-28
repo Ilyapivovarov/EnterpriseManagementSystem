@@ -21,7 +21,7 @@ public sealed class TaskStatusRepository : SqlRepositoryBase, ITaskStatusReposit
 
     public async Task<TaskStatusDbEntity?> GetByGuid(Guid guid)
     {
-        return await LoadDataAsync(db => db.TaskStatuses.FirstOrDefault(x => x.Guid == guid));
+        return await LoadDataAsync(db => db.TaskStatuses.FirstOrDefault(x => x.PublicId == guid));
     }
 
     public async Task<TaskStatusDbEntity> GetDefaultTaskStatus()
