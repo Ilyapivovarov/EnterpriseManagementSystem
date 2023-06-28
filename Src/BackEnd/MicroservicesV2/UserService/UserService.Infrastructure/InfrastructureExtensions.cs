@@ -1,4 +1,5 @@
 using System.Reflection;
+using EnterpriseManagementSystem.Contracts.Messages;
 using EnterpriseManagementSystem.Helpers.Extensions;
 using EnterpriseManagementSystem.JwtAuthorization;
 using EnterpriseManagementSystem.MessageBroker;
@@ -64,7 +65,7 @@ public static class InfrastructureExtensions
 
         services.AddMessageBroker(initializer =>
         {
-            initializer.SubscribeOnEvent<SignUpUserIntegrationEvent, SignUpUserEventHandler>();
+            initializer.SubscribeOnMessage<SignUpUserMessage, SignUpUserMessageHandler>();
         });
 
         #endregion

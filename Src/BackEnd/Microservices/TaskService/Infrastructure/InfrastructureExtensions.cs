@@ -1,7 +1,5 @@
-using EnterpriseManagementSystem.Contracts.IntegrationEvents;
 using EnterpriseManagementSystem.Helpers.Extensions;
 using EnterpriseManagementSystem.MessageBroker;
-using TaskService.Infrastructure.IntegrationEventHandlers;
 
 namespace TaskService.Infrastructure;
 
@@ -55,7 +53,7 @@ public static class InfrastructureExtensions
 
         services.AddMessageBroker(initializer =>
         {
-            initializer.SubscribeOnEvent<SignUpUserIntegrationEvent, SignUpIntegrationEventHandler>();
+            // initializer.SubscribeOnEvent<SignUpUserIntegrationEvent, SignUpIntegrationEventHandler>();
         });
 
         #endregion

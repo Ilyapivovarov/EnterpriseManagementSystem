@@ -1,3 +1,4 @@
+using EnterpriseManagementSystem.Contracts.Messages;
 using IdentityService.Infrastructure.Mapper;
 
 namespace IdentityService.Infrastructure.Handlers;
@@ -55,9 +56,15 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
                 await _cacheService.SetAsync(session.RefreshToken, session.AccessToken, 
                     session.RefreshToken.GetExpirationTime());
 
-                var @event = new SignUpUserIntegrationEvent(new UserDataResponse(newUser.Guid, firstName,
-                    lastName, signUpDto.Email, null));
-                await _bus.PublishAsync(@event);
+                var @event = new SignUpUserMessage
+                {
+                    IdentityGuid = newUser.Guid,
+                    DataBrith = DateTime.Now,
+                    EmailAddress = newUser.Email.Address,
+                    FirstName = firstName,
+                    LastName = lastName,
+                };
+                await _bus.SendMessageAsync(@event);
             
                 return new OkObjectResult(session.ToDto());
             }

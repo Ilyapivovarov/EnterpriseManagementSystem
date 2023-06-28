@@ -1,3 +1,5 @@
+using EnterpriseManagementSystem.Contracts.Messages;
+
 namespace IdentityService.Infrastructure.DbContexts;
 
 public sealed class IdentityDbContextSeed
@@ -33,7 +35,7 @@ public sealed class IdentityDbContextSeed
 
         return true;
     }
-    
+
     public static async Task InitDevDataAsync(IServiceProvider services)
     {
         var logger = services.GetRequiredService<ILogger<IdentityDbContextSeed>>();
@@ -47,7 +49,7 @@ public sealed class IdentityDbContextSeed
                     throw new Exception("Error while save user roles");
 
                 await CreateAndSaveDefaultUser(services);
-                
+
                 var mediator = services.GetRequiredService<IMediator>();
                 for (var i = 1; i < 10; i++)
                 {
@@ -71,16 +73,24 @@ public sealed class IdentityDbContextSeed
             throw new Exception("Admin role is null");
 
         var userService = services.GetRequiredService<IUserService>();
-        var defaultUser = userService.Create(EmailAddress.Parse("admin@ems.com"), Password.Parse(services.GetRequiredService<ISecurityService>().EncryptPasswordOrException("admin")), adminRole);
+        var defaultUser = userService.Create(EmailAddress.Parse("admin@ems.com"),
+            Password.Parse(services.GetRequiredService<ISecurityService>().EncryptPasswordOrException("admin")),
+            adminRole);
         var saveUserResult = await services.GetRequiredService<IUserRepository>()
             .SaveUserAsync(defaultUser);
         if (!saveUserResult)
             throw new Exception("Error while save default user");
 
-        var @event = new SignUpUserIntegrationEvent(new UserDataResponse(defaultUser.Guid, "Admin", "Admin",
-            defaultUser.Email.Address, DateTime.Now));
+        var @event = new SignUpUserMessage
+        {
+            IdentityGuid = defaultUser.Guid,
+            FirstName = "Admin",
+            LastName = "Admin",
+            EmailAddress = defaultUser.Email.Address,
+            DataBrith = DateTime.Now
+        };
 
         var bus = services.GetRequiredService<IBus>();
-        await bus.PublishAsync(@event);
+        await bus.SendMessageAsync(@event);
     }
 }
