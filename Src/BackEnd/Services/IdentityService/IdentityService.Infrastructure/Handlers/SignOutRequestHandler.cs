@@ -11,7 +11,7 @@ public sealed class SignOutRequestHandler : IRequestHandler<SignOutRequest, IAct
         _cacheService = cacheService;
     }
 
-    public async Task<IActionResult> Handle(SignOutRequest signOutRequest, CancellationToken cancellationToken)
+    public Task<IActionResult> Handle(SignOutRequest signOutRequest, CancellationToken cancellationToken)
     {
         try
         {
@@ -23,12 +23,12 @@ public sealed class SignOutRequestHandler : IRequestHandler<SignOutRequest, IAct
             // if (!await _sessionRepository.RemoveSession(session))
             //     return new BadRequestResult();
 
-            return new OkResult();
+            return Task.FromResult<IActionResult>(new OkResult());
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
-            return new BadRequestObjectResult(e.Message);
+            return Task.FromResult<IActionResult>(new BadRequestObjectResult(e.Message));
         }
     }
 }

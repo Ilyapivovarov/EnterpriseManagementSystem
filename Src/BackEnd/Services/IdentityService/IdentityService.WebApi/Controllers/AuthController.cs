@@ -80,8 +80,8 @@ public sealed class AuthController : ControllerBase
     [HttpPut]
     [Authorize]
     [Route("test")]
-    public async Task<IActionResult> Test()
+    public Task<IActionResult> Test()
     {
-        return Ok(_currenSession);
+        return Task.FromResult<IActionResult>(Ok(_currenSession));
     }
 }

@@ -30,9 +30,8 @@ public sealed class SendMailForVerificationHostedService : IHostedService, IDisp
         _timer?.Dispose();
     }
 
-    private async void DoWork(object? sate)
+    private void DoWork(object? sate)
     {
-        // var notVerifiedEmails = await _emailAddressRepository.GetNotVerified();
         throw new NotImplementedException();
     }
 }

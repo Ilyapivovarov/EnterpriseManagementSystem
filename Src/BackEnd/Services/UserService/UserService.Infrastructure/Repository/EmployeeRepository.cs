@@ -37,7 +37,7 @@ public sealed class EmployeeRepository : RepositoryBase, IEmployeeRepository
         return await WriteDataAsync(db => db.Employees.Update(employeeDbEntity));
     }
 
-    public async Task<bool> DeleteAsync(EmployeeDbEntity employeeDbEntity)
+    public Task<bool> DeleteAsync(EmployeeDbEntity employeeDbEntity)
     {
         throw new NotImplementedException();
     }

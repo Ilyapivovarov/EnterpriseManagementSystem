@@ -26,9 +26,4 @@
       <ProjectReference Include="..\TaskService.Application\TaskService.Application.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.0.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.7" />
-    </ItemGroup>
-
 </Project>
