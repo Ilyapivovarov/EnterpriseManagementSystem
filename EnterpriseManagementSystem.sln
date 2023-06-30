@@ -77,6 +77,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Infrastructure"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.WebApi", "Src\BackEnd\MicroservicesV2\UserService\UserService.WebApi\UserService.WebApi.csproj", "{70AA0CE8-7743-4708-8B78-795B1A74EBCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService.Core", "Src\BackEnd\MicroservicesV2\TaskService\TaskService.Core\TaskService.Core.csproj", "{A77AC5FC-35C6-4C0D-B547-BA2753BFBFC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskService", "TaskService", "{4412EA5B-9EDB-409A-A798-38991BD985E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService.Application", "Src\BackEnd\MicroservicesV2\TaskService\TaskService.Application\TaskService.Application.csproj", "{96C6BA78-57FD-4694-82B5-7C9E46BE155B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService.Infrastructure", "Src\BackEnd\MicroservicesV2\TaskService\TaskService.Infrastructure\TaskService.Infrastructure.csproj", "{1C36CE73-9552-4856-BB20-DA4ECF92C4A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService.WebApi", "Src\BackEnd\MicroservicesV2\TaskService\TaskService.WebApi\TaskService.WebApi.csproj", "{1BECD742-1413-4553-B6CC-78E46447E8AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -179,6 +189,22 @@ Global
 		{70AA0CE8-7743-4708-8B78-795B1A74EBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70AA0CE8-7743-4708-8B78-795B1A74EBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70AA0CE8-7743-4708-8B78-795B1A74EBCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A77AC5FC-35C6-4C0D-B547-BA2753BFBFC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A77AC5FC-35C6-4C0D-B547-BA2753BFBFC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A77AC5FC-35C6-4C0D-B547-BA2753BFBFC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A77AC5FC-35C6-4C0D-B547-BA2753BFBFC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96C6BA78-57FD-4694-82B5-7C9E46BE155B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96C6BA78-57FD-4694-82B5-7C9E46BE155B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96C6BA78-57FD-4694-82B5-7C9E46BE155B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96C6BA78-57FD-4694-82B5-7C9E46BE155B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C36CE73-9552-4856-BB20-DA4ECF92C4A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C36CE73-9552-4856-BB20-DA4ECF92C4A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C36CE73-9552-4856-BB20-DA4ECF92C4A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C36CE73-9552-4856-BB20-DA4ECF92C4A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BECD742-1413-4553-B6CC-78E46447E8AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BECD742-1413-4553-B6CC-78E46447E8AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BECD742-1413-4553-B6CC-78E46447E8AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BECD742-1413-4553-B6CC-78E46447E8AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -219,6 +245,11 @@ Global
 		{407E8F1C-6C28-4E37-9813-66C2C0F63EB4} = {CB5B0950-4E86-4680-A99E-0E336DE8301C}
 		{CEFAB121-4054-4F9F-A4F6-CFB3BCE721B8} = {CB5B0950-4E86-4680-A99E-0E336DE8301C}
 		{70AA0CE8-7743-4708-8B78-795B1A74EBCD} = {CB5B0950-4E86-4680-A99E-0E336DE8301C}
+		{4412EA5B-9EDB-409A-A798-38991BD985E2} = {5C5F6EF3-19E2-4C3A-8A75-0C669676C167}
+		{A77AC5FC-35C6-4C0D-B547-BA2753BFBFC4} = {4412EA5B-9EDB-409A-A798-38991BD985E2}
+		{96C6BA78-57FD-4694-82B5-7C9E46BE155B} = {4412EA5B-9EDB-409A-A798-38991BD985E2}
+		{1C36CE73-9552-4856-BB20-DA4ECF92C4A7} = {4412EA5B-9EDB-409A-A798-38991BD985E2}
+		{1BECD742-1413-4553-B6CC-78E46447E8AE} = {4412EA5B-9EDB-409A-A798-38991BD985E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6CFA357-8DFC-4CC6-A57E-D1E92BBC71A6}
