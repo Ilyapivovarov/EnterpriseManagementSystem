@@ -7,20 +7,20 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.WebApi/IdentityService.WebApi.csproj", "Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.WebApi/"]
+COPY ["Src/BackEnd/Services/IdentityService/IdentityService.WebApi/IdentityService.WebApi.csproj", "Src/BackEnd/Services/IdentityService/IdentityService.WebApi/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.Contracts/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.BusinessModels/EnterpriseManagementSystem.BusinessModels.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.BusinessModels/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.MessageBroker/EnterpriseManagementSystem.MessageBroker.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.MessageBroker/"]
-COPY ["Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.Infrastructure/IdentityService.Infrastructure.csproj", "Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.Infrastructure/"]
+COPY ["Src/BackEnd/Services/IdentityService/IdentityService.Infrastructure/IdentityService.Infrastructure.csproj", "Src/BackEnd/Services/IdentityService/IdentityService.Infrastructure/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.Cache/EnterpriseManagementSystem.Cache.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.Cache/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.Helpers/EnterpriseManagementSystem.Helpers.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.Helpers/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.JwtAuthorization/EnterpriseManagementSystem.JwtAuthorization.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.JwtAuthorization/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.Logging/EnterpriseManagementSystem.Logging.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.Logging/"]
-COPY ["Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.Application/IdentityService.Application.csproj", "Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.Application/"]
-COPY ["Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.Core/IdentityService.Core.csproj", "Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.Core/"]
-RUN dotnet restore "Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.WebApi/IdentityService.WebApi.csproj"
+COPY ["Src/BackEnd/Services/IdentityService/IdentityService.Application/IdentityService.Application.csproj", "Src/BackEnd/Services/IdentityService/IdentityService.Application/"]
+COPY ["Src/BackEnd/Services/IdentityService/IdentityService.Core/IdentityService.Core.csproj", "Src/BackEnd/Services/IdentityService/IdentityService.Core/"]
+RUN dotnet restore "Src/BackEnd/Services/IdentityService/IdentityService.WebApi/IdentityService.WebApi.csproj"
 COPY . .
-WORKDIR "/src/Src/BackEnd/MicroservicesV2/IdentityService/IdentityService.WebApi"
+WORKDIR "/src/Src/BackEnd/Services/IdentityService/IdentityService.WebApi"
 RUN dotnet build "IdentityService.WebApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
