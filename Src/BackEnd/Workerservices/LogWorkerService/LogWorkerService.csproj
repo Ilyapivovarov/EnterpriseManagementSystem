@@ -39,4 +39,8 @@
       <ProjectReference Include="..\..\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
       <ProjectReference Include="..\..\Packages\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Dockerfile1.original" />
+    </ItemGroup>
 </Project>

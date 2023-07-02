@@ -7,31 +7,28 @@ networks:
 services:
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway
-    hostname: api-gateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
       dockerfile: Src/BackEnd/Gateways/ApiGateway/Dockerfile
-    ports:
-      - "8080:80"
     networks:
       ems-network:
         ipv4_address: 10.20.10.100
-    depends_on:
-      - identityservice
-
-  emailservice:
-    image: ${DOCKER_REGISTRY-}emailservice
+    
+  logworkerservice:
+    image: ${DOCKER_REGISTRY-}logworkerservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
-      dockerfile: Src/BackEnd/Microservices/EmailService/Dockerfile
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.102
-    depends_on:
-      - identityservice
-    
-  identityservice:
-    image: ${DOCKER_REGISTRY-}identityservice
+      dockerfile: Src/BackEnd/Workerservices/LogWorkerService/Dockerfile
+
+
+  identityservice.webapi:
+    image: ${DOCKER_REGISTRY-}identityservicewebapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
       dockerfile: Src/BackEnd/Services/IdentityService/IdentityService.WebApi/Dockerfile
@@ -39,50 +36,25 @@ services:
       ems-network:
         ipv4_address: 10.20.10.101
 
-  taskservice:
-    image: ${DOCKER_REGISTRY-}taskservice
+
+  taskservice.webapi:
+    image: ${DOCKER_REGISTRY-}taskservicewebapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
-      dockerfile: Src/BackEnd/Microservices/TaskService/Dockerfile
+      dockerfile: Src/BackEnd/Services/TaskService/TaskService.WebApi/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.103
-    depends_on:
-      - identityservice
 
   userservice.webapi:
-    image: userservice.webapi
+    image: ${DOCKER_REGISTRY-}userservicewebapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
       dockerfile: Src/BackEnd/Services/UserService/UserService.WebApi/Dockerfile
     networks:
       ems-network:
         ipv4_address: 10.20.10.104
-    depends_on:
-      - identityservice
-
-  logworkerservice:
-    image: ${DOCKER_REGISTRY-}logworkerservice
-    build:
-      context: .
-      dockerfile: Src/BackEnd/Microservices/LogWorkerService/Dockerfile
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.105
-    
-  adminblazorapp:
-    image: ${DOCKER_REGISTRY-}adminblazorapp
-    build:
-      context: .
-      dockerfile: Src/FrontEnd/AdminBlazorApp/Dockerfile
-
-  reactapp:
-    image: ${DOCKER_REGISTRY-}reactapp
-    build:
-      context: .
-      dockerfile: Src/FrontEnd/ReactApp/Dockerfile
-    depends_on:
-      - apigateway
-    ports:
-      - "3001:80"
-  

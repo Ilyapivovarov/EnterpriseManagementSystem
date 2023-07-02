@@ -3,13 +3,13 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>29510c00-489a-47fd-922a-85fd5a8f43f2</ProjectGuid>
-    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>adminblazorapp</DockerServiceName>
+    <ProjectGuid>184978bc-5bab-41d9-902a-6d630012be03</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dev-env\docker-compose.yml" />
   </ItemGroup>
 </Project>
