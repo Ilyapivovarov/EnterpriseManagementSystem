@@ -17,7 +17,7 @@
       "applicationUrl": "https://localhost:7064;http://localhost:5064",
       "dotnetRunMessages": true
     },
-    "Release": {
+    "Production": {
       "commandName": "Project",
       "applicationUrl": "https://localhost:7064;http://localhost:5064",
       "dotnetRunMessages": true,

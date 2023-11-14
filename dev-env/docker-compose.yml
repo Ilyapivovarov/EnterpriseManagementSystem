@@ -1,12 +1,5 @@
 version: '3.9'
 
-networks:
-  ems-network:
-    name: "ems-network"
-    ipam:
-      config:
-        - subnet: 10.20.10.0/24
-
 services:
   db:
     image: "mcr.microsoft.com/mssql/server"
@@ -14,9 +7,6 @@ services:
     environment:
       ACCEPT_EULA: Y
       SA_PASSWORD: yourStrong(!)Password
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.5
     restart: always
     ports:
       - "1433:1433"
@@ -24,9 +14,6 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     hostname: "rabbit-mq"
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.6
     restart: always
     ports:
       - "5672:5672"
@@ -35,9 +22,6 @@ services:
   mongo:
     image: mongo
     hostname: "mongo"
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.7
     restart: always
     ports:
       - "27017:27017"
@@ -45,9 +29,6 @@ services:
   mongo-express:
     image: mongo-express
     hostname: "mongo-express"
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.8
     depends_on:
       - mongo
     restart: always
@@ -62,9 +43,6 @@ services:
     environment:
       ALLOW_EMPTY_PASSWROD: yes
       REDIS_REPLICATION_MODE: master
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.9
     restart: always
     ports:
       - '6379:6379'
