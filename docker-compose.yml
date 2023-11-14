@@ -6,7 +6,10 @@ networks:
 
 services:
   apigateway:
-    image: ${DOCKER_REGISTRY-}apigateway
+    image: api-gateway
+    container_name: "ApiGateway"
+    ports:
+      - "8080:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
@@ -15,18 +18,10 @@ services:
     networks:
       ems-network:
         ipv4_address: 10.20.10.100
-    
-  logworkerservice:
-    image: ${DOCKER_REGISTRY-}logworkerservice
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    build:
-      context: .
-      dockerfile: Src/BackEnd/Workerservices/LogWorkerService/Dockerfile
-
-
+  
   identityservice.webapi:
-    image: ${DOCKER_REGISTRY-}identityservicewebapi
+    image: identity-service-webapi
+    container_name: "IdentityServiceWebApi"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
@@ -36,9 +31,9 @@ services:
       ems-network:
         ipv4_address: 10.20.10.101
 
-
   taskservice.webapi:
-    image: ${DOCKER_REGISTRY-}taskservicewebapi
+    image: task-service-webapi
+    container_name: "TaskServiceWebApi"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
@@ -49,7 +44,8 @@ services:
         ipv4_address: 10.20.10.103
 
   userservice.webapi:
-    image: ${DOCKER_REGISTRY-}userservicewebapi
+    image: user-service-webapi
+    container_name: "UserServiceWebApi"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
@@ -58,3 +54,15 @@ services:
     networks:
       ems-network:
         ipv4_address: 10.20.10.104
+  
+  logworkerservice:
+    image: log-worker-service
+    container_name: "LogWorkerService"
+    environment:
+      - DOTNET_ENVIRONMENT=Production
+    build:
+      context: .
+      dockerfile: Src/BackEnd/WorkerServices/LogWorkerService/Dockerfile
+    networks:
+      ems-network:
+        ipv4_address: 10.20.10.105

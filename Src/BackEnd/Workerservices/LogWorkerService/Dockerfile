@@ -5,13 +5,13 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Src/BackEnd/Workerservices/LogWorkerService/LogWorkerService.csproj", "Src/BackEnd/Workerservices/LogWorkerService/"]
+COPY ["Src/BackEnd/WorkerServices/LogWorkerService/LogWorkerService.csproj", "Src/BackEnd/WorkerServices/LogWorkerService/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.Contracts/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.BusinessModels/EnterpriseManagementSystem.BusinessModels.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.BusinessModels/"]
 COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.MessageBroker/EnterpriseManagementSystem.MessageBroker.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.MessageBroker/"]
-RUN dotnet restore "Src/BackEnd/Workerservices/LogWorkerService/LogWorkerService.csproj"
+RUN dotnet restore "Src/BackEnd/WorkerServices/LogWorkerService/LogWorkerService.csproj"
 COPY . .
-WORKDIR "/src/Src/BackEnd/Workerservices/LogWorkerService"
+WORKDIR "/src/Src/BackEnd/WorkerServices/LogWorkerService"
 RUN dotnet build "LogWorkerService.csproj" -c Release -o /app/build
 
 FROM build AS publish
