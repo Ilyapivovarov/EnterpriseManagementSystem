@@ -12,7 +12,7 @@ public static class InfrastructureDependencyInjection
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IHostEnvironment environment)
     {
-        services.AddDbContext<LogWorkerDbContext>(builder =>
+        services.AddDbContext<ILogWorkerDbContext, LogWorkerDbContext>(builder =>
         {
             builder = environment.IsEnvironment("Testing")
                 ? builder.UseInMemoryDatabase(configuration.GetConnectionString("RelationalDb")!)
@@ -20,7 +20,6 @@ public static class InfrastructureDependencyInjection
             
             builder.UseLazyLoadingProxies();
         });
-        services.AddScoped<ILogWorkerDbContext, LogWorkerDbContext>();
         
         services.AddMessageBroker(initializer =>
         {

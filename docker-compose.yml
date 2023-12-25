@@ -1,60 +1,87 @@
-version: '3.4'
+version: '3.9'
 
-networks:
-  ems-network:
-    external: true
+name: ems-production
 
 services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    hostname: db
+    container_name: MsSqlServer
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: yourStrong(!)Password
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbit-mq
+    container_name: RabbitMq
+    restart: always
+    ports:
+      - "15673:15672"
+
+  mongo:
+    image: mongo
+    container_name: Mongo
+    hostname: mongo
+    restart: always
+
+  redis:
+    image: redis
+    hostname: redis
+    container_name: Redis
+    environment:
+      ALLOW_EMPTY_PASSWROD: yes
+      REDIS_REPLICATION_MODE: master
+    restart: always
+
   apigateway:
-    image: ${DOCKER_REGISTRY-}apigateway
+    image: api-gateway
+    container_name: ApiGateway
+    hostname: api.ems.com
+    ports:
+      - "8080:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
       dockerfile: Src/BackEnd/Gateways/ApiGateway/Dockerfile
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.100
-
-  logworkerservice:
-    image: ${DOCKER_REGISTRY-}logworkerservice
-    environment:
-      - DOTNET_ENVIRONMENT=Production
-    build:
-      context: .
-      dockerfile: Src/BackEnd/Workerservices/LogWorkerService/Dockerfile
-
 
   identityservice.webapi:
-    image: ${DOCKER_REGISTRY-}identityservicewebapi
+    image: identity-service-webapi
+    container_name: IdentityServiceApi
+    hostname: api.ems.identity.com
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
       dockerfile: Src/BackEnd/Services/IdentityService/IdentityService.WebApi/Dockerfile
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.101
-
 
   taskservice.webapi:
-    image: ${DOCKER_REGISTRY-}taskservicewebapi
+    image: task-service-webapi
+    container_name: TaskServiceApi
+    hostname: api.ems.task.com
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
       dockerfile: Src/BackEnd/Services/TaskService/TaskService.WebApi/Dockerfile
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.103
 
   userservice.webapi:
-    image: ${DOCKER_REGISTRY-}userservicewebapi
+    image: user-service-webapi
+    container_name: UserServiceApi
+    hostname: api.ems.user.com
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
       dockerfile: Src/BackEnd/Services/UserService/UserService.WebApi/Dockerfile
-    networks:
-      ems-network:
-        ipv4_address: 10.20.10.104
+
+  logworkerservice:
+    image: log-worker-service
+    container_name: LogWorkerService
+    environment:
+      - DOTNET_ENVIRONMENT=Production
+    build:
+      context: .
+      dockerfile: Src/BackEnd/WorkerServices/LogWorkerService/Dockerfile
