@@ -1,5 +1,4 @@
 using LogWorkerService.Infrastructure;
-using LogWorkerService.Infrastructure.DbContexts;
 
 var builder = Host.CreateApplicationBuilder(args);
 
