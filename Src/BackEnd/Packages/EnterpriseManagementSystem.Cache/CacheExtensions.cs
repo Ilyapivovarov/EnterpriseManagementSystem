@@ -1,4 +1,5 @@
-﻿namespace EnterpriseManagementSystem.Cache;
+﻿using EnterpriseManagementSystem.Cache.CacheServices;
+namespace EnterpriseManagementSystem.Cache;
 
 public static class CacheExtensions
 {
