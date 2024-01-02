@@ -1,4 +1,6 @@
-﻿namespace EnterpriseManagementSystem.MessageBroker.Implementations;
+﻿using System.Reflection;
+using MassTransit.Configuration;
+namespace EnterpriseManagementSystem.MessageBroker.Implementations;
 
 internal sealed class BusInitializer : IBusInitializer
 {
@@ -9,18 +11,19 @@ internal sealed class BusInitializer : IBusInitializer
         _configurator = configurator;
     }
 
-    public void SubscribeOnMessage<TMessage, TMessageHandler>() 
-        where TMessage : class, IMessage 
+    public void SubscribeOnMessage<TMessage, TMessageHandler>(Action<IRegistrationContext, IConsumerConfigurator<TMessageHandler>>? configurator = null)
+        where TMessage : class, IMessage
         where TMessageHandler : class, IMessageHandler<TMessage>
     {
-        _configurator.AddConsumer<TMessageHandler>()
+        _configurator.AddConsumer(configurator)
             .Endpoint(x => x.Name = typeof(TMessage).Name);
     }
 
-    public void SubscribeOnEvent<TIntegrationEvent, TIntegrationEventHandler>() 
-        where TIntegrationEvent : class, IIntegrationEvent 
+    public void SubscribeOnEvent<TIntegrationEvent, TIntegrationEventHandler>(
+        Action<IRegistrationContext, IConsumerConfigurator<TIntegrationEventHandler>>? configurator = null)
+        where TIntegrationEvent : class, IIntegrationEvent
         where TIntegrationEventHandler : class, IIntegrationEventHandler<TIntegrationEvent>
     {
-        _configurator.AddConsumer<TIntegrationEventHandler>();
+        _configurator.AddConsumer<TIntegrationEventHandler>(configurator);
     }
 }
