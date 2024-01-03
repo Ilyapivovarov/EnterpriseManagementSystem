@@ -28,7 +28,7 @@ public sealed class Tests
             Observers: new RecordsCollection<Account>(new Account(executorGuid, EmailAddress.Parse("admin@admin.com"), "admin", "admin")));
 
 
-        Assert.AreEqual(data, data2);
+        Assert.That(data, Is.EqualTo(data2));
     }
 
     [Test]
