@@ -11,17 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{C5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "Src\BackEnd\Gateways\ApiGateway\ApiGateway.csproj", "{C998567F-75DF-4585-85E1-12507DD3211D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Contracts", "Src\BackEnd\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj", "{AF53AE7E-1B17-4AC0-BA9F-230167D8E3E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Contracts", "Src\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj", "{AF53AE7E-1B17-4AC0-BA9F-230167D8E3E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{1E5201C6-325F-42F9-82EE-77917772C1A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{85964933-9048-4BA2-933A-DD75FEFF0B53}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.JwtAuthorization", "Src\BackEnd\Packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj", "{821A4D50-186F-48B8-94A2-28FCEC67D89B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.JwtAuthorization", "Src\Packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj", "{821A4D50-186F-48B8-94A2-28FCEC67D89B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Contracts.Tests", "Src\BackEnd\tests\EnterpriseManagementSystem.Contracts.Tests\EnterpriseManagementSystem.Contracts.Tests.csproj", "{CE9B9A08-B177-425E-862F-601F1ADE07D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.BusinessModels", "Src\BackEnd\Packages\EnterpriseManagementSystem.BusinessModels\EnterpriseManagementSystem.BusinessModels.csproj", "{7AA2F3C6-3216-402B-B6D8-0BEA282C4C0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.BusinessModels", "Src\Packages\EnterpriseManagementSystem.BusinessModels\EnterpriseManagementSystem.BusinessModels.csproj", "{7AA2F3C6-3216-402B-B6D8-0BEA282C4C0C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.BusinessModels.Tests", "Src\BackEnd\tests\EnterpriseManagementSystem.BusinessModels.Tests\EnterpriseManagementSystem.BusinessModels.Tests.csproj", "{D0924D9A-2842-4476-921B-56D3ACA65F4A}"
 EndProject
@@ -29,13 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{89
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminBlazorApp", "Src\FrontEnd\AdminBlazorApp\AdminBlazorApp.csproj", "{0A75A451-8DBC-49D9-B36F-F7032B72900C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.MessageBroker", "Src\BackEnd\Packages\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj", "{85DD6067-2E88-485C-BAD5-3AA1805B58AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.MessageBroker", "Src\Packages\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj", "{85DD6067-2E88-485C-BAD5-3AA1805B58AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Logging", "Src\BackEnd\Packages\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj", "{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Logging", "Src\Packages\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj", "{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Helpers", "Src\BackEnd\Packages\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj", "{EECF6F21-E188-4A98-8920-3C88AF83C3EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Helpers", "Src\Packages\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj", "{EECF6F21-E188-4A98-8920-3C88AF83C3EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Cache", "Src\BackEnd\Packages\EnterpriseManagementSystem.Cache\EnterpriseManagementSystem.Cache.csproj", "{34C996EE-E2C4-4929-A09A-896DAE13EF41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Cache", "Src\Packages\EnterpriseManagementSystem.Cache\EnterpriseManagementSystem.Cache.csproj", "{34C996EE-E2C4-4929-A09A-896DAE13EF41}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5C5F6EF3-19E2-4C3A-8A75-0C669676C167}"
 EndProject
@@ -74,6 +74,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogWorkerService", "Src\BackEnd\WorkerServices\LogWorkerService\LogWorkerService.csproj", "{1F164929-A1D1-44AA-906A-211C57B3A8B5}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{184978BC-5BAB-41D9-902A-6D630012BE03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{178D8D87-14C6-4E85-A079-2A95788054A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -189,19 +191,12 @@ Global
 		{1A83A607-9ED5-4EE0-854C-05C0EA377FD2} = {2C855623-C735-4A5F-92F2-471E2DB49458}
 		{C59F0C16-EA67-48C4-B4C2-8153C6E94AAE} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
 		{C998567F-75DF-4585-85E1-12507DD3211D} = {C59F0C16-EA67-48C4-B4C2-8153C6E94AAE}
-		{AF53AE7E-1B17-4AC0-BA9F-230167D8E3E0} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
 		{1E5201C6-325F-42F9-82EE-77917772C1A4} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
 		{85964933-9048-4BA2-933A-DD75FEFF0B53} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
-		{821A4D50-186F-48B8-94A2-28FCEC67D89B} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
 		{CE9B9A08-B177-425E-862F-601F1ADE07D4} = {85964933-9048-4BA2-933A-DD75FEFF0B53}
-		{7AA2F3C6-3216-402B-B6D8-0BEA282C4C0C} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
 		{D0924D9A-2842-4476-921B-56D3ACA65F4A} = {85964933-9048-4BA2-933A-DD75FEFF0B53}
 		{89010619-BD5C-4108-92FF-B1012D8DF6A6} = {2C855623-C735-4A5F-92F2-471E2DB49458}
 		{0A75A451-8DBC-49D9-B36F-F7032B72900C} = {89010619-BD5C-4108-92FF-B1012D8DF6A6}
-		{85DD6067-2E88-485C-BAD5-3AA1805B58AD} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
-		{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
-		{EECF6F21-E188-4A98-8920-3C88AF83C3EF} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
-		{34C996EE-E2C4-4929-A09A-896DAE13EF41} = {1E5201C6-325F-42F9-82EE-77917772C1A4}
 		{5C5F6EF3-19E2-4C3A-8A75-0C669676C167} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
 		{2CA9C8CF-3658-4557-BB3C-771A5E7B7A92} = {5C5F6EF3-19E2-4C3A-8A75-0C669676C167}
 		{50217222-78C2-4692-BFB1-FD4E4B5AA4B3} = {2CA9C8CF-3658-4557-BB3C-771A5E7B7A92}
@@ -220,6 +215,14 @@ Global
 		{1BECD742-1413-4553-B6CC-78E46447E8AE} = {4412EA5B-9EDB-409A-A798-38991BD985E2}
 		{8E6809F7-5FF4-4CE6-907F-B2FC93F237A7} = {1A83A607-9ED5-4EE0-854C-05C0EA377FD2}
 		{1F164929-A1D1-44AA-906A-211C57B3A8B5} = {8E6809F7-5FF4-4CE6-907F-B2FC93F237A7}
+		{178D8D87-14C6-4E85-A079-2A95788054A3} = {2C855623-C735-4A5F-92F2-471E2DB49458}
+		{85DD6067-2E88-485C-BAD5-3AA1805B58AD} = {178D8D87-14C6-4E85-A079-2A95788054A3}
+		{7AA2F3C6-3216-402B-B6D8-0BEA282C4C0C} = {178D8D87-14C6-4E85-A079-2A95788054A3}
+		{EECF6F21-E188-4A98-8920-3C88AF83C3EF} = {178D8D87-14C6-4E85-A079-2A95788054A3}
+		{AF53AE7E-1B17-4AC0-BA9F-230167D8E3E0} = {178D8D87-14C6-4E85-A079-2A95788054A3}
+		{34C996EE-E2C4-4929-A09A-896DAE13EF41} = {178D8D87-14C6-4E85-A079-2A95788054A3}
+		{9FE2754D-D2C1-4430-B0B8-831D8B0ABC87} = {178D8D87-14C6-4E85-A079-2A95788054A3}
+		{821A4D50-186F-48B8-94A2-28FCEC67D89B} = {178D8D87-14C6-4E85-A079-2A95788054A3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6CFA357-8DFC-4CC6-A57E-D1E92BBC71A6}

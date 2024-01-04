@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
+        <ProjectReference Include="..\..\..\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

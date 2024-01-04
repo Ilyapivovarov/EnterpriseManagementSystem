@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Packages\EnterpriseManagementSystem.BusinessModels\EnterpriseManagementSystem.BusinessModels.csproj" />
+      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.BusinessModels\EnterpriseManagementSystem.BusinessModels.csproj" />
     </ItemGroup>
 
 </Project>

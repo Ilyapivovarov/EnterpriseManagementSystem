@@ -8,14 +8,14 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["Src/BackEnd/Services/IdentityService/IdentityService.WebApi/IdentityService.WebApi.csproj", "Src/BackEnd/Services/IdentityService/IdentityService.WebApi/"]
-COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.Contracts/"]
-COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.BusinessModels/EnterpriseManagementSystem.BusinessModels.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.BusinessModels/"]
-COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.MessageBroker/EnterpriseManagementSystem.MessageBroker.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.MessageBroker/"]
+COPY ["Src/Packages/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "Src/Packages/EnterpriseManagementSystem.Contracts/"]
+COPY ["Src/Packages/EnterpriseManagementSystem.BusinessModels/EnterpriseManagementSystem.BusinessModels.csproj", "Src/Packages/EnterpriseManagementSystem.BusinessModels/"]
+COPY ["Src/Packages/EnterpriseManagementSystem.MessageBroker/EnterpriseManagementSystem.MessageBroker.csproj", "Src/Packages/EnterpriseManagementSystem.MessageBroker/"]
 COPY ["Src/BackEnd/Services/IdentityService/IdentityService.Infrastructure/IdentityService.Infrastructure.csproj", "Src/BackEnd/Services/IdentityService/IdentityService.Infrastructure/"]
-COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.Cache/EnterpriseManagementSystem.Cache.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.Cache/"]
-COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.Helpers/EnterpriseManagementSystem.Helpers.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.Helpers/"]
-COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.JwtAuthorization/EnterpriseManagementSystem.JwtAuthorization.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.JwtAuthorization/"]
-COPY ["Src/BackEnd/Packages/EnterpriseManagementSystem.Logging/EnterpriseManagementSystem.Logging.csproj", "Src/BackEnd/Packages/EnterpriseManagementSystem.Logging/"]
+COPY ["Src/Packages/EnterpriseManagementSystem.Cache/EnterpriseManagementSystem.Cache.csproj", "Src/Packages/EnterpriseManagementSystem.Cache/"]
+COPY ["Src/Packages/EnterpriseManagementSystem.Helpers/EnterpriseManagementSystem.Helpers.csproj", "Src/Packages/EnterpriseManagementSystem.Helpers/"]
+COPY ["Src/Packages/EnterpriseManagementSystem.JwtAuthorization/EnterpriseManagementSystem.JwtAuthorization.csproj", "Src/Packages/EnterpriseManagementSystem.JwtAuthorization/"]
+COPY ["Src/Packages/EnterpriseManagementSystem.Logging/EnterpriseManagementSystem.Logging.csproj", "Src/Packages/EnterpriseManagementSystem.Logging/"]
 COPY ["Src/BackEnd/Services/IdentityService/IdentityService.Application/IdentityService.Application.csproj", "Src/BackEnd/Services/IdentityService/IdentityService.Application/"]
 COPY ["Src/BackEnd/Services/IdentityService/IdentityService.Core/IdentityService.Core.csproj", "Src/BackEnd/Services/IdentityService/IdentityService.Core/"]
 RUN dotnet restore "Src/BackEnd/Services/IdentityService/IdentityService.WebApi/IdentityService.WebApi.csproj"
