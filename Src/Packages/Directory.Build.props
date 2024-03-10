@@ -1,0 +1,6 @@
+﻿<Project>
+    <PropertyGroup>
+        <OutputPath>..\bin\$(Configuration)\</OutputPath>
+        <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+    </PropertyGroup>
+</Project>
