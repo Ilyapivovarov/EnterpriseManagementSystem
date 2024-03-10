@@ -2,7 +2,7 @@
 
 namespace EnterpriseManagementSystem.BusinessModels;
 
-public readonly record struct EmailAddress : IComparable<EmailAddress>
+public readonly record struct EmailAddress 
 {
     public static EmailAddress Parse(string? value) => new(value);
 
@@ -45,11 +45,7 @@ public readonly record struct EmailAddress : IComparable<EmailAddress>
     }
 
     private static string NormalizeValue(string value) => value.ToLower().Trim();
-
-    public int CompareTo(EmailAddress other)
-    {
-        return string.Compare(Value, other.Value, StringComparison.Ordinal);
-    }
+    
 
     public override string ToString() => Value;
 }
