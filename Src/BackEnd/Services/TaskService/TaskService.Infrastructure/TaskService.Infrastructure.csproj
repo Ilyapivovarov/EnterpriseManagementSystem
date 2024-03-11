@@ -19,10 +19,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
-      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj" />
-      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
-      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj" />
       <ProjectReference Include="..\TaskService.Application\TaskService.Application.csproj" />
     </ItemGroup>
 

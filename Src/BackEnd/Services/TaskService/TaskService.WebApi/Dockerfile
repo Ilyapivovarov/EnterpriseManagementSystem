@@ -9,11 +9,11 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["Src/BackEnd/Services/TaskService/TaskService.WebApi/TaskService.WebApi.csproj", "Src/BackEnd/Services/TaskService/TaskService.WebApi/"]
 COPY ["Src/BackEnd/Services/TaskService/TaskService.Infrastructure/TaskService.Infrastructure.csproj", "Src/BackEnd/Services/TaskService/TaskService.Infrastructure/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "Src/Packages/EnterpriseManagementSystem.Contracts/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.BusinessModels/EnterpriseManagementSystem.BusinessModels.csproj", "Src/Packages/EnterpriseManagementSystem.BusinessModels/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.MessageBroker/EnterpriseManagementSystem.MessageBroker.csproj", "Src/Packages/EnterpriseManagementSystem.MessageBroker/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.Helpers/EnterpriseManagementSystem.Helpers.csproj", "Src/Packages/EnterpriseManagementSystem.Helpers/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.JwtAuthorization/EnterpriseManagementSystem.JwtAuthorization.csproj", "Src/Packages/EnterpriseManagementSystem.JwtAuthorization/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "Src/Shared/EnterpriseManagementSystem.Contracts/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.BusinessModels/EnterpriseManagementSystem.BusinessModels.csproj", "Src/Shared/EnterpriseManagementSystem.BusinessModels/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.MessageBroker/EnterpriseManagementSystem.MessageBroker.csproj", "Src/Shared/EnterpriseManagementSystem.MessageBroker/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.Helpers/EnterpriseManagementSystem.Helpers.csproj", "Src/Shared/EnterpriseManagementSystem.Helpers/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.JwtAuthorization/EnterpriseManagementSystem.JwtAuthorization.csproj", "Src/Shared/EnterpriseManagementSystem.JwtAuthorization/"]
 COPY ["Src/BackEnd/Services/TaskService/TaskService.Application/TaskService.Application.csproj", "Src/BackEnd/Services/TaskService/TaskService.Application/"]
 COPY ["Src/BackEnd/Services/TaskService/TaskService.Core/TaskService.Core.csproj", "Src/BackEnd/Services/TaskService/TaskService.Core/"]
 RUN dotnet restore "Src/BackEnd/Services/TaskService/TaskService.WebApi/TaskService.WebApi.csproj"

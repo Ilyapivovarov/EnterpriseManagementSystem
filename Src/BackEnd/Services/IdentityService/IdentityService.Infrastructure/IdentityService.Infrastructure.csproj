@@ -25,11 +25,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.Cache\EnterpriseManagementSystem.Cache.csproj" />
-      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
-      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj" />
-      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
-      <ProjectReference Include="..\..\..\..\Packages\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\EnterpriseManagementSystem.Cache\EnterpriseManagementSystem.Cache.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\EnterpriseManagementSystem.Contracts\EnterpriseManagementSystem.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\EnterpriseManagementSystem.JwtAuthorization\EnterpriseManagementSystem.JwtAuthorization.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj" />
       <ProjectReference Include="..\IdentityService.Application\IdentityService.Application.csproj" />
     </ItemGroup>
 

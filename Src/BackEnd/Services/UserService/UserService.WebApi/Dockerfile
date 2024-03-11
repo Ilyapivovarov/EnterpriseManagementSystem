@@ -10,12 +10,12 @@ WORKDIR /src
 COPY ["Src/BackEnd/Services/UserService/UserService.WebApi/UserService.WebApi.csproj", "Src/BackEnd/Services/UserService/UserService.WebApi/"]
 COPY ["Src/BackEnd/Services/UserService/UserService.Application/UserService.Application.csproj", "Src/BackEnd/Services/UserService/UserService.Application/"]
 COPY ["Src/BackEnd/Services/UserService/UserService.Core/UserService.Core.csproj", "Src/BackEnd/Services/UserService/UserService.Core/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.BusinessModels/EnterpriseManagementSystem.BusinessModels.csproj", "Src/Packages/EnterpriseManagementSystem.BusinessModels/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.BusinessModels/EnterpriseManagementSystem.BusinessModels.csproj", "Src/Shared/EnterpriseManagementSystem.BusinessModels/"]
 COPY ["Src/BackEnd/Services/UserService/UserService.Infrastructure/UserService.Infrastructure.csproj", "Src/BackEnd/Services/UserService/UserService.Infrastructure/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "Src/Packages/EnterpriseManagementSystem.Contracts/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.MessageBroker/EnterpriseManagementSystem.MessageBroker.csproj", "Src/Packages/EnterpriseManagementSystem.MessageBroker/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.Helpers/EnterpriseManagementSystem.Helpers.csproj", "Src/Packages/EnterpriseManagementSystem.Helpers/"]
-COPY ["Src/Packages/EnterpriseManagementSystem.JwtAuthorization/EnterpriseManagementSystem.JwtAuthorization.csproj", "Src/Packages/EnterpriseManagementSystem.JwtAuthorization/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.Contracts/EnterpriseManagementSystem.Contracts.csproj", "Src/Shared/EnterpriseManagementSystem.Contracts/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.MessageBroker/EnterpriseManagementSystem.MessageBroker.csproj", "Src/Shared/EnterpriseManagementSystem.MessageBroker/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.Helpers/EnterpriseManagementSystem.Helpers.csproj", "Src/Shared/EnterpriseManagementSystem.Helpers/"]
+COPY ["Src/Shared/EnterpriseManagementSystem.JwtAuthorization/EnterpriseManagementSystem.JwtAuthorization.csproj", "Src/Shared/EnterpriseManagementSystem.JwtAuthorization/"]
 RUN dotnet restore "Src/BackEnd/Services/UserService/UserService.WebApi/UserService.WebApi.csproj"
 COPY . .
 WORKDIR "/src/Src/BackEnd/Services/UserService/UserService.WebApi"
