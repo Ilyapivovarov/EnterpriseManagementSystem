@@ -1,5 +1,0 @@
-{
-    "name": "ems-dev-container",
-    "dockerComposeFile": "docker-compose.yml",
-    "shutdownAction": "stopCompose"
-}
