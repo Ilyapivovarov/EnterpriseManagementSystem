@@ -1,5 +1,6 @@
 {
     "name": "ems-dev-container",
+    "service": "identityservice.webapi",
     "dockerComposeFile": "../docker-compose.yml",
     "shutdownAction": "stopCompose"
 }
