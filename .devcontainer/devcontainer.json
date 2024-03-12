@@ -1,0 +1,6 @@
+{
+    "name": "ems-dev-container",
+    "service": "the-name-of-the-service-you-want-to-work-with-in-vscode",
+    "dockerComposeFile": "docker-compose.yml",
+    "shutdownAction": "stopCompose"
+}
