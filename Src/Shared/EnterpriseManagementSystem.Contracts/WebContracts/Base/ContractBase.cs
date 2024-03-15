@@ -12,4 +12,16 @@ public abstract record ContractBase
     {
         return JsonSerializer.Serialize<object>(this, JsonOpt);
     }   
+    
+    public virtual T ToModel<T>(string json)
+    {
+        var model = JsonSerializer.Deserialize<T>(json);
+
+        if (model is null)
+        {
+            throw new ArgumentNullException($"Intput json can not deserialize to model: {typeof(T).Name}");
+        }
+
+        return model;
+    }
 }

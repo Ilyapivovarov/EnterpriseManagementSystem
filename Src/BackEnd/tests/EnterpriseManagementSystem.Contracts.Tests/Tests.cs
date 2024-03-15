@@ -32,7 +32,7 @@ public sealed class Tests
     }
 
     [Test]
-    public void SerializationTest()
+    public void ToJson_Test()
     {
         var taskGuid = Guid.NewGuid();
         var executorGuid = Guid.NewGuid();
@@ -43,5 +43,20 @@ public sealed class Tests
 
 
         Assert.Pass(data.ToJson());
+    }
+    
+    [Test]
+    public void ToModel_Test()
+    {
+        var taskGuid = Guid.NewGuid();
+        var executorGuid = Guid.NewGuid();
+
+        var data = new TaskInfo(taskGuid, "Update test name", "Update test desc", "Registred",
+            new Account(executorGuid, EmailAddress.Parse("admin@admin.com"), "admin", "admin"),
+            Observers: new RecordsCollection<Account>(new Account(executorGuid, EmailAddress.Parse("admin@admin.com"), "admin", "admin")));
+
+        var json = data.ToJson();
+        
+        Assert.DoesNotThrow(() => data.ToModel<TaskInfo>(json));
     }
 }
