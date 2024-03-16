@@ -1,9 +1,6 @@
-using System;
 using EnterpriseManagementSystem.BusinessModels;
 using EnterpriseManagementSystem.Contracts.Common;
 using EnterpriseManagementSystem.Contracts.WebContracts;
-using EnterpriseManagementSystem.Contracts.WebContracts.Extensions;
-using NUnit.Framework;
 
 namespace EnterpriseManagementSystem.Contracts.Tests;
 
@@ -14,7 +11,7 @@ public sealed class Tests
     { }
 
     [Test]
-    public void DtoEqulsTest()
+    public void DtoEqualsTest()
     {
         var taskGuid = Guid.NewGuid();
         var executorGuid = Guid.NewGuid();
