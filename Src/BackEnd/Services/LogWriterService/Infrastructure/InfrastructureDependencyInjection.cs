@@ -1,11 +1,11 @@
 ﻿using EnterpriseManagementSystem.MessageBroker;
-using LogWorkerService.Application.DbContexts;
-using LogWorkerService.Application.Repositories;
-using LogWorkerService.Infrastructure.MessageHandlers;
-using LogWorkerService.Infrastructure.Repositories;
-using LogWorkerService.Infrastructure.DbContexts;
+using LogWriterService.Application.DbContexts;
+using LogWriterService.Application.Repositories;
+using LogWriterService.Infrastructure.DbContexts;
+using LogWriterService.Infrastructure.MessageHandlers;
+using LogWriterService.Infrastructure.Repositories;
 
-namespace LogWorkerService.Infrastructure;
+namespace LogWriterService.Infrastructure;
 
 public static class InfrastructureDependencyInjection
 {

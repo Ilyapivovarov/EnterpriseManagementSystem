@@ -1,4 +1,4 @@
-using LogWorkerService.Infrastructure;
+using LogWriterService.Infrastructure;
 
 var builder = Host.CreateApplicationBuilder(args);
 

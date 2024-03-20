@@ -1,8 +1,8 @@
-﻿using LogWorkerService.Application.DbContexts;
-using LogWorkerService.Application.Repositories;
-using LogWorkerService.Core.DbEntities;
+﻿using LogWriterService.Application.DbContexts;
+using LogWriterService.Application.Repositories;
+using LogWriterService.Core.DbEntities;
 
-namespace LogWorkerService.Infrastructure.Repositories;
+namespace LogWriterService.Infrastructure.Repositories;
 
 public sealed class LogRepository : ILogRepository
 {

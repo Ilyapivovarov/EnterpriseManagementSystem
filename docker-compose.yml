@@ -77,11 +77,11 @@ services:
       context: .
       dockerfile: Src/BackEnd/ApiServices/UserService/UserService.WebApi/Dockerfile
 
-  logworkerservice:
+  logwriterservice:
     image: log-worker-service
-    container_name: LogWorkerService
+    container_name: LogWriterService
     environment:
       - DOTNET_ENVIRONMENT=Production
     build:
       context: .
-      dockerfile: Src/BackEnd/Services/LogWorkerService/Dockerfile
+      dockerfile: Src/BackEnd/Services/LogWriterService/Dockerfile

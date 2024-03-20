@@ -1,4 +1,4 @@
-﻿namespace LogWorkerService.Core.DbEntities;
+﻿namespace LogWriterService.Core.DbEntities;
 
 public class LogDbEntity
 {

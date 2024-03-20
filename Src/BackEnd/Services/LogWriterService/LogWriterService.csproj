@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>dotnet-LogWorkerService-A995A682-B6FB-43B1-B47F-F8D898D27932</UserSecretsId>
+        <UserSecretsId>dotnet-LogWriterService-A995A682-B6FB-43B1-B47F-F8D898D27932</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <DockerfileContext>..\..\..\..</DockerfileContext>
     </PropertyGroup>

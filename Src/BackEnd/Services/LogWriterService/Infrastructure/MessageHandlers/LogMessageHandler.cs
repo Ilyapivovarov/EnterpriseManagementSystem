@@ -1,7 +1,7 @@
-﻿using LogWorkerService.Application.Repositories;
-using LogWorkerService.Core.DbEntities;
+﻿using LogWriterService.Application.Repositories;
+using LogWriterService.Core.DbEntities;
 
-namespace LogWorkerService.Infrastructure.MessageHandlers;
+namespace LogWriterService.Infrastructure.MessageHandlers;
 
 public sealed class LogMessageHandler : MessageHandlerBase<LogMessage>
 {

@@ -1,6 +1,9 @@
 ﻿
 
-namespace LogWorkerService.Infrastructure.DbContexts;
+using LogWriterService.Application.DbContexts;
+using LogWriterService.Core.DbEntities;
+
+namespace LogWriterService.Infrastructure.DbContexts;
 
 public class LogWorkerDbContext : DbContext, ILogWorkerDbContext
 {

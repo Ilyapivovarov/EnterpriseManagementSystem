@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "LogWorkerService": {
+    "LogWriterService": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
