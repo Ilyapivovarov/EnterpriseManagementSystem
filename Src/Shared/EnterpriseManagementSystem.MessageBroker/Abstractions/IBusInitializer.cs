@@ -2,7 +2,7 @@
 
 public interface IBusInitializer
 {
-    public void SubscribeOnMessage<TMessage, TMessageHandler>(Action<IRegistrationContext, IConsumerConfigurator<TMessageHandler>>? configurator = null)
+    public void SubscribeOnMessage<TMessage, TMessageHandler>(Action<ICustomRegistrationContext, ICustomConfigurator<TMessageHandler>>? configurator = null)
         where TMessage : class, IMessage
         where TMessageHandler : class, IMessageHandler<TMessage>;
     

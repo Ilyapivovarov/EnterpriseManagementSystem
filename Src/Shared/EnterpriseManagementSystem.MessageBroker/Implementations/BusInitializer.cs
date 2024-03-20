@@ -11,11 +11,11 @@ internal sealed class BusInitializer : IBusInitializer
         _configurator = configurator;
     }
 
-    public void SubscribeOnMessage<TMessage, TMessageHandler>(Action<IRegistrationContext, IConsumerConfigurator<TMessageHandler>>? configurator = null)
+    public void SubscribeOnMessage<TMessage, TMessageHandler>(Action<ICustomRegistrationContext, ICustomConfigurator<TMessageHandler>>? configurator = null)
         where TMessage : class, IMessage
         where TMessageHandler : class, IMessageHandler<TMessage>
     {
-        _configurator.AddConsumer(configurator)
+        _configurator.AddConsumer(configurator as Action<IRegistrationContext, IConsumerConfigurator<TMessageHandler>>)
             .Endpoint(x => x.Name = typeof(TMessage).Name);
     }
 
@@ -24,6 +24,6 @@ internal sealed class BusInitializer : IBusInitializer
         where TIntegrationEvent : class, IIntegrationEvent
         where TIntegrationEventHandler : class, IIntegrationEventHandler<TIntegrationEvent>
     {
-        _configurator.AddConsumer<TIntegrationEventHandler>(configurator);
+        _configurator.AddConsumer(configurator);
     }
 }
