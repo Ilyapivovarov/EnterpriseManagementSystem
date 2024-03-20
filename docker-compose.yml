@@ -84,4 +84,4 @@ services:
       - DOTNET_ENVIRONMENT=Production
     build:
       context: .
-      dockerfile: Src/BackEnd/WorkerServices/LogWorkerService/Dockerfile
+      dockerfile: Src/BackEnd/Services/LogWorkerService/Dockerfile

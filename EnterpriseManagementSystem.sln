@@ -61,9 +61,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.Infrastructure"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.WebApi", "Src\BackEnd\ApiServices\TaskService\TaskService.WebApi\TaskService.WebApi.csproj", "{1BECD742-1413-4553-B6CC-78E46447E8AE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkerServices", "WorkerServices", "{8E6809F7-5FF4-4CE6-907F-B2FC93F237A7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8E6809F7-5FF4-4CE6-907F-B2FC93F237A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogWorkerService", "Src\BackEnd\WorkerServices\LogWorkerService\LogWorkerService.csproj", "{1F164929-A1D1-44AA-906A-211C57B3A8B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogWorkerService", "Src\BackEnd\Services\LogWorkerService\LogWorkerService.csproj", "{1F164929-A1D1-44AA-906A-211C57B3A8B5}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{184978BC-5BAB-41D9-902A-6D630012BE03}"
 EndProject
