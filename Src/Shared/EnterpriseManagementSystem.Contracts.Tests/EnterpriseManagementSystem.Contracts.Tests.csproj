@@ -7,9 +7,6 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
-        
-        <OutputPath>..\bin\$(Configuration)\</OutputPath>
-        <UseCommonOutputDirectory>false</UseCommonOutputDirectory>
     </PropertyGroup>
 
     <ItemGroup>

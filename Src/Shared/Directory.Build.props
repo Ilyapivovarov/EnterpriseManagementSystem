@@ -1,5 +1,5 @@
 ﻿<Project>
-    <PropertyGroup>
+    <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests')) == 'false'">
         <OutputPath>..\bin\$(Configuration)\</OutputPath>
         <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
     </PropertyGroup>
