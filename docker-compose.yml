@@ -55,7 +55,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
-      dockerfile: Src/BackEnd/Services/IdentityService/IdentityService.WebApi/Dockerfile
+      dockerfile: Src/BackEnd/ApiServices/IdentityService/IdentityService.WebApi/Dockerfile
 
   taskservice.webapi:
     image: task-service-webapi
@@ -65,7 +65,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
-      dockerfile: Src/BackEnd/Services/TaskService/TaskService.WebApi/Dockerfile
+      dockerfile: Src/BackEnd/ApiServices/TaskService/TaskService.WebApi/Dockerfile
 
   userservice.webapi:
     image: user-service-webapi
@@ -75,7 +75,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
-      dockerfile: Src/BackEnd/Services/UserService/UserService.WebApi/Dockerfile
+      dockerfile: Src/BackEnd/ApiServices/UserService/UserService.WebApi/Dockerfile
 
   logworkerservice:
     image: log-worker-service

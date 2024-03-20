@@ -29,37 +29,37 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseManagementSystem.Cache", "Src\Shared\EnterpriseManagementSystem.Cache\EnterpriseManagementSystem.Cache.csproj", "{34C996EE-E2C4-4929-A09A-896DAE13EF41}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5C5F6EF3-19E2-4C3A-8A75-0C669676C167}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiServices", "ApiServices", "{5C5F6EF3-19E2-4C3A-8A75-0C669676C167}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{2CA9C8CF-3658-4557-BB3C-771A5E7B7A92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastructure", "Src\BackEnd\Services\IdentityService\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{50217222-78C2-4692-BFB1-FD4E4B5AA4B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastructure", "Src\BackEnd\ApiServices\IdentityService\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{50217222-78C2-4692-BFB1-FD4E4B5AA4B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Core", "Src\BackEnd\Services\IdentityService\IdentityService.Core\IdentityService.Core.csproj", "{DBF4DB4C-4CBC-4A85-8347-45B0A240A634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Core", "Src\BackEnd\ApiServices\IdentityService\IdentityService.Core\IdentityService.Core.csproj", "{DBF4DB4C-4CBC-4A85-8347-45B0A240A634}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Application", "Src\BackEnd\Services\IdentityService\IdentityService.Application\IdentityService.Application.csproj", "{93BEBB9C-46D6-4D46-BB6A-4B2B30C71ACA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Application", "Src\BackEnd\ApiServices\IdentityService\IdentityService.Application\IdentityService.Application.csproj", "{93BEBB9C-46D6-4D46-BB6A-4B2B30C71ACA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.WebApi", "Src\BackEnd\Services\IdentityService\IdentityService.WebApi\IdentityService.WebApi.csproj", "{E1CD675C-2700-43EC-81FB-0BC4772F3960}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.WebApi", "Src\BackEnd\ApiServices\IdentityService\IdentityService.WebApi\IdentityService.WebApi.csproj", "{E1CD675C-2700-43EC-81FB-0BC4772F3960}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserService", "UserService", "{CB5B0950-4E86-4680-A99E-0E336DE8301C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Core", "Src\BackEnd\Services\UserService\UserService.Core\UserService.Core.csproj", "{39EA42C4-8B28-4E13-A55F-4CE1A0F49379}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Core", "Src\BackEnd\ApiServices\UserService\UserService.Core\UserService.Core.csproj", "{39EA42C4-8B28-4E13-A55F-4CE1A0F49379}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Application", "Src\BackEnd\Services\UserService\UserService.Application\UserService.Application.csproj", "{407E8F1C-6C28-4E37-9813-66C2C0F63EB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Application", "Src\BackEnd\ApiServices\UserService\UserService.Application\UserService.Application.csproj", "{407E8F1C-6C28-4E37-9813-66C2C0F63EB4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Infrastructure", "Src\BackEnd\Services\UserService\UserService.Infrastructure\UserService.Infrastructure.csproj", "{CEFAB121-4054-4F9F-A4F6-CFB3BCE721B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Infrastructure", "Src\BackEnd\ApiServices\UserService\UserService.Infrastructure\UserService.Infrastructure.csproj", "{CEFAB121-4054-4F9F-A4F6-CFB3BCE721B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.WebApi", "Src\BackEnd\Services\UserService\UserService.WebApi\UserService.WebApi.csproj", "{70AA0CE8-7743-4708-8B78-795B1A74EBCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.WebApi", "Src\BackEnd\ApiServices\UserService\UserService.WebApi\UserService.WebApi.csproj", "{70AA0CE8-7743-4708-8B78-795B1A74EBCD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.Core", "Src\BackEnd\Services\TaskService\TaskService.Core\TaskService.Core.csproj", "{A77AC5FC-35C6-4C0D-B547-BA2753BFBFC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.Core", "Src\BackEnd\ApiServices\TaskService\TaskService.Core\TaskService.Core.csproj", "{A77AC5FC-35C6-4C0D-B547-BA2753BFBFC4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskService", "TaskService", "{4412EA5B-9EDB-409A-A798-38991BD985E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.Application", "Src\BackEnd\Services\TaskService\TaskService.Application\TaskService.Application.csproj", "{96C6BA78-57FD-4694-82B5-7C9E46BE155B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.Application", "Src\BackEnd\ApiServices\TaskService\TaskService.Application\TaskService.Application.csproj", "{96C6BA78-57FD-4694-82B5-7C9E46BE155B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.Infrastructure", "Src\BackEnd\Services\TaskService\TaskService.Infrastructure\TaskService.Infrastructure.csproj", "{1C36CE73-9552-4856-BB20-DA4ECF92C4A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.Infrastructure", "Src\BackEnd\ApiServices\TaskService\TaskService.Infrastructure\TaskService.Infrastructure.csproj", "{1C36CE73-9552-4856-BB20-DA4ECF92C4A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.WebApi", "Src\BackEnd\Services\TaskService\TaskService.WebApi\TaskService.WebApi.csproj", "{1BECD742-1413-4553-B6CC-78E46447E8AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.WebApi", "Src\BackEnd\ApiServices\TaskService\TaskService.WebApi\TaskService.WebApi.csproj", "{1BECD742-1413-4553-B6CC-78E46447E8AE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkerServices", "WorkerServices", "{8E6809F7-5FF4-4CE6-907F-B2FC93F237A7}"
 EndProject
