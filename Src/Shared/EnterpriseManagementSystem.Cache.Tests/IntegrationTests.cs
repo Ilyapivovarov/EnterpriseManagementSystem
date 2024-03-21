@@ -29,17 +29,19 @@ public class IntegrationTests
         var cacheProvider = new CacheServiceProvider(options.Object);
 
         CacheService = cacheProvider.UseCache();
+    }
+
+    [Test]
+    [Order(1)]
+    public async Task SetAsync_Test()
+    {
+        await CacheService.SetAsync(TestKey, TestValue);
 
         Assert.Pass();
     }
 
     [Test]
-    public void SetAsync_Test()
-    {
-       Assert.DoesNotThrowAsync(() => CacheService.SetAsync(TestKey, TestValue));
-    }
-
-    [Test]
+    [Order(2)]
     public async Task GetStringAsync_Test()
     {
         var value = await CacheService.GetStringAsync(TestKey);

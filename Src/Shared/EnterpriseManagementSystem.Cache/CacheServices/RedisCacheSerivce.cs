@@ -11,21 +11,9 @@ public sealed class RedisCacheService : ICacheService
         _connectionMultiplexer = connectionMultiplexer;
     }
     
-    public async Task SetAsync(string key, string value)
-    {
-        var db = _connectionMultiplexer.GetDatabase();
-        await db.StringSetAsync(key, value);
-    }
-
-    public async Task SetAsync(string key, string value, TimeSpan expiry)
-    {
-        var db = _connectionMultiplexer.GetDatabase();
-        await db.StringSetAsync(key, value, expiry);
-    }
-
-    public async Task SetAsync<TKey, TValue>(TKey key, TValue value, TimeSpan expiry)
-    where TKey : notnull
-    where TValue : notnull
+    public async Task SetAsync<TKey, TValue>(TKey key, TValue value, TimeSpan? expiry = null)
+        where TKey : notnull
+        where TValue : notnull
     {
         var db = _connectionMultiplexer.GetDatabase();
         await db.StringSetAsync(key.ToString(), value.ToString(), expiry);

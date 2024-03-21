@@ -2,11 +2,7 @@
 
 public interface ICacheService
 {
-    Task SetAsync(string key, string value);
-
-    Task SetAsync(string key, string value, TimeSpan expiry);
-
-    Task SetAsync<TKey, TValue>(TKey key, TValue value, TimeSpan expiry)
+    Task SetAsync<TKey, TValue>(TKey key, TValue value, TimeSpan? expiry = null)
         where TKey : notnull
         where TValue : notnull;
 
