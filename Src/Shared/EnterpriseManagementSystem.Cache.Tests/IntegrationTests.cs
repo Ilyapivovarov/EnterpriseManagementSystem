@@ -2,6 +2,8 @@
 
 public class IntegrationTests
 {
+    private const string Connection = "10.20.10.9:6379";
+    
     [SetUp]
     public void Setup()
     {
