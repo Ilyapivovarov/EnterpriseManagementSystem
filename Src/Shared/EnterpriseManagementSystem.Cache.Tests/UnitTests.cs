@@ -1,3 +1,4 @@
+using EnterpriseManagementSystem.Cache.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +13,7 @@ public class UnitTests
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddCache();
         
-        Assert.Pass();
+        Assert.That(serviceCollection, Has.Count.AtLeast(3));
     }
 
     [Test]
