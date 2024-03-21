@@ -15,7 +15,7 @@ public class IntegrationTests
     };
 
     public required ICacheService CacheService { get; set; }
-    
+
     [SetUp]
     public void Connection_Test()
     {
@@ -30,11 +30,9 @@ public class IntegrationTests
 
     [Test]
     [Order(1)]
-    public async Task SetAsync_Test()
+    public void SetAsync_Test()
     {
-        await CacheService.SetAsync(TestKey, TestValue);
-
-        Assert.Pass(); 
+        Assert.DoesNotThrowAsync(() => CacheService.SetAsync(TestKey, TestValue));
     }
 
     [Test]
