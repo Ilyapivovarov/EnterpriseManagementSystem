@@ -1,8 +1,6 @@
 ﻿using EnterpriseManagementSystem.Cache.Abstractions;
 using EnterpriseManagementSystem.Cache.CacheServices;
-using EnterpriseManagementSystem.Cache.Common;
 using Microsoft.Extensions.Options;
-using Moq;
 
 namespace EnterpriseManagementSystem.Cache.Tests;
 

@@ -1,15 +1,38 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace EnterpriseManagementSystem.Cache.Tests;
 
+[TestFixture]
 public class UnitTests
 {
-    [SetUp]
-    public void Setup()
+    private const string TestValue = "Value1";
+    
+    [Test]
+    public void CacheExtensions_AddCache_Test()
     {
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddCache();
+        
+        Assert.Pass();
     }
 
     [Test]
-    public void Test1()
+    public void CacheConfigureSetUp_Test()
     {
-        Assert.Pass();
+        var inMemorySettings = new Dictionary<string, string>
+        {
+            { "Cache:ConnectionString", TestValue },
+        };
+
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(inMemorySettings!)
+            .Build();
+
+        var options = new Mock<CacheServiceConfiguration>().Object;
+        new CacheConfigureSetUp(configuration)
+            .Configure(options);
+        
+        Assert.That(options.ConnectionString, Is.EqualTo(TestValue));
     }
 }
