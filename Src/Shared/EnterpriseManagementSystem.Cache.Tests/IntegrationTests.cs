@@ -17,8 +17,7 @@ public class IntegrationTests
     };
 
     public required ICacheService CacheService { get; set; }
-
-    [Test]
+    
     [SetUp]
     public void Connection_Test()
     {
@@ -37,7 +36,7 @@ public class IntegrationTests
     {
         await CacheService.SetAsync(TestKey, TestValue);
 
-        Assert.Pass();
+        Assert.Pass(); 
     }
 
     [Test]
