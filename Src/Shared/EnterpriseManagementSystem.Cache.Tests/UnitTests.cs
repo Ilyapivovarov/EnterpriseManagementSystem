@@ -6,8 +6,6 @@ namespace EnterpriseManagementSystem.Cache.Tests;
 [TestFixture]
 public class UnitTests
 {
-    private const string TestValue = "Value1";
-    
     [Test]
     public void CacheExtensions_AddCache_Test()
     {
@@ -20,9 +18,10 @@ public class UnitTests
     [Test]
     public void CacheConfigureSetUp_Test()
     {
+        const string testValue = "Value1";
         var inMemorySettings = new Dictionary<string, string>
         {
-            { "Cache:ConnectionString", TestValue },
+            { "Cache:ConnectionString", testValue },
         };
 
         var configuration = new ConfigurationBuilder()
@@ -33,6 +32,6 @@ public class UnitTests
         new CacheConfigureSetUp(configuration)
             .Configure(options);
         
-        Assert.That(options.ConnectionString, Is.EqualTo(TestValue));
+        Assert.That(options.ConnectionString, Is.EqualTo(testValue));
     }
 }
