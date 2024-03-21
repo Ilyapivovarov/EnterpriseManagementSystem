@@ -1,17 +1,49 @@
-﻿namespace EnterpriseManagementSystem.Cache.Tests;
+﻿using EnterpriseManagementSystem.Cache.Abstractions;
+using EnterpriseManagementSystem.Cache.CacheServices;
+using EnterpriseManagementSystem.Cache.Common;
+using Microsoft.Extensions.Options;
+using Moq;
+
+namespace EnterpriseManagementSystem.Cache.Tests;
 
 public class IntegrationTests
 {
-    private const string Connection = "10.20.10.9:6379";
-    
-    [SetUp]
-    public void Setup()
+    private const string TestKey = "IntegrationTestsKey";
+    private const string TestValue = "IntegrationTestsValue";
+
+    private static readonly CacheServiceConfiguration CacheServiceConfiguration = new()
     {
+        ConnectionString = "localhost:6379"
+    };
+
+    public required ICacheService CacheService { get; set; }
+
+    [Test]
+    [SetUp]
+    public void Connection_Test()
+    {
+        var options = new Mock<IOptions<CacheServiceConfiguration>>();
+        options.Setup(x => x.Value)
+            .Returns(() => CacheServiceConfiguration);
+
+        var cacheProvider = new CacheServiceProvider(options.Object);
+
+        CacheService = cacheProvider.UseCache();
+
+        Assert.Pass();
     }
 
     [Test]
-    public void Test1()
+    public void SetAsync_Test()
     {
-        Assert.Pass();
+       Assert.DoesNotThrowAsync(() => CacheService.SetAsync(TestKey, TestValue));
+    }
+
+    [Test]
+    public async Task GetStringAsync_Test()
+    {
+        var value = await CacheService.GetStringAsync(TestKey);
+
+        Assert.That(value, Is.EqualTo(TestValue));
     }
 }
