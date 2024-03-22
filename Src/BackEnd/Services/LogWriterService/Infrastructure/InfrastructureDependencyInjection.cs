@@ -1,5 +1,4 @@
 ﻿using EnterpriseManagementSystem.MessageBroker;
-using LogWriterService.Application.DbContexts;
 using LogWriterService.Application.Repositories;
 using LogWriterService.Infrastructure.DbContexts;
 using LogWriterService.Infrastructure.MessageHandlers;
@@ -14,17 +13,17 @@ public static class InfrastructureDependencyInjection
     {
         services.AddDbContext<ILogWorkerDbContext, LogWorkerDbContext>(builder =>
         {
-            builder = environment.IsEnvironment("Testing")
-                ? builder.UseInMemoryDatabase(configuration.GetConnectionString("RelationalDb")!)
-                : builder.UseSqlServer(configuration.GetConnectionString("RelationalDb"));
+            var connectionsString = configuration.GetConnectionString("Mongo");
+            if (connectionsString is null)
+            {
+                throw new Exception("Not found mongo connections string");
+            }
             
-            builder.UseLazyLoadingProxies();
+            builder.UseMongoDB(connectionsString, $"ems_logs_{environment.EnvironmentName}");
+            // builder.UseLazyLoadingProxies();
         });
-        
-        services.AddMessageBroker(initializer =>
-        {
-            initializer.SubscribeOnMessage<LogMessage, LogMessageHandler>();
-        });
+
+        services.AddMessageBroker(initializer => { initializer.SubscribeOnMessage<LogMessage, LogMessageHandler>(); });
 
         services.AddTransient<ILogRepository, LogRepository>();
     }

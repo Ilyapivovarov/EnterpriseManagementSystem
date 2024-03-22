@@ -76,12 +76,3 @@ services:
     build:
       context: .
       dockerfile: Src/BackEnd/ApiServices/UserService/UserService.WebApi/Dockerfile
-
-  logwriterservice:
-    image: log-writer-service
-    container_name: LogWriterService
-    environment:
-      - DOTNET_ENVIRONMENT=Production
-    build:
-      context: .
-      dockerfile: Src/BackEnd/Services/LogWriterService/Dockerfile
