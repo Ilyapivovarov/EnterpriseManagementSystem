@@ -1,24 +1,33 @@
+using LoggingService.AppContext;
+using LoggingService.AppContext.Entities;
+
 namespace LoggingService;
 
 public class Worker : BackgroundService
 {
     private readonly ILogger<Worker> _logger;
+    private readonly IServiceProvider _serviceProvider;
 
-    public Worker(ILogger<Worker> logger)
+    public Worker(ILogger<Worker> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
+        _serviceProvider = serviceProvider;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        var services = _serviceProvider.CreateScope().ServiceProvider;
+        var loggerContext = services.GetRequiredService<LoggingServiceContext>();
+        loggerContext.Logs.Add(new LogDbEntity()
         {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            }
+            Message = "1",
+            AppName = "2",
+            Exception = "12",
+            Level = LogLevel.Critical
+        });
+        _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-            await Task.Delay(1000, stoppingToken);
-        }
+
+        await Task.Delay(1000, stoppingToken);
     }
 }
