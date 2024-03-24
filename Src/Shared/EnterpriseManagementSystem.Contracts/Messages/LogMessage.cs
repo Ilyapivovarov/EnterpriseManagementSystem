@@ -13,4 +13,6 @@ public record LogEvent : IIntegrationEvent
     public required string Method { get;  init; }
 
     public required string Message { get; init; }
+
+    public string? Exception { get; set; }
 }

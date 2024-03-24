@@ -30,7 +30,8 @@ public class DbLogger : ILogger
             Level = logLevel.ToString(),
             Message = formatter(state, exception),
             Method = _categoryName,
-            DateTime = DateTime.Now
+            DateTime = DateTime.Now,
+            Exception = formatter(state, exception)
         };
         await bus.PublishAsync(queueMessage);
     }
