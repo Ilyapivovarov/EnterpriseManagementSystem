@@ -24,7 +24,7 @@ public class DbLogger : ILogger
 
         using var scopeServiceProvider = _loggerProvider.ServiceProvider.CreateScope();
         var bus = scopeServiceProvider.ServiceProvider.GetRequiredService<IBus>();
-        var queueMessage = new LogMessage
+        var queueMessage = new LogEvent
         {
             AppName = _loggerProvider.Options.AppName,
             Level = logLevel.ToString(),
@@ -32,7 +32,7 @@ public class DbLogger : ILogger
             Method = _categoryName,
             DateTime = DateTime.Now
         };
-        await bus.SendMessageAsync(queueMessage);
+        await bus.PublishAsync(queueMessage);
     }
 
     public bool IsEnabled(LogLevel logLevel)

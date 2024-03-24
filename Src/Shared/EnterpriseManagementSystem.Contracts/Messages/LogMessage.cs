@@ -1,9 +1,8 @@
 ﻿using EnterpriseManagementSystem.MessageBroker;
-using EnterpriseManagementSystem.MessageBroker.Abstractions;
 
 namespace EnterpriseManagementSystem.Contracts.Messages;
 
-public record LogMessage : IMessage
+public record LogEvent : IIntegrationEvent
 {
     public required string AppName { get; set; }
     
