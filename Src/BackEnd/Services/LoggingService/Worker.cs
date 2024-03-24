@@ -1,5 +1,5 @@
-using LoggingService.AppContext;
-using LoggingService.AppContext.Entities;
+using LoggingService.MongoDbStorage.AppContext.Entities;
+using LoggingService.MongoDbStorage.Interfaces;
 
 namespace LoggingService;
 
@@ -17,17 +17,13 @@ public class Worker : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var services = _serviceProvider.CreateScope().ServiceProvider;
-        var loggerContext = services.GetRequiredService<LoggingServiceContext>();
-        loggerContext.Logs.Add(new LogDbEntity()
+        var logWriter = services.GetRequiredService<ILogWriter>();
+        await logWriter.WriteLogToStore(new LogDbEntity()
         {
-            Message = "1",
-            AppName = "2",
-            Exception = "12",
-            Level = LogLevel.Critical
+            Message = "3", AppName = "4", Exception = "34", Level = LogLevel.Information
         });
         _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-
-
+        
         await Task.Delay(1000, stoppingToken);
     }
 }

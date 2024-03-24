@@ -19,7 +19,7 @@ public static class InfrastructureExtensions
         IHostEnvironment environment)
     {
         services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        // services.AddAutoMapper(Assembly.GetExecutingAssembly());
         
         #region Register UserDbContext
 

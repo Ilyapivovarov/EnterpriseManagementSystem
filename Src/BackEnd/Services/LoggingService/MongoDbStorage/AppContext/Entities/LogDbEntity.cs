@@ -1,10 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace LoggingService.AppContext.Entities;
+namespace LoggingService.MongoDbStorage.AppContext.Entities;
 
 public class LogDbEntity
 {
-    public int Id { get; set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string? Id { get; set; }
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Uid { get; protected set; } = Guid.NewGuid();
