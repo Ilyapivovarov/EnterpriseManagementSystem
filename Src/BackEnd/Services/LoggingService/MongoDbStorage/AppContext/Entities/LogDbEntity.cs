@@ -13,11 +13,15 @@ public class LogDbEntity
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Uid { get; protected set; } = Guid.NewGuid();
 
-    public LogLevel Level { get; set; }
+    public required DateTime DateTime { get; set; }
+    
+    public required string Level { get; set; }
 
     public required string AppName { get; set; }
     
     public required string Message { get; set; }
 
     public string? Exception { get; set; }
+
+    public required string Method { get; set; }
 }

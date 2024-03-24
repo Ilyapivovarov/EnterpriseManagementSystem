@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\EnterpriseManagementSystem.Helpers\EnterpriseManagementSystem.Helpers.csproj" />
+      <ProjectReference Include="..\..\..\Shared\EnterpriseManagementSystem.Logging\EnterpriseManagementSystem.Logging.csproj" />
+      <ProjectReference Include="..\..\..\Shared\EnterpriseManagementSystem.MessageBroker\EnterpriseManagementSystem.MessageBroker.csproj" />
     </ItemGroup>
 </Project>

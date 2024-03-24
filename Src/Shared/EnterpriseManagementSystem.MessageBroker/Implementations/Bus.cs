@@ -19,7 +19,7 @@ public class Bus : IBus
         var endpoint = await _bus.GetSendEndpoint(new Uri($"queue:{typeof(TMessage).Name}"));
         await endpoint.Send(message);
         
-        _logger.LogInformation($"Message sent async: {typeof(TMessage).Name}");
+        _logger.LogTrace($"Message sent async: {typeof(TMessage).Name}");
     }
 
     public async void SendMessage<TMessage>(TMessage message) where TMessage : IMessage
@@ -27,7 +27,7 @@ public class Bus : IBus
         var endpoint = await _bus.GetSendEndpoint(new Uri($"queue:{typeof(TMessage).Name}"));
         await endpoint.Send(message);
         
-        _logger.LogInformation($"Message sent: {typeof(TMessage).Name}");
+        _logger.LogTrace($"Message sent: {typeof(TMessage).Name}");
     }
 
     public async Task PublishAsync<TIntegrationsEvent>(TIntegrationsEvent integrationEvent)
@@ -35,6 +35,6 @@ public class Bus : IBus
     {
         await _bus.Publish(integrationEvent);
         
-        _logger.LogInformation($"Message published async: {typeof(TIntegrationsEvent).Name}");
+        _logger.LogTrace($"Event published async: {typeof(TIntegrationsEvent).Name}");
     }
 }

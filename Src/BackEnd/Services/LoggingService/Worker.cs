@@ -16,14 +16,7 @@ public class Worker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var services = _serviceProvider.CreateScope().ServiceProvider;
-        var logWriter = services.GetRequiredService<ILogWriter>();
-        await logWriter.WriteLogToStore(new LogDbEntity()
-        {
-            Message = "3", AppName = "4", Exception = "34", Level = LogLevel.Information
-        });
-        _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-        
-        await Task.Delay(1000, stoppingToken);
+        // await Task.Delay(2000, stoppingToken);
+        // throw new Exception("Test");
     }
 }
