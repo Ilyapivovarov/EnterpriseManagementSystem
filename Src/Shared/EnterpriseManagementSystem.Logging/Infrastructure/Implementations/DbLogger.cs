@@ -21,10 +21,8 @@ public class DbLogger : ILogger
         {
             return;
         }
-
-        using var scopeServiceProvider = _loggerProvider.ServiceProvider.CreateScope();
-        var bus = scopeServiceProvider.ServiceProvider.GetRequiredService<IBus>();
-        var queueMessage = new LogEvent
+        
+        var @event = new LogEvent
         {
             AppName = _loggerProvider.Options.AppName,
             Level = logLevel.ToString(),
@@ -33,7 +31,8 @@ public class DbLogger : ILogger
             DateTime = DateTime.Now,
             Exception = formatter(state, exception)
         };
-        await bus.PublishAsync(queueMessage);
+        
+        await PublishEvent(@event);
     }
 
     public bool IsEnabled(LogLevel logLevel)
@@ -64,12 +63,19 @@ public class DbLogger : ILogger
         var lastIndex = category.LastIndexOf(".", StringComparison.Ordinal);
         if (lastIndex == -1)
         {
-            return LogLevel.None;
+            return LogLevel.Information;
         }
             
         var newCategory = _categoryName[..lastIndex];
         return GetLogLevelForCategory(newCategory);
     }
+
+    private async Task PublishEvent(LogEvent @event)
+    {
+        using var scopeServiceProvider = _loggerProvider.ServiceProvider.CreateScope();
+        var bus = scopeServiceProvider.ServiceProvider.GetRequiredService<IBus>();
+        await bus.PublishAsync(@event);
+    } 
 }
 
 public class LogScope<T> : IDisposable
