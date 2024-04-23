@@ -2,8 +2,12 @@
 
 namespace EnterpriseManagementSystem.BusinessModels;
 
-public readonly record struct EmailAddress 
+public readonly partial record struct EmailAddress
 {
+    private const string Pattern =
+        @"^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:
+        aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$";
+    
     public static EmailAddress Parse(string? value) => new(value);
 
     public static bool TryParse(string? value, out EmailAddress emailAddress)
@@ -34,8 +38,7 @@ public readonly record struct EmailAddress
 
         var normalizeValue = NormalizeValue(value);
 
-        var mask = new Regex(
-            @"^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$");
+        var mask = EmailRegex();
         var isSucces = mask.IsMatch(normalizeValue);
 
         if (!isSucces)
@@ -48,4 +51,8 @@ public readonly record struct EmailAddress
     
 
     public override string ToString() => Value;
+    
+    
+    [GeneratedRegex(Pattern)]
+    private static partial Regex EmailRegex();
 }
