@@ -32,6 +32,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiServices", "ApiServices", "{5C5F6EF3-19E2-4C3A-8A75-0C669676C167}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{2CA9C8CF-3658-4557-BB3C-771A5E7B7A92}"
+	ProjectSection(SolutionItems) = preProject
+		Src\BackEnd\ApiServices\IdentityService\Directory.Build.props = Src\BackEnd\ApiServices\IdentityService\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastructure", "Src\BackEnd\ApiServices\IdentityService\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{50217222-78C2-4692-BFB1-FD4E4B5AA4B3}"
 EndProject
@@ -66,6 +69,9 @@ EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{184978BC-5BAB-41D9-902A-6D630012BE03}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{178D8D87-14C6-4E85-A079-2A95788054A3}"
+	ProjectSection(SolutionItems) = preProject
+		Src\Shared\Directory.Build.props = Src\Shared\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseManagementSystem.BusinessModels.Tests", "Src\Shared\EnterpriseManagementSystem.BusinessModels.Tests\EnterpriseManagementSystem.BusinessModels.Tests.csproj", "{611B0E93-5A3C-413F-A1E9-6FACB21D383D}"
 EndProject

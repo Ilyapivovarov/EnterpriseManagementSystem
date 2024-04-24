@@ -28,14 +28,10 @@ public sealed class SignInUserRequestHandler : IRequestHandler<SignInRequest, IA
             {
                 var signInDto = signInRequest.SignInDto;
                 var hashPassword = _securityService.EncryptPasswordOrException(signInDto.Password.Value);
-                var user = await _userRepository.GetUserByEmailAndPasswordAsync(signInDto.Email,
-                    Password.Parse(hashPassword));
-                if (user == null)
-                {
-                    return new NotFoundObjectResult("Incorrect email or password");
-                }
+                var user = await _userRepository.GetUser(x => x.Email.Address == signInDto.Email 
+                                                              && x.Password == Password.Parse(hashPassword));
                 
-                _logger.LogInformation($"Found user with email {signInDto.Email}");
+                _logger.LogInformation($"Found user with email {0}", user.Email.Address.Value);
                 var session = _sessionService.CreateSession(user.Email.Address, user.Guid, user.Role.Name);
 
                 await _cacheService.SetAsync(session.RefreshToken.ToString(), session.AccessToken.ToString(),

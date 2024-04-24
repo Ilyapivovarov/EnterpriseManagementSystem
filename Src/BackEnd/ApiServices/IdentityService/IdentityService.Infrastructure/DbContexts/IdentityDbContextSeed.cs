@@ -9,8 +9,8 @@ public sealed class IdentityDbContextSeed
         var logger = services.GetRequiredService<ILogger<IdentityDbContextSeed>>();
         try
         {
-            var users = await services.GetRequiredService<IUserRepository>().GetUsersByPageAsync();
-            if (users == null || users.Length == 0)
+            var users = await services.GetRequiredService<IUserRepository>().GetUsers();
+            if (users.Length == 0)
             {
                 var saveRoleResult = await SaveDefaultRolesAsync(services);
                 if (!saveRoleResult)
@@ -41,8 +41,8 @@ public sealed class IdentityDbContextSeed
         var logger = services.GetRequiredService<ILogger<IdentityDbContextSeed>>();
         try
         {
-            var users = await services.GetRequiredService<IUserRepository>().GetUsersByPageAsync();
-            if (users == null || users.Length == 0)
+            var users = await services.GetRequiredService<IUserRepository>().GetUsers();
+            if (users.Length == 0)
             {
                 var saveRoleResult = await SaveDefaultRolesAsync(services);
                 if (!saveRoleResult)
@@ -76,10 +76,8 @@ public sealed class IdentityDbContextSeed
         var defaultUser = userService.Create(EmailAddress.Parse("admin@ems.com"),
             Password.Parse(services.GetRequiredService<ISecurityService>().EncryptPasswordOrException("admin")),
             adminRole);
-        var saveUserResult = await services.GetRequiredService<IUserRepository>()
-            .SaveUserAsync(defaultUser);
-        if (!saveUserResult)
-            throw new Exception("Error while save default user");
+        
+        await services.GetRequiredService<IUserRepository>().Save(defaultUser);
 
         var @event = new SignUpUserMessage
         {

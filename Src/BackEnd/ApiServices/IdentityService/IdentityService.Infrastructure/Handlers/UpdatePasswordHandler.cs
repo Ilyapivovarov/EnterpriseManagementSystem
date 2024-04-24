@@ -24,7 +24,7 @@ public sealed class UpdatePasswordHandler : IRequestHandler<UpdatePasswordReques
         {
             var updatePasswordInfo = request.NewPasswordInfo;
 
-            var userDbEntity = await _userRepository.GetUserByEmailAsync(EmailAddress.Parse(updatePasswordInfo.Email));
+            var userDbEntity = await _userRepository.GetUserOrDefault(x => x.Email.Address == EmailAddress.Parse(updatePasswordInfo.Email));
             if (userDbEntity == null)
                 return new NotFoundObjectResult($"Not found user with email {updatePasswordInfo.Email}");
 
@@ -33,7 +33,7 @@ public sealed class UpdatePasswordHandler : IRequestHandler<UpdatePasswordReques
 
             _userService.ChangePassword(userDbEntity, Password.Parse(updatePasswordInfo.NewPassword));
 
-            await _userRepository.UpadteUserAsync(userDbEntity);
+            await _userRepository.Save(userDbEntity);
 
             var @event = new SendSystemNotificationEvent(updatePasswordInfo.Email, "Password has been changed");
             await _bus.PublishAsync(@event);

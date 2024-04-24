@@ -4,9 +4,9 @@ public class CacheConfigureSetUp : IConfigureOptions<CacheServiceConfiguration>
 {
     private const string CacheSectionName = "Cache";
 
-    private readonly IConfiguration? _configuration;
+    private readonly IConfiguration _configuration;
 
-    public CacheConfigureSetUp(IConfiguration? configuration)
+    public CacheConfigureSetUp(IConfiguration configuration)
     {
         _configuration = configuration;
     }

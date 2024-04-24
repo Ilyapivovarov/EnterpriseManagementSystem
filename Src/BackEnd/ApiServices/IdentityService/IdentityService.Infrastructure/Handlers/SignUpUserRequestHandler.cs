@@ -39,7 +39,7 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
                 if (password != confirmPassword)
                     return new NotFoundObjectResult("Passwords is not same");
 
-                var userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
+                var userWithSameEmail = await _userRepository.GetUserOrDefault(x => x.Email.Address == email);
                 if (userWithSameEmail != null)
                     return new BadRequestObjectResult("Email already exist");
 
@@ -48,10 +48,8 @@ public sealed class SignUpUserRequestHandler : IRequestHandler<SignUpRequest, IA
                     return new NotFoundObjectResult("Reader role not found");
 
                 var newUser = _userService.Create(email, password, userRole);
-                var saveResult = await _userRepository.SaveUserAsync(newUser);
-                if (!saveResult)
-                    return new NotFoundObjectResult("Error while save user");
-
+                await _userRepository.Save(newUser);
+                
                 var session = _sessionBlService.CreateSession(newUser.Email.Address, newUser.Guid, newUser.Role.Name);
                 await _cacheService.SetAsync(session.RefreshToken, session.AccessToken, 
                     session.RefreshToken.GetExpirationTime());

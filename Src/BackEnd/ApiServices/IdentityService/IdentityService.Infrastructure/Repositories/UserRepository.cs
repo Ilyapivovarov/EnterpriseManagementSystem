@@ -1,92 +1,43 @@
 namespace IdentityService.Infrastructure.Repositories;
 
-public sealed class UserRepository : SqlRepositoryBase, IUserRepository
+public sealed class UserRepository : IUserRepository
 {
-    public UserRepository(IIdentityDbContext dbContext, ILogger<UserRepository> logger)
-        : base(dbContext, logger)
-    { }
+    private readonly IIdentityDbContext _dbContext;
 
-    public UserDbEntity? GetUserById(int id)
+    public UserRepository(IIdentityDbContext dbContext)
     {
-        return LoadData(db => db.Users.FirstOrDefault(x => x.Id == id),
-            $"Error while searching user with id {id}");
+        _dbContext = dbContext;
+    }
+    
+    /// <inheritdoc cref="IUserRepository.GetUser"/>
+    public async Task<UserDbEntity> GetUser(Func<UserDbEntity, bool>? predicate)
+    {
+        return await _dbContext.Users
+            .AsNoTracking()
+            .SingleAsync(x => predicate != null && predicate(x));
     }
 
-    public async Task<UserDbEntity?> GetUserByIdAsync(int id)
+    /// <inheritdoc cref="IUserRepository.GetUserOrDefault"/>
+    public async Task<UserDbEntity?> GetUserOrDefault(Func<UserDbEntity, bool>? predicate = null)
     {
-        return await Task.Run(() => { return GetUserById(id); });
+        return await _dbContext.Users
+            .AsNoTracking()
+            .SingleAsync(x => predicate != null && predicate(x));
     }
 
-    public UserDbEntity? GetUserByEmailAndPassword(EmailAddress email, Password password)
+    /// <inheritdoc cref="IUserRepository.GetUsers"/>
+    public async Task<UserDbEntity?[]> GetUsers(Func<UserDbEntity, bool>? predicate)
     {
-        return LoadData(db => db.Users.FirstOrDefault(x => x.Email.Address == email && x.Password == password),
-            $"Error while searching user with email {email} and password");
+        return await _dbContext.Users
+            .AsNoTracking()
+            .Where(x => predicate != null && predicate(x))
+            .ToArrayAsync();
     }
 
-    public async Task<UserDbEntity?> GetUserByEmailAndPasswordAsync(EmailAddress email, Password password)
+    /// <inheritdoc cref="IUserRepository.Save"/>
+    public async Task Save(params UserDbEntity[] userDbEntities)
     {
-        return await Task.Run(() => GetUserByEmailAndPassword(email, password));
-    }
-
-    public bool IsEmailExist(EmailAddress email)
-    {
-        return LoadData(db => db.Users.Any(x => x.Email.Address == email),
-            "Error while checking email");
-    }
-
-    public UserDbEntity? GetUserByEmail(EmailAddress email)
-    {
-        return LoadData(db => db.Users.FirstOrDefault(x => x.Email.Address == email),
-            $"Error while searching user with email {email}");
-    }
-
-    public async Task<UserDbEntity?> GetUserByEmailAsync(EmailAddress email)
-    {
-        return await Task.Run(() => GetUserByEmail(email));
-    }
-
-    public UserDbEntity? GetUserByGuid(Guid guid)
-    {
-        return LoadData(db => db.Users.FirstOrDefault(x => x.Guid == guid),
-            $"Error while search in user with guid {guid}");
-    }
-
-    public async Task<UserDbEntity?> GetUserByGuidAsync(Guid guid)
-    {
-        return await Task.Run(() => GetUserByGuid(guid));
-    }
-
-    public async Task<UserDbEntity[]?> GetUsersByPageAsync(int page = 0)
-    {
-        var rangeStart = page * 100;
-        return await Task.Run(() =>
-        {
-            return LoadData(db => db.Users.OrderBy(x => x.Id)
-                .Skip(rangeStart)
-                .Take(rangeStart + 100)
-                .ToArray(), "Error while getting users");
-        });
-    }
-
-    public bool SaveUser(UserDbEntity user)
-    {
-        return SaveData(db => db.Users.Add(user),
-            $"Error while creating user with email {user.Email.Address}");
-    }
-
-    public async Task<bool> SaveUserAsync(UserDbEntity user)
-    {
-        return await SaveDataAsync(db => db.Users.Add(user),
-            $"Error while creating user with email {user.Email.Address}");
-    }
-
-    public bool UpdateUser(UserDbEntity user)
-    {
-        return SaveData(db => db.Users.Update(user), "Error while update user data");
-    }
-
-    public async Task<bool> UpadteUserAsync(UserDbEntity user)
-    {
-        return await Task.Run(() => UpdateUser(user));
+        _dbContext.Users.UpdateRange(userDbEntities);
+        await _dbContext.SaveChangesAsync();
     }
 }
