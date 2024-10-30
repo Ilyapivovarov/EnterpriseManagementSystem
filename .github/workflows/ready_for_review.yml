@@ -9,9 +9,7 @@ on:
 jobs:
   mark_as_ready_for_review:
     runs-on: self-hosted
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
       - name: Mark as Ready for Review
         run: bash .github/workflows/mark_as_ready_for_review.sh "${{ secrets.ACCESS_TOKEN }}" "${{ join(github.event.workflow_run.pull_requests.*.number) }}"
-
