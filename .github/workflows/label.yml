@@ -23,9 +23,11 @@ jobs:
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         configuration-path: '.github/labeler.yml'
-    - run: echo "Hii"
-    - run: |
-       curl -X POST \
-         -H "Accept: application/vnd.github.v3+json" \
-         -H "Authorization: Bearer $GITHUB_TOKEN" \
-         https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/synchronize
+    - name: Trigger PR synchronize event
+      env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+         curl -X POST \
+           -H "Accept: application/vnd.github.v3+json" \
+           -H "Authorization: Bearer $GITHUB_TOKEN" \
+           https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/synchronize
