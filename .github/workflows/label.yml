@@ -23,6 +23,7 @@ jobs:
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         configuration-path: '.github/labeler.yml'
+    - run: echo "Hii"
     - run: |
        curl -X POST \
          -H "Accept: application/vnd.github.v3+json" \
